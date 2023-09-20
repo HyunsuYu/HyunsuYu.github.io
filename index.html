@@ -3,13 +3,37 @@
     <head>
         <!-- <link rel="stylesheet" type="text/css" href="index.css"> -->
         <style>
+            html
+            {
+                background-color: rgb(15, 15, 15);
+            }
             header
             {
-                border: 4px solid gray;
+                /* border: 2px solid rgb(255, 254, 167); */
+                margin: 0 auto;
+                width: 50%;
+                text-align: center;
             }
-            section
+            nav
             {
-                border: 4px solid gray;
+                /* border: 2px solid rgb(255, 254, 167); */
+                margin: 0 auto;
+                margin-top: 10px;
+                margin-bottom: 10px;
+                width: 85%;
+                height: 30px;
+                line-height: 10px;
+
+            }
+            article
+            {
+                border: 2px solid rgb(255, 254, 167);
+                margin: 0 auto;
+                width: 85%;
+            }
+            h3
+            {
+                
             }
         </style>
 
@@ -17,41 +41,53 @@
             HyunsuYu's Dev Blog
         </title>
         <header>
-            <h1>HyunsuYu's Dev Blog</h1>
-            <p>Please refer to the following e-mail for contact</p>
-            <p><strong>lioie6478@gmail.com</strong></p>
+            <h1 class="BlogTitle">HyunsuYu's Dev Blog</h1>
+            <div class="">
+
+            </div>
+            <div class="ContactInfos">
+                <div class="ContactMethod">Please refer to the following e-mail for contact</div>
+                <div class="EmailAddress"><strong>lioie6478@gmail.com</strong></div>
+            </div>>
         </header>
         <nav>
-            <a href="https://github.com/HyunsuYu?tab=repositories" target="_blank">GitHub Repositories</a>
-            <a href="https://blog.naver.com/lioie6478" target="_blank">Naver Dev Blog</a>
+            <div class="OtherPages">Other pages related to me</div>>
+            <div class="GitHubRepositoriesLink">
+                <a href="https://github.com/HyunsuYu?tab=repositories" target="_blank">GitHub Repositories</a>
+            </div>
+            <div class="NaverDevBlog">
+                <a href="https://blog.naver.com/lioie6478" target="_blank">Naver Dev Blog</a>
+            </div>
         </nav>
     </head>
     <body>
-        <article>
-            <h2>My Interesting Materials</h2>
-            <section>
-                <a href="https://blog.naver.com/lioie6478/222277396090">
-                    <h3>[Paper Review] Flipping Bits in Memory Without Accessing Them : An Experimental Study of DRAM Disturbance Errors</h3>
-                    <img src="ImageSrcs/FlippingBits.png">
+        <article class="MyArticles">
+            <h2 class="MyArticlesTitle">My Interesting Materials</h2>
+            <section class="ArticleItem_0">
+                <a href="https://blog.naver.com/lioie6478/222277396090" target="_blank">
+                    <h3 class="ArticleItemName_0">[Paper Review] Flipping Bits in Memory Without Accessing Them : An Experimental Study of DRAM Disturbance Errors</h3>
+                    <img class="ArticleItemImg_0" src="ImageSrcs/FlippingBits.png">
                 </a>
             </section>
-            <section>
-                <a>
-                    <h3>[Paper Review] Memory Performance Attacks : Denial of Memory Service in Multi-Core Systems</h3>
-                    <img src="ImageSrcs/MemoryPerformanceAttacks.png">
+            <section class="ArticleItem_1">
+                <a href="https://blog.naver.com/lioie6478/222248124311" target="_blank">
+                    <h3 class="ArticleItemName_1">[Paper Review] Memory Performance Attacks : Denial of Memory Service in Multi-Core Systems</h3>
+                    <img class="ArticleitemImg_1" src="ImageSrcs/MemoryPerformanceAttacks.png">
                 </a>
             </section>
         </article>
-        <article>
-            <h2>Recent Interests</h2>
+        <article class="MyInterests">
+            <h2 class="MyInterestsTitle">Recent Interests</h2>
             <section>
 
             </section>
         </article>
         <aside>
-            <h2>Completed Project</h2>
-            <a href="Projects/Project_NATAKER.html">NATAKER Dev Project</a>
-            <a href="Projects/Project_BodyTracking">Body Tracking Dev Project</a>
+            <dic class="CompletedProjectLists">
+                <h2>Completed Project</h2>
+                <a href="Projects/Project_NATAKER.html">NATAKER Dev Project</a>
+                <a href="Projects/Project_BodyTracking">Body Tracking Dev Project</a>
+            </dic>
         </aside>
     </body>
 </html>
