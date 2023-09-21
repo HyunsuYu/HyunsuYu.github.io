@@ -3,7 +3,7 @@
     <head>
         <!-- <link rel="stylesheet" href="/index.css"> -->
         <style>
-            html
+            *
             {
                 background-color: rgb(15, 15, 15);
                 color: white;
@@ -16,18 +16,20 @@
             }
             nav
             {
-                margin: 0 auto;
+                /* margin: 0 auto; */
                 margin-top: 10px;
                 margin-bottom: 10px;
                 width: 85%;
-                height: 50px;
+                height: 55px;
                 line-height: 15px;
             }
             article
             {
                 border: 2px solid rgb(255, 254, 167);
-                margin: 0 auto;
-                width: 85%;
+                margin: 10px;
+                width: 450px;
+                max-width: 600px;
+                min-width: 300px;
                 text-align: center;
             }
             section
@@ -35,9 +37,24 @@
                 background-color: rgb(32, 32, 32);
                 margin: 5%;
             }
+
             .EmailAddress
             {
                 font-weight: 700;
+            }
+            .OtherPages
+            {
+                font-size: medium;
+                font-weight: 700;
+            }
+            .OtherPageLink
+            {
+                color: white;
+            }
+            .Articles
+            {
+                display: flex;
+                justify-content: center;
             }
             .ArticleHT
             {
@@ -68,42 +85,48 @@
             </div>
         </header>
         <nav>
-            <div class="OtherPages">Other pages related to me</div>
+            <h2 class="OtherPages">Other pages related to me</h2>
             <div class="GitHubRepositoriesLink">
-                <a href="https://github.com/HyunsuYu?tab=repositories" target="_blank">GitHub Repositories</a>
+                <a class="OtherPageLink" href="https://github.com/HyunsuYu?tab=repositories" target="_blank">GitHub Repositories</a>
             </div>
             <div class="NaverDevBlog">
-                <a href="https://blog.naver.com/lioie6478" target="_blank">Naver Dev Blog</a>
+                <a class="OtherPageLink" href="https://blog.naver.com/lioie6478" target="_blank">Naver Dev Blog</a>
             </div>
         </nav>
     </head>
     <body>
-        <article class="MyArticles">
-            <h2 class="MyArticlesTitle">My Interesting Materials</h2>
-            <section class="ArticleItem_0">
-                <a class="ArticleHT" href="https://blog.naver.com/lioie6478/222277396090" target="_blank">
-                    <h3 class="ArticleName">[Paper Review] Flipping Bits in Memory Without Accessing Them : An Experimental Study of DRAM Disturbance Errors</h3>
-                    <img class="ArticleItemImg" src="ImageSrcs/FlippingBits.png">
-                </a>
-            </section>
-            <section class="ArticleItem_1">
-                <a class="ArticleHT" href="https://blog.naver.com/lioie6478/222248124311" target="_blank">
-                    <h3 class="ArticleName">[Paper Review] Memory Performance Attacks : Denial of Memory Service in Multi-Core Systems</h3>
-                    <img class="ArticleItemImg" src="ImageSrcs/MemoryPerformanceAttacks.png">"
-                </a>
-            </section>
-        </article>
-        <article class="MyInterests">
-            <h2 class="MyInterestsTitle">Recent Interests</h2>
-            <section>
-
-            </section>
-        </article>
+        <div class="Articles">
+            <article class="MyArticles">
+                <h2 class="MyArticlesTitle">My Interesting Materials</h2>
+                <section class="ArticleItem_0">
+                    <a class="ArticleHT" href="https://blog.naver.com/lioie6478/222277396090" target="_blank">
+                        <h3 class="ArticleName">[Paper Review] Flipping Bits in Memory Without Accessing Them : An Experimental Study of DRAM Disturbance Errors</h3>
+                        <img class="ArticleItemImg" src="ImageSrcs/FlippingBits.png">
+                    </a>
+                </section>
+                <section class="ArticleItem_1">
+                    <a class="ArticleHT" href="https://blog.naver.com/lioie6478/222248124311" target="_blank">
+                        <h3 class="ArticleName">[Paper Review] Memory Performance Attacks : Denial of Memory Service in Multi-Core Systems</h3>
+                        <img class="ArticleItemImg" src="ImageSrcs/MemoryPerformanceAttacks.png">"
+                    </a>
+                </section>
+            </article>
+            <article class="MyInterests">
+                <h2 class="MyInterestsTitle">Recent Interests</h2>
+                <section>
+        
+                </section>
+            </article>
+        </div>
         <aside>
             <dic class="CompletedProjectLists">
                 <h2>Completed Project</h2>
-                <a href="Projects/Project_NATAKER.html">NATAKER Dev Project</a>
-                <a href="Projects/Project_BodyTracking">Body Tracking Dev Project</a>
+                <div>
+                    <a class="OtherPageLink" href="Projects/Project_NATAKER.html">NATAKER Dev Project</a>
+                </div>
+                <div>
+                    <a class="OtherPageLink" href="Projects/Project_BodyTracking">Body Tracking Dev Project</a>
+                </div>
             </dic>
         </aside>
     </body>
