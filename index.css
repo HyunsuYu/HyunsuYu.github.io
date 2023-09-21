@@ -1,33 +1,33 @@
-html
-{
+html {
     background-color: rgb(15, 15, 15);
 }
-header
-{
-    /* border: 2px solid rgb(255, 254, 167); */
-    display: table;
+
+header {
+    border: 2px solid rgb(255, 254, 167);
     margin: 0 auto;
     width: 50%;
     text-align: center;
 }
-nav
-{
+
+nav {
     /* border: 2px solid rgb(255, 254, 167); */
-    display: table;
     margin: 0 auto;
     margin-top: 10px;
     margin-bottom: 10px;
+    width: 85%;
+    height: 30px;
+    line-height: 10px;
 
+}
+
+article {
+    border: 2px solid rgb(255, 254, 167);
+    margin: 0 auto;
     width: 85%;
 }
-article
-{
-    border: 2px solid rgb(255, 254, 167);
-    display: table;
-    margin: 0 auto;
-   width: 85%;
-}
-h3
-{
-        
+
+h3 {}
+
+.EmailAddress {
+    font-weight: 700;
 }
