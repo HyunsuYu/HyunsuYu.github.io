@@ -17,8 +17,8 @@
             }
             nav
             {
-                margin-top: 15px;
-                margin-bottom: 25px;
+                margin-top: 25px;
+                margin-bottom: 35px;
                 width: 85%;
                 height: 55px;
             }
@@ -36,6 +36,10 @@
                 background-color: rgb(32, 32, 32);
                 margin: 5%;
             }
+            aside
+            {
+                display: flex;
+            }
 
             .EmailAddress
             {
@@ -43,7 +47,6 @@
             }
             .OtherPages
             {
-                font-size: medium;
                 font-weight: 700;
             }
             .OtherPageLink
@@ -65,16 +68,24 @@
             }
             .ArticleItemImg
             {
-                width: 50%;
-                height: 50%;
+                width: 60%;
+                height: 60%;
+            }
+            .OngoingProjects
+            {
+                margin-right: 15px;
+            }
+            .CompletedProjects
+            {
+                margin-left: 15px;
             }
         </style>
 
         <title>
-            HyunsuYu's Dev Blog
+            HyunsuYu's Dev Page
         </title>
         <header>
-            <h1 class="BlogTitle">HyunsuYu's Dev Blog</h1>
+            <h1 class="BlogTitle">HyunsuYu's Dev Page</h1>
             <div class="">
 
             </div>
@@ -109,24 +120,79 @@
                         <img class="ArticleItemImg" src="ImageSrcs/MemoryPerformanceAttacks.png">
                     </a>
                 </section>
+                <section class="ArticleItem">
+                    <a class="ArticleHT" href="https://blog.naver.com/lioie6478/222357320216" target="_blank">
+                        <h3 class="ArticleName">NUMA(Non-uniform memory access) Architecture Simple Summary</h3>
+                        <img class="ArticleItemImg" src="https://d3i71xaburhd42.cloudfront.net/2506ecf40a69932426ba76aacfa77a53928cb0ee/250px/2-Figure1-1.png">
+                    </a>
+                </section>
+                <section class="ArticleItem">
+                    <a class="ArticleHT" href="https://drive.google.com/drive/folders/1oMqbm1wLyH3_YvcMVe2S5jzge8cmUKIt?usp=sharing" target="_blank">
+                        <h3 class="ArticleName">Slightly Deeper Study of C++</h3>
+                        <img class="ArticleItemImg" src="ImageSrcs/SlightlyDeeperStudyOfC++.png">
+                    </a>
+                </section>
             </article>
             <article class="MyInterests">
                 <h2 class="MyInterestsTitle">Recent Interests</h2>
-                <section>
-        
+                <section class="ArticleItem">
+                    <a class="ArticleHT" href="https://www.iso.org/standard/38110.html" target="_blank">
+                        <h3 class="ArticleName">C++ Related Materials...<br><br>
+                                                [ISO/IEC 14882:2003 Programming languages — C++]<br>
+                                                [The The C++ Programming Language 4th Edition]<br>
+                                                [Effective C++/Effective Modern C++]<br>
+                                                And a lot more...</h3>
+                        <img class="ArticleItemImg" src="https://cdn.standards.iteh.ai/images/38110/ad47e9b6b5f9408a8e07a9020b924e06/page1.jpg">
+                    </a>
+                </section>
+                <section class="ArticleItem">
+                    <a class="ArticleHT" href="https://www.nvidia.com/en-us/geforce/news/nvidia-ace-for-games-generative-ai-npcs/" target="_blank">
+                        <h3 class="ArticleName">NVIDIA ACE(Avatar Cloud Engine)</h3>
+                        <img class="ArticleItemImg" src="https://images.nvidia.com/aem-dam/Solutions/geforce/news/nvidia-ace-for-games-generative-ai-npcs/nvidia-geforce-rtx-computex-2023-ace-for-games-kairos-demo-3840x2160-screenshot-001.jpg">
+                    </a>
+                </section>
+                <section class="ArticleItem">
+                    <a class="ArticleHT" href="https://books.google.co.kr/books/about/Introduction_to_3D_Game_Programming_with.html?id=gj6TDgAAQBAJ&source=kp_book_description&redir_esc=y" target="_blank">
+                        <h3 class="ArticleName">[Book] Introduction to 3D Game Programming with DirectX 12</h3>
+                        <img class="ArticleItemImg" src="https://contents.kyobobook.co.kr/sih/fit-in/400x0/pdt/9781942270065.jpg">
+                    </a>
+                </section>
+                <section class="ArticleItem">
+                    <a class="ArticleHT" href="https://docs.unity3d.com/Manual/UIBuilder.html" target="_blank">
+                        <h3 class="ArticleName">Unity UI Builder</h3>
+                        <img class="ArticleItemImg" src="https://docs.unity3d.com/Packages/com.unity.ui.builder@0.8/manual/images/UIBuilderAnnotatedMainWindow.png">
+                    </a>
+                </section>
+                <section class="ArticleItem">
+                    <a class="ArticleHT" href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@17.0/manual/index.html" target="_blank">
+                        <h3 class="ArticleName">Unity URP(Universal Render Pipeline)<br>&<br>Write Shader</h3>
+                        <img class="ArticleItemImg" src="https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@17.0/manual/images/AssetShots/Beauty/Overview.png">
+                    </a>
                 </section>
             </article>
         </div>
         <aside>
-            <dic class="CompletedProjectLists">
+            <div class="OngoingProjects">
+                <h2>Ongoing Projects</h2>
+                <div>
+                    <a class="OtherPageLink" href="OngoingProjects/GameDevelopmentProject_NameNotDetermined.html">Game Development Project (Name Not Determined)</a>
+                </div>
+                <div>
+                    <a class="OtherPageLink" href="Projects/Project_BodyTracking">Publishing C++ Post on Kakao Brunch</a>
+                </div>
+            </div>
+            <div class="CompletedProjects">
                 <h2>Completed Project</h2>
                 <div>
-                    <a class="OtherPageLink" href="Projects/Project_NATAKER.html">NATAKER Dev Project</a>
+                    <a class="OtherPageLink" href="CompletedProjects/Project_NATAKER.html">NATAKER Dev Project</a>
                 </div>
                 <div>
-                    <a class="OtherPageLink" href="Projects/Project_BodyTracking">Body Tracking Dev Project</a>
+                    <a class="OtherPageLink" href="CompletedProjects/Project_BodyTracking.html">Body Tracking Dev Project</a>
                 </div>
-            </dic>
+                <div>
+                    <a class="OtherPageLink" href="CompletedProjects/StudyManagementApp.html">Study Management App</a>
+                </div>
+            </div>
         </aside>
     </body>
 </html>
