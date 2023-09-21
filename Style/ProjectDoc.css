@@ -21,6 +21,8 @@
 .Img {
     width: 30%;
     height: 30%;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
 .CodeBlock {
