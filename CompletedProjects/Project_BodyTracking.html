@@ -15,15 +15,41 @@
             {
                 font-size: 10;
             }
+
+            .ImgBox
+            {
+                text-align: center;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            .Img
+            {
+                width: 40%;
+                height: 40%;
+            }
+            .CodeBlock
+            {
+                margin-top: 20px;
+                margin-bottom: 20px;
+                width: fit-content;
+                height: fit-content;
+                background-color: rgb(53, 53, 53);
+            }
+
+            .Link
+            {
+                color: white;
+            }
         </style>
 
         <title>Body Tracking Project</title>
         <header>
             <h1 class="ProjectName">Body Tracking Project</h1>
-
+            <a class="Link" href="/index.html">Back to Main Page</a>
             <h2>Abstract</h2>
             <div class="AbstractText">
-                Abstract Text...
+                The purpose of the Body Tracking project is to extract data such as the three-dimensional position and rotation angle of each part of the human body from video stream data
             </div>
         </header>
         <nav>
@@ -31,19 +57,150 @@
         </nav>
     </head>
     <body>
-        <h2></h2>
         <article>
             <section>
-
+                <h2>1. Introduction</h2>
+                <div class="IntroductionText">
+                    The project was carried out in two main ways<br><br>
+                    The first method is using Microsoft's Azure Kinect DK, and the second method is to process video stream data received through a webcam on a web page using the body tracking model disclosed as an open source
+                </div>
             </section>
             <section>
+                <h2>2. Body of Text</h2>
+                <div>
+                    <h3>2.1. Using Azure Kinect DK</h3>
+                    <div class="ImgBox">
+                        <img class="Img" src="https://postfiles.pstatic.net/MjAyMTA3MDhfMjIy/MDAxNjI1NjcxNjU1OTIy.VQUriRR38YXomywQT5l-URzsVdri-a6JZH5zwRI1pmQg.fXy8ol5yejJOXLWNfft8VRRzTmq8EetWTiHgggTqPA4g.PNG.lioie6478/image.png?type=w773">
+                        <img class="Img" src="https://postfiles.pstatic.net/MjAyMTA3MDhfMTky/MDAxNjI1NjcxOTE3NDUw.9LIYuKnoSrZDWA8hDROwR-3DydEMFP4kwlde9r5Ml_Ag.mZ-soPGMS48J-l0w8i0CwjMmHJxJa_lRufF4MjB1C-sg.JPEG.lioie6478/%EB%8B%A4%EC%9A%B4%EB%A1%9C%EB%93%9C.jpg?type=w773">
+                        <img class="Img" src="https://docs.microsoft.com/en-us/azure/kinect-dk/media/concepts/joint-hierarchy.png">
+                    </div>
+                    <div>
+                        <br>
+                        The way Azure Kinect DK is used is very simple, but you just need to call the equipment provided by Microsoft and the corresponding API
+                    </div>
+                    <div>
+                        <h4>2.1.1. Example</h4>
+                        <a class="Link" href="https://github.com/HyunsuYu/SimpleAzureKinectApp.git">Example of a simple application using Azure Kinect DK</a>
+                    </div>
+                </div>
+                <div>
+                    <h3>2.2. Using Open Source ML Model and Webcam Video Stream Data</h3>
+                    <div class="ImgBox">
+                        <img class="Img" src="https://postfiles.pstatic.net/MjAyMzAyMjJfMTcx/MDAxNjc2OTk5OTc1OTE0.j_Y4RGjFGYgkK99LT-68Pk-aaX2bJZ_7B89-QpfsNvQg.gthLaXpPii_lHJVsN9sUWDTRuiYl0qOjMoNpHE_qZRIg.PNG.lioie6478/image.png?type=w773">
+                    </div>
+                    <div>
+                        <br>
+                        In this case, it was implemented by combining codes through web search, and consisted of simple html and javascript codes
+                        <br>
+                        <div class="CodeBlock">
+                            &lt;!-- main.html --&gt;
+                            <br>
+                            &lt;h2&gt; align=center>Auto Video Stream to Still Image&lt;/h2&gt;
+                            <br>
+                            <br>
+                            &lt;video id="myVideo" width="400" height="300" style="border: 1px solid #ddd;"&gt;&lt;/video&gt;
+                            <br>
+                            &lt;canvas id="myCanvas" width="160" height="140" style="border: 1px solid #ddd;"&gt;&lt;/canvas&gt;&lt;br&gt;
+                            <br>
+                            <br>
+                            &lt;input type=button value="get Video" onclick="{getVideo()}"&gt;
+                            <br>
+                            &lt;input type=button value="get Pic" onclick="{takeSnapshot()}"&gt;&lt;br&gt;Take snapshot every
+                            <br>
+                            &lt;input type=number id="myInterval" value="3000"&gt; milliseconds
+                            <br>
+                            &lt;input type=button value="Auto" onclick="{takeAuto()}"&gt;
+                            <br>
+                            <br>
+                            &lt;script src="processing.js"&gt;&lt;/script&gt;
+                            <br>
+                            <br>
+                            &lt;script src="tf.min.js"&gt;&lt;/script&gt;
+                            <br>
+                            &lt;script src="posenet.min.js"&gt;&lt;/script&gt;
+                        </div>
+                        <div class="CodeBlock">
+                            <pre>
+// processing.js
+var myVideoStream = document.getElementById('myVideo')     // make it a global variable
+var myStoredInterval = 0
 
+function getVideo() {
+    navigator.getMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
+    navigator.getMedia({ video: true, audio: false },
+
+    function (stream) {
+        myVideoStream.srcObject = stream
+        myVideoStream.play();
+    },
+
+    function (error) {
+        alert('webcam not working');
+    });
+}
+
+function takeSnapshot() {
+    var myCanvasElement = document.getElementById('myCanvas');
+    var myCTX = myCanvasElement.getContext('2d');
+    myCTX.drawImage(myVideoStream, 0, 0, myCanvasElement.width, myCanvasElement.height);
+
+    StartTracking()
+}
+
+function takeAuto() {
+    takeSnapshot() // get snapshot right away then wait and repeat
+    clearInterval(myStoredInterval)
+    myStoredInterval = setInterval(function () {
+        takeSnapshot()
+    }, document.getElementById('myInterval').value);
+}
+
+function StartTracking() {
+    var imageScaleFactor = 0.5;
+    var outputStride = 16;
+    var flipHorizontal = false;
+
+    var imageElement = document.getElementById('myVideo');
+
+    posenet.load().then(function (net) {
+        return net.estimateSinglePose(imageElement, imageScaleFactor, flipHorizontal, outputStride)
+    }).then(function (pose) {
+        console.log(pose);
+    })
+}</pre>
+                        </div>
+                        The files required for ML are as follows:
+                        <div>
+                            <a class="Link" href="https://download.blog.naver.com/open/881d9420360302b7937f182816f888fb5b08fb8c/ECCLlylrC79ZMallq_Izn6jSH801d4D924IL6pOYF8dtRdph1z4AqLvU6RHIJHeo4Mj7H9JOejHwNkaKhMWW2g/posenet.min.js">posenet.min.js</a>
+                            <br>
+                            <a class="Link" href="https://download.blog.naver.com/open/80159c2b380b0abf9b7710201ef080f35300f371/s2A1L5WL5wUMaO3v65SV1mP_04rUWEidJXyMNmGwGicLtq5XNyDnPZunsCd5Xv4mgEFIwzDrQkF2mh6r9wDQ3w/tf.min.js">tf.min.js</a>
+                        </div>
+                    </div>
+                    <div>
+                        <h4>2.2.1. Related Post</h4>
+                        <a class="Link" href="https://blog.naver.com/lioie6478/223023653386">My Original Blog Post Related to</a>
+                    </div>
+                </div>
+            </section>
+            <section>
+                <h2>3. Result</h2>
+                <div class="ResultText">
+                    After testing the two methods, the pros and cons of each were clear
+                    <br>
+                    <br>
+                    First of all, the difficulty of development becomes easier when Azure Kinect DK is used, but the disadvantages can be pointed out as the fact that the equipment is not cheap and that the available platforms can be limited to some extent because the API provided is based on C#
+                    <br>
+                    <br>
+                    Next, in the case of a combination of ML models and webcams, the ML model currently tested was written in JavaScript, confirming the possibility of widespread use in the web environment and native, and by using webcams together, it could be easily utilized without spending money for additional equipment. However, since ML models are open-source based, it is unclear whether they are updated or not, and the quality of body tracking results can depend on various issues such as resolution of webcams
+                </div>
             </section>
         </article>
         <aside>
             <h2>References</h2>
             <div>
-
+                <a class="Link" href="https://learn.microsoft.com/en-us/azure/kinect-dk/body-joints">[1] Azure Kinect body tracking joints</a><br>
+                <a class="Link" href="https://codepen.io/rocksetta/pen/BPbaxQ">[2] webcam to canvas image</a><br>
+                <a class="Link" href="https://github.com/llSourcell/pose_estimation.git">[3] llSourcell/pose_estimation GitHub Repository</a><br>
             </div>
         </aside>
     </body>
