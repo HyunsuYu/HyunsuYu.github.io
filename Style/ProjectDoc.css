@@ -26,8 +26,7 @@
 }
 
 .CodeBlock {
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin: 20px;
     width: fit-content;
     height: fit-content;
     background-color: rgb(53, 53, 53);
