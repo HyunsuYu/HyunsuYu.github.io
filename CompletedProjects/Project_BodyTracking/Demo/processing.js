@@ -45,4 +45,3 @@ function StartTracking() {
     console.log(pose);
   })
 }
-[출처] 웹캠에서 데이터 받아와서 자세 데이터 추출|작성자 Lioie
