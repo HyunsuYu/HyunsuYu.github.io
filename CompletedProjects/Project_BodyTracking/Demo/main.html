@@ -1,0 +1,16 @@
+<!-- main.html -->
+<h2 align=center>Auto Video Stream to Still Image</h2>
+
+<video id="myVideo" width="400" height="300" style="border: 1px solid #ddd;"></video>
+<canvas id="myCanvas" width="160" height="140" style="border: 1px solid #ddd;"></canvas><br>
+
+<input type=button value="get Video" onclick="{getVideo()}">
+<input type=button value="get Pic" onclick="{takeSnapshot()}"><br>
+Take snapshot every <input type=number id="myInterval" value="3000"> milliseconds
+<input type=button value="Auto" onclick="{takeAuto()}">
+
+<script src="processing.js"></script>
+
+<script src="tf.min.js"></script>
+<script src="posenet.min.js"></script>
+[출처] 웹캠에서 데이터 받아와서 자세 데이터 추출|작성자 Lioie
