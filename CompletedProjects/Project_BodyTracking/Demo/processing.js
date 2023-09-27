@@ -49,11 +49,14 @@ function StartTracking() {
     const ctx = canvas.getContext('2d');
 
     for(let i = 0; i < pose.keypoints.length; i++){
-      ctx.beginPath();
-      ctx.arc(canvas.width - pose.keypoints[i].position.x, canvas.height - pose.keypoints[i].position.y, 5, 0, 2 * Math.PI);
-      ctx.stroke();
-      ctx.fillStyle = 'blue';
-      ctx.fill();
+      if(pose.keypoints[i].score >= 0.9)
+      {
+        ctx.beginPath();
+        ctx.arc(canvas.width - pose.keypoints[i].position.x, canvas.height - pose.keypoints[i].position.y, 5, 0, 2 * Math.PI);
+        ctx.stroke();
+        ctx.fillStyle = 'blue';
+        ctx.fill();
+      }
     }
 
     // ctx.beginPath();
