@@ -53,7 +53,7 @@ function StartTracking() {
       if(pose.keypoints[i].score >= 0.9)
       {
         ctx.beginPath();
-        ctx.arc(pose.keypoints[i].position.x, pose.keypoints[i].position.y, 5, 0, 2 * Math.PI);
+        ctx.arc(pose.keypoints[i].position.x - (canvas.width / 2.0), pose.keypoints[i].position.y - (canvas.height / 2.0), 5, 0, 2 * Math.PI);
         ctx.stroke();
         ctx.fillStyle = 'blue';
         ctx.fill();
