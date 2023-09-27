@@ -47,8 +47,8 @@ function StartTracking() {
 
     const canvas = document.getElementById('myCanvas');
     const ctx = canvas.getContext('2d');
-    canvas.width = imageElement.width;
-    canvas.height = imageElement.height;
+    // canvas.width = imageElement.width;
+    // canvas.height = imageElement.height;
     // canvas.src = imageElement;
 
     console.clear();
