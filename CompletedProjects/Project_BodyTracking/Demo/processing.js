@@ -42,8 +42,8 @@ function StartTracking() {
   posenet.load().then(function (net) {
     return net.estimateSinglePose(imageElement, imageScaleFactor, flipHorizontal, outputStride)
   }).then(function (pose) {
-    console.log(pose);
-    console.log(pose.keypoints);
+    // console.log(pose);
+    // console.log(pose.keypoints);
 
     const canvas = document.getElementById('myCanvas');
     const ctx = canvas.getContext('2d');
@@ -56,6 +56,8 @@ function StartTracking() {
         ctx.stroke();
         ctx.fillStyle = 'blue';
         ctx.fill();
+
+        console.log(pose.keypoints[i].part + " " + pose.keypoints[i].position);
       }
     }
 
