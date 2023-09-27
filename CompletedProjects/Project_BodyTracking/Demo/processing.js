@@ -47,8 +47,8 @@ function StartTracking() {
 
     const canvas = document.getElementById('myCanvas');
     const ctx = canvas.getContext('2d');
-    canvas.width = imageElement.width * 2.0;
-    canvas.height = imageElement.height * 2.0;
+    canvas.width = imageElement.width;
+    canvas.height = imageElement.height;
     // canvas.src = imageElement;
 
     console.clear();
@@ -57,7 +57,7 @@ function StartTracking() {
       {
         ctx.src = imageElement;
         ctx.beginPath();
-        ctx.arc(pose.keypoints[i].position.x * 2.0, pose.keypoints[i].position.y * 2.0, 5, 0, 2 * Math.PI);
+        ctx.arc(pose.keypoints[i].position.x, pose.keypoints[i].position.y, 5, 0, 2 * Math.PI);
         ctx.stroke();
         ctx.fillStyle = 'blue';
         ctx.fill();
