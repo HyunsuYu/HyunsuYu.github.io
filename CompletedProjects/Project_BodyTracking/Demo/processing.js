@@ -45,7 +45,7 @@ function StartTracking() {
     console.log(pose);
 
     const canvas = document.getElementById('myCanvas');
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext('2d');
 
     ctx.beginPath();
     ctx.arc(pose.x, pose.y, 5, 0, 2 * Math.PI);
