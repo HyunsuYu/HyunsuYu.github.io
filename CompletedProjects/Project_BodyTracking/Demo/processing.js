@@ -48,6 +48,7 @@ function StartTracking() {
     const canvas = document.getElementById('myCanvas');
     const ctx = canvas.getContext('2d');
 
+    console.clear();
     for(let i = 0; i < pose.keypoints.length; i++){
       if(pose.keypoints[i].score >= 0.9)
       {
