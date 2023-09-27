@@ -49,6 +49,7 @@ function StartTracking() {
     const ctx = canvas.getContext('2d');
     canvas.width = imageElement.width;
     canvas.height = imageElement.height;
+    canvas.src = imageElement;
 
     console.clear();
     for(let i = 0; i < pose.keypoints.length; i++){
