@@ -55,7 +55,6 @@ function StartTracking() {
     for(let i = 0; i < pose.keypoints.length; i++){
       if(pose.keypoints[i].score >= 0.9)
       {
-        ctx.src = imageElement;
         ctx.beginPath();
         ctx.arc(pose.keypoints[i].position.x, pose.keypoints[i].position.y, 5, 0, 2 * Math.PI);
         ctx.stroke();
