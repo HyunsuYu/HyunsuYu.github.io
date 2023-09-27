@@ -33,8 +33,8 @@ function takeAuto() {
 }
 
 function StartTracking() {
-  var imageScaleFactor = 0.5;
-  var outputStride = 16;
+  var imageScaleFactor = 1.0;
+  var outputStride = 8;
   var flipHorizontal = false;
 
   var imageElement = document.getElementById('myVideo');
@@ -53,7 +53,7 @@ function StartTracking() {
       if(pose.keypoints[i].score >= 0.9)
       {
         ctx.beginPath();
-        ctx.arc(pose.keypoints[i].position.x / canvas.width, pose.keypoints[i].position.y - canvas.height, 5, 0, 2 * Math.PI);
+        ctx.arc(pose.keypoints[i].position.x, pose.keypoints[i].position.y, 5, 0, 2 * Math.PI);
         ctx.stroke();
         ctx.fillStyle = 'blue';
         ctx.fill();
