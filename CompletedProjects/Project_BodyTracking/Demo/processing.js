@@ -43,18 +43,15 @@ function StartTracking() {
     return net.estimateSinglePose(imageElement, imageScaleFactor, flipHorizontal, outputStride)
   }).then(function (pose) {
     console.log(pose);
+    console.log(pose.score);
 
     const canvas = document.getElementById('myCanvas');
     const ctx = canvas.getContext('2d');
 
     ctx.beginPath();
-    ctx.arc(pose.x, pose.y, 5, 0, 2 * Math.PI);
+    ctx.arc(pose.score.keypoints.position.x, pose.score.keypoints.position.y, 5, 0, 2 * Math.PI);
     ctx.stroke();
     ctx.fillStyle = 'blue';
     ctx.fill();
   })
-}
-
-function Test(){
-  
 }
