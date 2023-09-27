@@ -77,7 +77,6 @@ function StartTracking() {
 // const guiState = {
 //   algorithm: 'single-pose',
 //   input: {
-//     mobileNetArchitecture: isMobile() ? '0.50' : '1.01',
 //     outputStride: 16,
 //     imageScaleFactor: 0.5,
 //   },
