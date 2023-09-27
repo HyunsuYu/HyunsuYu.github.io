@@ -58,7 +58,7 @@ function StartTracking() {
         ctx.fillStyle = 'blue';
         ctx.fill();
 
-        console.log(pose.keypoints[i].part + " " + pose.keypoints[i].position.x + ", " + pose.keypoints[i].position.y);
+        console.log(pose.keypoints[i].part + " x : " + pose.keypoints[i].position.x + ", y : " + pose.keypoints[i].position.y);
       }
     }
 
