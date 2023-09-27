@@ -161,20 +161,29 @@ function detectPoseInRealTime(video, net) {
         drawKeypoints(keypoints, minPartConfidence, ctx);
       }
       if (guiState.output.showSkeleton) {
-        drawSkeleton(keypoints, minPartConfidence, ctx);
+        drawSkeleton(keypoints, minPartConfidence, ctx, net);
       }
     }
   });
 }
 
-function drawSkeleton(keypoints, minConfidence, ctx, scale = 1) {
-  const adjacentKeyPoints = posenet.getAdjacentKeyPoints(
+function drawSkeleton(keypoints, minConfidence, ctx, net, scale = 1) {
+  const adjacentKeyPoints = net.getAdjacentKeyPoints(
     keypoints, minConfidence);
 
   adjacentKeyPoints.forEach((keypoints) => {
     drawSegment(toTuple(keypoints[0].position),
       toTuple(keypoints[1].position), color, scale, ctx);
   });
+}
+
+function drawSegment([ay, ax], [by, bx], color, scale, ctx) {
+  ctx.beginPath();
+  ctx.moveTo(ax * scale, ay * scale);
+  ctx.lineTo(bx * scale, by * scale);
+  ctx.lineWidth = lineWidth;
+  ctx.strokeStyle = color;
+  ctx.stroke();
 }
 
 function drawKeypoints(keypoints, minConfidence, ctx, scale = 1) {
