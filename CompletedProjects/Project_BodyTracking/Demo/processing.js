@@ -55,3 +55,7 @@ function StartTracking() {
     ctx.fill();
   })
 }
+
+function Temp(){
+  
+}
