@@ -1,3 +1,3 @@
 My presonal dev blog
 
-[PageLink] (https://hyunsuyu.github.io/)
+[personal dev page](https://hyunsuyu.github.io/)
