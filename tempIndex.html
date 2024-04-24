@@ -2,10 +2,11 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <link rel="stylesheet" href="https://elementcss.neocities.org/dist/element-0.2.0.min.css">
-    <script src="https://elementcss.neocities.org/dist/element-0.2.0.min.js"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/sunburst.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js"></script>
+    <meta name="viewport" content="initial-scale=1">
+    <link rel="stylesheet" href="element.css">
+    <script src="element.js"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/sunburst.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js"></script>
 
     <title>Hello!</title>
   </head>
@@ -23,11 +24,57 @@
     <p>Okay, you're all set!</p>
 
     <code>
-        const user = {
-          name: 'Commander Riker',
-          username: 'hotjazzhotternights1337'
-        }
-        console.log(user.name)
-      </code>
+      const user = {
+        name: 'Commander Riker',
+        username: 'hotjazzhotternights1337'
+      }
+      console.log(user.name)
+    </code>
+
+    <g-row>
+      <g-col>
+        <h3>Column</h3>
+        <p>I'm the first column!</p>
+      </g-col>
+      <g-col>
+        <h3>Another Column</h3>
+        <p>I'm the second column!</p>
+      </g-col>
+      <g-col style="width: 20%">
+        <h3>Smaller</h3>
+        <p>I'm grid 3, but a lot smaller than the others.</p>
+      </g-col>
+    </g-row>
+
+    <h3>Forms</h3>
+<form>
+  <label>Email</label>
+  <input name="email" type="text" placeholder="Email">
+
+  <label>What do you think?</label>
+  <textarea name="comments" rows="5" cols="30"></textarea>
+
+  <label>State</label>
+  <select name="state">
+    <option>OR</option>
+    <option>MN</option>
+    <option>CA</option>
+  </select>
+
+  <label>
+    <input name="remember" type="checkbox" value="1"> Remember me
+  </label>
+
+  <p>Favorite Color?</p>
+  <label>
+    <input name="color" type="radio" value="red" checked> Red
+  </label>
+
+  <label>
+    <input name="color" type="radio" value="blue"> Blue
+  </label>
+
+  <button>Submit</button>
+</form>
   </body>
 </html>
