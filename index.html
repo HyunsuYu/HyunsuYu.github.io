@@ -1,127 +1,234 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
-    <head>
-        <link rel="stylesheet" href="/Style/index.css">
+  <head>
+    <title>Element CSS</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1">
+    <link rel="stylesheet" href="element.css">
+    <script src="element.js"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/sunburst.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js"></script>
+  </head>
 
-        <title>
-            HyunsuYu's Dev Page
-        </title>
-        <header>
-            <h1 class="BlogTitle">HyunsuYu's Dev Page</h1>
-            <div class="ContactInfos">
-                <div class="ContactMethod">Please refer to the following e-mail for contact</div>
-                <div class="EmailAddress">lioie64V78@gmail.com</div>
+  <body>
+    <header>
+        <h1>Null by Null</h1>
+        <strong>Hyunsu Yu's Personal Dev Page</strong>
+    </header>
+
+    <p>
+      As a game developer with <code>Unity</code> and <code>C#</code> as the main players, I've been working on a number of game development projects and side projects<br><br>
+
+      I want to do something more interesting and fun, so I have been developing open-source tools and writing blog posts about <code>graphics</code>, <code>interactive storytelling</code>, <code>security</code>, <code>LLM</code>, etc. based on the main focus of game development<br><br>
+
+      Currently, we are continuing to try this and that with the desire to create a game that combines user-led interactive storytelling
+    </p>
+
+    <br>
+    <h2>Profile</h2>
+    <code>
+{
+    "Name":"Hyunsu Yu",
+    "Region":"Republic of Korea, Busan",
+    "Major":"Computer Engineering",
+    "Dev Area":[
+        "Game Dev",
+        "Computer Graphics",
+        "NLP/LLM",
+        "Interactive Storytelling Engine"
+    ],
+    "Channel":[
+        {
+            "Github":"https://github.com/HyunsuYu"
+        },
+        {
+            "Naver Blog(kor)":"https://blog.naver.com/lioie6478"
+        },
+        {
+            "Medium(Eng)":"https://medium.com/@lioie6478"
+        }
+    ],
+    "Contact":[
+        {
+        "Email":"lioie6478@gmail.com"
+        },
+        {
+        "Phone":"+82-10-7526-8570"
+        }
+        {
+        "Resume":"https://galvanized-soda-726.notion.site/Resume-Hyunsu-Yu-d0b826f8e703412f99610d5fb7a03531?pvs=4"
+        }
+    ]
+}
+    </code>
+
+    <br>
+    <h2>Pinned External Blog Articles</h2>
+    <p>I'm going to introduce some notable articles that I've written on external blogs like Medium, etc. These articles contain insights into personal interests and studies related to game development</p>
+    <code>
+{
+    "Naver Blog(kor)":"https://blog.naver.com/lioie6478",
+    "Medium(Eng)":"https://medium.com/@lioie6478"
+}
+    </code>
+    <article>
+      <g-row>
+        <g-col>
+          <a style="text-decoration: none;color: black;" href="https://medium.com/@lioie6478/optimization-of-recursive-processing-based-on-linear-homogenized-quadratic-recurrence-relocation-6c5ee4fb0eb2">
+            <div style="height: 80px; text-align: center;">
+              <h3>Optimization of recursive processing based on linear homogenized quadratic recurrence relation equation solution</h3>
             </div>
-        </header>
-        <nav>
-            <h2><a class="OtherPageLink" href="https://galvanized-soda-726.notion.site/Resume-Hyunsu-Yu-50c98d500df14059a33d96a6c35f3da2?pvs=4">My Resume</a></h2>
-            <h2 class="OtherPages">Other pages related to me</h2>
-            <ul class="GitHubRepositoriesLink">
-                <a class="OtherPageLink" href="https://github.com/HyunsuYu?tab=repositories" target="_blank">GitHub Repositories</a>
-            </ul>
-            <ul class="NaverDevBlog">
-                <a class="OtherPageLink" href="https://blog.naver.com/lioie6478" target="_blank">Naver Dev Blog (Kor)</a>
-            </ul>
-        </nav>
-    </head>
-    <body>
-        <div class="Articles">
-            <article class="MyArticles">
-                <h2 class="MyArticlesTitle">My Not Bad Materials</h2>
-                <section class="ArticleItem">
-                    <a class="ArticleHT" href="https://blog.naver.com/lioie6478/222277396090" target="_blank">
-                        <h3 class="ArticleName">[Paper Review] Flipping Bits in Memory Without Accessing Them : An Experimental Study of DRAM Disturbance Errors (Kor)</h3>
-                        <img class="ArticleItemImg" src="ImageSrcs/FlippingBits.png">
-                    </a>
-                </section>
-                <section class="ArticleItem">
-                    <a class="ArticleHT" href="https://blog.naver.com/lioie6478/222248124311" target="_blank">
-                        <h3 class="ArticleName">[Paper Review] Memory Performance Attacks : Denial of Memory Service in Multi-Core Systems (Kor)</h3>
-                        <img class="ArticleItemImg" src="ImageSrcs/MemoryPerformanceAttacks.png">
-                    </a>
-                </section>
-                <section class="ArticleItem">
-                    <a class="ArticleHT" href="https://blog.naver.com/lioie6478/222357320216" target="_blank">
-                        <h3 class="ArticleName">NUMA(Non-uniform memory access) Architecture Simple Summary (Kor)</h3>
-                        <img class="ArticleItemImg" src="https://d3i71xaburhd42.cloudfront.net/2506ecf40a69932426ba76aacfa77a53928cb0ee/250px/2-Figure1-1.png">
-                    </a>
-                </section>
-            </article>
-            <article class="MyInterests">
-                <h2 class="MyInterestsTitle">Recent Interests</h2>
-                <section class="ArticleItem">
-                    <a class="ArticleHT" href="https://www.iso.org/standard/38110.html" target="_blank">
-                        <h3 class="ArticleName">C++ Related Materials...<br><br>
-                                                [ISO/IEC 14882:2003 Programming languages — C++]<br>
-                                                [The The C++ Programming Language 4th Edition]<br>
-                                                [Effective C++/Effective Modern C++]<br>
-                                                And a lot more...</h3>
-                        <img class="ArticleItemImg" src="https://cdn.standards.iteh.ai/images/38110/ad47e9b6b5f9408a8e07a9020b924e06/page1.jpg">
-                    </a>
-                </section>
-                <section class="ArticleItem">
-                    <a class="ArticleHT" href="https://www.nvidia.com/en-us/geforce/news/nvidia-ace-for-games-generative-ai-npcs/" target="_blank">
-                        <h3 class="ArticleName">NVIDIA ACE(Avatar Cloud Engine)</h3>
-                        <img class="ArticleItemImg" src="https://images.nvidia.com/aem-dam/Solutions/geforce/news/nvidia-ace-for-games-generative-ai-npcs/nvidia-geforce-rtx-computex-2023-ace-for-games-kairos-demo-3840x2160-screenshot-001.jpg">
-                    </a>
-                </section>
-                <section class="ArticleItem">
-                    <a class="ArticleHT" href="https://books.google.co.kr/books/about/Introduction_to_3D_Game_Programming_with.html?id=gj6TDgAAQBAJ&source=kp_book_description&redir_esc=y" target="_blank">
-                        <h3 class="ArticleName">[Book] Introduction to 3D Game Programming with DirectX 12</h3>
-                        <img class="ArticleItemImg" src="https://contents.kyobobook.co.kr/sih/fit-in/400x0/pdt/9781942270065.jpg">
-                    </a>
-                </section>
-                <section class="ArticleItem">
-                    <a class="ArticleHT" href="https://docs.unity3d.com/Manual/UIBuilder.html" target="_blank">
-                        <h3 class="ArticleName">Unity UI Builder</h3>
-                        <img class="ArticleItemImg" src="https://docs.unity3d.com/Packages/com.unity.ui.builder@0.8/manual/images/UIBuilderAnnotatedMainWindow.png">
-                    </a>
-                </section>
-                <section class="ArticleItem">
-                    <a class="ArticleHT" href="https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@17.0/manual/index.html" target="_blank">
-                        <h3 class="ArticleName">Unity URP(Universal Render Pipeline)<br>&<br>Write Shader</h3>
-                        <img class="ArticleItemImg" src="https://docs.unity3d.com/Packages/com.unity.render-pipelines.universal@17.0/manual/images/AssetShots/Beauty/Overview.png">
-                    </a>
-                </section>
-                <section class="ArticleItem">
-                    <a class="ArticleHT" href="https://github.com/facebookresearch/llama" target="_blank">
-                        <h3 class="ArticleName">facebookresearch / llama 2</h3>
-                        <img class="ArticleItemImg" src="https://tjzk.replicate.delivery/models_models_featured_image/e18de70b-6147-4d42-a730-4777d297737d/llama-logo.png">
-                    </a>
-                </section>
-            </article>
-        </div>
-        <aside>
-            <div class="OngoingProjects">
-                <h2>Ongoing Projects</h2>
-                <ul>
-                    <!-- <a class="OtherPageLink" href="OngoingProjects/GameDevelopmentProject_NameNotDetermined.html">Game Development Project (Name Not Determined)</a> -->
-                    Game Development Project (Name Not Determined)
-                </ul>
-                <ul>
-                    <!-- <a class="OtherPageLink" href="/OngoingProjects/CppStudy/CppStudy_Index.html">Publishing C++ Post on Kakao Brunch (Kor)</a> -->
-                    More Deeper C++ Programming Language (Eng)
-                </ul>
-                <ul>
-                    <a class="OtherPageLink" href="https://galvanized-soda-726.notion.site/DEEP-WAVE-On-Dev-f8e22058a6de43b29c27b37896031027">DEEP WAVE - Interactive Storytelling Framework</a>
-                </ul>
+            <div style="height: 250px; width: 250px; overflow: hidden; margin:0 auto;">
+              <img style="width: 100%; height: 100%; object-fit: cover;" src="https://miro.medium.com/v2/resize:fit:828/format:webp/0*OwcuO6VUbTo7qjTr">
             </div>
-            <div class="CompletedProjects">
-                <h2>Completed Projects</h2>
-                <ul>
-                    <a class="OtherPageLink" href="CompletedProjects/Project_NATAKER/Project_NATAKER.html">NATAKER Dev Project</a>
-                </ul>
-                <ul>
-                    <a class="OtherPageLink" href="CompletedProjects/Project_BodyTracking/Project_BodyTracking.html">Body Tracking Dev Project</a>
-                </ul>
-                <ul>
-                    <a class="OtherPageLink" href="CompletedProjects/Project_StudyManagementApp/StudyManagementApp.html">Study Management App</a>
-                </ul>
-                <ul>
-                    <a class="OtherPageLink" href="/CompletedProjects/CppStudy/CppStudy_Index.html">More Deeper C++ Programming Language (Kor)</a>
-                    <!-- Publishing C++ Post on Kakao Brunch -->
-                </ul>
+          </a>
+        </g-col>
+        <g-col>
+          <a style="text-decoration: none;color: black;" href="https://medium.com/@lioie6478/a-brief-review-of-llama-cpp-llama-cpp-python-and-llamasharp-20d61eecbc6d">
+            <div style="height: 80px; text-align: center;">
+              <h3>A brief review of llama.cpp, llama-cpp-python, and LLamaSharp</h3>
             </div>
-        </aside>
-    </body>
+            <div style="height: 250px; width: 250px; overflow: hidden; margin:0 auto;">
+              <img style="width: 100%; height: 100%; object-fit: cover;" src="https://miro.medium.com/v2/resize:fit:828/format:webp/0*qhJNNFyyaTquO5xB">
+            </div>
+          </a>
+        </g-col>
+        <g-col>
+          <a style="text-decoration: none;color: black;" href="https://medium.com/@lioie6478/metaball-effect-with-glsl-78c453ef46f4">
+            <div style="height: 80px; text-align: center;">
+              <h3>Metaball Effect with GLSL</h3>
+            </div>
+            <div style="height: 250px; width: 250px; overflow: hidden; margin:0 auto;">
+              <img style="width: 100%; height: 100%; object-fit: cover;" src="https://miro.medium.com/v2/resize:fit:1100/format:webp/0*6KMyl_ebWnV1C8hi">
+            </div>
+          </a>
+        </g-col>
+      </g-row>
+    </article>
+
+    <br>
+    <h2>Pinned On-Going Projects</h2>
+    <p>
+      The Json-style list below is a complete side project in progress, and the pinned ones introduce notable things in terms of usefulness and difficulty
+    </p>
+    <code>
+{
+    "No Titled - 2.5D Platformer Game Dev Project":"",
+    "English translation of 'More Deeper C++ Language'":"https://drive.google.com/file/d/1WGR6eMgRF7hZwCOLbZAEhNJP8C9_EZDh/view?usp=sharing",
+    "DEEP WAVE":"https://galvanized-soda-726.notion.site/DEEP-WAVE-On-Dev-f8e22058a6de43b29c27b37896031027",
+    "Compact Multiplay":"https://galvanized-soda-726.notion.site/Compact-Multiplay-Document-3c28a270e1fa4493ba29daa4d94d690b"
+}
+    </code>
+    <article>
+      <g-row>
+        <g-col>
+          <a style="text-decoration: none;color: black;" href="">
+            <div style="height: 80px; text-align: center;">
+              <h3>No Titled - 2.5D Platformer Game Dev Project(Inspired by Spelunky 2, Tales of Iron)</h3>
+            </div>
+            <div style="height: 250px; width: 250px; overflow: hidden; margin:0 auto;">
+              <!-- <img style="width: 100%; height: 100%; object-fit: cover;" src=""> -->
+            </div>
+          </a>
+        </g-col>
+        <g-col>
+          <a style="text-decoration: none;color: black;" href="https://galvanized-soda-726.notion.site/Compact-Multiplay-Document-3c28a270e1fa4493ba29daa4d94d690b">
+            <div style="height: 80px; text-align: center;">
+              <h3>Compact Multiplay - For Unity Multiplay</h3>
+            </div>
+            <div style="height: 250px; width: 250px; overflow: hidden; margin:0 auto;">
+              <!-- <img style="width: 100%; height: 100%; object-fit: cover;" src=""> -->
+            </div>
+          </a>
+        </g-col>
+        <g-col>
+          <a style="text-decoration: none;color: black;" href="https://galvanized-soda-726.notion.site/DEEP-WAVE-On-Dev-f8e22058a6de43b29c27b37896031027">
+            <div style="height: 80px; text-align: center;">
+              <h3>DEEP WAVE - The Interactive Storytelling Engine</h3>
+            </div>
+            <div style="height: 250px; width: 250px; overflow: hidden; margin:0 auto;">
+              <img style="width: 100%; height: 100%; object-fit: cover;" src="https://galvanized-soda-726.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F97434619-eda8-4814-b5cf-28ed79cb992f%2Fa5361dff-90f1-4089-a636-638157005754%2FUntitled.png?table=block&id=2c9b4a86-8c6a-40cc-9037-d37498d9db49&spaceId=97434619-eda8-4814-b5cf-28ed79cb992f&width=1420&userId=&cache=v2">
+            </div>
+          </a>
+        </g-col>
+      </g-row>
+    </article>
+
+    <br>
+    <h2>Completed Projects</h2>
+    <p>
+      The list of Json-styles below is a complete list of projects that have been completed so far. The pinned ones are to introduce things that are worth noting when considering several aspects of the completed project
+    </p>
+    <code>
+{
+    "NATAKER Game Dev Project":"",
+    "Body tracking using webcam":"",
+    "An Extracurricular Management Application":"",
+    "More Deeper C++ Programming Language":"https://drive.google.com/file/d/1WGR6eMgRF7hZwCOLbZAEhNJP8C9_EZDh/view?usp=sharing"
+}
+    </code>
+    <article>
+      <g-row>
+        <g-col>
+          <a style="text-decoration: none;color: black;" href="./Projects/NATAKER/Project_NATAKER.html">
+            <div style="height: 80px; text-align: center;">
+              <h3>NATAKER</h3>
+            </div>
+            <div style="height: 250px; width: 250px; overflow: hidden; margin:0 auto;">
+              <img style="width: 100%; height: 100%; object-fit: cover;" src=".\ImageSrcs\3cf6c1776ba41063acdc91e987d40a64.png">
+            </div>
+          </a>
+        </g-col>
+        <g-col>
+          <a style="text-decoration: none;color: black;" href="./Projects/BodyTracking/Project_BodyTracking.html">
+            <div style="height: 80px; text-align: center;">
+              <h3>Body Tracking Using Webcam</h3>
+            </div>
+            <div style="height: 250px; width: 250px; overflow: hidden; margin:0 auto;">
+              <img style="width: 100%; height: 100%; object-fit: cover;" src=".\ImageSrcs\BodyTracking_0.png">
+            </div>
+          </a>
+        </g-col>
+        <g-col>
+          <a style="text-decoration: none;color: black;" href="./Projects/ExtracurricularManagement/ExtracurricularManagement.html">
+            <div style="height: 80px; text-align: center;">
+              <h3>An Extracurricular Management Application</h3>
+            </div>
+            <div style="height: 250px; width: 250px; overflow: hidden; margin:0 auto;">
+              <img style="width: 100%; height: 100%; object-fit: cover;" src=".\ImageSrcs\StudyManagementApp_4.png">
+            </div>
+          </a>
+        </g-col>
+      </g-row>
+    </article>
+
+    <br>
+    <h2>Publications</h2>
+    <p>
+      The json-style list below is a complete list of publications that I wrote myself. The pinned ones are a selection of things that are especially noteworthy
+    </p>
+    <code>
+{
+    "More Deeper C++ Programming Language":"https://drive.google.com/file/d/1WGR6eMgRF7hZwCOLbZAEhNJP8C9_EZDh/view?usp=sharing"
+}
+    </code>
+    <article>
+      <g-row>
+        <g-col>
+          <a style="text-decoration: none;color: black;" href="https://drive.google.com/file/d/1WGR6eMgRF7hZwCOLbZAEhNJP8C9_EZDh/view?usp=sharing">
+            <div style="height: 80px; text-align: center;">
+              <h3>More Deeper C++ Programming Language</h3>
+            </div>
+            <div style="height: 250px; width: 250px; overflow: hidden; margin:0 auto;">
+              <img style="width: 100%; height: 100%; object-fit: cover;" src="./ImageSrcs/MoreDeeperC++ProgrammingLanguage.png">
+            </div>
+          </a>
+        </g-col>
+      </g-row>
+    </article>
+
+    <footer>
+      <p>Hyunsu Yu, a developer who is interested in game development and interactive storytelling</p>
+    </footer>
+  </body>
 </html>
