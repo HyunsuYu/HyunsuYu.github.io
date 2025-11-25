@@ -1,0 +1,57 @@
+::selection
+  background-color $c-weak
+
+a
+  color inherit
+
+p
+  margin 0 0 1rem 0
+
+mark
+  background-color $c-strong
+  color $c-medium
+
+h1
+  font-weight normal
+  text-transform uppercase
+  letter-spacing 0.5rem
+  text-shadow 0.3rem 0.3rem 0 $c-weak
+h2
+  font-weight lighter
+  border solid $c-strong
+  border-width 0.1rem 0
+  padding 0.1rem 1rem
+h3, h4, h5, h6
+  font-weight lighter
+  letter-spacing 0.1rem
+
+blockquote
+  left-stripes($c-weak)
+  padding 0.5rem
+
+cite
+  +square()
+    margin-left -1rem
+    top 0.25em
+  padding-left 2rem
+
+hr
+  margin 1rem 0
+  border-top solid $c-weak
+  border-width 0.1rem 0 0 0
+
+table
+  border-collapse collapse
+  font-weight inherit
+
+td, th
+  padding 0.5rem
+
+th
+  font-weight normal
+  text-align left
+  border-bottom 0.1rem solid $c-strong
+
+pre
+  background-color $c-medium
+  padding 1rem

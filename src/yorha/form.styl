@@ -1,0 +1,116 @@
+fieldset
+  padding 1rem
+  padding-top 0.5rem
+  border 0.1rem solid $c-weak
+
+legend
+  padding 0 0.5rem
+
+label
+  display inline-block
+  margin 0.5rem 0
+
+box-input($color = $c-medium)
+  padding 0.5rem
+  font-size 1em
+  border none
+  outline none
+  appearance none
+  border-radius 0
+  background-color $color
+  color inherit
+  font-family inherit
+  letter-spacing inherit
+  font-weight inherit
+
+textarea,
+input[type=text], input[type=password], input[type=url],
+input[type=email], input[type=tel], input[type=search],
+input[type=number], input[type=color],
+input[type=date], input[type=month], input[type=week],
+input[type=datetime], input[type=datetime-local]
+    box-input()
+select
+  background url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDIwLjAuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPgo8c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IgoJIHZpZXdCb3g9IjAgMCA0LjkgMTAiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDQuOSAxMDsiIHhtbDpzcGFjZT0icHJlc2VydmUiPgo8c3R5bGUgdHlwZT0idGV4dC9jc3MiPgoJLnN0MHtmaWxsOiM0NDQ0NDQ7fQo8L3N0eWxlPgo8dGl0bGU+YXJyb3dzPC90aXRsZT4KPHBvbHlnb24gY2xhc3M9InN0MCIgcG9pbnRzPSIxLjQsNC43IDIuNSwzLjIgMy41LDQuNyAiLz4KPHBvbHlnb24gY2xhc3M9InN0MCIgcG9pbnRzPSIzLjUsNS4zIDIuNSw2LjggMS40LDUuMyAiLz4KPC9zdmc+Cg==') no-repeat right
+  box-input()
+
+button-input($color = $c-weak)
+  box-input($color)
+  cursor pointer
+
+  transition-duration $transition-dur
+  transition-property color, background-color, box-shadow
+
+  &:hover
+    box-shadow 0.2em 0.2em 0.1em 0 $c-weak
+
+input[type=submit]:not(:disabled),
+input[type=button]:not(:disabled),
+input[type=reset]:not(:disabled)
+  button-input()
+  &:hover
+    background-color $c-strong
+    color $c-medium
+  &:active
+    background-color $c-medium
+    color $c-strong
+
+input:disabled, button:disabled, .button-disabled
+  box-input($c-medium)
+  color $c-weak
+  cursor not-allowed
+
+// These get extra styles with pseudo-elements.
+button:not(:disabled), .button
+  button-input()
+
+  // Top/bottom lines.
+  position relative
+  z-index 1
+  &:before
+    content ''
+    transition all $transition-dur
+    position absolute
+    top 0
+    bottom 0
+    left 0
+    right 0
+
+  // Bar fill.
+  &:after
+    content ''
+    transition all $transition-dur
+    transition-timing-function ease-out
+    position absolute
+    top 0
+    bottom 0
+    left 0
+    width 0
+    background-color $c-strong
+    z-index -1
+
+  &:hover
+    background-color transparent
+    color $c-medium
+
+    &:before
+      top -0.2rem
+      bottom -0.2rem
+      border solid $c-strong
+      border-width 0.1rem 0
+
+    &:after
+      width 100%
+
+  &:active
+    color $c-strong
+
+    &:after
+      background-color $c-medium
+
+::-webkit-input-placeholder,
+::-moz-placeholder,
+::-ms-input-placeholder
+  opacity 1
+  color $c-weak
+  font-weight lighter

@@ -1,0 +1,126 @@
+//- The main HTML output.
+
+meta(name='viewport' content='width=device-width, initial-scale=1')
+meta(charset='UTF-8')
+link(rel='stylesheet' href='dist/yorha.css')
+style .full { width: 100% }
+title YoRHa
+
+h1 YoRHa
+
+p CSS based on Nier Automata's interface design language.
+
+h2 Inline elements
+
+ul
+  li: a(href='#') a (link)
+  li: strong strong (strong)
+  li: em em (emphasis)
+  li: b b (bold)
+  li: i i (italics)
+  li: u u (underline)
+  li: s s (strikethrough)
+  li: del del (deleted)
+  li: ins ins (inseted)
+  li sup
+    sup (superscript)
+  li sub
+    sub (subscript)
+  li: small small (small)
+  li: q q (quote)
+  li: cite cite (citation)
+  li: dfn dfn (definition)
+  li: mark mark (highlight)
+  li: var var (variable)
+  li: time time (datetime)
+
+h2 Headings
+
+figure
+  h1 Heading 1
+  h2 Heading 2
+  h3 Heading 3
+  h4 Heading 4
+  h5 Heading 5
+  h6 Heading 6
+
+h2 Figures
+
+figure
+  figcaption Bare Fists
+  div
+    p Unarmed.
+    hr
+    p Attack: 0 - 0
+    p Combo: Lt 0 Hv 0
+    ul
+      li -
+      li -
+
+h2 Forms
+
+form
+  fieldset
+    legend Android Information
+    p
+      label(for='text') Name
+      input#text.full(type='text' placeholder='YoRHa No2 Type B')
+    p
+      label(for='select') Weapons
+      select#select.full
+        option Weapon Set 1
+        option Weapon Set 2
+    p
+      label(for='textarea') Biography
+      textarea#textarea.full(rows='8' placeholder='She is a...')
+    button.full(type='submit') Submit
+
+h2 Blockquotes
+
+blockquote Nier: Automata (Japanese: ニーア オートマタ Hepburn: Nīa Ōtomata, stylized as NieR:Automata) is an upcoming action role-playing video game developed by PlatinumGames and published by Square Enix for PlayStation 4 and Microsoft Windows. The game is set in the same universe as Nier, a spin-off of the Drakengard series. Set in the midst of a proxy war between machines created by otherworldly invaders and the remnants of humanity, the story follows the battles of a combat android and her companion.
+  cite: a(href='https://en.wikipedia.org/wiki/Nier:_Automata') Wikipedia
+
+h2 Code
+
+pre
+  | P R E F O R M A T T E D T E X T
+  |   ! " # $ % & ' ( ) * + , - . /
+  |   0 1 2 3 4 5 6 7 8 9 : ; < = > ?
+  |   @ A B C D E F G H I J K L M N O
+  |   P Q R S T U V W X Y Z [ \ ] ^ _
+  |   ` a b c d e f g h i j k l m n o
+  |   p q r s t u v w x y z { | } ~
+
+h2 Tables
+
+table
+  thead
+    tr
+      th(width='15%') Character
+      th(width='15%') CV
+      th Role
+  tbody
+    tr
+      td YoRHa No2 Type B
+      td Yui Ishikawa
+      td She is a female model android created by humans who fled to the Moon to avoid extinction by the Machines. The main playable character and protagonist.
+    tr
+      td YoRHa No9 Type S
+      td Natsuki Hanae
+      td Scanner type android who is best served when hacking, however he is still able to keep up with other close-range attackers. He has a very gentle and kind personality. The second playable character and deuratagonist.
+    tr
+      td YoRHa Type A No2
+      td Ayaka Suwa
+      td She is a prototype model that was used in order to create the superior 2B and 9S. She doesn't like to speak and often keeps to herself. The final playable character and tritagonist.
+
+h2 Lists
+
+ol
+  li Drakengard
+  li Nier
+  li Nier Automata
+
+ul
+  li Bare Fists
+  li Virtuous Contract
+  li Virtuous Treaty
