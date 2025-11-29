@@ -1,283 +1,785 @@
-<!doctype html>
-<html>
-  <head>
-    <title>Null by Null - Hyunsu Yu's Personal Dev Page</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="initial-scale=1">
-    <link rel="stylesheet" href="dist/yorha.css"/>
-  </head>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hyunsu Yu | Gameplay & Graphics Programmer</title>
+    <style>
+        /* --- FONT IMPORT --- */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&family=Rajdhani:wght@400;600;700&family=Share+Tech+Mono&display=swap');
 
-  <body>
-    <header>
-        <h1>Null by Null</h1>
-        <strong>Hyunsu Yu's Personal Dev Page</strong>
-    </header>
+        /* --- VARIABLES --- */
+        :root {
+            --bg-color: #dad4bb;
+            --text-color: #4b483f;
+            --accent-color: #57544a;
+            --highlight-color: #8c887d;
+            --grid-line: rgba(75, 72, 63, 0.1);
+            --header-height: 80px;
+        }
 
-    <p>
-      As a game developer with <code>Unity</code> and <code>C#</code> as the main players, I've been working on a number of game development projects and side projects<br><br>
+        /* --- RESET & BASE --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            cursor: crosshair; /* Tactical Cursor */
+        }
 
-      I want to do something more interesting and fun, so I have been developing open-source tools and writing blog posts about <code>graphics</code>, <code>interactive storytelling</code>, <code>security</code>, <code>LLM</code>, etc. based on the main focus of game development<br><br>
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Rajdhani', 'Noto Sans KR', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            font-size: 16px;
+        }
 
-      Currently, we are continuing to try this and that with the desire to create a game that combines user-led interactive storytelling
-    </p>
+        a {
+            color: var(--text-color);
+            text-decoration: none;
+            position: relative;
+            transition: 0.3s;
+            font-weight: 700;
+        }
 
-    <br>
-    <h2>Profile</h2>
-    <pre>
-{
-    "Name":"Hyunsu Yu",
-    "Region":"Republic of Korea, Busan",
-    "Major":"Computer Engineering",
-    "Dev Area":[
-        "Game Dev",
-        "Render Pipeline",
-        "NLP/LLM",
-        "Interactive Storytelling Engine"
-    ],
-    "Resume":{
-        "LinkedIn":"www.linkedin.com/in/hyunsu-yu-a93110317/?locale=en_US",
-        "Notion Resume":"galvanized-soda-726.notion.site/Resume-Hyunsu-Yu-d0b826f8e703412f99610d5fb7a03531?pvs=4"
-    },
-    "Channel":{
-        "Personal Dev Page":"hyunsuyu.github.io",
-        "Naver Blog(kor)":"blog.naver.com/lioie6478",
-        "Medium(Eng)":"medium.com/@lioie6478"
-    },
-    "Main Dev Experience & Project":{
-        "NATAKER Game Dev Project":"hyunsuyu.github.io/Projects/NATAKER/Project_NATAKER.html",
-        "EasyTechToolUI":"github.com/HyunsuYu/EasyTechToolUI",
-        "DEEP WAVE":"galvanized-soda-726.notion.site/DEEP-WAVE-On-Dev-f8e22058a6de43b29c27b37896031027",
-        "No Titled":""
-    },
-    "Other Experience & Project":{
-        "xmath":"github.com/myyrakle/xmath",
-        "Compact Multiplay":"galvanized-soda-726.notion.site/Compact-Multiplay-Document-3c28a270e1fa4493ba29daa4d94d690b?pvs=4",
-        "An Extracurricular Management Application":"hyunsuyu.github.io/Projects/ExtracurricularManagement/ExtracurricularManagement.html",
-        "Body Tracking Using Webcam":"hyunsuyu.github.io/Projects/BodyTracking/Project_BodyTracking.html"
-    }
-}
-</pre>
+        a:hover {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            padding: 0 5px;
+        }
 
-    <br>
-    <h2>Job Search</h2>
-    <table style="margin: 0 auto;">
-      <tr>
-        <td style="padding-right: 50px; width: 250px;">
-            <a style="text-decoration: none;color: black;" href="https://galvanized-soda-726.notion.site/Resume-Hyunsu-Yu-d0b826f8e703412f99610d5fb7a03531?pvs=74" target="_blank">
-                <div style="height: 50px; text-align: center;">
-                    <h3>My Resume</h3>
+        ul {
+            list-style: none;
+        }
+
+        /* --- BACKGROUND FX --- */
+        .scanlines {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.02) 50%, rgba(0,0,0,0.02));
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-image: 
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+        }
+
+        /* --- TYPOGRAPHY & UTILS --- */
+        .mono {
+            font-family: 'Share Tech Mono', monospace;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--text-color);
+            display: inline-block;
+            padding-right: 50px;
+            position: relative;
+            letter-spacing: 2px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            bottom: -6px;
+            width: 20px;
+            height: 10px;
+            background-color: var(--text-color);
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border: 1px solid var(--text-color);
+            font-size: 0.8rem;
+            margin-right: 5px;
+            margin-bottom: 5px;
+            background: rgba(255,255,255,0.3);
+        }
+
+        /* --- LOADING SCREEN --- */
+        #loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #000;
+            color: #dad4bb;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Share Tech Mono', monospace;
+            transition: opacity 1s ease;
+        }
+        
+        .loader-text {
+            animation: blink 0.5s infinite;
+        }
+
+        /* --- LAYOUT --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        aside {
+            width: 250px;
+            position: fixed;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            padding: 40px 20px;
+            border-right: 2px solid var(--text-color);
+            background-color: rgba(218, 212, 187, 0.95);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        main {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            padding: 40px 60px;
+        }
+
+        /* --- NAV --- */
+        .logo-area {
+            margin-bottom: 40px;
+        }
+        .logo-area h1 {
+            font-size: 1.8rem;
+            line-height: 1.1;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .logo-area span {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        nav ul li {
+            margin-bottom: 15px;
+        }
+
+        nav ul li a {
+            display: block;
+            text-transform: uppercase;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1.1rem;
+            padding: 5px 0;
+        }
+
+        nav ul li a::before {
+            content: '[ ] ';
+            margin-right: 5px;
+            transition: 0.3s;
+        }
+        nav ul li a:hover::before {
+            content: '[■] ';
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            border: 2px solid var(--text-color);
+            padding: 40px;
+            margin-bottom: 60px;
+            position: relative;
+            background: rgba(255,255,255,0.2);
+        }
+
+        .hero::before {
+            content: 'UNIT DATA';
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: var(--bg-color);
+            padding: 0 10px;
+            font-weight: bold;
+            font-family: 'Share Tech Mono';
+        }
+
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .stat-box h3 {
+            font-size: 0.9rem;
+            opacity: 0.7;
+            text-transform: uppercase;
+        }
+        .stat-box p {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        /* --- FEATURED PROJECTS --- */
+        .project-card {
+            border: 1px solid var(--text-color);
+            margin-bottom: 40px;
+            position: relative;
+            background: rgba(255,255,255,0.4);
+            transition: 0.3s;
+        }
+
+        .project-card:hover {
+            box-shadow: 10px 10px 0px rgba(75, 72, 63, 0.2);
+            transform: translate(-2px, -2px);
+        }
+
+        .project-header {
+            background: var(--text-color);
+            color: var(--bg-color);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            font-family: 'Share Tech Mono';
+        }
+
+        .project-body {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        .project-content ul {
+            list-style: square inside;
+            margin-top: 10px;
+        }
+        .project-content li {
+            margin-bottom: 5px;
+        }
+
+        .highlight-stat {
+            display: block;
+            margin: 10px 0;
+            padding: 10px;
+            border: 1px dashed var(--text-color);
+            background: rgba(255,255,255,0.5);
+            font-weight: bold;
+        }
+
+        .project-links {
+            margin-top: 15px;
+        }
+
+        /* --- AWARDS & HISTORY --- */
+        .history-timeline {
+            border-left: 2px solid var(--text-color);
+            padding-left: 30px;
+            margin-left: 10px;
+        }
+
+        .history-item {
+            position: relative;
+            margin-bottom: 30px;
+        }
+
+        .history-item::before {
+            content: '';
+            position: absolute;
+            left: -36px;
+            top: 5px;
+            width: 10px;
+            height: 10px;
+            background: var(--text-color);
+            border-radius: 50%;
+        }
+
+        .history-year {
+            font-family: 'Share Tech Mono';
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        /* --- RECOGNITION CARDS --- */
+        .recog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .recog-card {
+            border: 1px solid var(--text-color);
+            padding: 20px;
+            background: #e3dec9;
+        }
+        
+        .recog-header {
+            border-bottom: 1px solid var(--text-color);
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        /* --- SKILLS --- */
+        .skill-section h3 {
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-family: 'Share Tech Mono';
+        }
+        
+        .skill-bar-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill-tag {
+            background: var(--text-color);
+            color: var(--bg-color);
+            padding: 5px 15px;
+            font-size: 0.9rem;
+            clip-path: polygon(10px 0, 100% 0, 100% 100%, 0 100%, 0 10px);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            margin-top: 80px;
+            border-top: 2px solid var(--text-color);
+            padding: 40px 0;
+            text-align: center;
+            font-family: 'Share Tech Mono';
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 900px) {
+            aside {
+                position: relative;
+                width: 100%;
+                height: auto;
+                border-right: none;
+                border-bottom: 2px solid var(--text-color);
+                flex-direction: row;
+                flex-wrap: wrap;
+                align-items: center;
+                justify-content: space-between;
+                padding: 20px;
+            }
+
+            nav ul {
+                display: none; /* Hide nav on mobile for simplicity or add hamburger */
+            }
+
+            main {
+                margin-left: 0;
+                width: 100%;
+                padding: 20px;
+            }
+
+            .project-body {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* --- ANIMATIONS --- */
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .glitch-effect:hover {
+            animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+            color: #8c887d;
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) }
+            60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) }
+            100% { transform: translate(0) }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- VISUAL FX LAYERS -->
+    <div class="bg-grid"></div>
+    <div class="scanlines"></div>
+
+    <!-- LOADING SCREEN -->
+    <div id="loader">
+        <div style="text-align: left; width: 300px;">
+            <p>> SYSTEM CHECKING...</p>
+            <p>> LOADING ASSETS...</p>
+            <p>> CONNECTING TO BUNKER SERVER...</p>
+            <br>
+            <p class="loader-text">> SYSTEM ONLINE</p>
+        </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside>
+        <div class="logo-area">
+            <h1>Hyunsu Yu</h1>
+            <span class="mono">GAMEPLAY & GRAPHICS</span>
+        </div>
+        
+        <nav>
+            <ul>
+                <li><a href="#about">00. ABOUT ME</a></li>
+                <li><a href="#featured">01. FEATURED PROJECT</a></li>
+                <li><a href="#projects">02. GAME PROJECTS</a></li>
+                <li><a href="#research">03. RESEARCH & BLOG</a></li>
+                <li><a href="#awards">04. AWARDS</a></li>
+                <li><a href="#skills">05. SKILLS</a></li>
+                <li><a href="#contact">06. CONTACT</a></li>
+            </ul>
+        </nav>
+
+        <div style="font-size: 0.8rem; opacity: 0.6; font-family: 'Share Tech Mono';">
+            <p>LOC: BUSAN, KR</p>
+            <p>ID: 3RD YEAR CE</p>
+            <p>STATUS: ONLINE</p>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main>
+        
+        <!-- 0. ABOUT ME -->
+        <section id="about">
+            <h2 class="section-title glitch-effect">About Me</h2>
+            <div class="hero">
+                <div style="margin-bottom: 20px;">
+                    <h3 style="font-size: 1.5rem; margin-bottom: 10px;">"Continuous Learner with Strong Research Background"</h3>
+                    <p>Computer Engineering 3rd Year Student focusing on Gameplay, Graphics, and Low-level Optimization.</p>
                 </div>
-                <div style="height: 250px; width: 250px; overflow: hidden; margin:0 auto;">
-                    <img style="width: 100%; height: 100%; object-fit: cover;" src="ImageSrcs/chess.png">
+                
+                <div class="hero-stats mono">
+                    <div class="stat-box">
+                        <h3>Tech Blog</h3>
+                        <p>5+ Years</p>
+                    </div>
+                    <div class="stat-box">
+                        <h3>Projects</h3>
+                        <p>7+ Major Titles</p>
+                    </div>
+                    <div class="stat-box">
+                        <h3>Optimization</h3>
+                        <p>3,600x Speedup</p>
+                    </div>
                 </div>
-            </a>
-          </td>
-        <td style="width: 250px;">
-          <a style="text-decoration: none;color: black;" href="https://www.linkedin.com/in/hyunsu-yu-a93110317/" target="_blank">
-              <div style="height: 50px; text-align: center;">
-                  <h3>Linked in</h3>
-              </div>
-              <div style="height: 250px; width: 250px; overflow: hidden; margin:0 auto;">
-                  <img style="width: 100%; height: 100%; object-fit: cover;" src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png">
-              </div>
-          </a>
-        </td>
-      </tr>
-    </table>
-    
-    <br>
-    <h2>Completed Projects</h2>
-    <p>
-      The list of Json-styles below is a complete list of projects that have been completed so far. The pinned ones are to introduce things that are worth noting when considering several aspects of the completed project
-    </p>
-    <pre>
-{
-    "NATAKER Game Dev Project":"https://hyunsuyu.github.io/Projects/NATAKER/Project_NATAKER.html",
-    "Body tracking using webcam":"https://hyunsuyu.github.io/Projects/BodyTracking/Project_BodyTracking.html",
-    "An Extracurricular Management Application":"https://hyunsuyu.github.io/Projects/ExtracurricularManagement/ExtracurricularManagement.html",
-    "More Deeper C++ Programming Language":"https://drive.google.com/file/d/1WGR6eMgRF7hZwCOLbZAEhNJP8C9_EZDh/view?usp=sharing"
-}
-</pre>
-    <article>
-      <table style="margin: 0 auto;">
-        <tr>
-          <td style="padding-right: 50px; width: 250px;">
-            <a style="text-decoration: none;color: black;" href="./Projects/NATAKER/Project_NATAKER.html" target="_blank">
-              <div style="height: 80px; text-align: center;">
-                <h3>NATAKER</h3>
-              </div>
-              <div style="height: 250px; width: 250px; overflow: hidden; margin:0 auto;">
-                <img style="width: 100%; height: 100%; object-fit: cover;" src=".\ImageSrcs\3cf6c1776ba41063acdc91e987d40a64.png">
-              </div>
-            </a>
-          </td>
-          <td style="padding-right: 50px; width: 250px;">
-            <a style="text-decoration: none;color: black;" href="./Projects/BodyTracking/Project_BodyTracking.html" target="_blank">
-              <div style="height: 80px; text-align: center;">
-                <h3>Body Tracking Using Webcam</h3>
-              </div>
-              <div style="height: 250px; width: 250px; overflow: hidden; margin:0 auto;">
-                <img style="width: 100%; height: 100%; object-fit: cover;" src=".\ImageSrcs\BodyTracking_0.png">
-              </div>
-            </a>
-          </td>
-          <td style="width: 250px;">
-            <a style="text-decoration: none;color: black;" href="./Projects/ExtracurricularManagement/ExtracurricularManagement.html" target="_blank">
-              <div style="height: 80px; text-align: center;">
-                <h3>An Extracurricular Management Application</h3>
-              </div>
-              <div style="height: 250px; width: 250px; overflow: hidden; margin:0 auto;">
-                <img style="width: 100%; height: 100%; object-fit: cover;" src=".\ImageSrcs\StudyManagementApp_4.png">
-              </div>
-            </a>
-          </td>
-        </tr>
-      </table>
-    </article>
+            </div>
+        </section>
 
-    <br>
-    <h2>On-Going Projects</h2>
-    <p>
-      The Json-style list below is a complete side project in progress, and the pinned ones introduce notable things in terms of usefulness and difficulty
-    </p>
-    <pre>
-{
-    "No Titled - 2.5D Platformer Game Dev Project":"",
-    "English translation of 'More Deeper C++ Language'":"https://drive.google.com/file/d/1WGR6eMgRF7hZwCOLbZAEhNJP8C9_EZDh/view?usp=sharing",
-    "DEEP WAVE":"https://galvanized-soda-726.notion.site/DEEP-WAVE-On-Dev-f8e22058a6de43b29c27b37896031027",
-    "Compact Multiplay":"https://galvanized-soda-726.notion.site/Compact-Multiplay-Document-3c28a270e1fa4493ba29daa4d94d690b",
-    "EasyTechToolUI":"https://github.com/HyunsuYu/EasyTechToolUI"
-}
-</pre>
-    <article>
-      <table style="margin: 0 auto;">
-        <tr>
-          <td style="padding-right: 50px; width: 250px;">
-            <a style="text-decoration: none;color: black;" href="" target="_blank">
-              <div style="height: 80px; text-align: center;">
-                <h3>- No Titled -<br>2.5D Platformer Game Dev Project(Inspired by Spelunky 2, Tales of Iron)</h3>
-              </div>
-              <div style="height: 250px; width: 250px; overflow: hidden; margin:0 auto;">
-                <!-- <img style="width: 100%; height: 100%; object-fit: cover;" src=""> -->
-              </div>
-            </a>
-          </td>
-          <td style="padding-right: 50px; width: 250px;">
-            <a style="text-decoration: none;color: black;" href="https://github.com/HyunsuYu/EasyTechToolUI" target="_blank">
-              <div style="height: 80px; text-align: center;">
-                <h3>- EasyTechToolUI -<br>For Unity Tool UI</h3>
-              </div>
-              <div style="height: 250px; width: 250px; overflow: hidden; margin:0 auto;">
-                <img style="width: 100%; height: 100%; object-fit: cover;" src="./ImageSrcs/EasyTechToolUI.png">
-              </div>
-            </a>
-          </td>
-          <td style="width: 250px;">
-            <a style="text-decoration: none;color: black;" href="https://galvanized-soda-726.notion.site/DEEP-WAVE-On-Dev-f8e22058a6de43b29c27b37896031027" target="_blank">
-              <div style="height: 80px; text-align: center;">
-                <h3>- DEEP WAVE -<br>The Interactive Storytelling Engine</h3>
-              </div>
-              <div style="height: 250px; width: 250px; overflow: hidden; margin:0 auto;">
-                <img style="width: 100%; height: 100%; object-fit: cover;" src="https://galvanized-soda-726.notion.site/image/https%3A%2F%2Fprod-files-secure.s3.us-west-2.amazonaws.com%2F97434619-eda8-4814-b5cf-28ed79cb992f%2Fa5361dff-90f1-4089-a636-638157005754%2FUntitled.png?table=block&id=2c9b4a86-8c6a-40cc-9037-d37498d9db49&spaceId=97434619-eda8-4814-b5cf-28ed79cb992f&width=1420&userId=&cache=v2">
-              </div>
-            </a>
-          </td>
-        </tr>
-      </table>
-    </article>
+        <!-- 1. FEATURED PROJECT (Map Gen) -->
+        <section id="featured">
+            <h2 class="section-title glitch-effect">Featured Project</h2>
+            
+            <article class="project-card" style="border: 2px solid var(--text-color);">
+                <div class="project-header">
+                    <span class="project-title">Massive Map Generation System ⭐</span>
+                    <span class="mono">2023.07 ~ 2024.06</span>
+                </div>
+                <div class="project-body">
+                    <div class="project-content">
+                        <p>A high-performance map generation system developed over 12 months, starting during military service. Focused on extreme optimization using Lock-free parallelization and NUMA-aware allocation.</p>
+                        
+                        <div class="highlight-stat mono">
+                            <p>> Time Performance: 90 min → 2.5 sec (3,600x Improved)</p>
+                            <p>> Save Performance: 197mb → 35kb (5,700x Improved)</p>
+                            <p>> Scale: 230M tiles in real-time</p>
+                        </div>
+                        
+                        <div class="project-links mono">
+                            <a href="https://github.com/HyunsuYu/LayeredMapGenAgent.git" target="_blank">[GITHUB REPOSITORY]</a>
+                        </div>
+                    </div>
+                    <div class="project-meta mono">
+                        <p><strong>ROLE:</strong> Solo Dev</p>
+                        <p><strong>TECH:</strong> C++, Parallelism</p>
+                        <p><strong>STATUS:</strong> Completed</p>
+                    </div>
+                </div>
+            </article>
+        </section>
 
-    <br>
-    <h2>External Blog Articles</h2>
-    <p>I'm going to introduce some notable articles that I've written on external blogs like Medium, etc. These articles contain insights into personal interests and studies related to game development</p>
-    <pre>
-{
-    "Naver Blog(kor)":"https://blog.naver.com/lioie6478",
-    "Medium(Eng)":"https://medium.com/@lioie6478"
-}
-</pre>
-    <article>
-      <table style="margin: 0 auto;">
-        <tr>
-          <td style="padding-right: 50px; width: 250px;">
-            <a style="text-decoration: none;color: black;" href="https://medium.com/@lioie6478/optimization-of-recursive-processing-based-on-linear-homogenized-quadratic-recurrence-relocation-6c5ee4fb0eb2" target="_blank">
-              <div style="height: 80px; text-align: center;">
-                <h3>Optimization of recursive processing based on linear homogenized quadratic recurrence relation equation solution</h3>
-              </div>
-              <div style="height: 250px; width: 250px; overflow: hidden; margin:0 auto;">
-                <img style="width: 100%; height: 100%; object-fit: cover;" src="https://miro.medium.com/v2/resize:fit:828/format:webp/0*OwcuO6VUbTo7qjTr">
-              </div>
-            </a>
-          </td>
-          <td style="padding-right: 50px; width: 250px;">
-            <a style="text-decoration: none;color: black;" href="https://medium.com/@lioie6478/a-brief-review-of-llama-cpp-llama-cpp-python-and-llamasharp-20d61eecbc6d" target="_blank">
-              <div style="height: 80px; text-align: center;">
-                <h3>A brief review of llama.cpp, llama-cpp-python, and LLamaSharp</h3>
-              </div>
-              <div style="height: 250px; width: 250px; overflow: hidden; margin:0 auto;">
-                <img style="width: 100%; height: 100%; object-fit: cover;" src="https://miro.medium.com/v2/resize:fit:828/format:webp/0*qhJNNFyyaTquO5xB">
-              </div>
-            </a>
-          </td>
-          <td style="width: 250px;">
-            <a style="text-decoration: none;color: black;" href="https://medium.com/@lioie6478/metaball-effect-with-glsl-78c453ef46f4" target="_blank">
-              <div style="height: 80px; text-align: center;">
-                <h3>How to implement Metaball Effect with GLSL</h3>
-              </div>
-              <div style="height: 250px; width: 250px; overflow: hidden; margin:0 auto;">
-                <img style="width: 100%; height: 100%; object-fit: cover;" src="https://miro.medium.com/v2/resize:fit:1100/format:webp/0*6KMyl_ebWnV1C8hi">
-              </div>
-            </a>
-          </td>
-        </tr>
-      </table>
-    </article>
+        <!-- 2. GAME PROJECTS -->
+        <section id="projects">
+            <h2 class="section-title glitch-effect">Game Projects</h2>
 
-    <br>
-    <h2>Publications</h2>
-    <p>
-      The json-style list below is a complete list of publications that I wrote myself. The pinned ones are a selection of things that are especially noteworthy
-    </p>
-    <pre>
-{
-    "More Deeper C++ Programming Language":"https://drive.google.com/file/d/1WGR6eMgRF7hZwCOLbZAEhNJP8C9_EZDh/view?usp=sharing"
-}
-</pre>
-    <article>
-      <table style="margin: 0 auto;">
-        <tr>
-          <td style="padding-right: 50px; width: 250px;">
-            <a style="text-decoration: none;color: black;" href="https://drive.google.com/file/d/1WGR6eMgRF7hZwCOLbZAEhNJP8C9_EZDh/view?usp=sharing" target="_blank">
-              <div style="height: 80px; text-align: center;">
-                <h3>- Book -<br>More Deeper C++ Programming Language</h3>
-              </div>
-              <div style="height: 250px; width: 250px; overflow: hidden; margin:0 auto;">
-                <img style="width: 100%; height: 100%; object-fit: cover;" src="./ImageSrcs/MoreDeeperC++ProgrammingLanguage.png">
-              </div>
-            </a>
-          </td>
-          <td style="width: 250px;">
-            <a style="text-decoration: none;color: black;" href="https://medium.com/more-deeper-c-programming-language" target="_blank">
-              <div style="height: 80px; text-align: center;">
-                <h3>- Medium Series -<br>More Deeper C++ Programming Language</h3>
-              </div>
-              <div style="height: 250px; width: 250px; overflow: hidden; margin:0 auto;">
-                <img style="width: 100%; height: 100%; object-fit: cover;" src="./ImageSrcs/logo.png">
-              </div>
-            </a>
-          </td>
-        </tr>
-      </table>
-    </article>
+            <!-- RGB Line -->
+            <article class="project-card">
+                <div class="project-header">
+                    <span class="project-title">RGB Line</span>
+                    <span class="mono">2024.12 ~ 2025.10</span>
+                </div>
+                <div class="project-body">
+                    <div class="project-content">
+                        <p>Rhythm Game. Lead Programmer in a team of 4. Developed an Auto Documentation Pipeline to streamline development.</p>
+                        <ul>
+                            <li>Achievement: Reduced iteration time from 15 min to 2 min</li>
+                            <li>Awards: TU Game Challenge (장려상)</li>
+                            <li>Exhibitions: G-Star 2025, Build 051 2025</li>
+                        </ul>
+                        <div class="project-links mono">
+                            <a href="https://github.com/orgs/RGB-Line/repositories" target="_blank">[GITHUB]</a>
+                            <a href="https://www.youtube.com/watch?v=L54qU3JqQJI" target="_blank">[YOUTUBE]</a>
+                        </div>
+                    </div>
+                    <div class="project-meta mono">
+                        <p><strong>ROLE:</strong> Lead Programmer</p>
+                        <p><strong>GENRE:</strong> Rhythm</p>
+                        <p><strong>TEAM:</strong> 4 Members</p>
+                    </div>
+                </div>
+            </article>
 
-    <!-- <br>
-    <h2>Certifications</h2>
-    <pre>
-{
-    
-}
-</pre>
-    <article>
+            <!-- ALCOHOL FREE -->
+            <article class="project-card">
+                <div class="project-header">
+                    <span class="project-title">ALCOHOL FREE</span>
+                    <span class="mono">2025.05 ~ 2025.12</span>
+                </div>
+                <div class="project-body">
+                    <div class="project-content">
+                        <p>Visual Novel. Developed a Custom Blueprint-Style Editor for designers.</p>
+                        <ul>
+                            <li>Awards: TU Game Challenge (우수상)</li>
+                            <li>Exhibitions: BEAVER ROCKS 2025, G-Star 2025, Comic World 2025</li>
+                            <li>Recognition: Publishing offer from Toei Company, Ltd.</li>
+                        </ul>
+                        <div class="project-links mono">
+                            <a href="https://youtu.be/aUPhujbokDo?si=aSG_oEsmnzKGfpgA" target="_blank">[YOUTUBE]</a>
+                            <a href="#" target="_blank">[STEAM PAGE]</a>
+                        </div>
+                    </div>
+                    <div class="project-meta mono">
+                        <p><strong>ROLE:</strong> Programmer</p>
+                        <p><strong>GENRE:</strong> Visual Novel</p>
+                        <p><strong>TEAM:</strong> 7 Members</p>
+                    </div>
+                </div>
+            </article>
 
-    </article> -->
-  </body>
+            <!-- 마음을 담아 -->
+            <article class="project-card">
+                <div class="project-header">
+                    <span class="project-title">마음을 담아 (From All My Hearts)</span>
+                    <span class="mono">2025.05 ~ Present</span>
+                </div>
+                <div class="project-body">
+                    <div class="project-content">
+                        <p>Word Puzzle / Visual Novel.</p>
+                        <ul>
+                            <li>Awards: TU Game Challenge (최우수상 - 1st Prize)</li>
+                            <li>Exhibitions: G-Star 2025, Comic World 2025</li>
+                        </ul>
+                        <div class="project-links mono">
+                            <a href="https://youtu.be/9EBkzyfpu3c?si=Tb_dYUmmJtolZAWK" target="_blank">[YOUTUBE]</a>
+                        </div>
+                    </div>
+                    <div class="project-meta mono">
+                        <p><strong>ROLE:</strong> Programmer</p>
+                        <p><strong>GENRE:</strong> Puzzle/VN</p>
+                        <p><strong>TEAM:</strong> 5 Members</p>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <!-- 3. RESEARCH & BLOG -->
+        <section id="research">
+            <h2 class="section-title glitch-effect">Research & Knowledge</h2>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <!-- Blog Box -->
+                <div class="hero">
+                    <h3 class="mono" style="margin-bottom: 15px; border-bottom: 1px dashed var(--text-color);">TECHNICAL BLOG (5+ YEARS)</h3>
+                    <p style="margin-bottom: 15px;">Deep dive into Computer Architecture, Graphics, and Optimization.</p>
+                    <ul style="list-style: square inside; font-size: 0.9rem;">
+                        <li>Graphics & Shader (Metaball, Fluid Sim)</li>
+                        <li>Optimization (NUMA, SIMD, Cache)</li>
+                        <li>AI & Game Intelligence (LLM Integration)</li>
+                        <li>Computer Architecture (Circuit Design)</li>
+                    </ul>
+                    <br>
+                    <a href="https://medium.com/@lioie6478" target="_blank" class="mono">[READ ON MEDIUM]</a>
+                </div>
+
+                <!-- Teaching Box -->
+                <div class="hero">
+                    <h3 class="mono" style="margin-bottom: 15px; border-bottom: 1px dashed var(--text-color);">TEACHING & MATERIAL</h3>
+                    <p><strong>Book:</strong> More Deeper C++ Programming Language (257 Pages)</p>
+                    <p style="font-size: 0.9rem; margin-top: 5px;">Authored textbook covering Memory architecture, SIMD, and Compile-time optimization.</p>
+                    <br>
+                    <p><strong>Instructor:</strong> C++ Optimization Course (8 students, Paid)</p>
+                    <br>
+                    <a href="https://drive.google.com/file/d/1WGR6eMgRF7hZwCOLbZAEhNJP8C9_EZDh/view?usp=sharing" target="_blank" class="mono">[VIEW MATERIAL]</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. EXHIBITIONS & AWARDS -->
+        <section id="awards">
+            <h2 class="section-title glitch-effect">Awards & Exhibitions</h2>
+            
+            <div class="history-timeline">
+                <div class="history-item">
+                    <span class="history-year">2025 AWARDS</span>
+                    <p><strong>TU Game Challenge - 최우수상 (1st)</strong> | 마음을 담아</p>
+                    <p><strong>TU Game Challenge - 최우수상 (1st)</strong> | Cross Wordle</p>
+                    <p><strong>Chair of IEEE Busan Section - Excellence Prize</strong> | Cross Wordle</p>
+                    <p><strong>TU Game Challenge - 우수상</strong> | ALCOHOL FREE</p>
+                </div>
+                
+                <div class="history-item">
+                    <span class="history-year">EXHIBITIONS</span>
+                    <p><strong>G-Star 2025</strong> | ALCOHOL FREE, RGB Line, 마음을 담아</p>
+                    <p><strong>Comic World 2025</strong> | Pleedus Partnership Booth</p>
+                    <p><strong>BEAVER ROCKS 2025</strong> | ALCOHOL FREE</p>
+                    <p><strong>Build 051</strong> | RGB Line</p>
+                </div>
+            </div>
+
+            <h3 class="mono" style="margin: 30px 0 15px 0;">INDUSTRY RECOGNITION</h3>
+            <div class="recog-grid">
+                <div class="recog-card">
+                    <div class="recog-header">Square Enix</div>
+                    <p>Feedback from <strong>SAITA Tomonori</strong> (Former Producer)</p>
+                    <p style="font-size: 0.9rem; opacity: 0.8;">G-Star 2025</p>
+                </div>
+                <div class="recog-card">
+                    <div class="recog-header">Toei Company</div>
+                    <p>Publishing offer from <strong>KATO</strong> (Game Advisor)</p>
+                    <p style="font-size: 0.9rem; opacity: 0.8;">For 'ALCOHOL FREE'</p>
+                </div>
+                <div class="recog-card">
+                    <div class="recog-header">Pleedus</div>
+                    <p>Exhibition Partnership</p>
+                    <p style="font-size: 0.9rem; opacity: 0.8;">Comic World 2025</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. SKILLS -->
+        <section id="skills">
+            <h2 class="section-title glitch-effect">Technical Skills</h2>
+            
+            <div class="skill-section">
+                <h3>PROGRAMMING LANGUAGES</h3>
+                <div class="skill-bar-container">
+                    <span class="skill-tag">C++ (Expert)</span>
+                    <span class="skill-tag">C# (Expert)</span>
+                    <span class="skill-tag">HLSL</span>
+                    <span class="skill-tag">Python</span>
+                    <span class="skill-tag">Lua</span>
+                </div>
+
+                <h3>ENGINES & GRAPHICS</h3>
+                <div class="skill-bar-container">
+                    <span class="skill-tag">Unity</span>
+                    <span class="skill-tag">Unreal Engine</span>
+                    <span class="skill-tag">DirectX 12</span>
+                    <span class="skill-tag">Shader Programming</span>
+                    <span class="skill-tag">PBR / Ambient Occlusion</span>
+                </div>
+
+                <h3>CORE COMPETENCIES</h3>
+                <div class="skill-bar-container">
+                    <span class="skill-tag">Memory Optimization</span>
+                    <span class="skill-tag">Lock-free Parallelization</span>
+                    <span class="skill-tag">NUMA-aware Programming</span>
+                    <span class="skill-tag">Auto-Documentation Pipeline</span>
+                </div>
+
+                <h3>LANGUAGES</h3>
+                <div class="skill-bar-container">
+                    <span class="skill-tag" style="background: var(--highlight-color)">Korean (Native)</span>
+                    <span class="skill-tag" style="background: var(--highlight-color)">English (Working)</span>
+                    <span class="skill-tag" style="background: var(--highlight-color)">Japanese (Working)</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. CONTACT -->
+        <section id="contact" style="margin-bottom: 0;">
+            <h2 class="section-title glitch-effect">Contact Protocol</h2>
+            <div class="hero" style="text-align: center;">
+                <p class="mono" style="font-size: 1.2rem; margin-bottom: 20px;">Hyunsu Yu (유현수)</p>
+                <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                    <a href="mailto:lioie6478@gmail.com" class="mono">[EMAIL: lioie6478@gmail.com]</a>
+                    <a href="https://github.com/HyunsuYu" target="_blank" class="mono">[GITHUB]</a>
+                    <a href="https://galvanized-soda-726.notion.site/28c15b43f516804698bbc86be167226f" target="_blank" class="mono">[NOTION PORTFOLIO]</a>
+                    <a href="https://medium.com/@lioie6478" target="_blank" class="mono">[BLOG]</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>GLORY TO MANKIND.</p>
+        <p style="font-size: 0.8rem; margin-top: 10px;">&copy; 2025 Hyunsu Yu. Designed with YoRHa Theme.</p>
+    </footer>
+
+    <script>
+        // Loading Sequence
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                setTimeout(() => {
+                    loader.style.display = 'none';
+                }, 1000);
+            }, 2000); // 2 seconds loading time
+        });
+
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Random decorative glitch text in console
+        console.log("%c SYSTEM: BOOT SEQUENCE COMPLETE", "color: #dad4bb; background: #000; padding: 5px;");
+        console.log("%c YoRHa No.2 Type B Model", "color: #000; background: #dad4bb; padding: 5px;");
+    </script>
+</body>
 </html>
