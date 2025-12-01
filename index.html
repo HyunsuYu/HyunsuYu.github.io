@@ -351,6 +351,26 @@
             text-transform: uppercase;
         }
 
+        /* Timeline Link Button Style */
+        .timeline-link {
+            display: inline-block;
+            margin-left: 8px;
+            font-size: 0.8rem;
+            font-family: 'Share Tech Mono';
+            border: 1px solid var(--text-color);
+            padding: 0 6px;
+            background: rgba(255,255,255,0.3);
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: 0.3s;
+            color: var(--text-color);
+        }
+        .timeline-link:hover {
+            background: var(--text-color);
+            color: var(--bg-color);
+            transform: translateY(-2px);
+        }
+
         /* --- SKILLS --- */
         .skill-section h3 {
             margin-top: 20px;
@@ -460,12 +480,13 @@
         <nav>
             <ul>
                 <li><a href="#about">00. ABOUT ME</a></li>
-                <li><a href="#featured">01. FEATURED PROJECT</a></li>
-                <li><a href="#projects">02. GAME PROJECTS</a></li>
-                <li><a href="#research">03. RESEARCH & BLOG</a></li>
+                <li><a href="#featured">01. ELITE UNITS</a></li>
+                <li><a href="#projects">02. GAME UNITS</a></li>
+                <li><a href="#research">03. RESEARCH</a></li>
                 <li><a href="#awards">04. AWARDS</a></li>
-                <li><a href="#skills">05. SKILLS</a></li>
-                <li><a href="#contact">06. CONTACT</a></li>
+                <li><a href="#timeline">05. TIMELINE</a></li>
+                <li><a href="#skills">06. SKILLS</a></li>
+                <li><a href="#contact">07. CONTACT</a></li>
             </ul>
         </nav>
 
@@ -729,7 +750,102 @@
             </div>
         </section>
 
-        <!-- 5. SKILLS -->
+        <!-- 4. TIMELINE -->
+        <section id="timeline">
+            <h2 class="section-title glitch-effect">TIMELINE</h2>
+            
+            <div class="history-timeline">
+                <div class="history-item">
+                    <span class="history-year">2020</span>
+                    <p><strong>05</strong> | Technical Blog started</p>
+                </div>
+                
+                <div class="history-item">
+                    <span class="history-year">2021</span>
+                    <p>
+                        <strong>06-07</strong> | NATAKER completed
+                        <a href="https://galvanized-soda-726.notion.site/NATAKER-28c15b43f5168063943efcaeddbc9386" class="timeline-link" target="_blank">[NATAKER]</a>
+                    </p>
+                    <p><strong>07</strong> | Military Service(Air-Force) began</p>
+                </div>
+
+                <div class="history-item">
+                    <span class="history-year">2021-2023 (Military Service)</span>
+                    <p><strong>Continuous</strong> | Blog research, MIT OCW, paper reviews</p>
+                    <p><strong>2023.07</strong> | Massive Map Generation System started</p>
+                </div>
+
+                <div class="history-item">
+                    <span class="history-year">2023</span>
+                    <p><strong>04</strong> | Discharged from military</p>
+                    <p>
+                        <strong>04-10</strong> | More Deeper C++ Programming Language written
+                        <a href="https://drive.google.com/file/d/1WGR6eMgRF7hZwCOLbZAEhNJP8C9_EZDh/view?usp=sharing" class="timeline-link" target="_blank">[More Deeper C++ Programming Language ⭐]</a>
+                    </p>
+                    <p><strong>2023.07-2024.06</strong> | Massive Map Generation System completed (12 months)</p>
+                </div>
+
+                <div class="history-item">
+                    <span class="history-year">2024</span>
+                    <p>
+                        <strong>06</strong> | Massive Map Generation System completed
+                        <a href="https://galvanized-soda-726.notion.site/Map-Generation-Spelunky-2-Style-28c15b43f51680ea8ab4c20bf55feb78" class="timeline-link" target="_blank">[Massive Map Generation System ⭐]</a>
+                    </p>
+                    <p>
+                        <strong>2024.10-2025.02</strong> | Computer science course teaching
+                        <a href="https://drive.google.com/drive/folders/1nS0rt085X6sCtfV1szX6ia9s4nRWJYEk?usp=sharing" class="timeline-link" target="_blank">[Computer Science Course]</a>
+                    </p>
+                    <p><strong>12</strong> | RGB Line started</p>
+                </div>
+
+                <div class="history-item">
+                    <span class="history-year">2025</span>
+                    <p>
+                        <strong>01</strong> | UDE-B91 completed (Global Game Jam, 3 days)
+                        <a href="https://globalgamejam.org/games/2025/ude-891-9" class="timeline-link" target="_blank">[UDE-B91]</a>
+                    </p>
+                    <p>
+                        <strong>05-12</strong> | ALCOHOL FREE completed (7 months)
+                        <a href="https://hyunsuyu.github.io/ALCOHOL-FREE/" class="timeline-link" target="_blank">[ALCOHOL FREE ⭐]</a>
+                    </p>
+                    <p>
+                        <strong>2024.12-2025.12</strong> | RGB Line completed (11 months)
+                        <a href="https://rgb-line.github.io/RGBLineWebPage/index.html" class="timeline-link" target="_blank">[RGB Line ⭐]</a>
+                    </p>
+                    <p>
+                        <strong>05-Present</strong> | 마음을 담아 started
+                        <a href="https://hyunsuyu.github.io/WithAllMyHeartWeb/" class="timeline-link" target="_blank">[마음을 담아]</a>
+                    </p>
+                    <p>
+                        <strong>09</strong> | Cross Wordle (teaching project, 7 days)
+                        <a href="https://galvanized-soda-726.notion.site/Cross-Wordle-28c15b43f5168022aa15c87cddb697c1" class="timeline-link" target="_blank">[Cross Wordle]</a>
+                    </p>
+                    <p>
+                        <strong>09</strong> | Still Alive (Club Game Jam, 4 days)
+                        <a href="https://galvanized-soda-726.notion.site/Still-Alive-28c15b43f5168031860bdff03a659256" class="timeline-link" target="_blank">[Still Alive]</a>
+                    </p>
+                    <p>
+                        <strong>10</strong> | TU Game Challenge Awards Ceremony
+                        <a href="https://sway.cloud.microsoft/4PpAiwGK3vnc9XkW?ref=Link" class="timeline-link" target="_blank">[TU Game Challenge]</a>
+                    </p>
+                    <p>
+                        <strong>11</strong> | G-Star 2025 exhibition (마음을 담아, ALCLHOL FREE, RGB Line, Cross Wordle)
+                        <a href="https://sway.cloud.microsoft/JPasLtlByjTwysGH?ref=email&loc=play" class="timeline-link" target="_blank">[G-Star 2025]</a>
+                    </p>
+                    <p>
+                        <strong>12</strong> | Comic World 2025 exhibition (마음을 담아, ALCLHOL FREE)
+                        <a href="#" class="timeline-link" target="_blank">[Comic World 2025]</a>
+                    </p>
+                    <p>
+                        <strong>12</strong> | BEAVER ROCKS 2025 exhibition (ALCLHOL FREE)
+                        <a href="https://beaverrocks.com/BeaverRocks2025-game" class="timeline-link" target="_blank">[BEAVER ROCKS 2025]</a>
+                    </p>
+                    <p><strong>12-Present</strong> | DX12 Renderer (in progress)</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. SKILLS -->
         <section id="skills">
             <h2 class="section-title glitch-effect">Technical Skills</h2>
             
