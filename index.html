@@ -15,7 +15,7 @@
             --accent-color: #57544a;
             --highlight-color: #8c887d;
             --grid-line: rgba(75, 72, 63, 0.1);
-            --header-height: 80px;
+            --modal-bg: #e3dec9; 
         }
 
         /* --- RESET & BASE --- */
@@ -49,17 +49,12 @@
             padding: 0 5px;
         }
 
-        ul {
-            list-style: none;
-        }
+        ul { list-style: none; }
 
         /* --- BACKGROUND FX --- */
         .scanlines {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
+            top: 0; left: 0; width: 100vw; height: 100vh;
             background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.02) 50%, rgba(0,0,0,0.02));
             background-size: 100% 4px;
             pointer-events: none;
@@ -68,10 +63,7 @@
 
         .bg-grid {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
+            top: 0; left: 0; width: 100vw; height: 100vh;
             background-image: 
                 linear-gradient(var(--grid-line) 1px, transparent 1px),
                 linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
@@ -80,9 +72,7 @@
         }
 
         /* --- TYPOGRAPHY & UTILS --- */
-        .mono {
-            font-family: 'Share Tech Mono', monospace;
-        }
+        .mono { font-family: 'Share Tech Mono', monospace; }
 
         .section-title {
             font-size: 2.5rem;
@@ -100,23 +90,17 @@
         .section-title::after {
             content: '';
             position: absolute;
-            right: 0;
-            bottom: -6px;
-            width: 20px;
-            height: 10px;
+            right: 0; bottom: -6px; width: 20px; height: 10px;
             background-color: var(--text-color);
         }
 
         /* --- LOADING SCREEN --- */
         #loader {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            top: 0; left: 0; width: 100%; height: 100%;
             background-color: #000;
             color: #dad4bb;
-            z-index: 10000;
+            z-index: 30000;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -124,10 +108,7 @@
             font-family: 'Share Tech Mono', monospace;
             transition: opacity 1s ease;
         }
-        
-        .loader-text {
-            animation: blink 0.5s infinite;
-        }
+        .loader-text { animation: blink 0.5s infinite; }
 
         /* --- LAYOUT --- */
         .container {
@@ -142,8 +123,7 @@
             width: 250px;
             position: fixed;
             height: 100vh;
-            top: 0;
-            left: 0;
+            top: 0; left: 0;
             padding: 40px 20px;
             border-right: 2px solid var(--text-color);
             background-color: rgba(218, 212, 187, 0.95);
@@ -160,42 +140,25 @@
         }
 
         /* --- NAV --- */
-        .logo-area {
-            margin-bottom: 40px;
-        }
+        .logo-area { margin-bottom: 40px; }
         .logo-area h1 {
-            font-size: 1.8rem;
-            line-height: 1.1;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            font-size: 1.8rem; line-height: 1.1;
+            text-transform: uppercase; letter-spacing: 2px;
         }
-        .logo-area span {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
+        .logo-area span { font-size: 0.9rem; opacity: 0.8; }
 
-        nav ul li {
-            margin-bottom: 15px;
-        }
-
+        nav ul li { margin-bottom: 15px; }
         nav ul li a {
-            display: block;
-            text-transform: uppercase;
+            display: block; text-transform: uppercase;
             font-family: 'Share Tech Mono', monospace;
-            font-size: 1.1rem;
-            padding: 5px 0;
+            font-size: 1.1rem; padding: 5px 0;
         }
-
         nav ul li a::before {
-            content: '[ ] ';
-            margin-right: 5px;
-            transition: 0.3s;
+            content: '[ ] '; margin-right: 5px; transition: 0.3s;
         }
-        nav ul li a:hover::before {
-            content: '[■] ';
-        }
+        nav ul li a:hover::before { content: '[■] '; }
 
-        /* --- HERO SECTION --- */
+        /* --- HERO --- */
         .hero {
             border: 2px solid var(--text-color);
             padding: 40px;
@@ -203,47 +166,55 @@
             position: relative;
             background: rgba(255,255,255,0.2);
         }
-
         .hero::before {
             content: 'UNIT DATA';
-            position: absolute;
-            top: -12px;
-            left: 20px;
-            background: var(--bg-color);
-            padding: 0 10px;
-            font-weight: bold;
-            font-family: 'Share Tech Mono';
+            position: absolute; top: -12px; left: 20px;
+            background: var(--bg-color); padding: 0 10px;
+            font-weight: bold; font-family: 'Share Tech Mono';
         }
-
         .hero-stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
+            gap: 20px; margin-top: 20px;
         }
+        .stat-box h3 { font-size: 0.9rem; opacity: 0.7; text-transform: uppercase; }
+        .stat-box p { font-size: 1.2rem; font-weight: 700; }
 
-        .stat-box h3 {
-            font-size: 0.9rem;
-            opacity: 0.7;
-            text-transform: uppercase;
-        }
-        .stat-box p {
-            font-size: 1.2rem;
-            font-weight: 700;
-        }
-
-        /* --- FEATURED PROJECTS --- */
+        /* --- INTERACTIVE PROJECT CARDS --- */
         .project-card {
             border: 1px solid var(--text-color);
             margin-bottom: 40px;
             position: relative;
             background: rgba(255,255,255,0.4);
-            transition: 0.3s;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: pointer;
+            overflow: hidden;
         }
 
+        /* Adjusted: Natural Beige on Hover (Matches Modal BG) */
         .project-card:hover {
-            box-shadow: 10px 10px 0px rgba(75, 72, 63, 0.2);
-            transform: translate(-2px, -2px);
+            box-shadow: 8px 8px 0px rgba(75, 72, 63, 0.3);
+            transform: translate(-4px, -4px);
+            background: #e3dec9; 
+            border-color: var(--text-color);
+        }
+
+        /* "Click to View" Hint on Hover */
+        .project-card::after {
+            content: '>> ACCESS DATA LOG';
+            position: absolute;
+            bottom: 10px; right: 20px;
+            font-family: 'Share Tech Mono';
+            font-size: 0.8rem;
+            font-weight: bold;
+            opacity: 0;
+            transform: translateX(20px);
+            transition: 0.3s;
+            color: var(--text-color);
+        }
+        .project-card:hover::after {
+            opacity: 1;
+            transform: translateX(0);
         }
 
         .project-header {
@@ -253,12 +224,17 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            transition: 0.3s;
+        }
+        
+        /* Header matches text color on hover for high contrast */
+        .project-card:hover .project-header {
+            background: var(--text-color);
+            color: var(--bg-color);
         }
 
         .project-title {
-            font-size: 1.5rem;
-            font-weight: bold;
-            font-family: 'Share Tech Mono';
+            font-size: 1.5rem; font-weight: bold; font-family: 'Share Tech Mono';
         }
 
         .project-body {
@@ -276,163 +252,381 @@
             margin-bottom: 5px;
         }
 
+        /* Direct Link Buttons in Card - Updated Style */
+        .project-links {
+            margin-top: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px; /* Reduced gap slightly */
+            position: relative;
+            z-index: 5;
+        }
+        
+        .project-links a {
+            display: inline-block;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.95rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 2px 4px; /* Minimal padding */
+            background: transparent; /* Removed background */
+            border: none; /* Removed border */
+            color: var(--text-color);
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .project-links a:hover {
+            background: var(--text-color);
+            color: var(--bg-color);
+            transform: translateY(-2px);
+            /* Removed box-shadow for cleaner look */
+        }
+
         .highlight-stat {
-            display: block;
-            margin: 10px 0;
-            padding: 10px;
+            display: block; margin: 10px 0; padding: 10px;
             border: 1px dashed var(--text-color);
-            background: rgba(255,255,255,0.5);
+            background: rgba(255,255,255,0.5); font-weight: bold;
+        }
+
+        /* --- RECOG CARDS (FIXED TO MATCH IMAGE) --- */
+        .recog-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px;
+        }
+        .recog-card {
+            border: 1px solid var(--text-color); 
+            background: rgba(255,255,255,0.25); /* Light Beige Default */
+            transition: all 0.3s ease; 
+            cursor: pointer; 
+            position: relative;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .recog-title {
+            font-weight: bold; 
+            text-transform: uppercase;
+            font-family: 'Share Tech Mono';
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .recog-divider {
+            height: 1px;
+            width: 100%;
+            background-color: var(--text-color);
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+
+        .recog-content p {
+            margin-bottom: 5px;
+            font-size: 0.95rem;
+        }
+
+        /* Hover State: Inverted Colors (Like PLEEDUS card in image) */
+        .recog-card:hover {
+            background: var(--text-color);
+            color: var(--bg-color);
+            box-shadow: 10px 10px 0 rgba(75, 72, 63, 0.2);
+            transform: translate(-3px, -3px);
+        }
+        .recog-card:hover .recog-title {
+            color: var(--bg-color);
+        }
+        .recog-card:hover .recog-divider {
+            background-color: var(--bg-color);
+        }
+        .recog-card:hover strong {
+            color: #fff; /* Ensure strong text is visible */
+        }
+
+        /* --- MODAL (POPUP) STYLES --- */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(2px);
+            z-index: 20000; /* Highest priority */
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-container {
+            background: var(--modal-bg);
+            width: 90%;
+            max-width: 1000px;
+            max-height: 90vh;
+            border: 2px solid var(--text-color);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            animation: modalOpen 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            overflow: hidden;
+        }
+
+        @keyframes modalOpen {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-header {
+            background: var(--text-color);
+            color: var(--bg-color);
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .modal-title {
+            font-family: 'Share Tech Mono';
+            font-size: 1.5rem;
             font-weight: bold;
         }
 
-        .project-links {
-            margin-top: 15px;
+        .close-btn {
+            background: transparent;
+            border: 1px solid var(--bg-color);
+            color: var(--bg-color);
+            font-family: 'Share Tech Mono';
+            cursor: pointer;
+            padding: 5px 15px;
+            font-size: 1rem;
+            transition: 0.2s;
+        }
+        .close-btn:hover {
+            background: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .modal-body {
+            padding: 40px;
+            overflow-y: auto;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        /* Markdown Styling */
+        .markdown-content {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--text-color);
+        }
+        .markdown-content p { margin-bottom: 10px; }
+        
+        .markdown-content strong {
+            font-weight: 700;
+            color: #2a2822; 
+            background: rgba(140, 136, 125, 0.15); 
+            padding: 0 4px;
+            border-bottom: 1px solid rgba(140, 136, 125, 0.3);
+        }
+
+        .markdown-content h3 {
+            font-family: 'Share Tech Mono';
+            font-size: 1.1rem;
+            color: var(--accent-color);
+            margin: 25px 0 10px 0;
+            border-left: 4px solid var(--highlight-color);
+            padding-left: 10px;
+            background: linear-gradient(90deg, rgba(140, 136, 125, 0.1) 0%, transparent 100%);
+            display: block;
+        }
+        .markdown-content h4 {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            margin: 15px 0 5px 0;
+            color: #2a2822;
+            display: block;
+        }
+
+        .markdown-content ul {
+            list-style: none; margin: 10px 0 15px 0; padding-left: 5px;
+        }
+        .markdown-content li {
+            position: relative; padding-left: 15px; margin-bottom: 5px;
+        }
+        .markdown-content li::before {
+            content: '-'; position: absolute; left: 0;
+            font-weight: bold; color: var(--highlight-color);
+        }
+        .markdown-content br { display: block; margin: 5px 0; content: " "; }
+
+        /* Modal Grid Layout */
+        .modal-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .modal-section-title {
+            font-family: 'Share Tech Mono';
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-bottom: 2px solid var(--text-color);
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            color: var(--text-color);
+        }
+
+        .modal-list { list-style: none; }
+        .modal-list li {
+            margin-bottom: 10px; padding-left: 15px; position: relative;
+        }
+        .modal-list li::before {
+            content: '>'; position: absolute; left: 0;
+            color: var(--highlight-color); font-weight: bold;
+        }
+
+        .modal-tags {
+            display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px;
+        }
+        .modal-tag {
+            background: rgba(75, 72, 63, 0.1);
+            border: 1px solid var(--text-color);
+            padding: 4px 12px;
+            font-size: 0.85rem; font-family: 'Share Tech Mono';
+        }
+
+        .video-embed {
+            width: 100%; aspect-ratio: 16/9;
+            background: #000; margin-bottom: 20px;
+            border: 1px solid var(--text-color);
+        }
+
+        /* Image Gallery */
+        .modal-gallery {
+            display: flex; gap: 10px; overflow-x: auto;
+            padding-bottom: 15px; margin-bottom: 25px;
+            border-bottom: 1px solid rgba(75, 72, 63, 0.3);
+        }
+        .modal-gallery img {
+            height: 180px;
+            border: 1px solid var(--text-color);
+            flex-shrink: 0;
+            transition: 0.3s;
+            object-fit: cover;
+            cursor: pointer; /* Pointer to indicate clickable for lightbox */
+        }
+        .modal-gallery img:hover {
+            border-color: var(--highlight-color);
+            opacity: 0.9;
+            transform: scale(1.02);
+        }
+        .modal-gallery::-webkit-scrollbar { height: 8px; }
+        .modal-gallery::-webkit-scrollbar-track { background: rgba(75, 72, 63, 0.1); }
+        .modal-gallery::-webkit-scrollbar-thumb { background: var(--text-color); }
+
+        /* Lightbox Styles */
+        .lightbox-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 25000; /* Higher than modal(20000), lower than loader(30000) */
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .lightbox-img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            border: 2px solid var(--text-color);
+            cursor: default; 
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px; right: 30px;
+            color: #fff;
+            font-family: 'Share Tech Mono';
+            font-size: 2rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .lightbox-close:hover { color: var(--accent-color); }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         /* --- AWARDS & HISTORY --- */
         .history-timeline {
             border-left: 2px solid var(--text-color);
-            padding-left: 30px;
-            margin-left: 10px;
+            padding-left: 30px; margin-left: 10px;
         }
-
-        .history-item {
-            position: relative;
-            margin-bottom: 30px;
-        }
-
+        .history-item { position: relative; margin-bottom: 30px; }
         .history-item::before {
-            content: '';
-            position: absolute;
-            left: -36px;
-            top: 5px;
-            width: 10px;
-            height: 10px;
-            background: var(--text-color);
+            content: ''; position: absolute; left: -36px; top: 5px;
+            width: 10px; height: 10px; background: var(--text-color);
             border-radius: 50%;
         }
-
         .history-year {
-            font-family: 'Share Tech Mono';
-            font-weight: bold;
-            font-size: 1.2rem;
-            margin-bottom: 5px;
-            display: block;
+            font-family: 'Share Tech Mono'; font-weight: bold; font-size: 1.2rem;
+            margin-bottom: 5px; display: block;
         }
 
-        /* --- RECOGNITION CARDS --- */
-        .recog-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
-        }
-
-        .recog-card {
-            border: 1px solid var(--text-color);
-            padding: 20px;
-            background: #e3dec9;
-        }
-        
-        .recog-header {
-            border-bottom: 1px solid var(--text-color);
-            padding-bottom: 10px;
-            margin-bottom: 10px;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        /* TIMELINE */
         .timeline-link {
-            display: inline-block;
-            margin-left: 8px;
-            font-size: 0.8rem;
-            font-family: 'Share Tech Mono';
+            display: inline-block; margin-left: 8px;
+            font-size: 0.8rem; font-family: 'Share Tech Mono';
             border: 1px solid var(--text-color);
-            padding: 0 6px;
-            background: rgba(255,255,255,0.3);
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: 0.3s;
+            padding: 0 6px; background: rgba(255,255,255,0.3);
+            text-transform: uppercase; cursor: pointer; transition: 0.3s;
             color: var(--text-color);
         }
         .timeline-link:hover {
-            background: var(--text-color);
-            color: var(--bg-color);
+            background: var(--text-color); color: var(--bg-color);
             transform: translateY(-2px);
         }
 
         /* --- SKILLS --- */
-        .skill-section h3 {
-            margin-top: 20px;
-            margin-bottom: 10px;
-            font-family: 'Share Tech Mono';
-        }
-        
-        .skill-bar-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
+        .skill-section h3 { margin-top: 20px; margin-bottom: 10px; font-family: 'Share Tech Mono'; }
+        .skill-bar-container { display: flex; flex-wrap: wrap; gap: 10px; }
         .skill-tag {
-            background: var(--text-color);
-            color: var(--bg-color);
-            padding: 5px 15px;
-            font-size: 0.9rem;
+            background: var(--text-color); color: var(--bg-color);
+            padding: 5px 15px; font-size: 0.9rem;
             clip-path: polygon(10px 0, 100% 0, 100% 100%, 0 100%, 0 10px);
         }
 
         /* --- FOOTER --- */
         footer {
-            margin-top: 80px;
-            border-top: 2px solid var(--text-color);
-            padding: 40px 0;
-            text-align: center;
-            font-family: 'Share Tech Mono';
+            margin-top: 80px; border-top: 2px solid var(--text-color);
+            padding: 40px 0; text-align: center; font-family: 'Share Tech Mono';
         }
 
         /* --- RESPONSIVE --- */
         @media (max-width: 900px) {
             aside {
-                position: relative;
-                width: 100%;
-                height: auto;
-                border-right: none;
-                border-bottom: 2px solid var(--text-color);
-                flex-direction: row;
-                flex-wrap: wrap;
-                align-items: center;
-                justify-content: space-between;
-                padding: 20px;
+                position: relative; width: 100%; height: auto;
+                border-right: none; border-bottom: 2px solid var(--text-color);
+                flex-direction: row; flex-wrap: wrap;
+                align-items: center; justify-content: space-between; padding: 20px;
             }
-
-            nav ul {
-                display: none; /* Hide nav on mobile for simplicity or add hamburger */
-            }
-
-            main {
-                margin-left: 0;
-                width: 100%;
-                padding: 20px;
-            }
-
-            .project-body {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* --- ANIMATIONS --- */
-        @keyframes blink {
-            0% { opacity: 1; }
-            50% { opacity: 0; }
-            100% { opacity: 1; }
+            nav ul { display: none; }
+            main { margin-left: 0; width: 100%; padding: 20px; }
+            .project-body { grid-template-columns: 1fr; }
+            .modal-grid { grid-template-columns: 1fr; }
         }
 
         .glitch-effect:hover {
             animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
             color: #8c887d;
         }
-
         @keyframes glitch {
             0% { transform: translate(0) }
             20% { transform: translate(-2px, 2px) }
@@ -441,6 +635,7 @@
             80% { transform: translate(2px, -2px) }
             100% { transform: translate(0) }
         }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } 100% { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -458,6 +653,12 @@
             <br>
             <p class="loader-text">> SYSTEM ONLINE</p>
         </div>
+    </div>
+
+    <!-- LIGHTBOX OVERLAY -->
+    <div id="lightbox-overlay" class="lightbox-overlay" onclick="closeLightbox()">
+        <span class="lightbox-close" onclick="closeLightbox()">×</span>
+        <img id="lightbox-image" class="lightbox-img" src="" alt="Enlarged View" onclick="event.stopPropagation()">
     </div>
 
     <!-- SIDEBAR -->
@@ -520,7 +721,7 @@
         <section id="featured">
             <h2 class="section-title glitch-effect">Featured Project</h2>
             
-            <article class="project-card" style="border: 2px solid var(--text-color);">
+            <article class="project-card" onclick="openModal('mapgen')">
                 <div class="project-header">
                     <span class="project-title">Massive Map Generation System ⭐</span>
                     <span class="mono">2023.07 ~ 2024.06</span>
@@ -528,15 +729,15 @@
                 <div class="project-body">
                     <div class="project-content">
                         <p>A high-performance map generation system developed over 12 months, starting during military service. Focused on extreme optimization using Lock-free parallelization and png based compression save system.</p>
-                        
                         <div class="highlight-stat mono">
                             <p>> Time Performance: 90 min → 2.5 sec (3,600x Improved)</p>
-                            <p>> Save Performance: 197mb → 35kb (5,700x Improved)</p>
+                            <p>> Save Performance: 198mb → 35kb (5,700x Improved)</p>
                             <p>> Scale: 230M tiles in real-time</p>
                         </div>
-                        
-                        <div class="project-links mono">
-                            <a href="https://github.com/HyunsuYu/LayeredMapGenAgent.git" target="_blank">[GITHUB REPOSITORY]</a>
+                        <!-- Restored Direct Links -->
+                        <div class="project-links">
+                            <a href="https://github.com/HyunsuYu/LayeredMapGenAgent.git" target="_blank" onclick="event.stopPropagation()">[GITHUB]</a>
+                            <a href="https://drive.google.com/drive/folders/14xKEhV8LsZg1-tGm2gz1MbfmqH-oxxvi?usp=sharing" target="_blank" onclick="event.stopPropagation()">[OUTPUT DATA SAMPLES]</a>
                         </div>
                     </div>
                     <div class="project-meta mono">
@@ -547,7 +748,7 @@
                 </div>
             </article>
 
-            <article class="project-card" style="border: 2px solid var(--text-color);">
+            <article class="project-card" style="border: 2px solid var(--text-color);" onclick="openModal('book')">
                 <div class="project-header">
                     <span class="project-title">More Deeper C++ Programming Language</span>
                     <span class="mono">2023.04 ~ 2023.10</span>
@@ -555,20 +756,18 @@
                 <div class="project-body">
                     <div class="project-content">
                         <p>Advanced C++ textbook authored for Korea Univ. senior students. Focuses on bridging the gap between high-level syntax and low-level hardware behavior.</p>
-                        
                         <div class="highlight-stat mono">
                             <p>> Pages: 257</p>
                             <p>> Topics: Memory architecture, SIMD, Cache optimization, Compile-time/Runtime optimization, Modern C++ features, etc.</p>
                             <p>> References: ISO/IEC 14882:2003 Programming languages — C++, AMD64 Architecture Programmer’s Manual, Effective C++ series, Structure and Interpretation of Computer Programs, papers, etc.</p>
                         </div>
-                        
-                        <div class="project-links mono">
-                            <a href="https://drive.google.com/file/d/1WGR6eMgRF7hZwCOLbZAEhNJP8C9_EZDh/view?usp=sharing" target="_blank">[BOOK URL]</a>
+                        <div class="project-links">
+                            <a href="https://drive.google.com/file/d/1WGR6eMgRF7hZwCOLbZAEhNJP8C9_EZDh/view?usp=sharing" target="_blank" onclick="event.stopPropagation()">[BOOK URL]</a>
                         </div>
                     </div>
                     <div class="project-meta mono">
                         <p><strong>ROLE:</strong> Writer / Instructor</p>
-                        <p><strong>STATUS:</strong> Completed</p>
+                        <p><strong>STATUS:</strong> Published</p>
                         <p><strong>USAGE:</strong> Paid 1 semester instruction</p>
                     </div>
                 </div>
@@ -580,24 +779,23 @@
             <h2 class="section-title glitch-effect">Game Projects</h2>
 
             <!-- ALCOHOL FREE -->
-            <article class="project-card">
+            <article class="project-card" onclick="openModal('alcoholfree')">
                 <div class="project-header">
                     <span class="project-title">ALCOHOL FREE ⭐</span>
                     <span class="mono">2025.05 ~ 2025.12</span>
                 </div>
                 <div class="project-body">
                     <div class="project-content">
-                        <p>Visual Novel. Developed a Custom Blueprint-Style Editor for designers.</p>
+                        <p>Visual Novel. Developed a Custom Blueprint-Style Editor for designers and whole game system.</p>
                         <ul>
                             <li>Awards: TU Game Challenge (우수상)</li>
-                            <li>Exhibitions: BEAVER ROCKS 2025, G-Star 2025, Comic World 2025, TU Mach Academy Conference 2025</li>
-                            <li>Recognition: Publishing offer from Toei Company, Ltd.</li>
+                            <li>Exhibitions: BEAVER ROCKS 2025, G-Star 2025, Comic World 2025, TU RISE ALL FESTA 2025</li>
+                            <li>Recognition: Pleedus Partnership Comic World 2025 Booth</li>
                         </ul>
-                        <div class="project-links mono">
-                            <a href="https://hyunsuyu.github.io/ALCOHOL-FREE/" target="_blank">[HOMEPAGE]</a>
-                            <a href="https://youtu.be/aUPhujbokDo?si=aSG_oEsmnzKGfpgA" target="_blank">[YOUTUBE]</a>
-                            <a href="https://store.onstove.com/ko/games/103115" target="_blank">[STOVE PAGE]</a>
-                            <a href="https://drive.google.com/drive/folders/1edMTn3Dn98kEr5tDXQ3kuDrx9GdUDZRM?usp=sharing" target="_blank">[DOWNLOAD]</a>
+                        <div class="project-links">
+                            <a href="https://hyunsuyu.github.io/ALCOHOL-FREE/" target="_blank" onclick="event.stopPropagation()">[HOMEPAGE]</a>
+                            <a href="https://store.onstove.com/ko/games/103115" target="_blank" onclick="event.stopPropagation()">[STOVE PAGE]</a>
+                            <a href="https://youtu.be/aUPhujbokDo?si=aSG_oEsmnzKGfpgA" target="_blank" onclick="event.stopPropagation()">[TEASER]</a>
                         </div>
                     </div>
                     <div class="project-meta mono">
@@ -609,51 +807,51 @@
             </article>
             
             <!-- 마음을 담아 -->
-            <article class="project-card">
+            <article class="project-card" onclick="openModal('hearts')">
                 <div class="project-header">
                     <span class="project-title">마음을 담아 (From All My Hearts)</span>
                     <span class="mono">2025.05 ~ Present</span>
                 </div>
                 <div class="project-body">
                     <div class="project-content">
-                        <p>Word Puzzle / Visual Novel.</p>
+                        <p>Oriental Word Puzzle / Visual Novel. Puzzle mechanics based on completing sentences to find hidden meanings.</p>
                         <ul>
-                            <li>Awards: TU Game Challenge (최우수상 - 1st Prize)</li>
-                            <li>Exhibitions: G-Star 2025, Comic World 2025, TU Mach Academy Conference 2025</li>
+                            <li>Awards: TU Game Challenge (최우수상)</li>
+                            <li>Exhibitions: G-Star 2025, Comic World 2025, TU RISE ALL FESTA 2025</li>
+                            <li>Recognition: Pleedus Partnership Comic World 2025 Booth</li>
                         </ul>
-                        <div class="project-links mono">
-                            <a href="https://hyunsuyu.github.io/WithAllMyHeartWeb/" target="_blank">[HOMEPAGE]</a>
-                            <a href="https://youtu.be/9EBkzyfpu3c?si=Tb_dYUmmJtolZAWK" target="_blank">[YOUTUBE]</a>
-                            <a href="https://drive.google.com/drive/folders/1LaSYYw86cLzuU0F3bvfnQvsbYH04LgR0?usp=sharing" target="_blank">[DOWNLOAD]</a>
+                        <div class="project-links">
+                            <a href="https://hyunsuyu.github.io/WithAllMyHeartWeb/" target="_blank" onclick="event.stopPropagation()">[HOMEPAGE]</a>
+                            <a href="https://drive.google.com/drive/folders/1LaSYYw86cLzuU0F3bvfnQvsbYH04LgR0?usp=sharing" target="_blank" onclick="event.stopPropagation()">[DOWNLOAD]</a>
+                            <a href="https://youtu.be/9EBkzyfpu3c?si=Tb_dYUmmJtolZAWK" target="_blank" onclick="event.stopPropagation()">[TEASER]</a>
                         </div>
                     </div>
                     <div class="project-meta mono">
                         <p><strong>ROLE:</strong> Programmer</p>
-                        <p><strong>GENRE:</strong> Puzzle/VN</p>
+                        <p><strong>GENRE:</strong> Puzzle/Visual Novel</p>
                         <p><strong>TEAM:</strong> 5 Members</p>
                     </div>
                 </div>
             </article>
 
             <!-- RGB Line -->
-            <article class="project-card">
+            <article class="project-card" onclick="openModal('rgbline')">
                 <div class="project-header">
                     <span class="project-title">RGB Line</span>
                     <span class="mono">2024.12 ~ 2025.10</span>
                 </div>
                 <div class="project-body">
                     <div class="project-content">
-                        <p>Rhythm Game. Lead Programmer in a team of 4. Developed an Auto Documentation Pipeline to streamline development.</p>
+                        <p>Rhythm Game. Lead Programmer. Developed an Auto Documentation Pipeline to streamline development.</p>
                         <ul>
-                            <li>Achievement: Reduced iteration time from 15 min to 2 min</li>
                             <li>Awards: TU Game Challenge (장려상)</li>
-                            <li>Exhibitions: G-Star 2025, Build 051 2025</li>
+                            <li>Exhibitions: G-Star 2025, Build 051</li>
                         </ul>
-                        <div class="project-links mono">
-                            <a href="https://rgb-line.github.io/RGBLineWebPage/index.html" target="_blank">[HOMEPAGE]</a>
-                            <a href="https://www.youtube.com/watch?v=L54qU3JqQJI" target="_blank">[YOUTUBE]</a>
-                            <a href="https://github.com/orgs/RGB-Line/repositories" target="_blank">[GITHUB]</a>
-                            <a href="https://drive.google.com/drive/folders/1zc6ICzXm2W8nnRGSJH6_eUThX8o8pFYe?usp=sharing" target="_blank">[DOWNLOAD]</a>
+                        <div class="project-links">
+                            <a href="https://rgb-line.github.io/RGBLineWebPage/index.html" target="_blank" onclick="event.stopPropagation()">[HOMEPAGE]</a>
+                            <a href="https://drive.google.com/drive/folders/1zc6ICzXm2W8nnRGSJH6_eUThX8o8pFYe?usp=sharing" target="_blank" onclick="event.stopPropagation()">[DOWNLOAD]</a>
+                            <a href="https://www.youtube.com/watch?v=L54qU3JqQJI" target="_blank" onclick="event.stopPropagation()">[PLAY VIDEO]</a>
+                            <a href="https://github.com/orgs/RGB-Line/repositories" target="_blank" onclick="event.stopPropagation()">[GITHUB]</a>
                         </div>
                     </div>
                     <div class="project-meta mono">
@@ -668,9 +866,7 @@
         <!-- 3. RESEARCH & BLOG -->
         <section id="research">
             <h2 class="section-title glitch-effect">Research & Knowledge</h2>
-            
             <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                <!-- Blog Box -->
                 <div class="hero">
                     <h3 class="mono" style="margin-bottom: 15px; border-bottom: 1px dashed var(--text-color);">TECHNICAL BLOG (5+ YEARS)</h3>
                     <p style="margin-bottom: 15px;">Deep dive into Computer Architecture, Graphics, and Optimization.</p>
@@ -683,16 +879,13 @@
                     <br>
                     <a href="https://medium.com/@lioie6478" target="_blank" class="mono">[READ ON MEDIUM]</a>
                 </div>
-
-                <!-- Teaching Box -->
                 <div class="hero">
                     <h3 class="mono" style="margin-bottom: 15px; border-bottom: 1px dashed var(--text-color);">TEACHING & MATERIAL</h3>
-                    <p><strong>Book:</strong> More Deeper C++ Programming Language (257 Pages)</p>
-                    <p style="font-size: 0.9rem; margin-top: 5px;">Authored textbook covering Memory architecture, SIMD, and Compile-time optimization.</p>
-                    <br>
+                    <p><strong>Title:</strong> More Deeper C++ Programming Language (257 Pages)</p>
+                    <p><strong>Desc:</strong> Authored textbook covering Memory architecture, SIMD, and Compile-time optimization.</p>
                     <p><strong>Instructor:</strong> C++ Optimization Course (8 students, Paid)</p>
                     <br>
-                    <a href="https://drive.google.com/file/d/1WGR6eMgRF7hZwCOLbZAEhNJP8C9_EZDh/view?usp=sharing" target="_blank" class="mono">[VIEW MATERIAL]</a>
+                    <a href="javascript:openModal('cs_course')" class="mono">[VIEW COURSE INFO]</a>
                 </div>
             </div>
         </section>
@@ -700,43 +893,114 @@
         <!-- 4. EXHIBITIONS & AWARDS -->
         <section id="awards">
             <h2 class="section-title glitch-effect">Awards & Exhibitions</h2>
-            
             <div class="history-timeline">
                 <div class="history-item">
                     <span class="history-year">2025 AWARDS</span>
-                    <p><strong>TU Game Challenge - 최우수상</strong> | 마음을 담아</p>
-                    <p><strong>TU Game Challenge - 최우수상</strong> | Cross Wordle</p>
-                    <p><strong>Chair of IEEE Busan Section - Excellence Prize</strong> | Cross Wordle</p>
-                    <p><strong>TU Game Challenge - 우수상</strong> | ALCOHOL FREE</p>
-                    <p><strong>TU Game Challenge - 장려상</strong> | RGB Line</p>
+                    <p>
+                        <strong>TU Game Challenge - 최우수상</strong> | 마음을 담아
+                    </p>
+                    <p>
+                        <strong>TU Game Challenge - 최우수상</strong> | Cross Wordle
+                    </p>
+                    <p>
+                        <strong>Chair of IEEE Busan Section - Excellence Prize</strong> | Cross Wordle
+                    </p>
+                    <p>
+                        <strong>TU Game Challenge - 우수상</strong> | ALCOHOL frameborder
+                    </p>
+                    <p>
+                        <strong>TU Game Challenge - 장려상</strong> | RGB Line
+                    </p>
                 </div>
-                
                 <div class="history-item">
                     <span class="history-year">EXHIBITIONS</span>
-                    <p><strong>BEAVER ROCKS 2025</strong> | ALCOHOL FREE</p>
-                    <p><strong>G-Star 2025</strong> | ALCOHOL FREE, 마음을 담아, RGB Line, Cross Wordle</p>
-                    <p><strong>Comic World 2025</strong> | Pleedus Partnership Booth (ALCOHOL FREE, 마음을 담아)</p>
-                    <p><strong>Build 051 2025</strong> | RGB Line</p>
-                    <p><strong>TU Mach Academy Conference 2025</strong> | ALCOHOL FREE, 마음을 담아</p>
+                    <p>
+                        <strong>BEAVER ROCKS 2025</strong> | ALCOHOL FREE
+                    </p>
+                    <p>
+                        <strong>G-Star 2025</strong> | ALCOHOL FREE, 마음을 담아, RGB Line, Cross Wordle
+                    </p>
+                    <p>
+                        <strong>Comic World 2025</strong> | Pleedus Partnership Booth (ALCOHOL FREE, 마음을 담아)
+                    </p>
+                    <p>
+                        <strong>Build 051 2025</strong> | RGB Line
+                    </p>
+                    <p>
+                        <strong>TU RISE ALL FESTA 2025</strong> | ALCOHOL FREE, 마음을 담아
+                    </p>
+                </div>
+            </div>
+            
+            <h3 class="mono" style="margin: 30px 0 15px 0;">INDUSTRY RECOGNITION</h3>
+            <div class="recog-grid">
+                <div class="recog-card" onclick="openModal('square_enix')">
+                    <div class="recog-title">Square Enix</div>
+                    <div class="recog-divider"></div>
+                    <div class="recog-body">
+                        <p>Feedback from <strong>SAITA Tomonori</strong> (Former Producer)</p>
+                        <p style="font-size: 0.9rem; opacity: 0.8;">For 'ALCOHOL FREE, 마음을 담아, RGB Line' at G-Star 2025</p>
+                    </div>
+                </div>
+                <div class="recog-card" onclick="openModal('toei')">
+                    <div class="recog-title">Toei Company</div>
+                    <div class="recog-divider"></div>
+                    <div class="recog-body">
+                        <p>Publishing offer from <strong>KATO</strong> (Game Advisor)</p>
+                        <p style="font-size: 0.9rem; opacity: 0.8;">For 'ALCOHOL FREE, 마음을 담아, RGB Line' at G-Star 2025</p>
+                    </div>
+                </div>
+                <div class="recog-card" onclick="openModal('pleedus')">
+                    <div class="recog-title">Pleedus</div>
+                    <div class="recog-divider"></div>
+                    <div class="recog-body">
+                        <p>Exhibition <strong>Partnership</strong></p>
+                        <p style="font-size: 0.9rem; opacity: 0.8;">For 'ALCOHOL FREE, 마음을 담아' at Comic World 2025</p>
+                    </div>
                 </div>
             </div>
 
-            <h3 class="mono" style="margin: 30px 0 15px 0;">INDUSTRY RECOGNITION</h3>
+            <h3 class="mono" style="margin: 30px 0 15px 0;">MEDIA COVERAGE</h3>
             <div class="recog-grid">
-                <div class="recog-card">
-                    <div class="recog-header">Square Enix</div>
-                    <p>Feedback from <strong>SAITA Tomonori</strong> (Former Producer)</p>
-                    <p style="font-size: 0.9rem; opacity: 0.8;">G-Star 2025</p>
+                <div class="recog-card" onclick="openNewTab('https://sqool.net/report/archive/gstar2025-report.html')">
+                    <div class="recog-title">今年のG-Starはどうだったか？韓国最大のゲームイベントの課題とは</div>
+                    <div class="recog-divider"></div>
+                    <div class="recog-body">
+                        <p><strong>Toei game advisor KATO's</strong> game magazine article</p>
+                        <p style="font-size: 0.9rem; opacity: 0.8;">마음을 담아 is featured</p>
+                    </div>
                 </div>
-                <div class="recog-card">
-                    <div class="recog-header">Toei Company</div>
-                    <p>Publishing offer from <strong>KATO</strong> (Game Advisor)</p>
-                    <p style="font-size: 0.9rem; opacity: 0.8;">For 'ALCOHOL FREE'</p>
+                <div class="recog-card" onclick="openNewTab('https://sway.cloud.microsoft/4PpAiwGK3vnc9XkW?ref=Link')">
+                    <div class="recog-title">TU 게임 챌린지 특별호</div>
+                    <div class="recog-divider"></div>
+                    <div class="recog-body">
+                        <p><strong>TU Game Challenge</strong> special article</p>
+                        <p style="font-size: 0.9rem; opacity: 0.8;">마음을 담아, ALCOHOL FREE, RGB Line, Cross Wordle are featured</p>
+                    </div>
                 </div>
-                <div class="recog-card">
-                    <div class="recog-header">Pleedus</div>
-                    <p>Exhibition Partnership</p>
-                    <p style="font-size: 0.9rem; opacity: 0.8;">Comic World 2025</p>
+                <div class="recog-card" onclick="openNewTab('https://sway.cloud.microsoft/JPasLtlByjTwysGH?ref=email&loc=play')">
+                    <div class="recog-title">동명대 게임학부 '25-4분기 (G-Star 2025)</div>
+                    <div class="recog-divider"></div>
+                    <div class="recog-body">
+                        <p><strong>G-Star 2025</strong> report</p>
+                        <p style="font-size: 0.9rem; opacity: 0.8;">Achievements at G-Star 2025 are highlighted</p>
+                    </div>
+                </div>
+                <div class="recog-card" onclick="openNewTab('https://dotnetnews.co/archive/the-net-news-daily-issue-313/?8utm_source=medium&utm_medium=comment')">
+                    <div class="recog-title">The .NET News Daily Issue #313</div>
+                    <div class="recog-divider"></div>
+                    <div class="recog-body">
+                        <p><strong>Recommended Daily .NET Post</strong> from dotnetnews.co</p>
+                        <p style="font-size: 0.9rem; opacity: 0.8;"><strong>C# — Unique behavior when passing array and list objects as parameters</strong> is referenced<p>
+                    </div>
+                </div>
+                <div class="recog-card" onclick="openNewTab('https://developer.microsoft.com/en-us/games/articles/2024/09/community-question-of-the-week-9624/#:~:text=a%20learning%20experience.%E2%80%9D-,Hyunsu%20Yu,-%2C%20college%20Game')">
+                    <div class="recog-title">Microsoft Game Dev Community</div>
+                    <div class="recog-divider"></div>
+                    <div class="recog-body">
+                        <p>Microsoft Game Dev Community's Question of the Week</p>
+                        <p style="font-size: 0.9rem; opacity: 0.8;">Featured response to the question: "What was your biggest game development challenge?"</p>
+                    </div>
                 </div>
             </div>
         </section>
@@ -744,94 +1008,91 @@
         <!-- 5. TIMELINE -->
         <section id="timeline">
             <h2 class="section-title glitch-effect">TIMELINE</h2>
-            
             <div class="history-timeline">
                 <div class="history-item">
                     <span class="history-year">2020</span>
                     <p><strong>05</strong> | Technical Blog started</p>
                 </div>
-                
                 <div class="history-item">
                     <span class="history-year">2021</span>
                     <p>
-                        <strong>06-07</strong> | NATAKER completed
-                        <a href="https://galvanized-soda-726.notion.site/NATAKER-28c15b43f5168063943efcaeddbc9386" class="timeline-link" target="_blank">[NATAKER]</a>
+                        <strong>06-07</strong> | NATAKER completed (1.5 months)
+                        <a href="javascript:openModal('nataker')" class="timeline-link">[NATAKER]</a>
                     </p>
                     <p><strong>07</strong> | Military Service(Air-Force) began</p>
                 </div>
-
                 <div class="history-item">
                     <span class="history-year">2021-2023 (Military Service)</span>
-                    <p><strong>Continuous</strong> | Blog research, MIT OCW, paper reviews</p>
-                    <p><strong>2023.07</strong> | Massive Map Generation System started</p>
+                    <p><strong>Continuous </strong> | Blog research, MIT OCW, paper reviews</p>
+                    <p><strong>2023.07 </strong> | Massive Map Generation System started</p>
                 </div>
-
                 <div class="history-item">
                     <span class="history-year">2023</span>
                     <p><strong>04</strong> | Discharged from military</p>
                     <p>
-                        <strong>04-10</strong> | More Deeper C++ Programming Language written
-                        <a href="https://drive.google.com/file/d/1WGR6eMgRF7hZwCOLbZAEhNJP8C9_EZDh/view?usp=sharing" class="timeline-link" target="_blank">[More Deeper C++ Programming Language ⭐]</a>
+                        <strong>04-10</strong> | More Deeper C++ Programming Language written (7 months)
+                        <a href="javascript:openModal('book')" class="timeline-link">[More Deeper C++ Programming Language ⭐]</a>
                     </p>
-                    <p><strong>2023.07-2024.06</strong> | Massive Map Generation System completed (12 months)</p>
+                    <p><strong>Continuous</strong> | Massive Map Generation System completed</p>
                 </div>
-
                 <div class="history-item">
                     <span class="history-year">2024</span>
                     <p>
-                        <strong>06</strong> | Massive Map Generation System completed
-                        <a href="https://galvanized-soda-726.notion.site/Map-Generation-Spelunky-2-Style-28c15b43f51680ea8ab4c20bf55feb78" class="timeline-link" target="_blank">[Massive Map Generation System ⭐]</a>
+                        <strong>06</strong> | Massive Map Generation System completed (12 months)
+                        <a href="javascript:openModal('mapgen')" class="timeline-link">[Massive Map Generation System ⭐]</a>
                     </p>
                     <p>
                         <strong>2024.10-2025.02</strong> | Computer science course teaching
-                        <a href="https://drive.google.com/drive/folders/1nS0rt085X6sCtfV1szX6ia9s4nRWJYEk?usp=sharing" class="timeline-link" target="_blank">[Computer Science Course]</a>
+                        <a href="https://drive.google.com/drive/folders/1nS0rt085X6sCtfV1szX6ia9s4nRWJYEk?usp=sharing" target="_blank" class="timeline-link">[Computer science course]</a>
                     </p>
                     <p><strong>12</strong> | RGB Line started</p>
                 </div>
-
                 <div class="history-item">
                     <span class="history-year">2025</span>
                     <p>
                         <strong>01</strong> | UDE-B91 completed (Global Game Jam, 3 days)
-                        <a href="https://globalgamejam.org/games/2025/ude-891-9" class="timeline-link" target="_blank">[UDE-B91]</a>
+                        <a href="https://globalgamejam.org/games/2025/ude-891-9" target="_blank" class="timeline-link">[UDE-B91]</a>
                     </p>
                     <p>
                         <strong>05-12</strong> | ALCOHOL FREE completed (7 months)
-                        <a href="https://hyunsuyu.github.io/ALCOHOL-FREE/" class="timeline-link" target="_blank">[ALCOHOL FREE ⭐]</a>
+                        <a href="javascript:openModal('alcoholfree')" class="timeline-link">[ALCOHOL FREE ⭐]</a>
                     </p>
                     <p>
                         <strong>2024.12-2025.12</strong> | RGB Line completed (11 months)
-                        <a href="https://rgb-line.github.io/RGBLineWebPage/index.html" class="timeline-link" target="_blank">[RGB Line ⭐]</a>
+                        <a href="javascript:openModal('rgbline')" class="timeline-link">[RGB Line ⭐]</a>
                     </p>
                     <p>
                         <strong>05-Present</strong> | 마음을 담아 started
-                        <a href="https://hyunsuyu.github.io/WithAllMyHeartWeb/" class="timeline-link" target="_blank">[마음을 담아]</a>
+                        <a href="javascript:openModal('hearts')" class="timeline-link">[마음을 담아]</a>
                     </p>
                     <p>
-                        <strong>09</strong> | Cross Wordle (teaching project, 7 days)
-                        <a href="https://galvanized-soda-726.notion.site/Cross-Wordle-28c15b43f5168022aa15c87cddb697c1" class="timeline-link" target="_blank">[Cross Wordle]</a>
+                        <strong>09</strong> | Cross Wordle completed (teaching project, 7 days)
+                        <a href="javascript:openModal('crosswordle')" class="timeline-link">[Cross Wordle]</a>
                     </p>
                     <p>
-                        <strong>09</strong> | Still Alive (Club Game Jam, 4 days)
-                        <a href="https://galvanized-soda-726.notion.site/Still-Alive-28c15b43f5168031860bdff03a659256" class="timeline-link" target="_blank">[Still Alive]</a>
+                        <strong>09</strong> | Still Alive completed (Club Game Jam, 4 days)
+                        <a href="javascript:openModal('still_alive')" class="timeline-link">[Still Alive]</a>
                     </p>
                     <p>
-                        <strong>10</strong> | TU Game Challenge Awards Ceremony
-                        <a href="https://sway.cloud.microsoft/4PpAiwGK3vnc9XkW?ref=Link" class="timeline-link" target="_blank">[TU Game Challenge]</a>
+                        <strong>10</strong> | TU Game Challenge 2025 Awards Ceremony
+                        <a href="https://sway.cloud.microsoft/4PpAiwGK3vnc9XkW?ref=Link" target="_blank" class="timeline-link">[TU Game Challenge 2025]</a>
                     </p>
                     <p>
-                        <strong>11</strong> | G-Star 2025 exhibition (마음을 담아, ALCOHOL FREE, RGB Line, Cross Wordle)
-                        <a href="https://sway.cloud.microsoft/JPasLtlByjTwysGH?ref=email&loc=play" class="timeline-link" target="_blank">[G-Star 2025]</a>
+                        <strong>11</strong> | G-Star 2025 exhibition
+                        <a href="https://sway.cloud.microsoft/JPasLtlByjTwysGH?ref=email&loc=play" target="_blank" class="timeline-link">[G-Star 2025]</a>
                     </p>
                     <p>
-                        <strong>12</strong> | Comic World 2025 exhibition (마음을 담아, ALCOHOL FREE)
-                        <a href="#" class="timeline-link" target="_blank">[Comic World 2025]</a>
+                        <strong>12</strong> | BEAVER ROCKS 2025 exhibition
+                        <a href="https://beaverrocks.com/BeaverRocks2025-game" target="_blank" class="timeline-link">[BEAVER ROCKS 2025]</a>
                     </p>
                     <p>
-                        <strong>12</strong> | BEAVER ROCKS 2025 exhibition (ALCOHOL FREE)
-                        <a href="https://beaverrocks.com/BeaverRocks2025-game" class="timeline-link" target="_blank">[BEAVER ROCKS 2025]</a>
+                        <strong>12</strong> | TU RISE ALL FESTA 2025
+                        <a href="javascript:openModal('tu_mach_academy_2025')" class="timeline-link">[TU RISE ALL FESTA 2025]</a>
                     </p>
-                    <p><strong>12</strong> | TU Mach Academy Conference 2025 (마음을 담아, ALCOHOL FREE)</p>
+                    <p>
+                        <strong>12</strong> | Comic World 2025 exhibition
+                        <a href="javascript:openModal('comic_world_2025')" class="timeline-link">[Comic World 2025]</a>
+                    </p>
                     <p><strong>12-Present</strong> | DX12 Renderer (in progress)</p>
                 </div>
             </div>
@@ -840,7 +1101,6 @@
         <!-- 6. SKILLS -->
         <section id="skills">
             <h2 class="section-title glitch-effect">Technical Skills</h2>
-            
             <div class="skill-section">
                 <h3>PROGRAMMING LANGUAGES</h3>
                 <div class="skill-bar-container">
@@ -883,7 +1143,7 @@
                 <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
                     <a href="mailto:lioie6478@gmail.com" class="mono">[EMAIL: lioie6478@gmail.com]</a>
                     <a href="https://github.com/HyunsuYu" target="_blank" class="mono">[GITHUB]</a>
-                    <a href="https://galvanized-soda-726.notion.site/28c15b43f516804698bbc86be167226f" target="_blank" class="mono">[NOTION PORTFOLIO]</a>
+                    <a href="https://galvanized-soda-726.notion.site/28c15b43f516804698bbc86be167226f" target="_blank" class="mono">[PORTFOLIO]</a>
                     <a href="https://medium.com/@lioie6478" target="_blank" class="mono">[BLOG]</a>
                 </div>
             </div>
@@ -892,21 +1152,490 @@
     </main>
 
     <footer>
-        <p>GAMEPLAY & RENDERING PROGRAMMER</p>
+        <p>GLORY TO MANKIND.</p>
         <p style="font-size: 0.8rem; margin-top: 10px;">&copy; 2025 Hyunsu Yu.</p>
     </footer>
 
+    <!-- MODAL (MOVED TO BOTTOM FOR Z-INDEX FIX) -->
+    <div id="modal-overlay" class="modal-overlay" onclick="closeModal()">
+        <div class="modal-container" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <span class="modal-title" id="m-title">PROJECT TITLE</span>
+                <button class="close-btn" onclick="closeModal()">[X] CLOSE</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-tags" id="m-tags">
+                    <!-- Tags injected via JS -->
+                </div>
+
+                <!-- Text Content at Top -->
+                <div class="modal-grid">
+                    <div>
+                        <div class="modal-section-title">> OVERVIEW</div>
+                        <div id="m-desc" class="markdown-content" style="margin-bottom: 20px;"></div>
+
+                        <div class="modal-section-title">> KEY OUTCOMES / EXHIBITED WORKS</div>
+                        <ul class="modal-list" id="m-achievements"></ul>
+                    </div>
+                    <div>
+                        <div class="modal-section-title">> DETAILS / STACK</div>
+                        <div class="skill-bar-container" id="m-tech" style="margin-bottom: 20px;"></div>
+
+                        <div class="modal-section-title">> ROLE & HIGHLIGHTS</div>
+                        <div id="m-challenges" class="markdown-content"></div>
+                    </div>
+                </div>
+
+                <!-- Video / Media at Bottom -->
+                <div class="video-embed" id="m-video-container">
+                    <iframe id="m-video" width="100%" height="100%" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+
+                <!-- Gallery -->
+                <div id="m-gallery" class="modal-gallery" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // Loading Sequence
+        // --- LIGHTBOX LOGIC ---
+        const lightbox = document.getElementById('lightbox-overlay');
+        const lightboxImg = document.getElementById('lightbox-image');
+
+        function openLightbox(src) {
+            lightboxImg.src = src;
+            lightbox.style.display = 'flex';
+        }
+
+        function closeLightbox() {
+            lightbox.style.display = 'none';
+            lightboxImg.src = '';
+        }
+
+        // --- DATA DATABASE (Projects + Events) ---
+        // Updated with Multi-line Markdown support
+        const projectDB = {
+            // --- MAIN PROJECTS ---
+            'mapgen': {
+                title: 'Massive Map Generation System',
+                tags: ['Solo Dev', 'System Architecture', 'C# / Unity', 'Optimization', 'Tool Dev'],
+                desc: `군 복무 중 설계를 시작하여 전역 후 완성한 초대형 2D 타일맵 생성 및 최적화 시스템입니다.
+
+                기존 상용 엔진의 타일맵 시스템이 가진 대규모 데이터 처리 한계(메모리 오버헤드, 직렬화 속도)를 극복하기 위해 **Computer Science 기초(자료구조, 메모리 구조, 비트 연산)**를 응용하여 바닥부터 아키텍처를 재설계했습니다. 단순한 기능 구현을 넘어 **하드웨어 레벨(Cache Coherency, I/O)**의 병목을 해결하는 데 주력했습니다.`,
+                tech: ['C#', 'Lock-free Parallelization', 'NUMA-aware Allocation', 'Bitwise Compression'],
+                challenges: `# 1. 생성 알고리즘 고속화: "Lock-free 병렬 처리와 조기 차단"
+                - **Lock-free Parallelization** 초기 싱글 스레드 순차 생성 방식의 한계를 극복하기 위해 Lock-free 알고리즘을 도입했습니다. 스레드 간 동기화(Locking) 비용을 최소화하며 2억 3천만 개의 타일을 병렬로 생성하여 CPU 가용량을 극대화했습니다.
+                - **Connectivity Check (Fail Fast Strategy)** 경로 탐색 알고리즘(A*)의 최악의 경우(Worst Case)를 방지하기 위해, 맵 생성 시 영역(Island) ID를 전처리했습니다. 도달 불가능한 경로 탐색 시도를 O(1) 비교 연산으로 즉시 기각(Early Exit)하여 무의미한 연산 부하를 원천 차단했습니다.
+                # 2. 데이터 압축 및 I/O 최적화: "Bitwise Compression & Texture Packing"
+                - **Texture Packing & PNG Deflate** 맵 데이터의 '인접 유사성'에 착안, 텍스트(JSON) 대신 이미지(Texture) 포맷으로 데이터를 변환했습니다. PNG 포맷의 Deflate 압축 알고리즘을 활용하여 198MB의 데이터를 35KB로 압축, 디스크 I/O 병목을 해소했습니다.
+                - **Split Encoding & Tagged Union** 32bit 정수형 Enum 데이터를 8bit 채널(R8G8B8A8) 텍스처에 저장하기 위해, 소수점 단위로 분할 인코딩/디코딩하는 독자적인 로직을 구현했습니다. 최상위 비트(MSB)를 태그로 활용(Tagged Union)하여 단일 타일과 패턴 타일(RLE)을 비트 레벨에서 구분, 데이터 밀도를 높였습니다.
+                # 3. 런타임 최적화: "Seamless Streaming Architecture"
+                - **Chunking & Preloading System** 플레이어 위치 기반으로 N±1 Layer를 비동기로 프리로딩(Preloading)하고, 3x3 청크(Chunk) 단위로 관리하여 로딩 화면 없는(Seamless) 오픈월드 환경을 구축했습니다.
+                - **Zero-Allocation Memory Management**  Tilemap.SetTiles API를 활용하여 Draw Call을 최소화하고, CompositeCollider2D로 물리 연산 토폴로지를 단순화했습니다. 데이터 로드 시 발생하는 GC Spike를 막기 위해 데이터 버퍼 풀링(Pooling) 구조를 설계하여 런타임 메모리 할당을 제로에 가깝게 유지했습니다.`,
+                achievements: [
+                    'Time Performance: 90 min → 2.5 sec (3,600x improvement via Lock-free Parallelization)',
+                    'Save Performance: 198MB → 35KB (5,700x compression via Texture Packing)',
+                    'Scale: 230 Million tiles real-time processing & streaming'
+                ],
+                video: 'https://file.notion.so/f/f/97434619-eda8-4814-b5cf-28ed79cb992f/c67b08ef-dcf5-49eb-b312-ea95c25a9974/%EB%AF%B8%EB%94%94%EC%96%B41.mp4?table=block&id=28e15b43-f516-8059-960f-d0c582daeee3&spaceId=97434619-eda8-4814-b5cf-28ed79cb992f&expirationTimestamp=1765555200000&signature=WtRYIOV1vFQ1hD7D6I_yVFjprLVGq_wc7rNzlcv2vbQ&downloadName=%EB%AF%B8%EB%94%94%EC%96%B41.mp4',
+                images: [
+                    'https://file.notion.so/f/f/97434619-eda8-4814-b5cf-28ed79cb992f/36eb5f4f-88d2-472c-a37f-bf9fe2fae04c/BasicPathOutputData_0.png?table=block&id=2c715b43-f516-801e-97b3-e8c8dda223f6&spaceId=97434619-eda8-4814-b5cf-28ed79cb992f&expirationTimestamp=1765555200000&signature=bRTmGLQ8YJ1oYmSP3VeKbqReYShyfBkOETWDfjrLWSQ&downloadName=BasicPathOutputData_0.png',
+                    'https://file.notion.so/f/f/97434619-eda8-4814-b5cf-28ed79cb992f/0e0b3cca-9b54-4eb4-83bf-e1d844053be3/BasicPathOutputData_0_MiddleLayer.png?table=block&id=2c715b43-f516-806a-916e-dcbf839faa0d&spaceId=97434619-eda8-4814-b5cf-28ed79cb992f&expirationTimestamp=1765555200000&signature=ZBpD81zL4lzAZ68HJWTj4hDV3CQnIs8uu8kT6KhKvnQ&downloadName=BasicPathOutputData_0_MiddleLayer.png',
+                    'https://file.notion.so/f/f/97434619-eda8-4814-b5cf-28ed79cb992f/88d5d375-b57e-4e4c-9881-628615bd3f48/BasicPathOutputData__TileKind_0.png?table=block&id=2c715b43-f516-80ea-b9dd-c2e3fed46759&spaceId=97434619-eda8-4814-b5cf-28ed79cb992f&expirationTimestamp=1765555200000&signature=0BtEhFq5CCKNCt_E1tlgZ9BZ6HlZou2DB1waXGBdB7g&downloadName=BasicPathOutputData__TileKind_0.png',
+                    'https://file.notion.so/f/f/97434619-eda8-4814-b5cf-28ed79cb992f/d222223f-77a1-4644-ab72-a68c1fd19a84/BasicPathOutputData__Region_0.png?table=block&id=2c715b43-f516-803c-99c2-ee6a7c35bd32&spaceId=97434619-eda8-4814-b5cf-28ed79cb992f&expirationTimestamp=1765555200000&signature=bD3jfAkXya0XbGnmx-UmLjzbNPdm6I4th-hYkwQCWP0&downloadName=BasicPathOutputData__Region_0.png',
+                    'https://galvanized-soda-726.notion.site/image/attachment%3Aec152819-30f3-4af3-9ec7-fc753fe5b6a7%3Aimage.png?table=block&id=28e15b43-f516-80f5-b67d-ea264149a49f&spaceId=97434619-eda8-4814-b5cf-28ed79cb992f&width=1420&userId=&cache=v2',
+                    'https://galvanized-soda-726.notion.site/image/attachment%3A78d767fc-34e8-465d-bebb-3c5cfe82ffe1%3Aimage.png?table=block&id=28e15b43-f516-80c5-9c61-e1557ec341d7&spaceId=97434619-eda8-4814-b5cf-28ed79cb992f&width=1420&userId=&cache=v2',
+                    'https://galvanized-soda-726.notion.site/image/attachment%3A759e4fa0-2e9c-4692-b02f-b278235581d8%3Aimage.png?table=block&id=28e15b43-f516-8024-83be-c6dc944216c2&spaceId=97434619-eda8-4814-b5cf-28ed79cb992f&width=1420&userId=&cache=v2'
+                ]
+            },
+            'book': {
+                title: 'More Deeper C++ Programming Language',
+                tags: ['Author', 'Education', 'C++17/20', 'Computer Architecture'],
+                desc: `C++ 표준(ISO/IEC)과 하드웨어 매뉴얼(AMD64)을 기반으로, 언어의 표면적 문법 너머 컴파일러와 운영체제 레벨의 동작 원리를 규명한 심화 기술 서적입니다.
+
+                대표적으로 "코드가 기계어로 번역되어 메모리에 적재될 때 실제로 어떤 일이 일어나는가?"에 대한 해답을 Low-level 관점에서 분석하고, 이를 통해 성능 최적화와 메모리 관리의 본질적인 이해를 돕도록 집필되었습니다.`,
+                tech: ['ISO/IEC 14882 Standard', 'AMD64 Architecture', 'Assembly Analysis', 'Cache Optimization', 'Move Semantics & R-Value'],
+                challenges: `# Part 1: 값, 타입, 그리고 범주 (The Nature of Values)
+                - **데이터 모델과 메모리** LP64, ILP32 등 데이터 모델에 따른 타입 크기의 변화와 시스템 호환성을 다룹니다.
+                - **값의 범주(Value Categories)** lvalue, rvalue를 넘어 xvalue, glvalue, prvalue 등 C++ 표준이 정의하는 값의 정교한 범주와 생명 주기를 명확히 해설합니다. * 초기화와 형 변환: auto 타입 추론의 규칙과 decltype, 그리고 다양한 초기화(Copy, Direct, List) 방식의 내부 동작을 파헤칩니다.
+                # Part 2: 메모리 (Memory)
+                - **스택(Stack)과 힙(Heap)** 프로세스 메모리 구조를 시각화하고, 함수 호출 규약(Calling Convention)에 따른 스택 프레임의 생성과 소멸 과정을 어셈블리 레벨에서 분석합니다. * 포인터와 참조의 본질: 어셈블리 코드를 통해 포인터와 레퍼런스가 기계어 수준에서는 사실상 동일하게 동작함을 증명하고, 다중 포인터 및 void*의 특수성을 설명합니다.
+                # Part 3: 할당 (Allocation)
+                - **동적 할당자(Allocator) 분석** 단순히 malloc/free를 사용하는 것을 넘어, ptmalloc2 할당자의 내부 구조(Chunk, Bin, Arena)를 해부합니다.
+                - **메모리 관리 전략** new/delete 연산자의 오버로딩, Placement New, 그리고 스마트 포인터(unique_ptr, shared_ptr)의 내부 구현 원리를 통해 메모리 누수(Memory Leak)와 댕글링 포인터(Dangling Pointer)를 방지하는 RAII 패턴을 다룹니다.
+                # Part 4: 함수와 실행 흐름 (Function & Execution)
+                - **함수의 생애 주기** 컴파일 타임(Name Mangling, Overload Resolution)부터 런타임(Stack Frame 생성)까지의 과정을 추적합니다.
+                - **고급 함수 기능** 인라인(Inline) 함수의 비용 편익 분석, constexpr을 이용한 컴파일 타임 연산, 람다(Lambda) 식의 클로저(Closure) 타입 추론 등 모던 C++의 핵심 기능을 다룹니다.
+                # Part 5: 클래스와 객체지향의 내부 (OOP)
+                - **가상 함수와 다형성** V-Table(가상 함수 테이블)이 메모리에 어떻게 배치되는지(MSVC vs GCC 차이점), 그리고 동적 바인딩이 일어나는 과정을 로우 레벨에서 설명합니다. * 이동 의미론(Move Semantics): 복사 비용을 줄이기 위한 이동 생성자와 std::move, std::forward를 이용한 완벽 전달(Perfect Forwarding)의 원리와 함정을 분석합니다.
+                - **상속과 메모리 레이아웃** 다중 상속, 가상 상속 시 발생할 수 있는 다이아몬드 문제와 이를 해결하기 위한 메모리 구조 변경을 다룹니다.`,
+                achievements: [
+                    '257 Pages of technical content',
+                    'Used as paid instructional material for 1 semester'
+                ],
+                video: '',
+                images: [
+                    'https://file.notion.so/f/f/97434619-eda8-4814-b5cf-28ed79cb992f/5d02cf75-fbac-400e-ac31-23760f300e76/image.png?table=block&id=2c715b43-f516-809c-9add-e226a2518cda&spaceId=97434619-eda8-4814-b5cf-28ed79cb992f&expirationTimestamp=1765555200000&signature=MEst0u-xU7oQZyX_kycT9BvCS7yMjHO21ya0hIe1Dts&downloadName=image.png',
+                    'https://file.notion.so/f/f/97434619-eda8-4814-b5cf-28ed79cb992f/0840fce1-d634-471b-a90b-8ea5f77294c1/More_Deeper_C_Programming_Language-003.png?table=block&id=2c715b43-f516-8094-b9c3-dada2f32a9fe&spaceId=97434619-eda8-4814-b5cf-28ed79cb992f&expirationTimestamp=1765555200000&signature=TaX3t54BoQSdnP1eUXdN2gtT1mno5o0lepGpGb22mHM&downloadName=More+Deeper+C%2B%2B+Programming+Language-003.png',
+                    'https://file.notion.so/f/f/97434619-eda8-4814-b5cf-28ed79cb992f/d75fe5ff-f485-436a-bde9-21b1d9c4d736/More_Deeper_C_Programming_Language-004.png?table=block&id=2c715b43-f516-8022-9e84-c1718d27a13a&spaceId=97434619-eda8-4814-b5cf-28ed79cb992f&expirationTimestamp=1765555200000&signature=AA_O02iyaq8xBLhLnpNfSd8ZOzLouGkE1A8s6ZySl80&downloadName=More+Deeper+C%2B%2B+Programming+Language-004.png',
+                    'https://file.notion.so/f/f/97434619-eda8-4814-b5cf-28ed79cb992f/1db07d12-4f66-4ed5-aad6-5a8470ea687b/More_Deeper_C_Programming_Language-005.png?table=block&id=2c715b43-f516-8008-95a7-d37f4f423e37&spaceId=97434619-eda8-4814-b5cf-28ed79cb992f&expirationTimestamp=1765555200000&signature=gKieB33MUuPVMtwpimXDrDjr8qHZlI0ORyCkF7Wu8IE&downloadName=More+Deeper+C%2B%2B+Programming+Language-005.png',
+                    'https://file.notion.so/f/f/97434619-eda8-4814-b5cf-28ed79cb992f/2246876f-d619-47d5-93af-bca93630ab14/More_Deeper_C_Programming_Language-006.png?table=block&id=2c715b43-f516-80db-b74d-f4cc6d3ff1d9&spaceId=97434619-eda8-4814-b5cf-28ed79cb992f&expirationTimestamp=1765555200000&signature=Mgz_kv95rMxVkN9-e3l6csFYk9ySI363ZYI12bfLbIQ&downloadName=More+Deeper+C%2B%2B+Programming+Language-006.png',
+                    'https://file.notion.so/f/f/97434619-eda8-4814-b5cf-28ed79cb992f/f74e5a36-f45b-49ff-b4e7-4733f51fa9aa/More_Deeper_C_Programming_Language-007.png?table=block&id=2c715b43-f516-807a-9fba-dce45a76a7cb&spaceId=97434619-eda8-4814-b5cf-28ed79cb992f&expirationTimestamp=1765555200000&signature=xiiVKuFga2jaBcOOjNv8yQ1bpvDB0ew__65zlffky6U&downloadName=More+Deeper+C%2B%2B+Programming+Language-007.png',
+                    'https://file.notion.so/f/f/97434619-eda8-4814-b5cf-28ed79cb992f/6956c4a1-cda2-4d75-b9a1-61fd9456ccd7/More_Deeper_C_Programming_Language-008.png?table=block&id=2c715b43-f516-807a-be09-e4b9e7284798&spaceId=97434619-eda8-4814-b5cf-28ed79cb992f&expirationTimestamp=1765555200000&signature=U61YW8WcLzLL8IlvDbDL3zAYEa9OQiwiGVmqI5QDngs&downloadName=More+Deeper+C%2B%2B+Programming+Language-008.png',
+                    'https://file.notion.so/f/f/97434619-eda8-4814-b5cf-28ed79cb992f/2ecf99b0-6ee7-46a3-8c70-e2b3f74f5865/More_Deeper_C_Programming_Language-009.png?table=block&id=2c715b43-f516-80cf-8d88-d66179e07561&spaceId=97434619-eda8-4814-b5cf-28ed79cb992f&expirationTimestamp=1765555200000&signature=PaYjkmpg0kNqqlXsKX0nb7BT-BH_rnyhNz4Ab_mjDQ4&downloadName=More+Deeper+C%2B%2B+Programming+Language-009.png',
+                    'https://file.notion.so/f/f/97434619-eda8-4814-b5cf-28ed79cb992f/6a7597c4-32c1-42e2-b273-8c55d13f0804/More_Deeper_C_Programming_Language-010.png?table=block&id=2c715b43-f516-8034-b8cc-cc71bb8d1555&spaceId=97434619-eda8-4814-b5cf-28ed79cb992f&expirationTimestamp=1765555200000&signature=kT6JNfz5dEeLvPwKzztPH_3zdjveKwV0Yx7GWiq0stQ&downloadName=More+Deeper+C%2B%2B+Programming+Language-010.png'
+                ]
+            },
+            'alcoholfree': {
+                title: 'ALCOHOL FREE',
+                tags: ['Visual Novel', 'Tools Programmer', 'Unity'],
+                desc: `달콤한 성장 로맨스를 다룬 비주얼 노벨 게임입니다. 
+                
+                프로그래머로서 기획자와 아티스트가 코딩 없이도 복잡한 연출을 구현할 수 있도록 **전용 제작 툴(Custom Editor)**을 개발하는 데 주력했습니다.`,
+                tech: ['Unity', 'C#', 'Custom Editor (Graph-based)', 'Dialogue System'],
+                challenges: `### 디자이너를 위한 커스텀 에디터 개발
+                - 기획자가 대사, 선택지, 캐릭터 표정 변화 등을 직관적으로 제어할 수 있는 **노드 기반(Blueprint-Style) 에디터**를 Unity 내에 구현했습니다.
+                - 이를 통해 개발 반복(Iteration) 시간을 획기적으로 줄이고, 팀원들이 콘텐츠 제작에만 집중할 수 있는 환경을 조성했습니다.`,
+                achievements: [
+                    'TU Game Challenge - Excellence Prize',
+                    'Publishing offer from Toei Company, Ltd.'
+                ],
+                video: 'https://www.youtube.com/embed/aUPhujbokDo?si=aSG_oEsmnzKGfpgA',
+                images: [
+                    'https://placehold.co/600x400/FFC8DD/ffffff?text=Game+Screenshot+1',
+                    'https://placehold.co/600x400/A2D2FF/ffffff?text=Editor+Tool'
+                ]
+            },
+            'hearts': {
+                title: '마음을 담아 (From All My Hearts)',
+                tags: ['Puzzle', 'Visual Novel', 'Emotional'],
+                desc: `동양화풍의 비주얼과 서정적인 스토리가 결합된 **워드 퍼즐 게임**입니다. 
+                
+                단순히 단어를 맞추는 것을 넘어, 문장을 완성함으로써 숨겨진 의미를 찾고 스토리를 진행시키는 독창적인 메커니즘을 구현했습니다.`,
+                tech: ['Unity', 'C#', 'String Processing Algorithms', 'Dynamic UI Layout'],
+                challenges: `### 한글 조합 알고리즘 및 UI 최적화
+                - 한국어의 특성(자소 결합)을 고려한 자연스러운 단어 조합 로직을 구현했습니다.
+                - 다양한 해상도에서도 퍼즐 조각들이 깨지지 않고 정렬되도록 동적 UI 레이아웃 알고리즘을 설계했습니다.`,
+                achievements: [
+                    'TU Game Challenge - Grand Prize (1st Prize)',
+                    'Exhibited at G-Star 2025'
+                ],
+                video: 'https://www.youtube.com/embed/9EBkzyfpu3c?si=Tb_dYUmmJtolZAWK',
+                images: [
+                    'https://placehold.co/600x400/dad4bb/4b483f?text=Puzzle+Gameplay',
+                    'https://placehold.co/600x400/dad4bb/4b483f?text=Story+Scene',
+                    'https://placehold.co/600x400/dad4bb/4b483f?text=Story+Scene'
+                ]
+            },
+            'rgbline': {
+                title: 'RGB Line',
+                tags: ['Rhythm Game', 'Lead Programmer'],
+                desc: `색상 매칭과 리듬 액션을 결합한 하이퍼 캐주얼 리듬 게임입니다. 
+                
+                팀장(Lead Programmer)으로서 4명의 개발팀을 이끌며, **개발 파이프라인의 효율화**를 최우선 과제로 삼았습니다.`,
+                tech: ['Unity', 'Audio Analysis', 'Auto-Documentation Pipeline'],
+                challenges: `### 자동화된 문서화 파이프라인(Auto-Documentation)
+                - 빈번한 빌드와 기획 수정 사항을 자동으로 추적하고 문서화하는 툴을 개발했습니다.
+                - 이로 인해 빌드 후 변경 사항을 정리하는 데 걸리는 시간을 **15분에서 2분으로 단축**시켰습니다.`,
+                achievements: [
+                    'Reduced pipeline overhead by 85%',
+                    'TU Game Challenge - Participation Prize'
+                ],
+                video: 'https://www.youtube.com/embed/L54qU3JqQJI',
+                images: [
+                    'https://placehold.co/600x400/dad4bb/4b483f?text=Rhythm+Action',
+                    'https://placehold.co/600x400/dad4bb/4b483f?text=Pipeline+Tool'
+                ]
+            },
+
+            // --- EVENTS & TIMELINE ITEMS ---
+            'square_enix': {
+                title: 'Square Enix Recognition',
+                tags: ['Industry Feedback', 'G-Star 2025'],
+                desc: `G-Star 2025 전시 중, 전 스퀘어 에닉스 프로듀서이자 현 houndstooth.jp 대표인 **사이타 토모노리(SAITA Tomonori)**님께서 부스를 방문해주셨습니다.`,
+                tech: ['G-Star 2025', 'ALCOHOL FREE', '마음을 담아'],
+                challenges: `# 업계 전문가 피드백
+                - **ALCOHOL FREE**의 게임 메커니즘과 비주얼 노벨 연출 방식에 대해 심도 있는 피드백을 주고받았습니다.
+                - 특히 커스텀 에디터를 통한 제작 효율화 방식에 대해 긍정적인 평가를 받았습니다.
+                
+                - **마음을 담아**의 기획 방향성과 게임 메커니즘에 대해 피드백을 주고받았습니다.
+                - 해외 출시 가능성에 대한 질문도 이루어졌습니다.`,
+                achievements: [
+                    'Received positive feedback on game mechanics',
+                    'Established professional connection'
+                ],
+                video: '',
+                images: [
+                    'https://eus-cdn.sway.static.microsoft/s/JPasLtlByjTwysGH/images/alm8rw93-yO9YH?quality=706&allowAnimation=true',
+                    'https://eus-cdn.sway.static.microsoft/s/JPasLtlByjTwysGH/images/cWHpp3bG31XUdC?quality=960&allowAnimation=true',
+                    'https://file.notion.so/f/f/97434619-eda8-4814-b5cf-28ed79cb992f/e6c29e6b-85b6-49c9-84dc-d86f2ef62103/IMG_20251117_190611298.jpg?table=block&id=2bd15b43-f516-80bf-94b8-cf3016598cb4&spaceId=97434619-eda8-4814-b5cf-28ed79cb992f&expirationTimestamp=1765555200000&signature=KxhPvexQSPpUHCnpR4uewvkbBe3HFzGa1A1KjAGNBCQ&downloadName=IMG_20251117_190611298.jpg'
+                ]
+            },
+            'toei': {
+                title: 'Toei Company Publishing Offer',
+                tags: ['Publishing Offer', 'Global Market'],
+                desc: `일본의 대표적인 엔터테인먼트 기업 **Toei Company**의 신규 사업 개발 담당자(Game Advisor) KATO님으로부터 퍼블리싱 제안을 받았습니다.`,
+                tech: ['G-Star 2025', 'ALCOHOL FREE', '마음을 담아', 'RGB Line', 'Potential Market: Japan/Global'],
+                challenges: `# 글로벌 진출 가능성 타진
+                - **ALCOHOL FREE**와 **마음을 담아** 그리고 **RGB Line**의 일본 시장 및 글로벌 시장 진출 가능성에 대해 논의했습니다.
+                - 현지화(Localization) 및 마케팅 전략에 대한 실무적인 조언을 얻었습니다.
+                - 퍼블리셔로서의 협력 방안에 대해 구체적인 제안 및 준비해야할 사항들에 대한 피드백을 받았습니다.
+                - 일본 시장 내 게임 홍보 채널(X, YouTube 등) 활용 방안에 대해서도 논의했습니다.`,
+                achievements: [
+                    'Validation of commercial potential',
+                    'Opportunity for global reach'
+                ],
+                video: '',
+                images: [
+                    'https://file.notion.so/f/f/97434619-eda8-4814-b5cf-28ed79cb992f/4c2e5e26-98c6-4c07-afa8-8b8657f4d1ff/image.png?table=block&id=2c715b43-f516-80a0-8f15-f3aaa8c2e359&spaceId=97434619-eda8-4814-b5cf-28ed79cb992f&expirationTimestamp=1765555200000&signature=qbOnH5r0ramdzXUdLDvF6xpDdAwEiSE9RwDMdypaRsU&downloadName=image.png',
+                    'https://file.notion.so/f/f/97434619-eda8-4814-b5cf-28ed79cb992f/f8c7adfe-dcf8-4bb9-8b2b-c7c2c33dee1c/image.png?table=block&id=2c715b43-f516-809d-b23c-f0f9aeafd326&spaceId=97434619-eda8-4814-b5cf-28ed79cb992f&expirationTimestamp=1765555200000&signature=NbMFqC0rOAIgGGSvdYV6RnunRnzdjM7wDo_ObYLdUs4&downloadName=image.png',
+                    'https://file.notion.so/f/f/97434619-eda8-4814-b5cf-28ed79cb992f/b4bad0a3-e574-4e69-8203-eac3c0374e94/image.png?table=block&id=2c715b43-f516-80f3-a598-e93258c57e1b&spaceId=97434619-eda8-4814-b5cf-28ed79cb992f&expirationTimestamp=1765555200000&signature=4qXJZZoOPLBDsBC6yLTBePJaQUfpAz6gRhid2uNtEyY&downloadName=image.png',
+                    'https://file.notion.so/f/f/97434619-eda8-4814-b5cf-28ed79cb992f/0f5056f5-763d-4ee6-9c07-7ba0d31fa9bd/IMG_20251117_190720684.jpg?table=block&id=2c715b43-f516-80ce-ad6c-cfb81aa2a32c&spaceId=97434619-eda8-4814-b5cf-28ed79cb992f&expirationTimestamp=1765562400000&signature=LZOrLaqxWkL_2X3_mW-UgxU5yQ3YsqaFdWoDMiesSQY&downloadName=IMG_20251117_190720684.jpg'
+                ]
+            },
+            'pleedus': {
+                title: 'Pleedus Partnership',
+                tags: ['Partnership', 'Exhibition Support'],
+                desc: `게임 플랫폼 **Pleedus**와 파트너십을 맺고, 서울 코믹월드 2025 전시 부스를 지원받았습니다.`,
+                tech: ['Event: Comic World 2025', 'Booth Support'],
+                challenges: `### 서브컬처 타겟 마케팅
+                - 코믹월드 방문객 특성에 맞춘 부스 운영 및 굿즈 배포 전략을 수립했습니다.`,
+                achievements: [
+                    'Secured exhibition space at major subculture event',
+                    'Marketing support'
+                ],
+                video: '',
+                images: [
+                    'https://placehold.co/600x400/dad4bb/4b483f?text=Comic+World+Booth',
+                    'https://placehold.co/600x400/dad4bb/4b483f?text=Partnership+Banner'
+                ]
+            },
+            'tu_challenge': {
+                title: 'TU Game Challenge 2025',
+                tags: ['Contest', 'Awards'],
+                desc: `동명대학교 게임공학과에서 주최한 연례 게임 개발 경진대회입니다. 
+                총 3개의 프로젝트 팀으로 참가하여, 모든 팀이 수상하는 쾌거를 이루었습니다.`,
+                tech: ['Grand Prize (마음을 담아)', 'Grand Prize (Cross Wordle)', 'Excellence Prize (ALCOHOL FREE)', 'Participation Prize (RGB Line)'],
+                challenges: `### 다중 프로젝트 관리
+                - 서로 다른 장르(퍼즐, 비주얼 노벨, 리듬)의 4개 프로젝트 개발 일정을 동시에 관리했습니다.
+                - 각 프로젝트마다 핵심 메카닉을 기획하고 구현하는 데 주도적인 역할을 수행했습니다.`,
+                achievements: [
+                    'Won 4 Awards in a single contest',
+                    'Demonstrated versatility across genres'
+                ],
+                video: '',
+                images: [
+                    'https://placehold.co/600x400/dad4bb/4b483f?text=Awards+Ceremony',
+                    'https://placehold.co/600x400/dad4bb/4b483f?text=Certificates'
+                ]
+            },
+            'gstar_2025': {
+                title: 'G-STAR 2025 Exhibition',
+                tags: ['Exhibition', 'B2C'],
+                desc: `부산 벡스코에서 열린 국내 최대 게임쇼 **G-STAR 2025**에 참가하여 4개의 프로젝트를 전시했습니다.`,
+                tech: ['Booth Operation', 'User Feedback'],
+                challenges: `### 부스 운영 및 유저 피드백 수집
+                - 수백 명의 관람객을 대상으로 게임 시연을 진행하고 실시간 피드백을 수집했습니다.
+                - 현장에서 발견된 버그를 즉각적으로 핫픽스하며 안정적인 시연 환경을 유지했습니다.`,
+                achievements: [
+                    'Successfully operated multi-game booth',
+                    'Collected 500+ user feedback surveys'
+                ],
+                video: '',
+                images: [
+                    'https://placehold.co/600x400/dad4bb/4b483f?text=G-Star+Booth',
+                    'https://placehold.co/600x400/dad4bb/4b483f?text=Crowd+Shot'
+                ]
+            },
+            'ieee_award': { title: 'Chair of IEEE Busan Section Award', desc: 'Received for Cross Wordle.', achievements: ['Technical Excellence'], images: [] },
+            'comic_world_2025': { title: 'Comic World 2025', desc: 'Exhibited with Pleedus.', achievements: ['Subculture Marketing'], images: [] },
+            'beaver_rocks': { title: 'BEAVER ROCKS 2025', desc: 'Indie Game Festival.', achievements: ['Feedback gathering'], images: [] },
+            'tu_mach': { title: 'TU Mach Academy Conference', desc: 'Academic presentation.', achievements: ['Tech sharing'], images: [] },
+            'nataker': {
+                title: 'NATAKER',
+                tags: ['Solo Project', 'Fan Game', 'Puzzle / Adventure', 'Unity'],
+                desc: `스트리머 **나나양**을 위한 팬 헌정 게임으로, 유명 인디 게임 **HELLTAKER**의 시스템을 오마주하여 개발된 퍼즐 어드벤처 프로젝트입니다.
+                
+                **군 입대 전, 좋아하는 스트리머에게 기억에 남는 선물을 하고 싶다**는 목표로 시작되어, 기획부터 프로그래밍, 그래픽, 스토리 집필까지 1.5개월 만에 1인 개발로 완수했습니다. 해당 게임은 실제 스트리머가 플레이하여 유튜브 조회수 1.1만 회를 기록하는 등 팬덤 내에서 큰 호응을 얻었습니다.`,
+                tech: ['Helltaker-like Grid System', 'Puzzle Logic System'],
+                achievements: ['YouTube 11K+ Views', 'Completed in 1.5 Months as Solo Dev'],
+                challenges: `# 1인 개발 (Total Production)
+                - **Grid 기반 퍼즐 시스템 구현** 'HELLTAKER' 특유의 턴제 이동, 함정, 열쇠, 적군(스켈레톤 등)과 같은 그리드 기반 퍼즐 기믹과 상호작용 로직을 Unity 엔진으로 완벽하게 구현했습니다.
+                - **팬덤 맞춤형 콘텐츠 디자인** 스트리머 '나나양'의 밈(Meme) 요소와 주변 스트리머 캐릭터들을 게임 내 스토리에 자연스럽게 녹여내어, 플레이어(팬)들의 공감과 몰입도를 극대화했습니다.
+                - **리소스 제작 및 최적화** 캐릭터 스프라이트, 애니메이션, UI 등 모든 그래픽 리소스를 도트 스타일(Pixel Art)로 직접 제작하여 게임의 일관된 톤 앤 매너를 구축했습니다.
+                - **엄격한 마감 관리** '군 입대'라는 변경 불가능한 데드라인 내에 완성도 있는 빌드를 배포하기 위해, 핵심 기능 위주로 개발 범위를 최적화하고 집중적으로 구현했습니다.`,
+                video: 'https://www.youtube.com/embed/5f75U9QDdjI?si=wHm9Ug7SN_7csiZs',
+                images: [
+                    'https://file.notion.so/f/f/97434619-eda8-4814-b5cf-28ed79cb992f/e2e9b694-cd53-4b2d-81dd-62b06bf6b2f6/3cf6c1776ba41063acdc91e987d40a64.png?table=block&id=2c715b43-f516-805f-a8cc-c5b0160b8094&spaceId=97434619-eda8-4814-b5cf-28ed79cb992f&expirationTimestamp=1765562400000&signature=3X3vAqk6F0tfqUBY1OK5rHg0184YCmnzUt49WsgSXEE&downloadName=3cf6c1776ba41063acdc91e987d40a64.png',
+                    'https://file.notion.so/f/f/97434619-eda8-4814-b5cf-28ed79cb992f/a59cb584-4b88-4466-b964-374bbe911bab/040a11322156a6b5ce5b774930b0a13a.png?table=block&id=2c715b43-f516-8089-b9e3-d5effcf56d95&spaceId=97434619-eda8-4814-b5cf-28ed79cb992f&expirationTimestamp=1765562400000&signature=X-E_pBw2s2d3LcbJknHHxfaBAoDKQ3WzNdsDXYgzvaw&downloadName=040a11322156a6b5ce5b774930b0a13a.png',
+                    'https://file.notion.so/f/f/97434619-eda8-4814-b5cf-28ed79cb992f/0d331333-a9b0-4d51-bec7-83093fb8dc8b/12020de959c8aa1b6d8a11cbbdc2f5a6.png?table=block&id=2c715b43-f516-8090-90b8-da3dbf83f611&spaceId=97434619-eda8-4814-b5cf-28ed79cb992f&expirationTimestamp=1765562400000&signature=tC0w8NeFH3CCCKwR40Ik7xilVVnScIoKz05HqRxNRvU&downloadName=12020de959c8aa1b6d8a11cbbdc2f5a6.png',
+                    'https://file.notion.so/f/f/97434619-eda8-4814-b5cf-28ed79cb992f/82668ce8-6a42-44bb-90ba-20287c6cbd87/4f228a1586e4977ce1bd86061bb8c6ac.png?table=block&id=2c715b43-f516-80a9-8d13-d7b15591681f&spaceId=97434619-eda8-4814-b5cf-28ed79cb992f&expirationTimestamp=1765562400000&signature=nEo8EzYvtx2sPkmq5f3QfIXJ2f-Kb4SBJ_RWDDsJpR0&downloadName=4f228a1586e4977ce1bd86061bb8c6ac.png'
+                ]
+            },
+            'cs_course': { title: 'CS Instructor', desc: 'Teaching C++.', achievements: ['Mentoring'], images: [] },
+            'ude_b91': { title: 'UDE-B91', desc: 'Global Game Jam.', achievements: ['48h Dev'], images: [] },
+            'crosswordle': { title: 'Cross Wordle', desc: 'Teaching Project.', achievements: ['Award Winner'], images: [] },
+            'still_alive': { title: 'Still Alive', desc: 'Club Game Jam.', achievements: ['Survival Game'], images: [] }
+        };
+
+        // --- MARKDOWN PARSER (Updated for Headers) ---
+        function parseMarkdown(text) {
+            if (!text) return '';
+            
+            let lines = text.split('\n');
+            let html = '';
+            let inList = false;
+
+            lines.forEach(line => {
+                let trimmed = line.trim();
+                
+                // Header Processing (# Title)
+                if (trimmed.startsWith('#')) {
+                    // Close list if open
+                    if (inList) { html += '</ul>'; inList = false; }
+
+                    let level = 0;
+                    while (trimmed[level] === '#') level++;
+                    
+                    let content = trimmed.substring(level).trim();
+                    // Map # to h3, ## to h4 for visual hierarchy inside modal
+                    // (h1/h2 are reserved for modal titles)
+                    let tag = 'h' + Math.min(level + 2, 6); 
+                    html += `<${tag}>${content}</${tag}>`;
+                }
+                // List processing (- item)
+                else if (trimmed.startsWith('- ')) {
+                    if (!inList) {
+                        html += '<ul>';
+                        inList = true;
+                    }
+                    html += `<li>${trimmed.substring(2)}</li>`;
+                } 
+                // Normal Paragraph
+                else {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    if (trimmed === '') {
+                        html += '<br>';
+                    } else {
+                        html += `<p>${trimmed}</p>`;
+                    }
+                }
+            });
+            if (inList) html += '</ul>';
+            
+            // Bold processing (**text**)
+            html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            
+            return html;
+        }
+
+        // --- MODAL LOGIC ---
+        const modal = document.getElementById('modal-overlay');
+        const mTitle = document.getElementById('m-title');
+        const mTags = document.getElementById('m-tags');
+        const mDesc = document.getElementById('m-desc');
+        const mTech = document.getElementById('m-tech');
+        const mAchieve = document.getElementById('m-achievements');
+        const mChallenges = document.getElementById('m-challenges');
+        const mVideoContainer = document.getElementById('m-video-container');
+        const mVideo = document.getElementById('m-video');
+        const mGallery = document.getElementById('m-gallery');
+
+        function openNewTab(url) {
+            window.open(url, "_blank");
+        }
+
+        function openModal(id) {
+            const data = projectDB[id];
+            if(!data) {
+                console.error("No data found for ID:", id);
+                return;
+            }
+
+            // Populate Data using Markdown Parser
+            mTitle.innerText = data.title;
+            mDesc.innerHTML = parseMarkdown(data.desc);
+            mChallenges.innerHTML = parseMarkdown(data.challenges || 'No specific details provided.');
+            
+            // Tags
+            mTags.innerHTML = '';
+            if(data.tags) {
+                data.tags.forEach(tag => {
+                    mTags.innerHTML += `<span class="modal-tag">${tag}</span>`;
+                });
+            }
+
+            // Tech Stack (Right Column 1)
+            mTech.innerHTML = '';
+            if(data.tech) {
+                data.tech.forEach(t => {
+                    mTech.innerHTML += `<span class="skill-tag">${t}</span>`;
+                });
+            }
+
+            // Achievements (Left Column 2)
+            mAchieve.innerHTML = '';
+            if(data.achievements) {
+                data.achievements.forEach(a => {
+                    mAchieve.innerHTML += `<li>${a}</li>`;
+                });
+            }
+
+            // Video
+            if(data.video) {
+                mVideoContainer.style.display = 'block';
+                mVideo.src = data.video;
+            } else {
+                mVideoContainer.style.display = 'none';
+                mVideo.src = '';
+            }
+
+            // Image Gallery
+            mGallery.innerHTML = ''; 
+            if (data.images && data.images.length > 0) {
+                mGallery.style.display = 'flex';
+                data.images.forEach(src => {
+                    const img = document.createElement('img');
+                    img.src = src;
+                    img.alt = data.title + " Image";
+                    // Click event to open lightbox
+                    img.onclick = () => openLightbox(src);
+                    mGallery.appendChild(img);
+                });
+            } else {
+                mGallery.style.display = 'none';
+            }
+
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeModal() {
+            modal.style.display = 'none';
+            mVideo.src = ''; 
+            document.body.style.overflow = 'auto'; 
+        }
+
+        // --- GENERAL ---
         window.addEventListener('load', () => {
             const loader = document.getElementById('loader');
             setTimeout(() => {
                 loader.style.opacity = '0';
-                setTimeout(() => {
-                    loader.style.display = 'none';
-                }, 1000);
-            }, 2000); // 2 seconds loading time
+                setTimeout(() => { loader.style.display = 'none'; }, 1000);
+            }, 1500);
         });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        console.log("%c SYSTEM: BOOT SEQUENCE COMPLETE", "color: #dad4bb; background: #000; padding: 5px;");
     </script>
 </body>
 </html>
