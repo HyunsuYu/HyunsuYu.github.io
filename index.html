@@ -748,6 +748,30 @@
                 </div>
             </article>
 
+            <article class="project-card" style="border: 2px solid var(--text-color);" onclick="openModal('meshshader')">
+                <div class="project-header">
+                    <span class="project-title">Mesh Shader Pipeline 구현 ⭐</span>
+                    <span class="mono">2026.01 ~ Present</span>
+                </div>
+                <div class="project-body">
+                    <div class="project-content">
+                        <p>Advanced C++ textbook authored for Korea Univ. senior students. Focuses on bridging the gap between high-level syntax and low-level hardware behavior.</p>
+                        <div class="highlight-stat mono">
+                            <p>> Legacy IA Pipeline -> Mesh Shader Pipeline</p>
+                            <p>> FBX SDK를 활용한 유연한 *.fbx 로딩 + meshoptimizer를 통한 meshlet 생성</p>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://drive.google.com/drive/folders/1Cn0udL8k-LEFIsyFWisXQVbRnvi_2SFT?usp=sharing" target="_blank" onclick="event.stopPropagation()">[RESOURCE URL]</a>
+                        </div>
+                    </div>
+                    <div class="project-meta mono">
+                        <p><strong>ROLE:</strong> SOle Dev</p>
+                        <p><strong>TECH:</strong> C++, DX12, Mesh Shader, FBX SDK, meshoptimizer</p>
+                        <p><strong>STATUS:</strong> Progress</p>
+                    </div>
+                </div>
+            </article>
+
             <article class="project-card" style="border: 2px solid var(--text-color);" onclick="openModal('book')">
                 <div class="project-header">
                     <span class="project-title">More Deeper C++ Programming Language</span>
@@ -1270,6 +1294,35 @@
                     'https://lh3.googleusercontent.com/d/17sSseEoOyeKSCXno_9gpalXbTBvV3eP2',
                     'https://lh3.googleusercontent.com/d/1ep-KV6D6_WJzBHPgIJ8hT1wi1WZZXsVX',
                     'https://lh3.googleusercontent.com/d/1zVQrB0hqC0SYwmsCVasX0Bs4sRu9fSFU',
+                ]
+            },
+            'meshshader': {
+                title: 'Mesh Shader Pipeline 구현',
+                tags: ['Solo Dev', 'C++', 'DX12', 'meshoptimizer', 'FBX SDK'],
+                desc: `DirectX 12를 기반으로 차세대 렌더링 파이프라인인 Mesh Shader Pipeline을 직접 설계 및 구현한 프로젝트입니다.
+
+                기존의 고정된 Input Assembler(IA) 단계가 갖는 병목을 해소하고 지오메트리 처리의 유연성을 확보하기 위해, 언리얼 엔진 5의 Nanite와 유사한 Meshlet 구조를 도입했습니다.
+
+                FBX SDK를 통해 로드한 모델 데이터를 meshoptimizer로 전처리하여 최적화된 클러스터(Cluster)를 생성하고, 이를 런타임에서 Mesh Shader를 통해 고속으로 렌더링하는 파이프라인을 구축했습니다.`,
+                tech: ['DX12', 'Mesh Shader', 'meshoptimizer'],
+                challenges: `# Input Assembler(IA) 의존성 탈피:
+                - 기존의 Vertex Buffer 바인딩 방식 대신, 1개의 CBV(Camera Data)와 4개의 SRV(Vertices, Meshlet Info, Indices, Primitives)를 직접 바인딩하여 셰이더에서 Raw Data에 접근하는 구조 구현
+                # Meshlet 데이터 가공 파이프라인:
+                - **FBX SDK**를 활용하여 범용 *.fbx 파일 동적 로딩
+                - **meshoptimizer** 라이브러리를 연동해 Vertex Cache 효율을 고려한 Meshlet 단위 클러스터링(Clustering) 및 데이터 직렬화 수행
+                # 차세대 셰이더 스테이지 제어:
+                - IA/Vertex 대신 Mesh Shader 단계를 제어하여, GPU 하드웨어 구조에 더 친화적인 렌더링 로직 구현`,
+                achievements: [
+                    'DirectX 12 환경에서 Mesh Shader Pipeline 아키텍처 바닥부터 구현 (IA Pipeline 제거)',
+                    'FBX 모델 로더 및 meshoptimizer 기반의 자동화된 Meshlet 생성/변환 시스템 구축',
+                    'Meshlet 클러스터링 시각화(Debug View) 기능을 통해 지오메트리 분할 및 처리 로직 검증',
+                    '전통적인 Vertex Pipeline 대비 지오메트리 처리 효율 및 메모리 접근 패턴 최적화 연구 기반 마련'
+                ],
+                video: '',
+                images: [
+                    'https://lh3.googleusercontent.com/d/1UmkRW-Tjp-_INXw98wh0MJeohi5Hx8G-',
+                    'https://lh3.googleusercontent.com/d/1EL1vqrbs96enisJCK_u-FXedV5mr6EcS',
+                    'https://lh3.googleusercontent.com/d/1BtsxVaj1uNFQ2rkheULfgKAqEXA5SPfW'
                 ]
             },
             'book': {
