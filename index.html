@@ -711,7 +711,7 @@
                     </div>
                     <div class="stat-box">
                         <h3>Optimization</h3>
-                        <p>3,600x Speedup</p>
+                        <p>306x Speedup</p>
                     </div>
                 </div>
 
@@ -734,7 +734,7 @@
                     <div class="project-content">
                         <p>A high-performance map generation system developed over 12 months, starting during military service. Focused on extreme optimization using Lock-free parallelization and png based compression save system.</p>
                         <div class="highlight-stat mono">
-                            <p>> Time Performance: 90 min → 2.5 sec (3,600x Improved)</p>
+                            <p>> Time Performance: 90 min → 17.6 sec (306x Improved)</p>
                             <p>> Save Performance: 198mb → 35kb (5,700x Improved)</p>
                             <p>> Scale: 230M tiles in real-time</p>
                         </div>
@@ -1335,7 +1335,7 @@
                 - **Chunking & Preloading System** 플레이어 위치 기반으로 N±1 Layer를 비동기로 프리로딩(Preloading)하고, 3x3 청크(Chunk) 단위로 관리하여 로딩 화면 없는(Seamless) 오픈월드 환경을 구축했습니다.
                 - **Zero-Allocation Memory Management**  Tilemap.SetTiles API를 활용하여 Draw Call을 최소화하고, CompositeCollider2D로 물리 연산 토폴로지를 단순화했습니다. 데이터 로드 시 발생하는 GC Spike를 막기 위해 데이터 버퍼 풀링(Pooling) 구조를 설계하여 런타임 메모리 할당을 제로에 가깝게 유지했습니다.`,
                 achievements: [
-                    'Time Performance: 90 min → 2.5 sec (3,600x improvement via Lock-free Parallelization)',
+                    'Time Performance: 90 min → 17.6 sec (306x improvement via Lock-free Parallelization)',
                     'Save Performance: 198MB → 35KB (5,700x compression via Texture Packing)',
                     'Scale: 230 Million tiles real-time processing & streaming'
                 ],
