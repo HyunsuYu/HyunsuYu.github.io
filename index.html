@@ -9,7 +9,7 @@
     <meta name="google-site-verification" content="ZgHlnNKk8i1UinoRuXh4S4Df5h_YqDsNyyOUyFN5-xw" />
 
     <!-- --- SEO: PRIMARY META --- -->
-    <meta name="description" content="유현수(Hyunsu Yu) — Gameplay & Rendering 프로그래머 포트폴리오. DirectX 12 Mesh Shader 파이프라인, 초대형 타일맵 생성 시스템(306x 최적화), C++ 저수준 최적화 프로젝트와 연구를 소개합니다.">
+    <meta name="description" content="유현수(Hyunsu Yu) — Gameplay & Rendering 프로그래머 포트폴리오. DirectX 12 Mesh Shader 파이프라인, 초대형 타일맵 생성 시스템(2.7억 타일·IPC 기반 호스트 반응성 유지), C++ 저수준 최적화 프로젝트와 연구를 소개합니다.">
     <meta name="keywords" content="Hyunsu Yu, 유현수, Gameplay Programmer, Rendering Programmer, 렌더링 프로그래머, DirectX 12, Mesh Shader, C++, Unity, 게임 개발, 최적화, Optimization, 포트폴리오">
     <meta name="author" content="Hyunsu Yu">
     <meta name="robots" content="index, follow">
@@ -20,7 +20,7 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Hyunsu Yu — Dev Portfolio">
     <meta property="og:title" content="Hyunsu Yu | Gameplay & Rendering Programmer">
-    <meta property="og:description" content="DirectX 12 Mesh Shader 파이프라인, 초대형 타일맵 생성 시스템(306x 최적화), C++ 저수준 최적화 프로젝트와 연구를 소개합니다.">
+    <meta property="og:description" content="DirectX 12 Mesh Shader 파이프라인, 초대형 타일맵 생성 시스템(2.7억 타일·IPC 기반 호스트 반응성 유지), C++ 저수준 최적화 프로젝트와 연구를 소개합니다.">
     <meta property="og:url" content="https://hyunsuyu.github.io/">
     <meta property="og:image" content="https://hyunsuyu.github.io/assets/drive/1-LvQgEJYjVsM6vgf2QFTBeYvNcJeS2xH.png">
     <meta property="og:locale" content="ko_KR">
@@ -28,7 +28,7 @@
     <!-- --- SEO: TWITTER / X CARD --- -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Hyunsu Yu | Gameplay & Rendering Programmer">
-    <meta name="twitter:description" content="DirectX 12 Mesh Shader 파이프라인, 초대형 타일맵 생성 시스템(306x 최적화), C++ 저수준 최적화 프로젝트와 연구를 소개합니다.">
+    <meta name="twitter:description" content="DirectX 12 Mesh Shader 파이프라인, 초대형 타일맵 생성 시스템(2.7억 타일·IPC 기반 호스트 반응성 유지), C++ 저수준 최적화 프로젝트와 연구를 소개합니다.">
     <meta name="twitter:image" content="https://hyunsuyu.github.io/assets/drive/1-LvQgEJYjVsM6vgf2QFTBeYvNcJeS2xH.png">
 
     <!-- --- SEO: STRUCTURED DATA (JSON-LD) --- -->
@@ -890,8 +890,8 @@
                         <p>8+ Major Titles</p>
                     </div>
                     <div class="stat-box">
-                        <h3>Optimization</h3>
-                        <p>306x Speedup</p>
+                        <h3>Map Generation</h3>
+                        <p>270M Tiles · IPC</p>
                     </div>
                 </div>
 
@@ -912,12 +912,13 @@
                 </div>
                 <div class="project-body">
                     <div class="project-content">
-                        <p>A high-performance map generation system developed over 12 months, starting during military service. Focused on extreme optimization using Lock-free parallelization and png based compression save system.</p>
+                        <p>A large-scale tilemap generation system using partitioned parallel computation, an external agent process, and 2-channel PNG storage. The attached paper evaluates host responsiveness and storage trade-offs at 270 million tiles.</p>
                         <div class="highlight-stat mono">
-                            <p>> Time Performance: 90 min → 17.6 sec (306x Improved)</p>
-                            <p>> Save Performance: 198mb → 35kb (5,700x Improved)</p>
-                            <p>> Scale: 230M tiles in real-time</p>
+                            <p>> Host Responsiveness: 51.26 FPS / worst frame 230.3 ms (IPC+Agent)</p>
+                            <p>> Storage: 270 MB raw → 14.6 MB PNG (5.41% of raw size)</p>
+                            <p>> Scale: 270M tiles (3000×3000×30); generation mean 22.467 s</p>
                         </div>
+                        <p>Paper benchmark: i9-13900HX / 32 GB / RTX 4070 Laptop / Unity 6000.3.6f1 Mono; 2 warm-ups + 10 measured runs. Generation time excludes PNG saving, process startup, and IPC preparation; thermal conditions were uncontrolled. Job System + Burst generated faster (3.565 s); IPC+Agent achieved higher effective host FPS.</p>
                         <!-- Restored Direct Links -->
                         <div class="project-links">
                             <a href="https://github.com/HyunsuYu/LayeredMapGenAgent.git" target="_blank" onclick="event.stopPropagation()">[GITHUB]</a>
@@ -968,10 +969,11 @@
                     <div class="project-content">
                         <p>A visual-novel authoring framework based on a frame-state execution model inspired by render state tables. Built as an engine-independent core + per-engine runtime + VS Code LSP, and validated for practicality on a commercial VN (ALCOHOL FREE).</p>
                         <div class="highlight-stat mono">
-                            <p>> 대사 1자당 저장: 약 30.0B → 약 4.7B (약 6× 압축)</p>
+                            <p>> 대사 1자당 저장: 이전 노드그래프 약 30.0B → VW 약 4.7B (약 1/6)</p>
                             <p>> 상태 중복률: 85.4% → 0% (변화분만 기재)</p>
-                            <p>> 상용 VN 적용: 55 Scenes / 3,035 Commands / 엔진 독립성 Godot 실증</p>
+                            <p>> 상용 수준 VN 적용: 55 Scenes / 3,035 Commands / Godot 배경·대사 채널 실증</p>
                         </div>
+                        <p>Paper comparison: previous node-graph tool 127 scenes / 2,734 frames vs. VW 55 scenes; normalized storage per dialogue character. This is a representation-size comparison, not a measured authoring-productivity gain.</p>
                         <div class="project-links">
                             <a href="assets/papers/VisualWavePaper.pdf" target="_blank" onclick="event.stopPropagation()">[PAPER]</a>
                             <a href="https://galvanized-soda-726.notion.site/Visual-Wave-2e315b43f51680ab8ce9d32b5c43773d" target="_blank" onclick="event.stopPropagation()">[VISUAL WAVE DOC]</a>
@@ -1593,7 +1595,7 @@
                 - **확률적 임의 보행 + flood-fill** 하단 중앙에서 상단까지 도착 거리를 가중한 확률적 임의 보행으로 주 통로를 그리고, flood-fill로 연결성을 확인하며 보조 방을 배치(Spelunky식 산재)했습니다.
                 - **수직 gate 연결** 인접 두 층에서 양쪽 통과 가능한 칸을 후보로 상하 BFS로 수직 연결 영역(gate)을 확장해 평면 조각들을 3차원으로 통합했습니다.
                 # 2. Lock-free 병렬 · IPC 분리 아키텍처
-                - **엔진 분리 Agent 프로세스** 무거운 생성 연산을 Unity 메인 스레드에서 분리된 독립 에이전트 프로세스로 옮겨, 생성 중에도 호스트가 멈추지 않고 GC 부하를 피하도록 설계했습니다.
+                - **엔진 분리 Agent 프로세스** 무거운 생성 연산을 Unity 메인 스레드에서 분리된 독립 에이전트 프로세스로 옮겨, 생성 중 호스트 반응성을 유지하도록 설계했습니다. 대량 관리형 할당은 제거한 것이 아니라 에이전트 프로세스로 분리했습니다.
                 - **3채널 IPC** 실행 인자(JSON+Base64), 진행 상황(Named Pipe 스트리밍), 완성 맵(공유 PNG 파일)의 세 채널로 프로세스 간 통신을 구성했습니다.
                 - **Lock-free 병렬화** 겹치지 않는 영역 분할 + 스레드별 좌표 시드 기반 지역 xorshift 난수기로 Lock 없이 병렬화하여, 스케줄 순서와 무관하게 동일 결과가 생성되도록(결정론적) 설계했습니다. .NET ThreadPool로 배치 실행합니다.
                 # 3. 데이터 압축 및 I/O 최적화
@@ -1602,15 +1604,19 @@
                 # 4. 런타임 최적화: Seamless Streaming
                 - **Chunking & Preloading** 플레이어 위치 기반 N±1 Layer 비동기 프리로딩 + 3x3 청크 관리로 로딩 화면 없는(Seamless) 오픈월드 스트리밍을 구축했습니다.
                 - **Zero-Allocation Memory Management** Tilemap.SetTiles로 Draw Call을 최소화하고 CompositeCollider2D로 물리 토폴로지를 단순화했으며, 데이터 버퍼 풀링으로 런타임 GC Spike를 억제했습니다.
-                # 5. 논문 실험 결과 (3000×3000×30 ≈ 2.7억 타일, 10회 평균)
-                - **생성 중 호스트 반응성** 제안 IPC+Agent 방식은 생성 중 호스트 실효 51.26 FPS·최악 프레임 230.3ms를 유지(메인 스레드 직접 생성은 약 252s 멈춤·약 21.9GB 할당), 호스트 누적 관리형 할당은 118KB.
-                - **저장 용량** 2채널 PNG 30장 합계 14.6MB로 무압축 원시 270MB의 약 5.41%.
+                # 5. 논문 실험 결과 (표 1·2: 3000×3000×30 = 2.7억 타일)
+                - **측정 조건** Intel Core i9-13900HX / RAM 32GB / RTX 4070 Laptop / Unity 6000.3.6f1 Mono. 동일 맵 생성에 워밍업 2회 후 본 측정 10회, 발열 미통제. 아래 생성·준비 시간은 평균±표준편차, FPS는 평균, 최악 프레임은 전체 측정 중 최댓값입니다. 시간·프레임 지표는 2차 보완 단일 런, 누적 관리형 할당은 선행 계측 런 기준입니다.
+                - **생성 계산 시간** Job System+Burst 3.565±0.126s / 메인 스레드 239.358±11.657s / IPC+Agent 22.467±3.291s. PNG 저장·프로세스 시작·IPC 준비는 제외합니다. 생성 속도는 Job System+Burst가 가장 빠릅니다.
+                - **생성 중 호스트 반응성** 실효 FPS는 Job System+Burst 29.31 / 메인 스레드 0.257 / IPC+Agent 51.26. 전체 최악 프레임은 각각 2750.3ms / 252161.8ms / 230.3ms입니다. IPC+Agent의 강점은 생성 속도가 아닌 호스트 반응성이며, 순간 프레임 지연은 남아 있습니다.
+                - **호스트 누적 관리형 할당** Job System+Burst 10.5KB / 메인 스레드 약 21.9GB / IPC+Agent 118KB. 에이전트의 할당량을 포함한 전체 프로세스 메모리 수치가 아닙니다.
+                - **Total Turnaround** Job System+Burst 6.559±0.128s / 메인 스레드 242.192±11.701s / IPC+Agent 37.206±3.374s. 생성 요청부터 사전 지정 20×20 플레이 영역(활성 타일 165개)의 렌더·충돌·격자 인접 준비 완료까지이며, 전체 2.7억 타일의 게임 설치 완료 시간이 아닙니다.
+                - **저장 용량과 I/O 절충** 2채널 PNG 30장 합계 14.6MB(본문 14.603MB)로 무압축 원시 270MB의 약 5.41%. PNG 저장/복원은 2.142s/0.758s, Raw 파일 I/O는 0.123s/0.021s로 PNG는 용량을 줄이는 대신 더 긴 I/O 시간이 필요합니다. 전 본 시행에서 복원 맵 SHA-256이 입력과 일치했습니다.
                 - **구조적 품질** 활성 타일 12.70%, 막다른 끝 타일 0.28%, 시드 형태 다양성(Jaccard 거리) 0.926, 3D 최대 연결 성분 63.5%.`,
                 achievements: [
-                    'Time Performance: 90 min → 17.6 sec (306x improvement via Lock-free Parallelization)',
-                    'Save Performance: 198MB → 35KB (5,700x compression via Texture Packing)',
-                    'Scale: 230 Million tiles real-time processing & streaming',
-                    '논문: IPC+Agent 방식으로 생성 중 호스트 51.26 FPS 유지 (메인 스레드 직접 생성의 약 252s 멈춤·약 21.9GB 할당 회피)',
+                    '논문 표 1: 2.7억 타일 생성 평균 22.467s (IPC+Agent); Job System+Burst 3.565s, 메인 스레드 239.358s',
+                    '논문 표 2: 원시 270MB → 2채널 PNG 14.6MB (원시 용량의 약 5.41%; 저장/복원 2.142s/0.758s)',
+                    '실험 규모: 3000×3000×30 = 2.7억 타일; 사전 지정 20×20 플레이 영역 준비 평균 37.206s (전체 맵 설치 시간 아님)',
+                    '논문 표 1: 생성 중 호스트 실효 평균 51.26 FPS / 전체 최악 프레임 230.3ms / 호스트 누적 관리형 할당 118KB (에이전트 할당 제외)',
                     '2026 한국멀티미디어학회 추계학술발표대회 논문 발표 (제1저자, 단독 연구)'
                 ],
                 video: 'https://www.youtube.com/embed/SGQx82kwn-8?si=WFa7hvW2NLcj51OC',
@@ -1692,14 +1698,18 @@
                 # DSL + LSP 편집 지원
                 - 시나리오(.vwso)·자원(.vwsor)·시스템(.vwsmr) DSL 설계, 자원을 숫자 식별자로 참조해 재사용성 강화.
                 - **VS Code 확장 + LSP 서버**로 자동완성·인레이 힌트·구문 강조 제공, 식별자 분리에 따른 가독성 저하 보완.
+                # 논문 정량 비교 및 측정 조건
+                - **비교 대상과 범위** 동일 작품의 이전 노드그래프 도구(127장면·2,734프레임)와 VW(55장면)를 대사 1자당 저장 용량 등 정규화 비율로 비교했습니다. 약 6분의 1은 이전 노드그래프 대비 저장 표현의 크기이며, 다른 텍스트 DSL 대비 우위나 저작 생산성 향상 수치가 아닙니다.
+                - **표 3** 대사 1자당 약 30.0B → 약 4.7B, 상태 중복률 85.4% → 0%(변화분만 기재), 화면 1회 기재량 11개 → 평균 1.14개.
+                - **런타임 계측** .NET Framework 4.8 Release, 워밍업 3회 후 15회 반복 중앙값 기준으로 55개 시나리오 전체 적재·파싱 약 11.5ms. 화면 1회 프레임 상태 구성은 평균 약 0.16ms, 적재 후 관리 힙은 약 0.48MB입니다. 코어 측 비용이며 전체 게임 프레임 시간이 아닙니다.
                 # 엔진 독립성 실증
-                - Unity 런타임으로 상용 적용, **Godot 4.7 Vulkan** 렌더러에서 동일 시나리오/자원을 수정 없이 재사용해 코어의 엔진 독립성 실증.`,
+                - Unity 런타임으로 상용 수준 작품에 적용하고, **Godot 4.7 Vulkan**에서 동일 코어·시나리오·자원·시스템 파일을 수정 없이 재사용했습니다. Godot 실증은 **배경·대사 채널의 최소 사례**이며, 캐릭터·음향·연출 등 나머지 채널은 추가 구현이 필요합니다.`,
                 achievements: [
                     '엔진 독립 코어 + 엔진별 런타임 + VS Code LSP로 구성된 완결형 VN 저작 프레임워크 설계·구현',
                     '상용 수준 VN(ALCOHOL FREE) 적용: 4개 루트 / 55 Scenes / 3,035 Commands (대사 2,497)',
-                    '대사 1자당 저장 용량 약 30.0B → 약 4.7B (약 6× 압축), 상태 중복률 85.4% → 0%',
-                    '런타임 성능: 55개 시나리오 파싱 중앙값 11.5ms, 프레임 상태 구성 평균 0.16ms (60fps 예산 내)',
-                    'Godot 엔진에서 동일 시나리오 재사용으로 코어 엔진 독립성 실증',
+                    '이전 노드그래프 대비 대사 1자당 저장 약 30.0B → 약 4.7B (약 1/6), 상태 중복률 85.4% → 0%; 화면 1회 기재량 11 → 평균 1.14개',
+                    '코어 계측: 55개 시나리오 적재·파싱 중앙값 약 11.5ms / 화면 상태 구성 평균 약 0.16ms / 적재 후 관리 힙 약 0.48MB (.NET Framework 4.8 Release)',
+                    'Godot에서 동일 코어·시나리오·자원·시스템 파일 재사용: 배경·대사 채널의 최소 구동 사례로 엔진 독립성 실증',
                     '2026 한국멀티미디어학회 추계학술발표대회 논문 발표 (제1저자, 단독 연구)'
                 ],
                 video: '',
