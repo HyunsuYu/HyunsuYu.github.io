@@ -684,6 +684,24 @@
         }
         @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } 100% { opacity: 1; } }
 
+        /* --- SAVE AS PDF BUTTON (screen only) --- */
+        .pdf-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 500;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            background: var(--text-color);
+            color: var(--bg-color);
+            border: 2px solid var(--text-color);
+            padding: 10px 16px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .pdf-btn:hover { background: var(--bg-color); color: var(--text-color); }
+
         /* --- PRINT / PDF OUTPUT --- */
         .print-detail { display: none; }
 
@@ -723,7 +741,7 @@
             body { font-size: 10.5pt; line-height: 1.55; }
 
             /* Hide decorative / interactive chrome */
-            .scanlines, .bg-grid, #loader, .lightbox-overlay, #modal-overlay { display: none !important; }
+            .scanlines, .bg-grid, #loader, .lightbox-overlay, #modal-overlay, .pdf-btn { display: none !important; }
 
             /* Sidebar -> compact running header */
             aside {
@@ -1495,6 +1513,9 @@
         <p style="font-size: 0.8rem; margin-top: 10px;">&copy; 2026 Hyunsu Yu.</p>
     </footer>
 
+    <!-- SAVE AS PDF (screen only) -->
+    <button class="pdf-btn" onclick="openPrintView()" title="Save portfolio as a clean PDF">&#9113; SAVE AS PDF</button>
+
     <!-- MODAL (MOVED TO BOTTOM FOR Z-INDEX FIX) -->
     <div id="modal-overlay" class="modal-overlay" onclick="closeModal()">
         <div class="modal-container" onclick="event.stopPropagation()">
@@ -2235,52 +2256,90 @@
             });
         });
 
-        // --- PRINT: expand each project card's detail inline for clean PDF output ---
-        // Text is built on load (present in every print path); gallery images are
-        // only fetched right before printing, to keep the normal page load light.
-        function buildPrintDetails() {
-            if (document.querySelector('.print-detail')) return;
-            const cards = document.querySelectorAll('#featured .project-card, #projects .project-card');
-            cards.forEach(card => {
-                const oc = card.getAttribute('onclick') || '';
-                const m = oc.match(/openModal\('([^']+)'\)/);
-                if (!m) return;
-                const data = projectDB[m[1]];
-                if (!data) return;
-
-                let html = '';
-                if (data.desc) {
-                    html += `<div class="pd-section markdown-content pd-desc">${parseMarkdown(data.desc)}</div>`;
-                }
-                if (data.tech && data.tech.length) {
-                    html += `<div class="pd-section"><h4 class="pd-label">TECH</h4><div class="pd-tags">`
-                        + data.tech.map(t => `<span>${t}</span>`).join('') + `</div></div>`;
-                }
-                if (data.achievements && data.achievements.length) {
-                    html += `<div class="pd-section"><h4 class="pd-label">KEY OUTCOMES</h4><ul class="markdown-content">`
-                        + data.achievements.map(a => `<li>${a}</li>`).join('') + `</ul></div>`;
-                }
-                if (data.challenges) {
-                    html += `<div class="pd-section"><h4 class="pd-label">DETAILS</h4>`
-                        + `<div class="markdown-content">${parseMarkdown(data.challenges)}</div></div>`;
-                }
-                // Galleries are intentionally omitted from print: browsers embed
-                // images at full resolution, which bloats the PDF and causes
-                // broken boxes when they aren't loaded in time. The detail text
-                // is what makes a clean, shareable portfolio PDF.
-
+        // --- PRINT: build each project card's text detail (used by both the
+        // simple @media print path and the paginated "Save as PDF" view) ---
+        function buildDetailInner(data) {
+            let html = '';
+            if (data.desc)
+                html += `<div class="pd-section markdown-content pd-desc">${parseMarkdown(data.desc)}</div>`;
+            if (data.tech && data.tech.length)
+                html += `<div class="pd-section"><h4 class="pd-label">TECH</h4><div class="pd-tags">`
+                    + data.tech.map(t => `<span>${t}</span>`).join('') + `</div></div>`;
+            if (data.achievements && data.achievements.length)
+                html += `<div class="pd-section"><h4 class="pd-label">KEY OUTCOMES</h4><ul class="markdown-content">`
+                    + data.achievements.map(a => `<li>${a}</li>`).join('') + `</ul></div>`;
+            if (data.challenges)
+                html += `<div class="pd-section"><h4 class="pd-label">DETAILS</h4>`
+                    + `<div class="markdown-content">${parseMarkdown(data.challenges)}</div></div>`;
+            return html;
+        }
+        function buildPrintDetails(root) {
+            root = root || document;
+            if (root.querySelector('.print-detail')) return;
+            root.querySelectorAll('#featured .project-card, #projects .project-card').forEach(card => {
+                const m = (card.getAttribute('onclick') || '').match(/openModal\('([^']+)'\)/);
+                if (!m || !projectDB[m[1]]) return;
                 const el = document.createElement('div');
                 el.className = 'print-detail';
-                el.innerHTML = html;
+                el.innerHTML = buildDetailInner(projectDB[m[1]]);
                 card.insertAdjacentElement('afterend', el);
             });
         }
-        window.addEventListener('load', buildPrintDetails);
-        window.addEventListener('beforeprint', buildPrintDetails);
-        if (window.matchMedia) {
-            const mq = window.matchMedia('print');
-            const onPrint = e => { if (e.matches) buildPrintDetails(); };
-            mq.addEventListener ? mq.addEventListener('change', onPrint) : mq.addListener(onPrint);
+        window.addEventListener('load', () => buildPrintDetails());
+        window.addEventListener('beforeprint', () => buildPrintDetails());
+
+        // --- "Save as PDF": book-style paginated export via Paged.js ---
+        // Paged.js lays the content into real A4 page boxes (with margins, running
+        // footer + page numbers, and content-aware breaks) on screen, so the result
+        // is identical no matter what Margins setting the browser print dialog uses.
+        function buildPrintDoc() {
+            const siteCss = document.querySelector('style') ? document.querySelector('style').textContent : '';
+            const mainClone = document.querySelector('main').cloneNode(true);
+            mainClone.querySelectorAll('.print-detail').forEach(e => e.remove());
+            buildPrintDetails(mainClone);
+            mainClone.querySelectorAll('[onclick]').forEach(e => e.removeAttribute('onclick'));
+            mainClone.querySelectorAll('a[href^="javascript:"]').forEach(a => a.removeAttribute('href'));
+            const header = `<div class="pv-header"><h1>HYUNSU YU</h1><br><span class="mono">GAMEPLAY &amp; RENDERING</span></div>`;
+            const pagedUrl = 'https://cdn.jsdelivr.net/npm/pagedjs@0.4.3/dist/paged.polyfill.min.js';
+            return `<!doctype html><html lang="ko"><head><meta charset="utf-8">
+<title>Hyunsu Yu — Gameplay & Rendering Programmer</title>
+<style>${siteCss}</style>
+<style>
+@page { size: A4; margin: 18mm 16mm 20mm 16mm;
+  @bottom-left { content: "HYUNSU YU · GAMEPLAY & RENDERING"; font-family:'Share Tech Mono',monospace; font-size:7.5pt; color:#57544a; }
+  @bottom-right { content: counter(page) " / " counter(pages); font-family:'Share Tech Mono',monospace; font-size:7.5pt; color:#57544a; }
+}
+html,body{ background:#dad4bb !important; color:#4b483f !important; margin:0; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+body{ font-size:10.5pt; line-height:1.55; }
+.scanlines,.bg-grid,#loader,.lightbox-overlay,.modal-overlay,aside,.pdf-btn{ display:none !important; }
+main{ margin:0 !important; width:100% !important; max-width:100% !important; padding:0 !important; }
+*{ cursor:auto !important; animation:none !important; transition:none !important; }
+a{ color:#4b483f !important; background:none !important; padding:0 !important; text-decoration:none; }
+.pv-header{ border-bottom:2px solid #4b483f; margin-bottom:14px; padding-bottom:8px; }
+.pv-header h1{ font-size:20pt; letter-spacing:2px; margin:0; }
+.pv-header span{ font-family:'Share Tech Mono',monospace; font-size:9pt; }
+.section-title{ font-size:16pt; margin-top:0 !important; break-after:avoid; }
+main > section{ break-before: page; }
+main > section:first-of-type{ break-before: auto; }
+.project-body{ grid-template-columns:2fr 1fr !important; }
+.project-card,.hero,.recog-card,.history-item,.skill-section,.stat-box{ break-inside: avoid; }
+.print-detail{ display:block !important; background:var(--modal-bg); border:1px solid var(--highlight-color); border-top:none; padding:12px 16px 16px; margin:-6px 0 16px; break-inside:auto; }
+.print-detail .pd-section{ margin-top:12px; }
+.print-detail h4.pd-label{ font-family:'Share Tech Mono',monospace; font-size:9.5pt; letter-spacing:1px; border-bottom:1px solid #4b483f; padding-bottom:2px; margin-bottom:6px; break-after:avoid; }
+.print-detail .markdown-content h3,.print-detail .markdown-content h4{ break-after:avoid; }
+.print-detail .markdown-content li{ break-inside:avoid; }
+.print-detail .pd-tags span{ display:inline-block; background:rgba(75,72,63,.08); border:1px solid #8c887d; padding:1px 6px; margin:2px 3px 2px 0; font-size:9pt; font-family:'Share Tech Mono',monospace; }
+.pagedjs_page{ background:#dad4bb; }
+</style>
+<script>window.PagedConfig={ auto:true, after:function(){ try{ document.title='Hyunsu Yu — Gameplay & Rendering Programmer'; }catch(e){} setTimeout(function(){ window.focus(); window.print(); }, 500); } };<\/script>
+</head><body>${header}${mainClone.outerHTML}
+<script src="${pagedUrl}"><\/script>
+</body></html>`;
+        }
+        function openPrintView() {
+            const w = window.open('', '_blank');
+            if (!w) { alert('팝업이 차단되어 PDF 뷰를 열 수 없습니다. 팝업을 허용한 뒤 다시 시도해 주세요.'); return; }
+            w.document.open(); w.document.write(buildPrintDoc()); w.document.close();
         }
 
         console.log("%c SYSTEM: BOOT SEQUENCE COMPLETE", "color: #dad4bb; background: #000; padding: 5px;");
