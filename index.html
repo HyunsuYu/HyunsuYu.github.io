@@ -715,14 +715,18 @@
                 position: static !important;
                 width: 100% !important;
                 height: auto !important;
+                min-height: 0 !important;
                 border-right: none !important;
                 border-bottom: 2px solid #000 !important;
-                padding: 0 0 8px 0 !important;
-                margin-bottom: 10px !important;
+                background: #fff !important;
+                padding: 0 0 6px 0 !important;
+                margin: 0 0 12px 0 !important;
                 display: block !important;
             }
             aside nav, aside > div:last-child { display: none !important; }
-            .logo-area h1 { font-size: 22pt; }
+            .logo-area { margin-bottom: 0 !important; }
+            .logo-area h1 { font-size: 20pt; }
+            .logo-area span { opacity: 1; }
 
             main {
                 margin: 0 !important;
@@ -745,6 +749,8 @@
                 background: #fff !important;
                 break-inside: avoid;
             }
+            /* keep a project card together with its expanded detail */
+            #featured .project-card, #projects .project-card { break-after: avoid; }
             .project-body { grid-template-columns: 2fr 1fr !important; }
             .highlight-stat { background: #f3f3f3 !important; border-left: 3px solid #666 !important; }
             .skill-tag, .modal-tag { background: #eee !important; color: #000 !important; border: 1px solid #ccc; }
@@ -788,11 +794,15 @@
             }
             .print-detail .pd-gallery img {
                 width: 100%;
-                max-height: 300px;
+                max-height: 215px;
                 object-fit: contain;
+                background: #fafafa;
                 border: 1px solid #ddd;
                 break-inside: avoid;
             }
+            /* hide any image that failed to load so it never prints as a broken box */
+            .print-detail .pd-gallery img:not([src]),
+            .print-detail .pd-gallery img[src=""] { display: none !important; }
 
             footer { border-top: 1px solid #000; margin-top: 18px; }
         }
@@ -2265,10 +2275,10 @@
                     html += `<div class="pd-section"><h4 class="pd-label">DETAILS</h4>`
                         + `<div class="markdown-content">${parseMarkdown(data.challenges)}</div></div>`;
                 }
-                if (data.images && data.images.length) {
-                    html += `<div class="pd-section"><h4 class="pd-label">GALLERY</h4><div class="pd-gallery">`
-                        + data.images.map(src => `<img data-src="${src}" alt="">`).join('') + `</div></div>`;
-                }
+                // Galleries are intentionally omitted from print: browsers embed
+                // images at full resolution, which bloats the PDF and causes
+                // broken boxes when they aren't loaded in time. The detail text
+                // is what makes a clean, shareable portfolio PDF.
 
                 const el = document.createElement('div');
                 el.className = 'print-detail';
@@ -2276,17 +2286,11 @@
                 card.insertAdjacentElement('afterend', el);
             });
         }
-        function hydratePrintImages() {
-            document.querySelectorAll('.print-detail img[data-src]').forEach(img => {
-                img.src = img.getAttribute('data-src');
-                img.removeAttribute('data-src');
-            });
-        }
         window.addEventListener('load', buildPrintDetails);
-        window.addEventListener('beforeprint', () => { buildPrintDetails(); hydratePrintImages(); });
+        window.addEventListener('beforeprint', buildPrintDetails);
         if (window.matchMedia) {
             const mq = window.matchMedia('print');
-            const onPrint = e => { if (e.matches) { buildPrintDetails(); hydratePrintImages(); } };
+            const onPrint = e => { if (e.matches) buildPrintDetails(); };
             mq.addEventListener ? mq.addEventListener('change', onPrint) : mq.addListener(onPrint);
         }
 
