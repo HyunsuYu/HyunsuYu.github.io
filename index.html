@@ -683,6 +683,119 @@
             100% { transform: translate(0) }
         }
         @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } 100% { opacity: 1; } }
+
+        /* --- PRINT / PDF OUTPUT --- */
+        .print-detail { display: none; }
+
+        @media print {
+            @page { margin: 14mm; }
+
+            * {
+                cursor: auto !important;
+                animation: none !important;
+                transition: none !important;
+                text-shadow: none !important;
+                box-shadow: none !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            body {
+                background: #ffffff !important;
+                color: #1a1a1a !important;
+                font-size: 10.5pt;
+                line-height: 1.5;
+            }
+
+            /* Hide decorative / interactive chrome */
+            .scanlines, .bg-grid, #loader, .lightbox-overlay, #modal-overlay { display: none !important; }
+
+            /* Turn the sidebar into a compact top header */
+            aside {
+                position: static !important;
+                width: 100% !important;
+                height: auto !important;
+                border-right: none !important;
+                border-bottom: 2px solid #000 !important;
+                padding: 0 0 8px 0 !important;
+                margin-bottom: 10px !important;
+                display: block !important;
+            }
+            aside nav, aside > div:last-child { display: none !important; }
+            .logo-area h1 { font-size: 22pt; }
+
+            main {
+                margin: 0 !important;
+                width: 100% !important;
+                max-width: 100% !important;
+                padding: 0 !important;
+            }
+
+            a { color: #1a1a1a !important; text-decoration: underline; background: none !important; padding: 0 !important; }
+
+            .section-title {
+                font-size: 17pt;
+                border-bottom: 2px solid #000;
+                margin-top: 16px;
+                break-after: avoid;
+            }
+
+            .project-card, .hero, .recog-card, .history-item, .skill-section, .stat-box {
+                border: 1px solid #bbb !important;
+                background: #fff !important;
+                break-inside: avoid;
+            }
+            .project-body { grid-template-columns: 2fr 1fr !important; }
+            .highlight-stat { background: #f3f3f3 !important; border-left: 3px solid #666 !important; }
+            .skill-tag, .modal-tag { background: #eee !important; color: #000 !important; border: 1px solid #ccc; }
+
+            /* Injected print-only detail (from projectDB) */
+            .print-detail {
+                display: block !important;
+                border: 1px solid #bbb;
+                border-top: none;
+                padding: 12px 16px 16px;
+                margin: -8px 0 18px 0;
+                break-inside: auto;
+            }
+            .print-detail .pd-section { margin-top: 12px; }
+            .print-detail h4.pd-label {
+                font-family: 'Share Tech Mono', monospace;
+                font-size: 9.5pt;
+                letter-spacing: 1px;
+                border-bottom: 1px solid #000;
+                padding-bottom: 2px;
+                margin-bottom: 6px;
+                break-after: avoid;
+            }
+            .print-detail .markdown-content h3,
+            .print-detail .markdown-content h4 { break-after: avoid; color: #000; }
+            .print-detail .markdown-content li { break-inside: avoid; }
+            .print-detail .pd-tags span {
+                display: inline-block;
+                background: #eee;
+                border: 1px solid #ccc;
+                padding: 1px 6px;
+                margin: 2px 3px 2px 0;
+                font-size: 9pt;
+                font-family: 'Share Tech Mono', monospace;
+            }
+            .print-detail .pd-gallery {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 6px;
+                margin-top: 8px;
+            }
+            .print-detail .pd-gallery img {
+                width: 100%;
+                max-height: 300px;
+                object-fit: contain;
+                border: 1px solid #ddd;
+                break-inside: avoid;
+            }
+
+            footer { border-top: 1px solid #000; margin-top: 18px; }
+        }
     </style>
 </head>
 <body>
@@ -2122,6 +2235,60 @@
                 document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
             });
         });
+
+        // --- PRINT: expand each project card's detail inline for clean PDF output ---
+        // Text is built on load (present in every print path); gallery images are
+        // only fetched right before printing, to keep the normal page load light.
+        function buildPrintDetails() {
+            if (document.querySelector('.print-detail')) return;
+            const cards = document.querySelectorAll('#featured .project-card, #projects .project-card');
+            cards.forEach(card => {
+                const oc = card.getAttribute('onclick') || '';
+                const m = oc.match(/openModal\('([^']+)'\)/);
+                if (!m) return;
+                const data = projectDB[m[1]];
+                if (!data) return;
+
+                let html = '';
+                if (data.desc) {
+                    html += `<div class="pd-section markdown-content pd-desc">${parseMarkdown(data.desc)}</div>`;
+                }
+                if (data.tech && data.tech.length) {
+                    html += `<div class="pd-section"><h4 class="pd-label">TECH</h4><div class="pd-tags">`
+                        + data.tech.map(t => `<span>${t}</span>`).join('') + `</div></div>`;
+                }
+                if (data.achievements && data.achievements.length) {
+                    html += `<div class="pd-section"><h4 class="pd-label">KEY OUTCOMES</h4><ul class="markdown-content">`
+                        + data.achievements.map(a => `<li>${a}</li>`).join('') + `</ul></div>`;
+                }
+                if (data.challenges) {
+                    html += `<div class="pd-section"><h4 class="pd-label">DETAILS</h4>`
+                        + `<div class="markdown-content">${parseMarkdown(data.challenges)}</div></div>`;
+                }
+                if (data.images && data.images.length) {
+                    html += `<div class="pd-section"><h4 class="pd-label">GALLERY</h4><div class="pd-gallery">`
+                        + data.images.map(src => `<img data-src="${src}" alt="">`).join('') + `</div></div>`;
+                }
+
+                const el = document.createElement('div');
+                el.className = 'print-detail';
+                el.innerHTML = html;
+                card.insertAdjacentElement('afterend', el);
+            });
+        }
+        function hydratePrintImages() {
+            document.querySelectorAll('.print-detail img[data-src]').forEach(img => {
+                img.src = img.getAttribute('data-src');
+                img.removeAttribute('data-src');
+            });
+        }
+        window.addEventListener('load', buildPrintDetails);
+        window.addEventListener('beforeprint', () => { buildPrintDetails(); hydratePrintImages(); });
+        if (window.matchMedia) {
+            const mq = window.matchMedia('print');
+            const onPrint = e => { if (e.matches) { buildPrintDetails(); hydratePrintImages(); } };
+            mq.addEventListener ? mq.addEventListener('change', onPrint) : mq.addListener(onPrint);
+        }
 
         console.log("%c SYSTEM: BOOT SEQUENCE COMPLETE", "color: #dad4bb; background: #000; padding: 5px;");
     </script>
