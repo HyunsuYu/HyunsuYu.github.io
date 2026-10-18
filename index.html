@@ -688,39 +688,53 @@
         .print-detail { display: none; }
 
         @media print {
-            @page { margin: 14mm; }
+            /* Bound-book page: generous padding + running footer with page numbers */
+            @page {
+                size: A4;
+                margin: 18mm 16mm 20mm 16mm;
+                @bottom-left {
+                    content: "HYUNSU YU · GAMEPLAY & RENDERING";
+                    font-family: 'Share Tech Mono', monospace;
+                    font-size: 7.5pt;
+                    color: #57544a;
+                }
+                @bottom-right {
+                    content: counter(page) " / " counter(pages);
+                    font-family: 'Share Tech Mono', monospace;
+                    font-size: 7.5pt;
+                    color: #57544a;
+                }
+            }
 
             * {
                 cursor: auto !important;
                 animation: none !important;
                 transition: none !important;
-                text-shadow: none !important;
-                box-shadow: none !important;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
             }
 
-            body {
-                background: #ffffff !important;
-                color: #1a1a1a !important;
-                font-size: 10.5pt;
-                line-height: 1.5;
+            /* Keep the site theme (beige paper, dark ink) */
+            html, body {
+                background: var(--bg-color) !important;
+                color: var(--text-color) !important;
             }
+            body { font-size: 10.5pt; line-height: 1.55; }
 
             /* Hide decorative / interactive chrome */
             .scanlines, .bg-grid, #loader, .lightbox-overlay, #modal-overlay { display: none !important; }
 
-            /* Turn the sidebar into a compact top header */
+            /* Sidebar -> compact running header */
             aside {
                 position: static !important;
                 width: 100% !important;
                 height: auto !important;
                 min-height: 0 !important;
                 border-right: none !important;
-                border-bottom: 2px solid #000 !important;
-                background: #fff !important;
-                padding: 0 0 6px 0 !important;
-                margin: 0 0 12px 0 !important;
+                border-bottom: 2px solid var(--text-color) !important;
+                background: transparent !important;
+                padding: 0 0 8px 0 !important;
+                margin: 0 0 14px 0 !important;
                 display: block !important;
             }
             aside nav, aside > div:last-child { display: none !important; }
@@ -728,40 +742,27 @@
             .logo-area h1 { font-size: 20pt; }
             .logo-area span { opacity: 1; }
 
-            main {
-                margin: 0 !important;
-                width: 100% !important;
-                max-width: 100% !important;
-                padding: 0 !important;
-            }
+            main { margin: 0 !important; width: 100% !important; max-width: 100% !important; padding: 0 !important; }
 
-            a { color: #1a1a1a !important; text-decoration: underline; background: none !important; padding: 0 !important; }
+            a { color: var(--text-color) !important; background: none !important; padding: 0 !important; }
 
-            .section-title {
-                font-size: 17pt;
-                border-bottom: 2px solid #000;
-                margin-top: 16px;
-                break-after: avoid;
-            }
+            .section-title { font-size: 16pt; margin-top: 14px; break-after: avoid; }
+            section { margin-bottom: 6px; }
 
-            .project-card, .hero, .recog-card, .history-item, .skill-section, .stat-box {
-                border: 1px solid #bbb !important;
-                background: #fff !important;
-                break-inside: avoid;
-            }
-            /* keep a project card together with its expanded detail */
+            /* Keep theme surfaces; just control page breaks */
+            .project-card, .hero, .recog-card, .history-item, .skill-section, .stat-box { break-inside: avoid; }
+            /* keep each project card attached to its expanded detail */
             #featured .project-card, #projects .project-card { break-after: avoid; }
             .project-body { grid-template-columns: 2fr 1fr !important; }
-            .highlight-stat { background: #f3f3f3 !important; border-left: 3px solid #666 !important; }
-            .skill-tag, .modal-tag { background: #eee !important; color: #000 !important; border: 1px solid #ccc; }
 
-            /* Injected print-only detail (from projectDB) */
+            /* Injected print-only detail (themed) */
             .print-detail {
                 display: block !important;
-                border: 1px solid #bbb;
+                background: var(--modal-bg);
+                border: 1px solid var(--highlight-color);
                 border-top: none;
                 padding: 12px 16px 16px;
-                margin: -8px 0 18px 0;
+                margin: -6px 0 16px 0;
                 break-inside: auto;
             }
             .print-detail .pd-section { margin-top: 12px; }
@@ -769,42 +770,25 @@
                 font-family: 'Share Tech Mono', monospace;
                 font-size: 9.5pt;
                 letter-spacing: 1px;
-                border-bottom: 1px solid #000;
+                border-bottom: 1px solid var(--text-color);
                 padding-bottom: 2px;
                 margin-bottom: 6px;
                 break-after: avoid;
             }
             .print-detail .markdown-content h3,
-            .print-detail .markdown-content h4 { break-after: avoid; color: #000; }
+            .print-detail .markdown-content h4 { break-after: avoid; }
             .print-detail .markdown-content li { break-inside: avoid; }
             .print-detail .pd-tags span {
                 display: inline-block;
-                background: #eee;
-                border: 1px solid #ccc;
+                background: rgba(75, 72, 63, 0.08);
+                border: 1px solid var(--highlight-color);
                 padding: 1px 6px;
                 margin: 2px 3px 2px 0;
                 font-size: 9pt;
                 font-family: 'Share Tech Mono', monospace;
             }
-            .print-detail .pd-gallery {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 6px;
-                margin-top: 8px;
-            }
-            .print-detail .pd-gallery img {
-                width: 100%;
-                max-height: 215px;
-                object-fit: contain;
-                background: #fafafa;
-                border: 1px solid #ddd;
-                break-inside: avoid;
-            }
-            /* hide any image that failed to load so it never prints as a broken box */
-            .print-detail .pd-gallery img:not([src]),
-            .print-detail .pd-gallery img[src=""] { display: none !important; }
 
-            footer { border-top: 1px solid #000; margin-top: 18px; }
+            footer { border-top: 1px solid var(--text-color); margin-top: 16px; }
         }
     </style>
 </head>
