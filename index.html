@@ -2261,7 +2261,7 @@
 
         // --- PRINT: build each project card's text detail (used by both the
         // simple @media print path and the paginated "Save as PDF" view) ---
-        function buildDetailInner(data) {
+        function buildDetailInner(data, withGallery) {
             let html = '';
             if (data.desc)
                 html += `<div class="pd-section markdown-content pd-desc">${parseMarkdown(data.desc)}</div>`;
@@ -2274,9 +2274,17 @@
             if (data.challenges)
                 html += `<div class="pd-section"><h4 class="pd-label">DETAILS</h4>`
                     + `<div class="markdown-content">${parseMarkdown(data.challenges)}</div></div>`;
+            if (withGallery && data.images && data.images.length)
+                html += `<div class="pd-section"><h4 class="pd-label">GALLERY</h4><div class="pd-gallery">`
+                    + data.images.map(src => {
+                        // use the lightweight print thumbnail to keep the PDF small
+                        const t = src.replace(/^assets\/(drive|papers|fins)\/(.+)\.(png|jpe?g|webp|gif)$/i, 'assets/thumbs/$1/$2.jpg');
+                        return `<img src="${t}" alt="" onerror="this.style.display='none'">`;
+                    }).join('')
+                    + `</div></div>`;
             return html;
         }
-        function buildPrintDetails(root) {
+        function buildPrintDetails(root, withGallery) {
             root = root || document;
             if (root.querySelector('.print-detail')) return;
             root.querySelectorAll('#featured .project-card, #projects .project-card').forEach(card => {
@@ -2284,12 +2292,13 @@
                 if (!m || !projectDB[m[1]]) return;
                 const el = document.createElement('div');
                 el.className = 'print-detail';
-                el.innerHTML = buildDetailInner(projectDB[m[1]]);
+                el.innerHTML = buildDetailInner(projectDB[m[1]], withGallery);
                 card.insertAdjacentElement('afterend', el);
             });
         }
-        window.addEventListener('load', () => buildPrintDetails());
-        window.addEventListener('beforeprint', () => buildPrintDetails());
+        // Live-page detail (for the plain @media print fallback) stays text-only.
+        window.addEventListener('load', () => buildPrintDetails(document, false));
+        window.addEventListener('beforeprint', () => buildPrintDetails(document, false));
 
         // --- "Save as PDF": book-style paginated export via Paged.js ---
         // Paged.js lays the content into real A4 page boxes (with margins, running
@@ -2299,9 +2308,21 @@
             const siteCss = document.querySelector('style') ? document.querySelector('style').textContent : '';
             const mainClone = document.querySelector('main').cloneNode(true);
             mainClone.querySelectorAll('.print-detail').forEach(e => e.remove());
-            buildPrintDetails(mainClone);
-            mainClone.querySelectorAll('[onclick]').forEach(e => e.removeAttribute('onclick'));
-            mainClone.querySelectorAll('a[href^="javascript:"]').forEach(a => a.removeAttribute('href'));
+            buildPrintDetails(mainClone, true); // include image galleries in the PDF
+            // Interactions that point to an EXTERNAL url become real clickable links;
+            // interactions that only open an on-page modal (no external url) are hidden.
+            mainClone.querySelectorAll('[onclick*="openNewTab"]').forEach(el => {
+                const m = (el.getAttribute('onclick') || '').match(/openNewTab\('([^']+)'\)/);
+                el.removeAttribute('onclick');
+                if (m) {
+                    const a = document.createElement('a');
+                    a.href = m[1]; a.target = '_blank'; a.className = 'pv-cardlink';
+                    el.parentNode.insertBefore(a, el);
+                    a.appendChild(el);
+                }
+            });
+            mainClone.querySelectorAll('a[href^="javascript:"]').forEach(a => a.remove()); // internal-only buttons
+            mainClone.querySelectorAll('[onclick]').forEach(e => e.removeAttribute('onclick')); // content cards -> static
             const header = `<div class="pv-header"><h1>HYUNSU YU</h1><br><span class="mono">GAMEPLAY &amp; RENDERING</span></div>`;
             // Same-origin, absolute URL (the print window's base is about:blank,
             // so a relative path would not resolve). Bundled in the repo so it
@@ -2337,11 +2358,22 @@ main > section:first-of-type{ break-before: auto; }
 .print-detail .markdown-content h3,.print-detail .markdown-content h4{ break-after:avoid; }
 .print-detail .markdown-content li{ break-inside:avoid; }
 .print-detail .pd-tags span{ display:inline-block; background:rgba(75,72,63,.08); border:1px solid #8c887d; padding:1px 6px; margin:2px 3px 2px 0; font-size:9pt; font-family:'Share Tech Mono',monospace; }
+.print-detail .pd-gallery{ display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-top:8px; }
+.print-detail .pd-gallery img{ width:100%; max-height:220px; object-fit:contain; background:rgba(0,0,0,.03); border:1px solid #8c887d; break-inside:avoid; }
+.project-links a, .markdown-content a, a[target="_blank"]{ text-decoration:underline; }
+a.pv-cardlink{ text-decoration:none !important; color:inherit; display:block; }
 .pagedjs_page{ background:#dad4bb; }
 </style>
-<script>window.PagedConfig={ auto:true, after:function(){ try{ document.title='Hyunsu Yu — Gameplay & Rendering Programmer'; }catch(e){} setTimeout(function(){ window.focus(); window.print(); }, 500); } };<\/script>
+<script>
+window.PagedConfig={ auto:false, after:function(){ setTimeout(function(){ window.focus(); window.print(); }, 400); } };
+function startPaging(){
+  var imgs = Array.prototype.slice.call(document.images);
+  Promise.all(imgs.map(function(im){ return im.complete ? Promise.resolve() : new Promise(function(r){ im.onload=im.onerror=r; }); }))
+    .then(function(){ if(window.PagedPolyfill) window.PagedPolyfill.preview(); });
+}
+<\/script>
 </head><body>${header}${mainClone.outerHTML}
-<script src="${pagedUrl}"><\/script>
+<script src="${pagedUrl}" onload="startPaging()"><\/script>
 </body></html>`;
         }
         function openPrintView() {
