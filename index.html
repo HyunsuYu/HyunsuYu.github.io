@@ -2320,17 +2320,27 @@
                 if (m) {
                     const a = document.createElement('a');
                     a.href = m[1]; a.target = '_blank'; a.className = 'pv-cardlink';
+                    a.setAttribute('data-qr', m[1]);
                     el.parentNode.insertBefore(a, el);
                     a.appendChild(el);
                 }
             });
             mainClone.querySelectorAll('a[href^="javascript:"]').forEach(a => a.remove()); // internal-only buttons
             mainClone.querySelectorAll('[onclick]').forEach(e => e.removeAttribute('onclick')); // content cards -> static
+            // Mark every link that resolves to a real URL (incl. local PDFs) so the
+            // print view turns each into a scannable QR code. Use the resolved
+            // absolute href so relative paths encode a usable URL.
+            mainClone.querySelectorAll('a[href]').forEach(a => {
+                if (a.classList.contains('pv-cardlink')) return;
+                const abs = a.href; // resolved against this page's base
+                if (/^https?:/i.test(abs)) { a.classList.add('pv-ext'); a.setAttribute('data-qr', abs); }
+            });
             const header = `<div class="pv-header"><h1>HYUNSU YU</h1><br><span class="mono">GAMEPLAY &amp; RENDERING</span></div>`;
-            // Same-origin, absolute URL (the print window's base is about:blank,
-            // so a relative path would not resolve). Bundled in the repo so it
-            // never depends on a CDN or gets blocked by ad blockers.
+            // Same-origin, absolute URLs (the print window's base is about:blank,
+            // so relative paths would not resolve). Bundled in the repo so they
+            // never depend on a CDN or get blocked by ad blockers.
             const pagedUrl = new URL('assets/vendor/paged.polyfill.min.js', location.href).href;
+            const qrUrl = new URL('assets/vendor/qrcode.min.js', location.href).href;
             return `<!doctype html><html lang="ko"><head><meta charset="utf-8">
 <title>Hyunsu Yu — Gameplay & Rendering Programmer</title>
 <style>${siteCss}</style>
@@ -2367,17 +2377,48 @@ main > section:first-of-type{ break-before: auto; }
 .print-detail .pd-shot img{ width:100%; height:auto; background:rgba(0,0,0,.04); border:1px solid #8c887d; display:block; }
 .project-links a, .markdown-content a, a[target="_blank"]{ text-decoration:underline; }
 a.pv-cardlink{ text-decoration:none !important; color:inherit; display:block; }
+/* external links rendered as scannable QR codes in the PDF */
+.project-links{ display:block; margin-top:4px; }
+.pv-qr{ display:inline-block; text-align:center; width:76px; margin:8px 14px 2px 0; vertical-align:top; break-inside:avoid; }
+.pv-qr img{ width:66px; height:66px; display:block; margin:0 auto 2px; background:#fff; border:1px solid #8c887d; image-rendering:pixelated; }
+.pv-qr-label{ display:block; font-family:'Share Tech Mono',monospace; font-size:6.5pt; line-height:1.15; word-break:break-word; }
+img.pv-card-qr{ width:50px; height:50px; background:#fff; border:1px solid #8c887d; image-rendering:pixelated; display:block; margin:8px 0 0 auto; }
 .pagedjs_page{ background:#dad4bb; }
 </style>
 <script>
 window.PagedConfig={ auto:false, after:function(){ setTimeout(function(){ window.focus(); window.print(); }, 400); } };
+function makeQR(url, cell){ try{ var q=qrcode(0,'L'); q.addData(url); q.make(); return q.createDataURL(cell||4,0); }catch(e){ return ''; } }
+function generateQRs(){
+  if(typeof qrcode==='undefined') return;
+  // button-style external links -> QR code + label
+  document.querySelectorAll('a.pv-ext').forEach(function(a){
+    var url=a.getAttribute('data-qr')||a.href; if(!url) return;
+    var d=makeQR(url,4); if(!d) return;
+    var box=document.createElement('span'); box.className='pv-qr';
+    var img=document.createElement('img'); img.src=d; img.alt='';
+    var lab=document.createElement('span'); lab.className='pv-qr-label';
+    lab.textContent=(a.textContent||'').replace(/[\\[\\]]/g,'').trim();
+    box.appendChild(img); box.appendChild(lab);
+    a.parentNode.replaceChild(box, a);
+  });
+  // card links (media coverage) -> small QR in the card
+  document.querySelectorAll('a.pv-cardlink').forEach(function(a){
+    var url=a.getAttribute('data-qr')||a.href; if(!url) return;
+    var d=makeQR(url,3); if(!d) return;
+    var card=a.querySelector('.recog-card')||a;
+    var img=document.createElement('img'); img.src=d; img.alt=''; img.className='pv-card-qr';
+    card.appendChild(img);
+  });
+}
 function startPaging(){
+  try{ generateQRs(); }catch(e){}
   var imgs = Array.prototype.slice.call(document.images);
   Promise.all(imgs.map(function(im){ return im.complete ? Promise.resolve() : new Promise(function(r){ im.onload=im.onerror=r; }); }))
     .then(function(){ if(window.PagedPolyfill) window.PagedPolyfill.preview(); });
 }
 <\/script>
 </head><body>${header}${mainClone.outerHTML}
+<script src="${qrUrl}"><\/script>
 <script src="${pagedUrl}" onload="startPaging()"><\/script>
 </body></html>`;
         }
