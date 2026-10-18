@@ -945,7 +945,7 @@
                         <div class="highlight-stat mono">
                             <p>> Legacy IA Pipeline ↔ Mesh Shader Pipeline 하이브리드</p>
                             <p>> FBX + meshoptimizer 기반 Meshlet 생성 / AS 메시렛 컬링</p>
-                            <p>> GPU 타임스탬프·파이프라인 통계 기반 실측 벤치 (UE5 환경 에셋 포함)</p>
+                            <p>> IA/MS 실측: 26개 환경 · 976개 촬영 위치 · 5,547개 유효 상태 (2026.10.19)</p>
                         </div>
                         <div class="project-links">
                             <a href="https://github.com/HyunsuYu/D3D12-Meshlet-Sample" target="_blank" onclick="event.stopPropagation()">[GITHUB]</a>
@@ -1463,6 +1463,7 @@
                         <strong>10.02-10.04</strong> | FINS developed (UPTRANDING Game Jam, 2박 3일)
                         <a href="javascript:openModal('fins')" class="timeline-link">[FINS]</a>
                     </p>
+                    <p><strong>10.19</strong> | DX12 IA/MS benchmark: 26 environments / 976 camera locations / 5,547 valid measurement states</p>
                 </div>
             </div>
         </section>
@@ -1665,17 +1666,24 @@
                 # 실제 상용 엔진 환경 벤치
                 - **Unreal Engine 5 환경 에셋(Fab)**을 UE 헤드리스 Python으로 추출 → Blender로 정제 → 자체 DX12 렌더러에 로드
                 - 합성 산포 씬(폴리 1M~8M, 픽셀 부하 단계별)과 실제 UE 환경을 동일한 계측 체계로 비교
+                # 실측 결과: 2026.10.19 주간 진행보고서
+                - **측정 규모(표 1)** 26개 환경에서 촬영 위치 976곳, 유효 실측 상태 5,547개를 확보했습니다.
+                - **기존 테스트 환경** Bunny4500: 4곳 / 5상태, Object4: 6곳 / 223상태.
+                - **Fab 환경 에셋** SunTemple: 128곳 / 591상태, VirtualStudio: 145곳 / 651상태, SoulCave: 233곳 / 1,356상태, SoulCity: 420곳 / 2,397상태.
+                - **스트레스 환경 20종** Primitive 1M·2M·4M·8M × 오브젝트 간격 5단계로 구성했습니다. 설정당 2곳, 총 40곳 / 324상태를 측정했습니다.
+                - **시점 샘플링** Bunny4500·Object4는 기존 카메라 마커에서 회전하며 재측정하고, 추가 환경은 10m 간격의 3차원 격자 정점에 카메라를 배치한 뒤 회전하며 관측했습니다. 빈 공간을 바라보는 등 의미 없는 구도는 제외했습니다.
                 # 차세대 셰이더 스테이지 제어
                 - IA/Vertex 대신 **Mesh Shader 스테이지를 제어**하여 GPU 하드웨어 구조에 더 친화적인 렌더링 로직 구현`,
                 achievements: [
-                    'DirectX 12 환경에서 Mesh Shader Pipeline 아키텍처를 바닥부터 구현 (IA Pipeline 제거)',
+                    'DirectX 12 Mesh Shader 경로를 직접 구현하여 해당 경로의 IA 단계를 대체하고, 비교용 IA 경로와 하이브리드로 구성',
                     'FBX 모델 로더 + meshoptimizer 기반 자동화된 Meshlet 생성/변환 시스템 구축',
                     'Meshlet 클러스터링 시각화(Debug View)를 통해 지오메트리 분할 및 처리 로직 검증',
                     'IA / Mesh Shader 하이브리드 렌더러 + 메시렛 컬링(프러스텀·노멀콘) 구현',
                     'PBR · 반투명 렌더링과 FBX 머티리얼 자동 매칭 로더 구현',
                     'GPU 타임스탬프·파이프라인 통계 기반 실측 계측 하니스 구축',
                     'Unreal Engine 5 환경 에셋을 자체 렌더러에서 렌더링·계측하는 추출 파이프라인 구축',
-                    '폴리 규모·시점·픽셀 부하 조건별로 두 지오메트리 경로의 GPU 렌더링 성능을 실측·비교·분석'
+                    '폴리 규모·시점·픽셀 부하 조건별로 두 지오메트리 경로의 GPU 렌더링 성능을 실측·비교·분석',
+                    '2026.10.19 보고서: 26개 환경 / 촬영 위치 976곳 / 유효 실측 상태 5,547개 확보'
                 ],
                 video: 'https://www.youtube.com/embed/CFP5SW4OFQ4?si=SHLKWiMl9BCMKTA_',
                 images: [
