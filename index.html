@@ -945,6 +945,32 @@
                     </div>
                 </div>
             </article>
+
+            <!-- FINS -->
+            <article class="project-card" onclick="openModal('fins')">
+                <div class="project-header">
+                    <span class="project-title">FINS</span>
+                    <span class="mono">2026.10.02 ~ 2026.10.04</span>
+                </div>
+                <div class="project-body">
+                    <div class="project-content">
+                        <p>Growth-based action game: hunt sharks, earn currency to upgrade abilities, and dive into the deeper, darker sea to challenge the final boss.</p>
+                        <ul>
+                            <li>Dev Period: 3 days (UPTRAND)</li>
+                            <li>Depth-based progression with Sell / Upgrade economy</li>
+                            <li>Final Boss: MEGALODON</li>
+                        </ul>
+                        <div class="project-links">
+                            <a href="https://uptrand-admin.github.io/Homepage/games/fins/" target="_blank" onclick="event.stopPropagation()">[PLAY]</a>
+                        </div>
+                    </div>
+                    <div class="project-meta mono">
+                        <p><strong>ROLE:</strong> Programmer</p>
+                        <p><strong>GENRE:</strong> Action/Adventure</p>
+                        <p><strong>TEAM:</strong> 5 Members</p>
+                    </div>
+                </div>
+            </article>
         </section>
 
         <!-- 3. RESEARCH & BLOG -->
@@ -1263,8 +1289,8 @@
                     <p><strong>06</strong> | Build 051 2026 exhibition</p>
                     <p><strong>08</strong> | 제 1회 UPTRANDING 게임잼</p>
                     <p>
-                        <strong>10</strong> | FINS completed (3 days)
-                        <a href="https://uptrand-admin.github.io/Homepage/games/fins/" target="_blank" class="timeline-link">[FINS]</a>
+                        <strong>10</strong> | FINS completed (UPTRAND, 3 days)
+                        <a href="javascript:openModal('fins')" class="timeline-link">[FINS]</a>
                     </p>
                 </div>
             </div>
@@ -1801,6 +1827,36 @@
                 video: 'https://www.youtube.com/embed/77S1NFS10ls?si=2b7vHYvVzcT7ye0S',
                 images: [
                     'https://cdn.news.unn.net/news/photo/202606/593489_417216_5613.jpg',
+                ]
+            },
+            'fins': {
+                title: 'FINS',
+                tags: ['Programmer', 'Unity', 'Action/Adventure', 'Game Jam'],
+                desc: `상어를 사냥해 얻은 재화로 능력을 강화하고, 더 깊고 어두운 바다를 탐험하는 **성장형 액션 게임**입니다.
+
+                깊은 바다로 내려갈수록 더욱 강력한 상어가 등장하며, 플레이어는 끊임없이 성장해 더 강한 상어와 최종 보스에 도전하게 됩니다.
+
+                UPTRAND(창업동아리)에서 3일간(2026.10.02 ~ 10.04) 진행한 단기 개발 프로젝트로, 프로그래머로 참여했습니다.`,
+                tech: ['Unity', 'Pixquare', 'PM 1 / 기획 1 / 아트 2 / 프로그래밍 1'],
+                challenges: `# 성장형 게임 루프
+                - **깊이 기반 진행** 더 깊이 잠수할수록 강력한 상어가 등장하며, 수심(Depth)에 따라 획득 재화의 보너스가 증가하는 구조입니다.
+                - **Sell / Upgrade 경제 시스템** 사냥한 상어를 판매(기본가 + 수심 보너스)하여 재화를 얻고, HP·Air Tank·Speed·Damage·ATK Speed를 단계별로 강화합니다.
+                # 보스 전투
+                - **최종 보스: MEGALODON** 성장을 거듭해 심해의 거대 보스에 도전하는 것이 최종 목표입니다.`,
+                achievements: [
+                    '3-day rapid development (UPTRAND, 2026.10.02 ~ 10.04)',
+                    'Depth-based progression with Sell / Upgrade economy system',
+                    'Final boss battle: MEGALODON'
+                ],
+                video: '',
+                images: [
+                    'assets/fins/01-surface.png',
+                    'assets/fins/02-dive.png',
+                    'assets/fins/03-deep.png',
+                    'assets/fins/04-megalodon.webp',
+                    'assets/fins/05-boss.webp',
+                    'assets/fins/06-sell.png',
+                    'assets/fins/07-upgrade.png'
                 ]
             },
         };
