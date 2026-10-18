@@ -789,6 +789,7 @@
                         <div class="project-links">
                             <a href="https://github.com/HyunsuYu/LayeredMapGenAgent.git" target="_blank" onclick="event.stopPropagation()">[GITHUB]</a>
                             <a href="https://drive.google.com/drive/folders/14xKEhV8LsZg1-tGm2gz1MbfmqH-oxxvi?usp=sharing" target="_blank" onclick="event.stopPropagation()">[OUTPUT DATA SAMPLES]</a>
+                            <a href="assets/papers/MapGenPaper.pdf" target="_blank" onclick="event.stopPropagation()">[PAPER]</a>
                         </div>
                     </div>
                     <div class="project-meta mono">
@@ -821,6 +822,33 @@
                         <p><strong>ROLE:</strong> Sole Dev</p>
                         <p><strong>TECH:</strong> C++, DX12, Mesh Shader, meshoptimizer, FBX SDK, PBR, UE5, Blender</p>
                         <p><strong>STATUS:</strong> Progress</p>
+                    </div>
+                </div>
+            </article>
+
+            <article class="project-card" style="border: 2px solid var(--text-color);" onclick="openModal('visualwave')">
+                <div class="project-header">
+                    <span class="project-title">Visual Wave : VN Authoring Framework ⭐</span>
+                    <span class="mono">2025.05 ~ Present</span>
+                </div>
+                <div class="project-body">
+                    <div class="project-content">
+                        <p>렌더 스테이트 테이블에서 착안한 프레임-스테이트 실행 모델 기반의 비주얼 노벨 저작 프레임워크. 엔진 독립 코어 + 엔진별 런타임 + VS Code LSP로 구성하고, 상용 VN(ALCOHOL FREE)에 적용해 실용성을 검증. 2026 한국멀티미디어학회 추계학술발표대회 논문 발표.</p>
+                        <div class="highlight-stat mono">
+                            <p>> 대사 1자당 저장: 약 30.0B → 약 4.7B (약 6× 압축)</p>
+                            <p>> 상태 중복률: 85.4% → 0% (변화분만 기재)</p>
+                            <p>> 상용 VN 적용: 55 Scenes / 3,035 Commands / 엔진 독립성 Godot 실증</p>
+                        </div>
+                        <div class="project-links">
+                            <a href="assets/papers/VisualWavePaper.pdf" target="_blank" onclick="event.stopPropagation()">[PAPER]</a>
+                            <a href="https://galvanized-soda-726.notion.site/Visual-Wave-2e315b43f51680ab8ce9d32b5c43773d" target="_blank" onclick="event.stopPropagation()">[VISUAL WAVE DOC]</a>
+                            <a href="https://drive.google.com/file/d/1jthhRwlaB8bJXeVXcg_yJlSimpkSPBiJ/view?usp=sharing" target="_blank" onclick="event.stopPropagation()">[VS CODE EXTENSION]</a>
+                        </div>
+                    </div>
+                    <div class="project-meta mono">
+                        <p><strong>ROLE:</strong> Sole Research / First Author</p>
+                        <p><strong>TECH:</strong> C#, DSL, LSP, Unity, Godot</p>
+                        <p><strong>STATUS:</strong> Published (Paper)</p>
                     </div>
                 </div>
             </article>
@@ -1489,6 +1517,37 @@
                     'assets/drive/1EL1vqrbs96enisJCK_u-FXedV5mr6EcS.png',
                     'assets/drive/1BtsxVaj1uNFQ2rkheULfgKAqEXA5SPfW.png',
                 ]
+            },
+            'visualwave': {
+                title: 'Visual Wave : VN Authoring Framework',
+                tags: ['Sole Research', 'First Author', 'Framework', 'DSL / LSP', 'Unity / Godot'],
+                desc: `비주얼 노벨 시나리오의 **작성–편집–구동**을 포괄하는 엔진 독립 저작 프레임워크 **Visual Wave(VW)**입니다.
+
+                핵심은 실시간 그래픽스의 **렌더 스테이트 테이블(render state table)**에서 착안한 **프레임-스테이트 실행 모델**로, 비종단 명령은 현재 프레임 상태에 누적되고 대사·선택지 같은 종단 명령에서 누적 상태를 채널별 핸들러로 일괄 반영(commit)하며, 상충은 최종 반영(last-write-wins)으로 해소합니다.
+
+                2026 한국멀티미디어학회 추계학술발표대회에 논문으로 발표했으며, **주 연구는 단독으로 수행**했습니다. (지도교수: 고정국)`,
+                tech: ['C#', 'Engine-independent Core', 'DSL (.vwso / .vwsor / .vwsmr)', 'VS Code LSP', 'Unity', 'Godot'],
+                challenges: `# 3계층 관심사 분리
+                - 콘텐츠를 **시나리오 · 자원 · 시스템** 세 계층으로 분리해 작가와 프로그래머의 관심사를 나눔.
+                - 코어 라이브러리(DSL 해석 + 프레임-스테이트 실행), 엔진별 런타임, VS Code 편집 지원의 세 컴포넌트로 구성.
+                # 프레임-스테이트 실행 모델
+                - 렌더 스테이트 테이블처럼 상태를 설정한 뒤 종단 명령에서 한 프레임을 확정(commit)하는 구조.
+                - 채널별 확정 목표 상태에 last-write-wins를 적용, 상충/초기화를 순서 기반으로 자연 해소.
+                # DSL + LSP 편집 지원
+                - 시나리오(.vwso)·자원(.vwsor)·시스템(.vwsmr) DSL 설계, 자원을 숫자 식별자로 참조해 재사용성 강화.
+                - **VS Code 확장 + LSP 서버**로 자동완성·인레이 힌트·구문 강조 제공, 식별자 분리에 따른 가독성 저하 보완.
+                # 엔진 독립성 실증
+                - Unity 런타임으로 상용 적용, **Godot 4.7 Vulkan** 렌더러에서 동일 시나리오/자원을 수정 없이 재사용해 코어의 엔진 독립성 실증.`,
+                achievements: [
+                    '엔진 독립 코어 + 엔진별 런타임 + VS Code LSP로 구성된 완결형 VN 저작 프레임워크 설계·구현',
+                    '상용 수준 VN(ALCOHOL FREE) 적용: 4개 루트 / 55 Scenes / 3,035 Commands (대사 2,497)',
+                    '대사 1자당 저장 용량 약 30.0B → 약 4.7B (약 6× 압축), 상태 중복률 85.4% → 0%',
+                    '런타임 성능: 55개 시나리오 파싱 중앙값 11.5ms, 프레임 상태 구성 평균 0.16ms (60fps 예산 내)',
+                    'Godot 엔진에서 동일 시나리오 재사용으로 코어 엔진 독립성 실증',
+                    '2026 한국멀티미디어학회 추계학술발표대회 논문 발표 (제1저자, 단독 연구)'
+                ],
+                video: '',
+                images: []
             },
             'book': {
                 title: 'More Deeper C++ Programming Language',
