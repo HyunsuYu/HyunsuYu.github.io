@@ -2300,7 +2300,10 @@
             mainClone.querySelectorAll('[onclick]').forEach(e => e.removeAttribute('onclick'));
             mainClone.querySelectorAll('a[href^="javascript:"]').forEach(a => a.removeAttribute('href'));
             const header = `<div class="pv-header"><h1>HYUNSU YU</h1><br><span class="mono">GAMEPLAY &amp; RENDERING</span></div>`;
-            const pagedUrl = 'https://cdn.jsdelivr.net/npm/pagedjs@0.4.3/dist/paged.polyfill.min.js';
+            // Same-origin, absolute URL (the print window's base is about:blank,
+            // so a relative path would not resolve). Bundled in the repo so it
+            // never depends on a CDN or gets blocked by ad blockers.
+            const pagedUrl = new URL('assets/vendor/paged.polyfill.min.js', location.href).href;
             return `<!doctype html><html lang="ko"><head><meta charset="utf-8">
 <title>Hyunsu Yu — Gameplay & Rendering Programmer</title>
 <style>${siteCss}</style>
@@ -2341,6 +2344,15 @@ main > section:first-of-type{ break-before: auto; }
             if (!w) { alert('팝업이 차단되어 PDF 뷰를 열 수 없습니다. 팝업을 허용한 뒤 다시 시도해 주세요.'); return; }
             w.document.open(); w.document.write(buildPrintDoc()); w.document.close();
         }
+        // Route the Ctrl/Cmd+P habit to the paginated, book-style PDF view
+        // (the plain print path can't add per-page padding or page numbers when
+        // the browser's Margins setting is "None").
+        window.addEventListener('keydown', e => {
+            if ((e.ctrlKey || e.metaKey) && !e.shiftKey && !e.altKey && (e.key === 'p' || e.key === 'P')) {
+                e.preventDefault();
+                openPrintView();
+            }
+        });
 
         console.log("%c SYSTEM: BOOT SEQUENCE COMPLETE", "color: #dad4bb; background: #000; padding: 5px;");
     </script>
