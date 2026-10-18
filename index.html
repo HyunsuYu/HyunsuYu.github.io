@@ -806,10 +806,11 @@
                 </div>
                 <div class="project-body">
                     <div class="project-content">
-                        <p>DX12를 활용해 밑바닥부터 구현한 Mesh Shader Pipeline 데모. FBX SDK를 활용한 *.fbx Model 로딩과 meshoptimizer를 활용한 meshlet 생성을 중개하고 pipeline을 구축</p>
+                        <p>DX12로 밑바닥부터 구현한 Mesh Shader Pipeline. IA 경로와 Mesh Shader 경로를 한 렌더러에 공존시킨 하이브리드 구조에, PBR·반투명 렌더링과 GPU 실측 계측 하니스를 더해 두 경로의 성능을 직접 측정·비교</p>
                         <div class="highlight-stat mono">
-                            <p>> Legacy IA Pipeline → Mesh Shader Pipeline</p>
-                            <p>> FBX SDK를 활용한 유연한 *.fbx 로딩 + meshoptimizer를 통한 meshlet 생성</p>
+                            <p>> Legacy IA Pipeline ↔ Mesh Shader Pipeline 하이브리드</p>
+                            <p>> FBX + meshoptimizer 기반 Meshlet 생성 / AS 메시렛 컬링</p>
+                            <p>> GPU 타임스탬프·파이프라인 통계 기반 실측 벤치 (UE5 환경 에셋 포함)</p>
                         </div>
                         <div class="project-links">
                             <a href="https://github.com/HyunsuYu/D3D12-Meshlet-Sample" target="_blank" onclick="event.stopPropagation()">[GITHUB]</a>
@@ -818,7 +819,7 @@
                     </div>
                     <div class="project-meta mono">
                         <p><strong>ROLE:</strong> Sole Dev</p>
-                        <p><strong>TECH:</strong> C++, DX12, Mesh Shader, FBX SDK, meshoptimizer</p>
+                        <p><strong>TECH:</strong> C++, DX12, Mesh Shader, meshoptimizer, FBX SDK, PBR, UE5, Blender</p>
                         <p><strong>STATUS:</strong> Progress</p>
                     </div>
                 </div>
@@ -1443,25 +1444,42 @@
             },
             'meshshader': {
                 title: 'DX12 : Mesh Shader Pipeline 구현',
-                tags: ['Solo Dev', 'C++', 'DX12', 'meshoptimizer', 'FBX SDK'],
-                desc: `DirectX 12를 기반으로 차세대 렌더링 파이프라인인 Mesh Shader Pipeline을 직접 설계 및 구현한 프로젝트입니다.
+                tags: ['Solo Dev', 'DX12', 'Mesh Shader', 'meshoptimizer', 'FBX SDK', 'PBR', 'Unreal Engine 5', 'Blender'],
+                desc: `DirectX 12를 기반으로 차세대 렌더링 파이프라인인 **Mesh Shader Pipeline**을 바닥부터 직접 설계·구현한 프로젝트입니다.
 
-                기존의 고정된 Input Assembler(IA) 단계가 갖는 병목을 해소하고 지오메트리 처리의 유연성을 확보하기 위해, 언리얼 엔진 5의 Nanite와 유사한 Meshlet 구조를 도입했습니다.
+                고정된 Input Assembler(IA) 단계의 병목을 해소하기 위해 언리얼 엔진 5의 Nanite와 유사한 **Meshlet(클러스터) 구조**를 도입하고, **IA 경로와 Mesh Shader 경로를 한 렌더러에 공존**시켜 오브젝트 단위로 경로를 전환할 수 있는 하이브리드 구조를 구축했습니다.
 
-                FBX SDK를 통해 로드한 모델 데이터를 meshoptimizer로 전처리하여 최적화된 클러스터(Cluster)를 생성하고, 이를 런타임에서 Mesh Shader를 통해 고속으로 렌더링하는 파이프라인을 구축했습니다.`,
-                tech: ['DX12', 'Mesh Shader', 'meshoptimizer', 'FBX SDK'],
-                challenges: `# Input Assembler(IA) 의존성 탈피:
-                - 기존의 Vertex Buffer 바인딩 방식 대신, 1개의 CBV(Camera Data)와 4개의 SRV(Vertices, Meshlet Info, Indices, Primitives)를 직접 바인딩하여 셰이더에서 Raw Data에 접근하는 구조 구현
-                # Meshlet 데이터 가공 파이프라인:
-                - **FBX SDK**를 활용하여 범용 *.fbx 파일 동적 로딩
-                - **meshoptimizer** 라이브러리를 연동해 Vertex Cache 효율을 고려한 Meshlet 단위 클러스터링(Clustering) 및 데이터 직렬화 수행
-                # 차세대 셰이더 스테이지 제어:
-                - IA/Vertex 대신 Mesh Shader 단계를 제어하여, GPU 하드웨어 구조에 더 친화적인 렌더링 로직 구현`,
+                여기에 **PBR 머티리얼·반투명 렌더링**과 **GPU 타임스탬프·파이프라인 통계 기반 실측 계측 하니스**를 더해, 합성 씬부터 **실제 Unreal Engine 환경 에셋**까지 두 경로의 렌더링 성능을 직접 측정·비교하는 분석 체계로 확장했습니다.`,
+                tech: ['DX12', 'Mesh Shader', 'meshoptimizer', 'FBX SDK', 'PBR', 'Unreal Engine 5', 'Blender'],
+                challenges: `# Input Assembler(IA) 의존성 탈피
+                - 기존 Vertex Buffer 바인딩 대신 **1개 CBV(Camera) + 4개 SRV(Vertices / Meshlet Info / Indices / Primitives)**를 직접 바인딩하여 셰이더에서 Raw Data에 접근하는 구조 구현
+                # Meshlet 데이터 가공 파이프라인
+                - **FBX SDK**로 범용 *.fbx 파일 동적 로딩
+                - **meshoptimizer**로 Vertex Cache 효율을 고려한 Meshlet 단위 클러스터링 및 데이터 직렬화 수행
+                # IA / Mesh Shader 하이브리드 구조
+                - 동일 지오메트리를 **IA 경로(Indexed Draw)**와 **Mesh Shader 경로(AS → MS)**로 모두 구성하여 오브젝트 단위로 경로를 선택·비교
+                - **Amplification Shader에서 메시렛 단위 프러스텀 + 노멀콘(백페이스) 컬링** 구현
+                # PBR · 반투명 렌더링
+                - **Albedo / Normal / Roughness / Metallic** 텍스처 지원 + **FBX 내장 머티리얼 자동 매칭** 로더
+                - 반투명 오브젝트 **Back-to-Front 정렬 + 블렌드 파이프라인** (IA·MS 양 경로)
+                # 실측 계측 하니스
+                - **GPU 타임스탬프**로 Clear/Present를 제외한 순수 드로우 구간의 GPU 시간 측정
+                - **D3D12 파이프라인 통계**(프러스텀 클리핑률, 픽셀 셰이더 호출 수)로 화면 밖 비율·픽셀 부하 계측
+                - 다양한 시점 × IA/MS × 컬링 조건을 **헤드리스로 자동 반복 측정**하는 벤치마크 시스템 구축
+                # 실제 상용 엔진 환경 벤치
+                - **Unreal Engine 5 환경 에셋(Fab)**을 UE 헤드리스 Python으로 추출 → Blender로 정제 → 자체 DX12 렌더러에 로드
+                - 합성 산포 씬(폴리 1M~8M, 픽셀 부하 단계별)과 실제 UE 환경을 동일한 계측 체계로 비교
+                # 차세대 셰이더 스테이지 제어
+                - IA/Vertex 대신 **Mesh Shader 스테이지를 제어**하여 GPU 하드웨어 구조에 더 친화적인 렌더링 로직 구현`,
                 achievements: [
-                    'DirectX 12 환경에서 Mesh Shader Pipeline 아키텍처 바닥부터 구현 (IA Pipeline 제거)',
-                    'FBX 모델 로더 및 meshoptimizer 기반의 자동화된 Meshlet 생성/변환 시스템 구축',
-                    'Meshlet 클러스터링 시각화(Debug View) 기능을 통해 지오메트리 분할 및 처리 로직 검증',
-                    '전통적인 Vertex Pipeline 대비 지오메트리 처리 효율 및 메모리 접근 패턴 최적화 연구 기반 마련'
+                    'DirectX 12 환경에서 Mesh Shader Pipeline 아키텍처를 바닥부터 구현 (IA Pipeline 제거)',
+                    'FBX 모델 로더 + meshoptimizer 기반 자동화된 Meshlet 생성/변환 시스템 구축',
+                    'Meshlet 클러스터링 시각화(Debug View)를 통해 지오메트리 분할 및 처리 로직 검증',
+                    'IA / Mesh Shader 하이브리드 렌더러 + 메시렛 컬링(프러스텀·노멀콘) 구현',
+                    'PBR · 반투명 렌더링과 FBX 머티리얼 자동 매칭 로더 구현',
+                    'GPU 타임스탬프·파이프라인 통계 기반 실측 계측 하니스 구축',
+                    'Unreal Engine 5 환경 에셋을 자체 렌더러에서 렌더링·계측하는 추출 파이프라인 구축',
+                    '폴리 규모·시점·픽셀 부하 조건별로 두 지오메트리 경로의 GPU 렌더링 성능을 실측·비교·분석'
                 ],
                 video: 'https://www.youtube.com/embed/CFP5SW4OFQ4?si=SHLKWiMl9BCMKTA_',
                 images: [
