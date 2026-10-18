@@ -687,25 +687,26 @@
         /* --- PRINT / PDF OUTPUT --- */
         .print-detail { display: none; }
 
-        @media print {
-            /* Bound-book page: generous padding + running footer with page numbers */
-            @page {
-                size: A4;
-                margin: 18mm 16mm 20mm 16mm;
-                @bottom-left {
-                    content: "HYUNSU YU · GAMEPLAY & RENDERING";
-                    font-family: 'Share Tech Mono', monospace;
-                    font-size: 7.5pt;
-                    color: #57544a;
-                }
-                @bottom-right {
-                    content: counter(page) " / " counter(pages);
-                    font-family: 'Share Tech Mono', monospace;
-                    font-size: 7.5pt;
-                    color: #57544a;
-                }
+        /* Bound-book page: generous padding + running footer with page numbers.
+           Kept at top level (not nested in @media print) for broad support. */
+        @page {
+            size: A4;
+            margin: 18mm 16mm 20mm 16mm;
+            @bottom-left {
+                content: "HYUNSU YU · GAMEPLAY & RENDERING";
+                font-family: 'Share Tech Mono', monospace;
+                font-size: 7.5pt;
+                color: #57544a;
             }
+            @bottom-right {
+                content: counter(page) " / " counter(pages);
+                font-family: 'Share Tech Mono', monospace;
+                font-size: 7.5pt;
+                color: #57544a;
+            }
+        }
 
+        @media print {
             * {
                 cursor: auto !important;
                 animation: none !important;
@@ -746,8 +747,12 @@
 
             a { color: var(--text-color) !important; background: none !important; padding: 0 !important; }
 
-            .section-title { font-size: 16pt; margin-top: 14px; break-after: avoid; }
+            .section-title { font-size: 16pt; margin-top: 0; break-after: avoid; }
             section { margin-bottom: 6px; }
+
+            /* Each major section (대목차) starts on a fresh page */
+            main > section { break-before: page; page-break-before: always; }
+            main > section#about { break-before: auto; page-break-before: auto; }
 
             /* Keep theme surfaces; just control page breaks */
             .project-card, .hero, .recog-card, .history-item, .skill-section, .stat-box { break-inside: avoid; }
