@@ -908,7 +908,7 @@
             <article class="project-card" onclick="openModal('mapgen')">
                 <div class="project-header">
                     <span class="project-title">Massive Map Generation System ⭐</span>
-                    <span class="mono">2023.07 ~ 2024.06</span>
+                    <span class="mono">Initial implementation: 2023.07 ~ 2024.06</span>
                 </div>
                 <div class="project-body">
                     <div class="project-content">
@@ -991,7 +991,7 @@
             <article class="project-card" style="border: 2px solid var(--text-color);" onclick="openModal('book')">
                 <div class="project-header">
                     <span class="project-title">More Deeper C++ Programming Language</span>
-                    <span class="mono">2023.04 ~ 2023.10</span>
+                    <span class="mono">Written: 2023.04 ~ 2023.10 · Published: 2026.07.30</span>
                 </div>
                 <div class="project-body">
                     <div class="project-content">
@@ -999,6 +999,7 @@
                         <div class="highlight-stat mono">
                             <p>> ISBN: 979-11-438-1468-5 (05500)</p>
                             <p>> Pages: 222 (published PDF edition)</p>
+                            <p>> Published: 2026.07.30 · Publisher: 작가와</p>
                             <p>> Topics: Memory architecture, SIMD, Cache optimization, Compile-time/Runtime optimization, Modern C++ features, etc.</p>
                             <p>> References: ISO/IEC 14882:2003 Programming languages — C++, AMD64 Architecture Programmer’s Manual, Effective C++ series, Structure and Interpretation of Computer Programs, papers, etc.</p>
                             <p>> Store: 교보문고, 알라딘, Yes24, 밀리의 서재, 리디북스, 윌라, BOOKCUBE, Bookers</p>
@@ -1085,7 +1086,7 @@
             <article class="project-card" onclick="openModal('rgbline')">
                 <div class="project-header">
                     <span class="project-title">RGB Line</span>
-                    <span class="mono">2024.12 ~ 2025.10</span>
+                    <span class="mono">2024.12 ~ 2025.12</span>
                 </div>
                 <div class="project-body">
                     <div class="project-content">
@@ -1353,21 +1354,21 @@
                 <div class="history-item">
                     <span class="history-year">2021-2023 (Military Service)</span>
                     <p><strong>Continuous </strong> | Blog research, MIT OCW, paper reviews</p>
-                    <p><strong>2023.07 </strong> | Massive Map Generation System started</p>
+                    <p><strong>Planning</strong> | Massive Map Generation System: initial design during military service</p>
                 </div>
                 <div class="history-item">
                     <span class="history-year">2023</span>
                     <p><strong>04</strong> | Discharged from military</p>
                     <p>
-                        <strong>04-10</strong> | More Deeper C++ Programming Language written (7 months)
+                        <strong>04-10</strong> | More Deeper C++ Programming Language manuscript written (2023.04 ~ 2023.10)
                         <a href="javascript:openModal('book')" class="timeline-link">[More Deeper C++ Programming Language ⭐]</a>
                     </p>
-                    <p><strong>Continuous</strong> | Massive Map Generation System completed</p>
+                    <p><strong>07</strong> | Massive Map Generation System implementation started</p>
                 </div>
                 <div class="history-item">
                     <span class="history-year">2024</span>
                     <p>
-                        <strong>06</strong> | Massive Map Generation System completed (12 months)
+                        <strong>06</strong> | Massive Map Generation System initial implementation completed (2023.07 ~ 2024.06)
                         <a href="javascript:openModal('mapgen')" class="timeline-link">[Massive Map Generation System ⭐]</a>
                     </p>
                     <p>
@@ -1388,11 +1389,11 @@
                         <a href="https://globalgamejam.org/games/2025/ude-891-9" target="_blank" class="timeline-link">[UDE-B91]</a>
                     </p>
                     <p>
-                        <strong>05-12</strong> | ALCOHOL FREE completed (7 months)
+                        <strong>05-12</strong> | ALCOHOL FREE completed (2025.05 ~ 2025.12)
                         <a href="javascript:openModal('alcoholfree')" class="timeline-link">[ALCOHOL FREE ⭐]</a>
                     </p>
                     <p>
-                        <strong>2024.12-2025.12</strong> | RGB Line completed (11 months)
+                        <strong>2024.12-2025.12</strong> | RGB Line completed
                         <a href="javascript:openModal('rgbline')" class="timeline-link">[RGB Line ⭐]</a>
                     </p>
                     <strong>05-Present</strong> | 마음을 담아 started
@@ -1453,9 +1454,13 @@
                         <a href="javascript:openModal('b_contents_competition')" class="timeline-link">[B-Contents 경진대회 2026]</a>
                     </p>
                     <p><strong>06</strong> | Build 051 2026 exhibition</p>
+                    <p>
+                        <strong>07.30</strong> | More Deeper C++ Programming Language published (222-page PDF edition)
+                        <a href="https://www.yes24.com/product/goods/194190987" target="_blank" class="timeline-link">[Publication details]</a>
+                    </p>
                     <p><strong>08</strong> | 제 1회 UPTRANDING 게임잼</p>
                     <p>
-                        <strong>10</strong> | FINS completed (UPTRANDING Game Jam, 2박 3일)
+                        <strong>10.02-10.04</strong> | FINS developed (UPTRANDING Game Jam, 2박 3일)
                         <a href="javascript:openModal('fins')" class="timeline-link">[FINS]</a>
                     </p>
                 </div>
@@ -1743,6 +1748,7 @@
                 - **상속과 메모리 레이아웃** 다중 상속, 가상 상속 시 발생할 수 있는 다이아몬드 문제와 이를 해결하기 위한 메모리 구조 변경을 다룹니다.`,
                 achievements: [
                     '222-page published PDF edition (ISBN: 9791143814685)',
+                    'Published by 작가와 on 2026.07.30; original manuscript written 2023.04 ~ 2023.10',
                     'Used as paid instructional material for 1 semester'
                 ],
                 video: '',
@@ -1843,7 +1849,7 @@
                 - **화면 상단의 점진적인 Blur 연출**은 uv 좌표의 v값을 기반으로 화면 상단에서부터 점진적으로 Blur 효과가 적용되도록 하는 Shader를 제작했습니다.
                 - **Dash Line 연출** uv의 x를 적용을 원하는 대상의 가로 크기를 곱해 Scaling + 정수화 한 후, 홀수인 구간은 투명도를 0으로 처리하는 Shader를 제작했습니다.`,
                 achievements: [
-                    'Reduced pipeline overhead by 85%',
+                    'Build change-summary time: 15 min → 2 min (approximately 86.7% reduction)',
                     'TU Game Challenge - Merit Award (장려상)'
                 ],
                 video: 'https://www.youtube.com/embed/L54qU3JqQJI',
@@ -1925,7 +1931,7 @@
                 title: 'TU Game Challenge 2025',
                 tags: ['Contest', 'Awards'],
                 desc: `동명대학교 게임공학과에서 주최한 연례 게임 개발 경진대회입니다. 
-                총 3개의 프로젝트 팀으로 참가하여, 모든 팀이 수상하는 쾌거를 이루었습니다.`,
+                참여한 4개 프로젝트(마음을 담아, Cross Wordle, ALCOHOL FREE, RGB Line)가 모두 수상했습니다.`,
                 tech: ['Top Excellence Award / 최우수상 (마음을 담아)', 'Top Excellence Award / 최우수상 (Cross Wordle)', 'Excellence Award / 우수상 (ALCOHOL FREE)', 'Merit Award / 장려상 (RGB Line)'],
                 challenges: `### 다중 프로젝트 관리
                 - 서로 다른 장르(퍼즐, 비주얼 노벨, 리듬)의 4개 프로젝트 개발 일정을 동시에 관리했습니다.
