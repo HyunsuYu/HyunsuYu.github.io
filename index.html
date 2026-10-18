@@ -775,7 +775,10 @@
             /* Keep theme surfaces; just control page breaks */
             .project-card, .hero, .recog-card, .history-item, .skill-section, .stat-box { break-inside: avoid; }
             /* keep each project card attached to its expanded detail */
-            #featured .project-card, #projects .project-card { break-after: avoid; }
+            /* Each project card (with its detail) starts on a fresh page;
+               the first card in a section stays with the section title */
+            #featured .project-card, #projects .project-card { break-before: page; break-after: avoid; }
+            #featured .project-card:first-of-type, #projects .project-card:first-of-type { break-before: avoid; }
             .project-body { grid-template-columns: 2fr 1fr !important; }
 
             /* Injected print-only detail (themed) */
@@ -2326,6 +2329,8 @@ main > section{ break-before: page; }
 main > section:first-of-type{ break-before: auto; }
 .project-body{ grid-template-columns:2fr 1fr !important; }
 .project-card,.hero,.recog-card,.history-item,.skill-section,.stat-box{ break-inside: avoid; }
+#featured .project-card,#projects .project-card{ break-before: page; break-after: avoid; }
+#featured .project-card:first-of-type,#projects .project-card:first-of-type{ break-before: auto; }
 .print-detail{ display:block !important; background:var(--modal-bg); border:1px solid var(--highlight-color); border-top:none; padding:12px 16px 16px; margin:-6px 0 16px; break-inside:auto; }
 .print-detail .pd-section{ margin-top:12px; }
 .print-detail h4.pd-label{ font-family:'Share Tech Mono',monospace; font-size:9.5pt; letter-spacing:1px; border-bottom:1px solid #4b483f; padding-bottom:2px; margin-bottom:6px; break-after:avoid; }
