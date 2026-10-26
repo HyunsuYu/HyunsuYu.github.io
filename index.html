@@ -1245,6 +1245,17 @@
                     </p>
                 </div>
                 <div class="history-item">
+                    <span class="history-year">PUBLICATIONS</span>
+                    <p>
+                        <strong>계층적 임의 보행 기반 대규모 타일맵 생성 알고리즘과 호스트 반응성을 위한 실행 전략</strong> | 2026 한국멀티미디어학회 추계학술발표대회 제29권 2호 (포스터, 제1저자·단독)
+                        <a href="assets/papers/MapGenPaper.pdf" target="_blank" class="timeline-link">[PAPER]</a>
+                    </p>
+                    <p>
+                        <strong>프레임-스테이트 실행 모델 기반 비주얼 노벨 저작 프레임워크</strong> | 2026 한국멀티미디어학회 추계학술발표대회 제29권 2호 (포스터, 제1저자·단독)
+                        <a href="assets/papers/VisualWavePaper.pdf" target="_blank" class="timeline-link">[PAPER]</a>
+                    </p>
+                </div>
+                <div class="history-item">
                     <span class="history-year">CONFERENCES</span>
                     <p>
                         <strong>2024 Security-One 포럼 연사 참가</strong> | Row Hammer
@@ -1464,6 +1475,11 @@
                         <a href="javascript:openModal('fins')" class="timeline-link">[FINS]</a>
                     </p>
                     <p><strong>10.19</strong> | DX12 IA/MS benchmark: 26 environments / 976 camera locations / 5,547 valid measurement states</p>
+                    <p>
+                        <strong>10</strong> | 한국멀티미디어학회 추계학술발표대회 논문 2편 게재 승인 (제29권 2호, 포스터)
+                        <a href="assets/papers/MapGenPaper.pdf" target="_blank" class="timeline-link">[MapGen]</a>
+                        <a href="assets/papers/VisualWavePaper.pdf" target="_blank" class="timeline-link">[Visual Wave]</a>
+                    </p>
                 </div>
             </div>
         </section>
@@ -1595,7 +1611,7 @@
 
                 기존 상용 엔진의 타일맵 시스템이 가진 대규모 데이터 처리 한계(메모리 오버헤드, 직렬화 속도)를 극복하기 위해 **Computer Science 기초(자료구조, 메모리 구조, 비트 연산)**를 응용하여 바닥부터 아키텍처를 재설계했습니다. 단순한 기능 구현을 넘어 **하드웨어 레벨(Cache Coherency, I/O)**의 병목을 해결하는 데 주력했습니다.
 
-                핵심 생성 알고리즘과 Lock-free 병렬·IPC 구현은 「계층적 임의 보행 기반 대규모 타일맵 생성 알고리즘과 Lock-free 병렬·IPC 구현」으로 **2026 한국멀티미디어학회 추계학술발표대회**에 논문 발표했습니다. (제1저자·단독 연구, 지도교수: 고정국)`,
+                핵심 생성 알고리즘과 실행 전략은 「계층적 임의 보행 기반 대규모 타일맵 생성 알고리즘과 호스트 반응성을 위한 실행 전략」으로 **2026 한국멀티미디어학회 추계학술발표대회(제29권 2호)**에 포스터 논문으로 **게재 승인**되었습니다. (제1저자·단독 연구, 지도교수: 고정국)`,
                 tech: ['C#', 'Unity', 'Lock-free Parallelization', 'IPC (Named Pipe)', 'Hierarchical Random-Walk', 'BFS / flood-fill', 'xorshift RNG', '2-channel PNG Encoding'],
                 challenges: `# 1. 계층적 임의 보행 생성 알고리즘
                 - **Abstract → Room → Tile 계층** 맵을 Room 격자(Abstract)로 추상화하고 각 칸을 Single Room Size 타일 격자에 대응, 최종 해상도 = Map Size × Single Chunk Size × Single Room Size로 구성했습니다.
@@ -1624,7 +1640,7 @@
                     '논문 표 2: 원시 270MB → 2채널 PNG 14.6MB (원시 용량의 약 5.41%; 저장/복원 2.142s/0.758s)',
                     '실험 규모: 3000×3000×30 = 2.7억 타일; 사전 지정 20×20 플레이 영역 준비 평균 37.206s (전체 맵 설치 시간 아님)',
                     '논문 표 1: 생성 중 호스트 실효 평균 51.26 FPS / 전체 최악 프레임 230.3ms / 호스트 누적 관리형 할당 118KB (에이전트 할당 제외)',
-                    '2026 한국멀티미디어학회 추계학술발표대회 논문 발표 (제1저자, 단독 연구)'
+                '2026 한국멀티미디어학회 추계학술발표대회 논문 게재 승인 (제29권 2호 · 포스터 · 제1저자, 단독 연구)'
                 ],
                 video: 'https://www.youtube.com/embed/SGQx82kwn-8?si=WFa7hvW2NLcj51OC',
                 images: [
@@ -1701,7 +1717,7 @@
 
                 핵심은 실시간 그래픽스의 **렌더 스테이트 테이블(render state table)**에서 착안한 **프레임-스테이트 실행 모델**로, 비종단 명령은 현재 프레임 상태에 누적되고 대사·선택지 같은 종단 명령에서 누적 상태를 채널별 핸들러로 일괄 반영(commit)하며, 상충은 최종 반영(last-write-wins)으로 해소합니다.
 
-                2026 한국멀티미디어학회 추계학술발표대회에 논문으로 발표했으며, **주 연구는 단독으로 수행**했습니다. (지도교수: 고정국)`,
+                2026 한국멀티미디어학회 추계학술발표대회(제29권 2호)에 포스터 논문으로 **게재 승인**되었으며, **주 연구는 단독으로 수행**했습니다. (지도교수: 고정국)`,
                 tech: ['C#', 'Engine-independent Core', 'DSL (.vwso / .vwsor / .vwsmr)', 'VS Code LSP', 'Unity', 'Godot'],
                 challenges: `# 3계층 관심사 분리
                 - 콘텐츠를 **시나리오 · 자원 · 시스템** 세 계층으로 분리해 작가와 프로그래머의 관심사를 나눔.
@@ -1724,7 +1740,7 @@
                     '이전 노드그래프 대비 대사 1자당 저장 약 30.0B → 약 4.7B (약 1/6), 상태 중복률 85.4% → 0%; 화면 1회 기재량 11 → 평균 1.14개',
                     '코어 계측: 55개 시나리오 적재·파싱 중앙값 약 11.5ms / 화면 상태 구성 평균 약 0.16ms / 적재 후 관리 힙 약 0.48MB (.NET Framework 4.8 Release)',
                     'Godot에서 동일 코어·시나리오·자원·시스템 파일 재사용: 배경·대사 채널의 최소 구동 사례로 엔진 독립성 실증',
-                    '2026 한국멀티미디어학회 추계학술발표대회 논문 발표 (제1저자, 단독 연구)'
+                    '2026 한국멀티미디어학회 추계학술발표대회 논문 게재 승인 (제29권 2호 · 포스터 · 제1저자, 단독 연구)'
                 ],
                 video: '',
                 images: [
