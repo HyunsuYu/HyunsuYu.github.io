@@ -914,6 +914,10 @@
         .c-thumb { aspect-ratio: 16 / 9; overflow: hidden; border-bottom: 1px solid var(--text-color); background: #fff; position: relative; }
         .c-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; filter: sepia(0.35) saturate(0.7) contrast(0.95); transition: 0.3s; }
         .c-thumb-top img { object-position: top; }
+        .c-play {
+            position: absolute; left: 10px; bottom: 10px; z-index: 1; font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; letter-spacing: 1px;
+            background: var(--text-color); color: var(--bg-color); padding: 2px 8px; border: 1px solid var(--bg-color);
+        }
         .c-tile:hover .c-thumb img { filter: none; transform: scale(1.03); }
         .c-thumb::after {
             content: ''; position: absolute; inset: 0; pointer-events: none;
@@ -2285,11 +2289,11 @@ const WORK_FIELDS = { GFX: 'GRAPHICS · ENGINE', TOOLS: 'TOOLS · RESEARCH · WR
 
 const WORKS = [
     { id: 'meshshader', field: 'GFX', year: '2026', unit: 'UNIT 01', label: 'GRADUATION THESIS · 2026', wide: true,
-      img: 'assets/thumbs/drive/1EL1vqrbs96enisJCK_u-FXedV5mr6EcS.jpg', title: 'DX12 Meshlet × IA Hybrid Rendering', star: true,
+      img: 'assets/thumbs/video/meshshader.jpg', video: true, title: 'DX12 Meshlet × IA Hybrid Rendering', star: true,
       meta: 'SOLE RESEARCH / 1ST AUTHOR · 2025.12–2026.11', line: 'IA · Mesh Shader 경로를 메시 그룹별로 런타임 선택해 같은 프레임에서 혼합.',
       stat: '> GPU Scene −15.83% vs IA · −3.01% vs MS', tags: [['inv', 'THESIS'], ['line', 'DX12'], ['line', 'MESH SHADER'], ['line', 'K-MEANS']] },
     { id: 'mapgen', field: 'GFX', year: '2026', unit: 'UNIT 02', label: 'PAPER · 2026',
-      img: 'assets/thumbs/papers/mapgen-paper-3d.jpg', title: 'Massive Map Generation', star: true,
+      img: 'assets/thumbs/video/mapgen.jpg', video: true, title: 'Massive Map Generation', star: true,
       meta: 'SOLO DEV · 2023.07–2024.06', stat: '> 270M tiles · 51.26 FPS host', tags: [['inv', 'KMMS PAPER'], ['line', 'PARALLEL'], ['line', 'IPC']] },
     { id: 'visualwave', field: 'TOOLS', year: '2026', unit: 'UNIT 03', label: 'PAPER · 2026',
       img: 'assets/thumbs/papers/vw-godot-demo.jpg', title: 'Visual Wave', star: true,
@@ -2301,11 +2305,10 @@ const WORKS = [
       img: 'assets/thumbs/drive/1ePXQdvfpJ-jz0Ko8x81mW4Go-GG6Lcbv.jpg', title: '마음을 담아', star: true,
       meta: 'PROGRAMMER · TEAM 5', tags: [['inv', '★ 최우수상'], ['line', 'G-STAR']] },
     { id: 'alcoholfree', field: 'GAME', year: '2025', unit: 'G-02', label: 'VISUAL NOVEL',
-      img: 'https://hyunsuyu.github.io/ALCOHOL-FREE/src/%EC%95%95%EC%83%9D%ED%8A%B8%20%EC%BB%B7%EC%94%AC.png',
-      fallback: 'assets/thumbs/drive/1gaCl93bfKaSHVaSoRmW0L_XcZ1P5kwGa.jpg', title: 'ALCOHOL FREE', star: true,
+      img: 'assets/thumbs/video/alcoholfree.jpg', video: true, title: 'ALCOHOL FREE', star: true,
       meta: 'PROGRAMMER · TEAM 7', tags: [['inv', '★ 우수상'], ['inv', '장려상'], ['line', 'STOVE']] },
     { id: 'rgbline', field: 'GAME', year: '2025', unit: 'G-03', label: 'RHYTHM',
-      img: 'assets/thumbs/drive/1AQPQjfcLk8uUyBBZdREkdSsu9lpCmZwS.jpg', title: 'RGB Line',
+      img: 'assets/thumbs/video/rgbline.jpg', video: true, title: 'RGB Line',
       meta: 'LEAD PROGRAMMER · TEAM 4', tags: [['inv', '장려상'], ['line', 'G-STAR']] },
     { id: 'fins', field: 'GAME', year: '2026', unit: 'G-04', label: 'ACTION · JAM',
       img: 'assets/thumbs/fins/surface.jpg', title: 'FINS',
@@ -2336,7 +2339,7 @@ function tileHtml(w, opt) {
         : `<img src="${w.img}" alt="" loading="lazy">`;
     return `<article class="c-tile${wide ? ' c-wide' : ''}" data-field="${w.field}" onclick="openModal('${w.id}')">
         <div class="c-head"><span>${w.unit}</span><span>${w.label}</span></div>
-        <div class="c-thumb${w.top ? ' c-thumb-top' : ''}">${img}</div>
+        <div class="c-thumb${w.top ? ' c-thumb-top' : ''}">${img}${w.video ? '<span class="c-play">▶ VIDEO</span>' : ''}</div>
         <div class="c-info">
             <h3>${w.title}${w.star ? ' ⭐' : ''}</h3>
             <p class="c-meta">${w.meta}</p>
