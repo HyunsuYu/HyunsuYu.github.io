@@ -2289,11 +2289,11 @@ const WORK_FIELDS = { GFX: 'GRAPHICS · ENGINE', TOOLS: 'TOOLS · RESEARCH · WR
 
 const WORKS = [
     { id: 'meshshader', field: 'GFX', year: '2026', unit: 'UNIT 01', label: 'GRADUATION THESIS · 2026', wide: true,
-      img: 'assets/thumbs/video/meshshader.jpg', video: true, title: 'DX12 Meshlet × IA Hybrid Rendering', star: true,
+      img: 'assets/thumbs/drive/1EL1vqrbs96enisJCK_u-FXedV5mr6EcS.jpg', title: 'DX12 Meshlet × IA Hybrid Rendering', star: true,
       meta: 'SOLE RESEARCH / 1ST AUTHOR · 2025.12–2026.11', line: 'IA · Mesh Shader 경로를 메시 그룹별로 런타임 선택해 같은 프레임에서 혼합.',
       stat: '> GPU Scene −15.83% vs IA · −3.01% vs MS', tags: [['inv', 'THESIS'], ['line', 'DX12'], ['line', 'MESH SHADER'], ['line', 'K-MEANS']] },
     { id: 'mapgen', field: 'GFX', year: '2026', unit: 'UNIT 02', label: 'PAPER · 2026',
-      img: 'assets/thumbs/video/mapgen.jpg', video: true, title: 'Massive Map Generation', star: true,
+      img: 'assets/thumbs/papers/mapgen-paper-3d.jpg', title: 'Massive Map Generation', star: true,
       meta: 'SOLO DEV · 2023.07–2024.06', stat: '> 270M tiles · 51.26 FPS host', tags: [['inv', 'KMMS PAPER'], ['line', 'PARALLEL'], ['line', 'IPC']] },
     { id: 'visualwave', field: 'TOOLS', year: '2026', unit: 'UNIT 03', label: 'PAPER · 2026',
       img: 'assets/thumbs/papers/vw-godot-demo.jpg', title: 'Visual Wave', star: true,
@@ -2305,10 +2305,10 @@ const WORKS = [
       img: 'assets/thumbs/drive/1ePXQdvfpJ-jz0Ko8x81mW4Go-GG6Lcbv.jpg', title: '마음을 담아', star: true,
       meta: 'PROGRAMMER · TEAM 5', tags: [['inv', '★ 최우수상'], ['line', 'G-STAR']] },
     { id: 'alcoholfree', field: 'GAME', year: '2025', unit: 'G-02', label: 'VISUAL NOVEL',
-      img: 'assets/thumbs/video/alcoholfree.jpg', video: true, title: 'ALCOHOL FREE', star: true,
+      img: 'assets/thumbs/drive/1gaCl93bfKaSHVaSoRmW0L_XcZ1P5kwGa.jpg', title: 'ALCOHOL FREE', star: true,
       meta: 'PROGRAMMER · TEAM 7', tags: [['inv', '★ 우수상'], ['inv', '장려상'], ['line', 'STOVE']] },
     { id: 'rgbline', field: 'GAME', year: '2025', unit: 'G-03', label: 'RHYTHM',
-      img: 'assets/thumbs/video/rgbline.jpg', video: true, title: 'RGB Line',
+      img: 'assets/thumbs/drive/1AQPQjfcLk8uUyBBZdREkdSsu9lpCmZwS.jpg', title: 'RGB Line',
       meta: 'LEAD PROGRAMMER · TEAM 4', tags: [['inv', '장려상'], ['line', 'G-STAR']] },
     { id: 'fins', field: 'GAME', year: '2026', unit: 'G-04', label: 'ACTION · JAM',
       img: 'assets/thumbs/fins/surface.jpg', title: 'FINS',
@@ -2331,15 +2331,29 @@ const BLOG_TILE = `<div class="c-tile c-text-tile" data-field="TOOLS">
 
 function workById(id) { return WORKS.find(w => w.id === id); }
 
+/* YouTube video id of a project (from projectDB.video), or null */
+function youtubeId(id) {
+    const v = (typeof projectDB !== 'undefined' && projectDB[id] && projectDB[id].video) || '';
+    const m = v.match(/(?:youtube\.com\/embed\/|youtu\.be\/|[?&]v=)([\w-]{11})/);
+    return m ? m[1] : null;
+}
+
 function tileHtml(w, opt) {
     opt = opt || {};
     const wide = w.wide && !opt.noWide;
-    const img = w.fallback
+    const yt = youtubeId(w.id);
+    /* Cards with a YouTube video use the video's own thumbnail: maxresdefault, then hqdefault
+       (a missing maxres comes back as a 120px placeholder), then the card's local image. */
+    const img = yt
+        ? `<img src="https://img.youtube.com/vi/${yt}/maxresdefault.jpg" alt="" loading="lazy" data-fb="${w.img}"` +
+          ` onload="if(this.naturalWidth<=120&&!this.dataset.hq){this.dataset.hq=1;this.src='https://img.youtube.com/vi/${yt}/hqdefault.jpg'}"` +
+          ` onerror="if(!this.dataset.hq){this.dataset.hq=1;this.src='https://img.youtube.com/vi/${yt}/hqdefault.jpg'}else{this.onerror=null;this.src=this.dataset.fb}">`
+        : w.fallback
         ? `<img src="${w.img}" onerror="this.onerror=null;this.src='${w.fallback}'" alt="" loading="lazy">`
         : `<img src="${w.img}" alt="" loading="lazy">`;
     return `<article class="c-tile${wide ? ' c-wide' : ''}" data-field="${w.field}" onclick="openModal('${w.id}')">
         <div class="c-head"><span>${w.unit}</span><span>${w.label}</span></div>
-        <div class="c-thumb${w.top ? ' c-thumb-top' : ''}">${img}${w.video ? '<span class="c-play">▶ VIDEO</span>' : ''}</div>
+        <div class="c-thumb${w.top ? ' c-thumb-top' : ''}">${img}${yt ? '<span class="c-play">▶ VIDEO</span>' : ''}</div>
         <div class="c-info">
             <h3>${w.title}${w.star ? ' ⭐' : ''}</h3>
             <p class="c-meta">${w.meta}</p>
