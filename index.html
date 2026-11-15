@@ -9,7 +9,7 @@
     <meta name="google-site-verification" content="ZgHlnNKk8i1UinoRuXh4S4Df5h_YqDsNyyOUyFN5-xw" />
 
     <!-- --- SEO: PRIMARY META --- -->
-    <meta name="description" content="유현수(Hyunsu Yu) — Gameplay & Rendering 프로그래머 포트폴리오. DirectX 12 Mesh Shader 파이프라인, 초대형 타일맵 생성 시스템(2.7억 타일·IPC 기반 호스트 반응성 유지), C++ 저수준 최적화 프로젝트와 연구를 소개합니다.">
+    <meta name="description" content="유현수(Hyunsu Yu) — Gameplay & Rendering 프로그래머 포트폴리오. DirectX 12 Meshlet·IA 하이브리드 렌더링 파이프라인(졸업논문), 초대형 타일맵 생성 시스템(2.7억 타일·IPC 기반 호스트 반응성 유지), C++ 저수준 최적화 프로젝트와 연구를 소개합니다.">
     <meta name="keywords" content="Hyunsu Yu, 유현수, Gameplay Programmer, Rendering Programmer, 렌더링 프로그래머, DirectX 12, Mesh Shader, C++, Unity, 게임 개발, 최적화, Optimization, 포트폴리오">
     <meta name="author" content="Hyunsu Yu">
     <meta name="robots" content="index, follow">
@@ -20,7 +20,7 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Hyunsu Yu — Dev Portfolio">
     <meta property="og:title" content="Hyunsu Yu | Gameplay & Rendering Programmer">
-    <meta property="og:description" content="DirectX 12 Mesh Shader 파이프라인, 초대형 타일맵 생성 시스템(2.7억 타일·IPC 기반 호스트 반응성 유지), C++ 저수준 최적화 프로젝트와 연구를 소개합니다.">
+    <meta property="og:description" content="DirectX 12 Meshlet·IA 하이브리드 렌더링 파이프라인(졸업논문), 초대형 타일맵 생성 시스템(2.7억 타일·IPC 기반 호스트 반응성 유지), C++ 저수준 최적화 프로젝트와 연구를 소개합니다.">
     <meta property="og:url" content="https://hyunsuyu.github.io/">
     <meta property="og:image" content="https://hyunsuyu.github.io/assets/drive/1-LvQgEJYjVsM6vgf2QFTBeYvNcJeS2xH.png">
     <meta property="og:locale" content="ko_KR">
@@ -28,7 +28,7 @@
     <!-- --- SEO: TWITTER / X CARD --- -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Hyunsu Yu | Gameplay & Rendering Programmer">
-    <meta name="twitter:description" content="DirectX 12 Mesh Shader 파이프라인, 초대형 타일맵 생성 시스템(2.7억 타일·IPC 기반 호스트 반응성 유지), C++ 저수준 최적화 프로젝트와 연구를 소개합니다.">
+    <meta name="twitter:description" content="DirectX 12 Meshlet·IA 하이브리드 렌더링 파이프라인(졸업논문), 초대형 타일맵 생성 시스템(2.7억 타일·IPC 기반 호스트 반응성 유지), C++ 저수준 최적화 프로젝트와 연구를 소개합니다.">
     <meta name="twitter:image" content="https://hyunsuyu.github.io/assets/drive/1-LvQgEJYjVsM6vgf2QFTBeYvNcJeS2xH.png">
 
     <!-- --- SEO: STRUCTURED DATA (JSON-LD) --- -->
@@ -46,7 +46,7 @@
         "addressLocality": "Busan",
         "addressCountry": "KR"
       },
-      "knowsAbout": ["C++", "C#", "DirectX 12", "Mesh Shader", "Unity", "Rendering", "Gameplay Programming", "Performance Optimization"],
+      "knowsAbout": ["C++", "C#", "DirectX 12", "Mesh Shader", "Meshlet", "Hybrid Rendering", "Unity", "Rendering", "Gameplay Programming", "Performance Optimization"],
       "sameAs": ["https://github.com/HyunsuYu"]
     }
     </script>
@@ -905,6 +905,34 @@
         <section id="featured">
             <h2 class="section-title glitch-effect">Featured Project</h2>
             
+            <article class="project-card" style="border: 2px solid var(--text-color);" onclick="openModal('meshshader')">
+                <div class="project-header">
+                    <span class="project-title">DirectX 12 Meshlet과 IA 기반의 하이브리드 렌더링 파이프라인 구현 ⭐</span>
+                    <span class="mono">2025.12 ~ 2026.11 · Graduation Thesis</span>
+                </div>
+                <div class="project-body">
+                    <div class="project-content">
+                        <p>My B.S. graduation thesis. A DX12 renderer that integrates the Input Assembler path and an Amplification/Mesh Shader meshlet path, and picks one of the two per mesh group at runtime using an environment-specialized selector built from pre-baked GPU costs. The proposed MS-default K-Means selector mixes IA and MS within the same frame and beats both single-path baselines.</p>
+                        <div class="highlight-stat mono">
+                            <p>> GPU Scene 시간: IA 전용 대비 −15.83% · MS 전용 대비 −3.01% (95% CI 2.78~3.26%)</p>
+                            <p>> 5개 선택기 중 유일하게 두 전용 경로 모두 추월 / 6개 환경에서 같은 프레임 IA·MS 혼합</p>
+                            <p>> AS Meshlet 컬링: Rasterizer 입력 IA 대비 −82.26% (Depth bit 단위 동일)</p>
+                        </div>
+                        <p>Thesis benchmark: RTX 4070 Laptop / 1280×720 / Agility SDK 1.618.5 (SM 6.6, MS 6.7); 11 Unreal Engine environment assets replayed along 30 Hz camera paths, 8 repeated cohorts, 653,160 frames per method, paired-bootstrap 95% CI. Main metric is GPU Scene time (Clear → last scene draw), excluding CPU preparation and Present.</p>
+                        <div class="project-links">
+                            <a href="assets/papers/GraduationThesis.pdf" target="_blank" onclick="event.stopPropagation()">[THESIS]</a>
+                            <a href="https://github.com/HyunsuYu/D3D12-Meshlet-Sample" target="_blank" onclick="event.stopPropagation()">[GITHUB]</a>
+                            <a href="https://drive.google.com/drive/folders/1Cn0udL8k-LEFIsyFWisXQVbRnvi_2SFT?usp=sharing" target="_blank" onclick="event.stopPropagation()">[RESOURCE URL]</a>
+                        </div>
+                    </div>
+                    <div class="project-meta mono">
+                        <p><strong>ROLE:</strong> Sole Research / Dev</p>
+                        <p><strong>TECH:</strong> C++, DX12, Amplification/Mesh Shader, meshoptimizer, FBX SDK, PBR, K-Means</p>
+                        <p><strong>STATUS:</strong> Graduation Thesis (2026)</p>
+                    </div>
+                </div>
+            </article>
+
             <article class="project-card" onclick="openModal('mapgen')">
                 <div class="project-header">
                     <span class="project-title">Massive Map Generation System ⭐</span>
@@ -930,32 +958,6 @@
                         <p><strong>ROLE:</strong> Solo Dev</p>
                         <p><strong>TECH:</strong> C#, Parallelism</p>
                         <p><strong>STATUS:</strong> Completed</p>
-                    </div>
-                </div>
-            </article>
-
-            <article class="project-card" style="border: 2px solid var(--text-color);" onclick="openModal('meshshader')">
-                <div class="project-header">
-                    <span class="project-title">DX12 : Mesh Shader Pipeline 구현 ⭐</span>
-                    <span class="mono">2025.12 ~ Present</span>
-                </div>
-                <div class="project-body">
-                    <div class="project-content">
-                        <p>A Mesh Shader Pipeline built from scratch on DX12. A hybrid renderer where the IA path and the Mesh Shader path coexist in one renderer, extended with PBR & transparent rendering and a GPU measurement harness to directly measure and compare the two paths.</p>
-                        <div class="highlight-stat mono">
-                            <p>> Legacy IA Pipeline ↔ Mesh Shader Pipeline 하이브리드</p>
-                            <p>> FBX + meshoptimizer 기반 Meshlet 생성 / AS 메시렛 컬링</p>
-                            <p>> IA/MS 실측: 26개 환경 · 976개 촬영 위치 · 5,547개 유효 상태 (2026.10.19)</p>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://github.com/HyunsuYu/D3D12-Meshlet-Sample" target="_blank" onclick="event.stopPropagation()">[GITHUB]</a>
-                            <a href="https://drive.google.com/drive/folders/1Cn0udL8k-LEFIsyFWisXQVbRnvi_2SFT?usp=sharing" target="_blank" onclick="event.stopPropagation()">[RESOURCE URL]</a>
-                        </div>
-                    </div>
-                    <div class="project-meta mono">
-                        <p><strong>ROLE:</strong> Sole Dev</p>
-                        <p><strong>TECH:</strong> C++, DX12, Mesh Shader, meshoptimizer, FBX SDK, PBR, UE5, Blender</p>
-                        <p><strong>STATUS:</strong> Progress</p>
                     </div>
                 </div>
             </article>
@@ -1258,6 +1260,11 @@
                         <a href="https://ebook-product.kyobobook.co.kr/dig/epd/ebook/E000013305174" target="_blank" class="timeline-link">[교보문고]</a>
                     </p>
                     <p>
+                        <strong>DirectX 12 Meshlet과 IA 기반의 하이브리드 렌더링 파이프라인 구현</strong> | 2026 학사학위 졸업논문 (동명대학교 컴퓨터공학과, 지도교수 고정국)
+                        <a href="assets/papers/GraduationThesis.pdf" target="_blank" class="timeline-link">[THESIS]</a>
+                        <a href="javascript:openModal('meshshader')" class="timeline-link">[Hybrid Rendering Pipeline]</a>
+                    </p>
+                    <p>
                         <strong>계층적 임의 보행 기반 대규모 타일맵 생성 알고리즘과 호스트 반응성을 위한 실행 전략</strong> | 2026 한국멀티미디어학회 추계학술발표대회 제29권 2호 (포스터, 제1저자·단독)
                         <a href="assets/papers/MapGenPaper.pdf" target="_blank" class="timeline-link">[PAPER]</a>
                         <a href="javascript:openModal('mapgen')" class="timeline-link">[Massive Map Gen]</a>
@@ -1456,7 +1463,7 @@
                 <div class="history-item">
                     <span class="history-year">2026</span>
                     <p><strong>01</strong> | TU Mach Game Jam(2 days)</p>
-                    <p><strong>Continuous</strong> | DX12 Mesh Shader Pipeline Renderer (in progress)</p>
+                    <p><strong>Continuous</strong> | DX12 Meshlet × IA Hybrid Rendering Pipeline (graduation thesis research)</p>
                     <p>
                         <strong>Continuous</strong> | 마음을 담아
                         <a href="javascript:openModal('hearts')" class="timeline-link">[마음을 담아]</a>
@@ -1494,6 +1501,11 @@
                         <a href="javascript:openModal('mapgen')" class="timeline-link">[Massive Map Gen]</a>
                         <a href="assets/papers/VisualWavePaper.pdf" target="_blank" class="timeline-link">[VW PAPER]</a>
                         <a href="javascript:openModal('visualwave')" class="timeline-link">[Visual Wave]</a>
+                    </p>
+                    <p>
+                        <strong>11</strong> | 학사학위 졸업논문: DirectX 12 Meshlet과 IA 기반의 하이브리드 렌더링 파이프라인 구현
+                        <a href="assets/papers/GraduationThesis.pdf" target="_blank" class="timeline-link">[THESIS]</a>
+                        <a href="javascript:openModal('meshshader')" class="timeline-link">[Hybrid Rendering Pipeline]</a>
                     </p>
                 </div>
             </div>
@@ -1671,58 +1683,74 @@
                 ]
             },
             'meshshader': {
-                title: 'DX12 : Mesh Shader Pipeline 구현',
-                tags: ['Solo Dev', 'DX12', 'Mesh Shader', 'meshoptimizer', 'FBX SDK', 'PBR', 'Unreal Engine 5', 'Blender'],
-                desc: `DirectX 12를 기반으로 차세대 렌더링 파이프라인인 **Mesh Shader Pipeline**을 바닥부터 직접 설계·구현한 프로젝트입니다.
+                title: 'DirectX 12 Meshlet과 IA 기반의 하이브리드 렌더링 파이프라인 구현',
+                tags: ['Graduation Thesis', 'Sole Research', 'DX12', 'Amplification / Mesh Shader', 'Meshlet', 'Hybrid Rendering', 'K-Means', 'GPU Profiling'],
+                desc: `2026 학사학위 졸업논문 **「DirectX 12 Meshlet과 IA 기반의 하이브리드 렌더링 파이프라인 구현」**(동명대학교 컴퓨터공학과, 지도교수 고정국)의 구현·연구 프로젝트입니다.
 
-                고정된 Input Assembler(IA) 단계의 병목을 해소하기 위해 언리얼 엔진 5의 Nanite와 유사한 **Meshlet(클러스터) 구조**를 도입하고, **IA 경로와 Mesh Shader 경로를 한 렌더러에 공존**시켜 오브젝트 단위로 경로를 전환할 수 있는 하이브리드 구조를 구축했습니다.
+                DirectX 12에서 **Input Assembler(IA) 경로**와 **Amplification Shader(AS)·Mesh Shader(MS) 기반 Meshlet 경로**를 하나의 Renderer에 통합하고, **Mesh 그룹마다 두 경로 중 하나를 런타임에 선택**하는 하이브리드 렌더링 파이프라인을 바닥부터 구현했습니다. 선택기는 환경마다 사전에 베이크한 GPU 비용으로 만드는 **환경 특화형 모델**로, 그룹의 컬링 전 Primitive 수 P와 카메라의 절두체 컬링 비율 C, 또는 위치별 공간 비용 Grid를 입력으로 씁니다.
 
-                여기에 **PBR 머티리얼·반투명 렌더링**과 **GPU 타임스탬프·파이프라인 통계 기반 실측 계측 하니스**를 더해, 합성 씬부터 **실제 Unreal Engine 환경 에셋**까지 두 경로의 렌더링 성능을 직접 측정·비교하는 분석 체계로 확장했습니다.`,
-                tech: ['DX12', 'Mesh Shader', 'meshoptimizer', 'FBX SDK', 'PBR', 'Unreal Engine 5', 'Blender'],
-                challenges: `# Input Assembler(IA) 의존성 탈피
-                - 기존 Vertex Buffer 바인딩 대신 **1개 CBV(Camera) + 4개 SRV(Vertices / Meshlet Info / Indices / Primitives)**를 직접 바인딩하여 셰이더에서 Raw Data에 접근하는 구조 구현
-                # Meshlet 데이터 가공 파이프라인
-                - **FBX SDK**로 범용 *.fbx 파일 동적 로딩
-                - **meshoptimizer**로 Vertex Cache 효율을 고려한 Meshlet 단위 클러스터링 및 데이터 직렬화 수행
-                # IA / Mesh Shader 하이브리드 구조
-                - 동일 지오메트리를 **IA 경로(Indexed Draw)**와 **Mesh Shader 경로(AS → MS)**로 모두 구성하여 오브젝트 단위로 경로를 선택·비교
-                - **Amplification Shader에서 메시렛 단위 프러스텀 + 노멀콘(백페이스) 컬링** 구현
-                # PBR · 반투명 렌더링
-                - **Albedo / Normal / Roughness / Metallic** 텍스처 지원 + **FBX 내장 머티리얼 자동 매칭** 로더
-                - 반투명 오브젝트 **Back-to-Front 정렬 + 블렌드 파이프라인** (IA·MS 양 경로)
-                # 실측 계측 하니스
-                - **GPU 타임스탬프**로 Clear/Present를 제외한 순수 드로우 구간의 GPU 시간 측정
-                - **D3D12 파이프라인 통계**(프러스텀 클리핑률, 픽셀 셰이더 호출 수)로 화면 밖 비율·픽셀 부하 계측
-                - 다양한 시점 × IA/MS × 컬링 조건을 **헤드리스로 자동 반복 측정**하는 벤치마크 시스템 구축
-                # 실제 상용 엔진 환경 벤치
-                - **Unreal Engine 5 환경 에셋(Fab)**을 UE 헤드리스 Python으로 추출 → Blender로 정제 → 자체 DX12 렌더러에 로드
-                - 합성 산포 씬(폴리 1M~8M, 픽셀 부하 단계별)과 실제 UE 환경을 동일한 계측 체계로 비교
-                # 실측 결과: 2026.10.19 주간 진행보고서
-                - **측정 규모(표 1)** 26개 환경에서 촬영 위치 976곳, 유효 실측 상태 5,547개를 확보했습니다.
-                - **기존 테스트 환경** Bunny4500: 4곳 / 5상태, Object4: 6곳 / 223상태.
-                - **Fab 환경 에셋** SunTemple: 128곳 / 591상태, VirtualStudio: 145곳 / 651상태, SoulCave: 233곳 / 1,356상태, SoulCity: 420곳 / 2,397상태.
-                - **스트레스 환경 20종** Primitive 1M·2M·4M·8M × 오브젝트 간격 5단계로 구성했습니다. 설정당 2곳, 총 40곳 / 324상태를 측정했습니다.
-                - **시점 샘플링** Bunny4500·Object4는 기존 카메라 마커에서 회전하며 재측정하고, 추가 환경은 10m 간격의 3차원 격자 정점에 카메라를 배치한 뒤 회전하며 관측했습니다. 빈 공간을 바라보는 등 의미 없는 구도는 제외했습니다.
-                # 차세대 셰이더 스테이지 제어
-                - IA/Vertex 대신 **Mesh Shader 스테이지를 제어**하여 GPU 하드웨어 구조에 더 친화적인 렌더링 로직 구현`,
+                11개 환경에서 선택기마다 IA 기본·MS 기본 정책을 비교한 결과 모든 모델에서 MS 기본이 1.87~9.61% 빨랐고, 이를 바탕으로 제안한 **MS 기본 K-Means**는 GPU Scene 시간을 **IA 전용 대비 15.83%, MS 전용 대비 3.01%** 줄여 다섯 선택기 중 유일하게 두 전용 경로를 모두 앞섰습니다. 같은 프레임 안의 IA·MS 혼합은 6개 환경에서 확인했습니다.`,
+                tech: ['C++', 'DX12', 'Amplification Shader', 'Mesh Shader', 'meshoptimizer', 'FBX SDK', 'PBR (Disney / GGX)', 'K-Means', 'Unreal Engine 5', 'Blender'],
+                challenges: `# 연구 질문
+                - **RQ1 동일 프레임 혼합·전환** 한 화면에서 IA와 MS를 섞고, 카메라 상태에 따라 같은 Mesh 그룹의 경로를 바꿀 수 있는가 → **가능** (6개 환경에서 동시 혼합, Depth 화면 일치)
+                - **RQ2 환경 특화 선택기의 이득** 환경별 베이크 정보로 만든 P·C 분류기, 공간 비용 Grid, 최소 비용 Chunk는 단일 경로 대비 어떤 이득을 보이며 기본 정책에 따라 어떻게 달라지는가 → **모든 모델에서 MS 기본이 IA 기본보다 빠름**
+                - **RQ3 제안 정책** MS 기본 K-Means는 IA 전용과 MS 전용을 모두 앞설 수 있는가 → **두 전용 경로를 모두 앞섬**
+                - **RQ4 국소·Tail Latency** 평균 이득이 5초 구간별 결과와 p95·p99에서도 유지되는가 → **대체로 유지**
+                - 학습·검증·시험 카메라 경로를 분리하고, 시험(E1) 전에 모델을 보존해 학습에 쓰지 않은 경로로 최종 평가
+                # 하이브리드 Renderer 구조
+                - **YAML Scene → FBX SDK 로드 → Material 기준 Sub-Mesh 분할 → meshoptimizer Meshlet 생성**(Meshlet당 최대 64 정점 / 124 삼각형) 후 Meshlet별 **Bounding Sphere·Normal Cone** 베이크
+                - **IA 경로** DrawIndexedInstanced → Input Assembler → Vertex Shader → Rasterizer
+                - **Meshlet 경로** DispatchMesh → **Amplification Shader**(Meshlet 단위 절두체·후면 컬링) → **Mesh Shader** → Rasterizer
+                - 두 경로가 **같은 Pixel Shader(Disney Diffuse + GGX PBR)**·Root Signature·Render Target을 공유하고, opaque·alpha·additive용 PSO 6종을 미리 구축해 IA↔MS 전환 시 별도 대기 없이 그룹 단위로 섞어 기록
+                # 그룹별 런타임 경로 선택기
+                - 게임 맵은 개발 단계에서 고정된다는 점에 착안해, 구역마다 Mesh 그룹의 GPU 비용을 미리 측정·베이크한 **환경 특화형 선택기** 설계
+                - Logistic · LUT · K-Means · 공간 비용 Grid(1 / 2.5 / 5 / 10 m) · 최소 비용 Chunk(1 / 2.5 / 5 / 10 m) **11개 모델 × IA 기본 / MS 기본 정책** 비교
+                - **제안: MS 기본 K-Means** 기본 경로를 MS로 두고, 실제 혼합 GPU 시간 검증(V)을 통과한 군집만 IA로 허용 / 런타임에는 그룹의 P·C로 최근접 Centroid를 조회해 경로 결정 (선택 CPU 비용 프레임당 13.28 μs)
+                # GPU 계측 하니스
+                - FrameResource 3개 순환 + **GPU Timestamp 4개**로 **GPU Scene 시간**(Clear 직전 ~ 마지막 Scene Draw) 측정, CPU 준비·Present 대기 제외
+                - **파이프라인 통계 쿼리**(CInvocations·CPrimitives, IA·VS·AS·MS·PS 실행 수)와 실제 IA·MS 드로우 수, 계획·실행 배정 해시를 기록해 선택한 대로 실행되었는지 검증
+                - Unreal Engine 환경 에셋 11종(Soul City·Soul Cave·Sun Temple·Virtual Studio·Shooter Game·Platformer Game)을 자체 Renderer로 옮겨 **30 Hz 카메라 경로**로 재생, seed 셔플 실행 순서 · 8회 반복 코호트 · **paired bootstrap 95% 신뢰구간**
+                # 결과: 화면 동등성 · Geometry 처리량
+                - 11개 환경 모든 구도에서 두 경로의 **Depth가 bit 단위로 동일**, RGB 8단계 초과 픽셀은 최대 806개(화면의 0.0875%)
+                - **AS 컬링으로 Rasterizer 입력 IA 대비 82.26% 감소**, 컬링 뒤 Primitive 수는 세 방법이 동일 → AS는 최종 화면을 바꾸지 않고 버려질 Geometry를 앞단에서 제거
+                - 제안 모델은 MS Only보다 Rasterizer 입력이 24.35% 많았지만 GPU 시간은 3.01% 짧음 → **Primitive 수만으로 가장 빠른 경로를 정할 수 없음**
+                # 결과: T1 선택기 모델 비교 (26개 모델)
+                - 모든 선택기에서 **MS 기본이 IA 기본보다 1.87~9.61% 빠름**
+                - 제안 모델: IA Only 대비 −15.99%, MS Only 대비 −2.39%(95% 구간 0.88~3.82%)로 **26개 모델 중 가장 빠르고**, 구간 전체가 0보다 큰 유일한 모델
+                - 환경마다 IA·MS 중 하나로 고정한 기준선보다도 1.33% 빨라, 이득이 환경 단위 경로 선택이 아니라 **화면 안의 그룹 혼합**에서 나옴을 확인
+                # 결과: E1 최종 평가 (5개 모델, 방법당 653,160 프레임)
+                - **MS 기본 K-Means: IA Only 대비 −15.83%, MS Only 대비 −3.01%**(95% 구간 2.78~3.26%), 다섯 모델 중 유일하게 두 전용 경로를 모두 앞섬
+                - 환경 가중 평균으로도 MS 대비 2.32% 빠르고, 같은 Centroid의 IA 기본 K-Means보다 5.80% 빠름 / 고정 P와 IA 기본 K-Means는 MS보다 각각 3.87%, 2.96% 느림
+                - 중앙값 0.55 ms · p99 1.896 ms로 평균뿐 아니라 분포 전반에서 가장 낮음
+                - 5초 구간 538개 중 57.43%에서 IA·MS 양쪽보다 빠름, p95는 11개 중 9개·p99는 10개 환경에서 MS보다 낮음
+                - 같은 프레임 안 IA·MS 혼합을 **6개 환경**에서 관찰(IA→MS 1,562회, MS→IA 1,548회), 실제 드로우 수와 배정 해시 일치로 실행 검증
+                # 실험 환경
+                - RTX 4070 Laptop GPU · 1280×720 · Agility SDK 1.618.5 · Shader Model 6.6 / Mesh Shader 6.7`,
                 achievements: [
-                    'DirectX 12 Mesh Shader 경로를 직접 구현하여 해당 경로의 IA 단계를 대체하고, 비교용 IA 경로와 하이브리드로 구성',
-                    'FBX 모델 로더 + meshoptimizer 기반 자동화된 Meshlet 생성/변환 시스템 구축',
-                    'Meshlet 클러스터링 시각화(Debug View)를 통해 지오메트리 분할 및 처리 로직 검증',
-                    'IA / Mesh Shader 하이브리드 렌더러 + 메시렛 컬링(프러스텀·노멀콘) 구현',
-                    'PBR · 반투명 렌더링과 FBX 머티리얼 자동 매칭 로더 구현',
-                    'GPU 타임스탬프·파이프라인 통계 기반 실측 계측 하니스 구축',
-                    'Unreal Engine 5 환경 에셋을 자체 렌더러에서 렌더링·계측하는 추출 파이프라인 구축',
-                    '폴리 규모·시점·픽셀 부하 조건별로 두 지오메트리 경로의 GPU 렌더링 성능을 실측·비교·분석',
-                    '2026.10.19 보고서: 26개 환경 / 촬영 위치 976곳 / 유효 실측 상태 5,547개 확보'
+                    '2026 학사학위 졸업논문: 「DirectX 12 Meshlet과 IA 기반의 하이브리드 렌더링 파이프라인 구현」 (동명대학교 컴퓨터공학과)',
+                    'DX12 한 Renderer에 IA 경로와 AS/MS Meshlet 경로를 통합하고, Mesh 그룹마다 런타임에 경로를 고르는 하이브리드 파이프라인 구현',
+                    'FBX SDK + meshoptimizer 기반 Meshlet 생성 및 Bounding Sphere·Normal Cone 베이크 파이프라인 구축',
+                    'Amplification Shader Meshlet 컬링으로 Rasterizer 입력을 IA 대비 82.26% 감소 (Depth bit 단위 동일)',
+                    '환경 특화형 선택기 11종 × IA/MS 기본 정책 비교: 모든 모델에서 MS 기본이 1.87~9.61% 우세',
+                    '제안 MS 기본 K-Means: GPU Scene 시간 IA 전용 대비 −15.83%, MS 전용 대비 −3.01% (5개 모델 중 유일하게 두 전용 경로 추월)',
+                    '6개 환경에서 같은 프레임 안 IA·MS 혼합 실행 확인 (IA→MS 1,562회 / MS→IA 1,548회)',
+                    'GPU Timestamp·파이프라인 통계·배정 해시 기반 계측 하니스와 paired bootstrap 통계 검증 체계 구축',
+                    'Unreal Engine 환경 에셋 11종을 자체 DX12 Renderer로 옮겨 30 Hz 카메라 경로로 실측'
                 ],
                 video: 'https://www.youtube.com/embed/CFP5SW4OFQ4?si=SHLKWiMl9BCMKTA_',
                 images: [
+                    'assets/papers/thesis-fig1-architecture.jpg',
+                    'assets/papers/thesis-fig5-paths.jpg',
+                    'assets/papers/thesis-fig4-culling.jpg',
+                    'assets/papers/thesis-fig6-kmeans.jpg',
+                    'assets/papers/thesis-fig9-ia-vs-ms.jpg',
+                    'assets/papers/thesis-fig12-result.jpg',
+                    'assets/papers/thesis-fig13-heatmap.jpg',
                     'assets/drive/1Sv_IT7d7RiTfs_3wBDJMXP1nOuVd1vDk.png',
                     'assets/drive/1LhOEHkgOzsQqsxgLvDIazmeXt6oyPpFV.png',
                     'assets/drive/1UmkRW-Tjp-_INXw98wh0MJeohi5Hx8G-.png',
                     'assets/drive/1EL1vqrbs96enisJCK_u-FXedV5mr6EcS.png',
-                    'assets/drive/1BtsxVaj1uNFQ2rkheULfgKAqEXA5SPfW.png',
+                    'assets/drive/1BtsxVaj1uNFQ2rkheULfgKAqEXA5SPfW.png'
                 ]
             },
             'visualwave': {
