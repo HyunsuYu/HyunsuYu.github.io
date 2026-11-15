@@ -914,6 +914,10 @@
         .c-thumb { aspect-ratio: 16 / 9; overflow: hidden; border-bottom: 1px solid var(--text-color); background: #fff; position: relative; }
         .c-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; filter: sepia(0.35) saturate(0.7) contrast(0.95); transition: 0.3s; }
         .c-thumb-top img { object-position: top; }
+        .c-play {
+            position: absolute; left: 10px; bottom: 10px; z-index: 1; font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; letter-spacing: 1px;
+            background: var(--text-color); color: var(--bg-color); padding: 2px 8px; border: 1px solid var(--bg-color);
+        }
         .c-tile:hover .c-thumb img { filter: none; transform: scale(1.03); }
         .c-thumb::after {
             content: ''; position: absolute; inset: 0; pointer-events: none;
@@ -2301,8 +2305,7 @@ const WORKS = [
       img: 'assets/thumbs/drive/1ePXQdvfpJ-jz0Ko8x81mW4Go-GG6Lcbv.jpg', title: '마음을 담아', star: true,
       meta: 'PROGRAMMER · TEAM 5', tags: [['inv', '★ 최우수상'], ['line', 'G-STAR']] },
     { id: 'alcoholfree', field: 'GAME', year: '2025', unit: 'G-02', label: 'VISUAL NOVEL',
-      img: 'https://hyunsuyu.github.io/ALCOHOL-FREE/src/%EC%95%95%EC%83%9D%ED%8A%B8%20%EC%BB%B7%EC%94%AC.png',
-      fallback: 'assets/thumbs/drive/1gaCl93bfKaSHVaSoRmW0L_XcZ1P5kwGa.jpg', title: 'ALCOHOL FREE', star: true,
+      img: 'assets/thumbs/drive/1gaCl93bfKaSHVaSoRmW0L_XcZ1P5kwGa.jpg', title: 'ALCOHOL FREE', star: true,
       meta: 'PROGRAMMER · TEAM 7', tags: [['inv', '★ 우수상'], ['inv', '장려상'], ['line', 'STOVE']] },
     { id: 'rgbline', field: 'GAME', year: '2025', unit: 'G-03', label: 'RHYTHM',
       img: 'assets/thumbs/drive/1AQPQjfcLk8uUyBBZdREkdSsu9lpCmZwS.jpg', title: 'RGB Line',
@@ -2328,15 +2331,29 @@ const BLOG_TILE = `<div class="c-tile c-text-tile" data-field="TOOLS">
 
 function workById(id) { return WORKS.find(w => w.id === id); }
 
+/* YouTube video id of a project (from projectDB.video), or null */
+function youtubeId(id) {
+    const v = (typeof projectDB !== 'undefined' && projectDB[id] && projectDB[id].video) || '';
+    const m = v.match(/(?:youtube\.com\/embed\/|youtu\.be\/|[?&]v=)([\w-]{11})/);
+    return m ? m[1] : null;
+}
+
 function tileHtml(w, opt) {
     opt = opt || {};
     const wide = w.wide && !opt.noWide;
-    const img = w.fallback
+    const yt = youtubeId(w.id);
+    /* Cards with a YouTube video use the video's own thumbnail: maxresdefault, then hqdefault
+       (a missing maxres comes back as a 120px placeholder), then the card's local image. */
+    const img = yt
+        ? `<img src="https://img.youtube.com/vi/${yt}/maxresdefault.jpg" alt="" loading="lazy" data-fb="${w.img}"` +
+          ` onload="if(this.naturalWidth<=120&&!this.dataset.hq){this.dataset.hq=1;this.src='https://img.youtube.com/vi/${yt}/hqdefault.jpg'}"` +
+          ` onerror="if(!this.dataset.hq){this.dataset.hq=1;this.src='https://img.youtube.com/vi/${yt}/hqdefault.jpg'}else{this.onerror=null;this.src=this.dataset.fb}">`
+        : w.fallback
         ? `<img src="${w.img}" onerror="this.onerror=null;this.src='${w.fallback}'" alt="" loading="lazy">`
         : `<img src="${w.img}" alt="" loading="lazy">`;
     return `<article class="c-tile${wide ? ' c-wide' : ''}" data-field="${w.field}" onclick="openModal('${w.id}')">
         <div class="c-head"><span>${w.unit}</span><span>${w.label}</span></div>
-        <div class="c-thumb${w.top ? ' c-thumb-top' : ''}">${img}</div>
+        <div class="c-thumb${w.top ? ' c-thumb-top' : ''}">${img}${yt ? '<span class="c-play">▶ VIDEO</span>' : ''}</div>
         <div class="c-info">
             <h3>${w.title}${w.star ? ' ⭐' : ''}</h3>
             <p class="c-meta">${w.meta}</p>
