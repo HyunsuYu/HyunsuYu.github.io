@@ -1,0 +1,38 @@
+        {{SECTION:about}}
+
+        <!-- 1. FEATURED : tabbed, one project at a time -->
+        <section id="featured">
+            <h2 class="section-title glitch-effect">Featured Project</h2>
+            <div class="b-tabs mono" id="b-feat-tabs">
+                <button class="b-tab active" data-i="0"><span>01</span>HYBRID RENDERING</button>
+                <button class="b-tab" data-i="1"><span>02</span>MAP GENERATION</button>
+                <button class="b-tab" data-i="2"><span>03</span>VISUAL WAVE</button>
+                <button class="b-tab" data-i="3"><span>04</span>C++ BOOK</button>
+            </div>
+            <div class="b-panels" id="b-feat-panels">
+{{ARTICLES:featured}}
+            </div>
+            <div class="b-pager mono"><button id="b-prev">[&lt; PREV]</button><span id="b-pos">01 / 04</span><button id="b-next">[NEXT &gt;]</button></div>
+        </section>
+
+        <!-- 2. GAMES : accordion -->
+        <section id="projects">
+            <h2 class="section-title glitch-effect">Game Projects</h2>
+            <p class="mono b-hint">▸ 헤더를 눌러 펼치기 / [ACCESS DATA LOG]로 상세 보기</p>
+            <div class="b-acc" id="b-games">
+{{ARTICLES:projects}}
+            </div>
+        </section>
+
+        {{SECTION:research}}
+
+        <!-- 4. RECORD : awards + exhibitions + timeline merged, filterable -->
+        <section id="record">
+            <h2 class="section-title glitch-effect">Record</h2>
+            <div class="chip-bar" id="b-chips"></div>
+            <div class="history-timeline b-log" id="b-log"></div>
+        </section>
+
+        {{SECTION:skills}}
+
+        {{SECTION:contact}}

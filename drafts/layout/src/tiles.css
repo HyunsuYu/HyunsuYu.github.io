@@ -1,0 +1,41 @@
+
+        /* ====== SHARED TILE (the Draft C card the user picked) ====== */
+        .c-grid { display: grid; gap: 18px; }
+        .c-grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .c-grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+        .c-tile {
+            border: 1px solid var(--text-color); background: rgba(255,255,255,0.4); cursor: pointer; min-width: 0;
+            display: flex; flex-direction: column; position: relative; transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .c-tile:hover { box-shadow: 8px 8px 0 rgba(75,72,63,0.3); transform: translate(-4px, -4px); background: var(--modal-bg); }
+        .c-head { display: flex; justify-content: space-between; gap: 10px; background: var(--text-color); color: var(--bg-color); padding: 4px 12px; font-family: 'Share Tech Mono', monospace; font-size: 0.78rem; letter-spacing: 1px; }
+        .c-thumb { aspect-ratio: 16 / 9; overflow: hidden; border-bottom: 1px solid var(--text-color); background: #fff; position: relative; }
+        .c-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; filter: sepia(0.35) saturate(0.7) contrast(0.95); transition: 0.3s; }
+        .c-thumb-top img { object-position: top; }
+        .c-tile:hover .c-thumb img { filter: none; transform: scale(1.03); }
+        .c-thumb::after {
+            content: ''; position: absolute; inset: 0; pointer-events: none;
+            background: repeating-linear-gradient(to bottom, rgba(75,72,63,0.06) 0 2px, transparent 2px 4px);
+        }
+        .c-info { padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 0; }
+        .c-info h3 { font-family: 'Share Tech Mono', monospace; font-size: 1.15rem; line-height: 1.25; }
+        .c-meta { font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; letter-spacing: 1px; opacity: 0.75; }
+        .c-line { font-size: 0.95rem; line-height: 1.45; }
+        .c-stat { font-family: 'Share Tech Mono', monospace; font-size: 0.85rem; font-weight: 700; border: 1px dashed var(--text-color); padding: 3px 8px; background: rgba(255,255,255,0.45); }
+        .c-tags { margin-top: auto; padding-top: 6px; }
+        .c-wide { grid-column: span 2; display: grid; grid-template-columns: 1.15fr 1fr; grid-template-rows: auto 1fr; }
+        .c-wide .c-head { grid-column: 1 / -1; }
+        .c-wide .c-thumb { aspect-ratio: auto; min-height: 240px; border-bottom: none; border-right: 1px solid var(--text-color); }
+        .c-text-tile { cursor: default; }
+        .c-text-tile:hover { transform: none; box-shadow: none; background: rgba(255,255,255,0.4); }
+        .c-list { list-style: square inside; font-size: 0.92rem; margin: 6px 0 10px; }
+        .c-tile[hidden] { display: none !important; }
+
+        @media (max-width: 1200px) {
+            .c-grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+        @media (max-width: 900px) {
+            .c-grid-3, .c-grid-4 { grid-template-columns: 1fr; }
+            .c-wide { grid-column: auto; grid-template-columns: 1fr; }
+            .c-wide .c-thumb { aspect-ratio: 16 / 9; min-height: 0; border-right: none; border-bottom: 1px solid var(--text-color); }
+        }

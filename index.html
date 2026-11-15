@@ -854,6 +854,171 @@
 
             footer { border-top: 1px solid var(--text-color); margin-top: 16px; }
         }
+
+        /* ====== HUB LAYOUT : shared components ====== */
+
+        .sub-title {
+            font-family: 'Share Tech Mono', monospace; font-size: 1rem; letter-spacing: 2px;
+            text-transform: uppercase; margin: 34px 0 14px; display: flex; align-items: center; gap: 12px;
+        }
+        .sub-title::before { content: ''; width: 10px; height: 10px; background: var(--text-color); flex: none; }
+        .sub-title::after { content: ''; flex: 1; border-bottom: 1px dashed var(--text-color); opacity: 0.6; }
+
+        /* chip filter bar */
+        .chip-bar { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 22px; }
+        .chip {
+            font-family: 'Share Tech Mono', monospace; font-size: 0.85rem; letter-spacing: 1px;
+            background: transparent; color: var(--text-color); border: 1px solid var(--text-color);
+            padding: 4px 10px; cursor: pointer; transition: 0.2s;
+        }
+        .chip::before { content: '[ ] '; }
+        .chip.active::before, .chip:hover::before { content: '[■] '; }
+        .chip.active { background: var(--text-color); color: var(--bg-color); }
+        .chip-n { margin-left: 8px; opacity: 0.6; font-size: 0.75rem; }
+
+        /* small inverted labels */
+        .tag-inv {
+            display: inline-block; font-family: 'Share Tech Mono', monospace; font-size: 0.72rem; letter-spacing: 1px;
+            background: var(--text-color); color: var(--bg-color); padding: 1px 7px; margin: 0 4px 4px 0; vertical-align: middle;
+        }
+        .tag-line {
+            display: inline-block; font-family: 'Share Tech Mono', monospace; font-size: 0.72rem; letter-spacing: 1px;
+            border: 1px solid var(--text-color); padding: 0 6px; margin: 0 4px 4px 0; vertical-align: middle;
+        }
+
+        /* record rows (used by B and archive) */
+        .rec-row { display: grid; grid-template-columns: 74px 128px 1fr; gap: 14px; padding: 7px 0; border-bottom: 1px dashed rgba(75,72,63,0.35); align-items: baseline; }
+        .rec-date { font-family: 'Share Tech Mono', monospace; opacity: 0.75; }
+        .rec-cat { font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; letter-spacing: 1px; }
+        .rec-title { font-weight: 700; }
+        .rec-title.hl::before { content: '★ '; }
+        .rec-sub { opacity: 0.8; font-size: 0.95rem; }
+        .rec-links { margin-left: 6px; }
+        .rec-links a { font-family: 'Share Tech Mono', monospace; font-size: 0.85rem; }
+
+        @media (max-width: 900px) {
+            .rec-row { grid-template-columns: 64px 1fr; }
+            .rec-cat { display: none; }
+        }
+
+        /* ====== SHARED TILE  ====== */
+        .c-grid { display: grid; gap: 18px; }
+        .c-grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+        .c-grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+        .c-tile {
+            border: 1px solid var(--text-color); background: rgba(255,255,255,0.4); cursor: pointer; min-width: 0;
+            display: flex; flex-direction: column; position: relative; transition: all 0.25s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+        .c-tile:hover { box-shadow: 8px 8px 0 rgba(75,72,63,0.3); transform: translate(-4px, -4px); background: var(--modal-bg); }
+        .c-head { display: flex; justify-content: space-between; gap: 10px; background: var(--text-color); color: var(--bg-color); padding: 4px 12px; font-family: 'Share Tech Mono', monospace; font-size: 0.78rem; letter-spacing: 1px; }
+        .c-thumb { aspect-ratio: 16 / 9; overflow: hidden; border-bottom: 1px solid var(--text-color); background: #fff; position: relative; }
+        .c-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; filter: sepia(0.35) saturate(0.7) contrast(0.95); transition: 0.3s; }
+        .c-thumb-top img { object-position: top; }
+        .c-tile:hover .c-thumb img { filter: none; transform: scale(1.03); }
+        .c-thumb::after {
+            content: ''; position: absolute; inset: 0; pointer-events: none;
+            background: repeating-linear-gradient(to bottom, rgba(75,72,63,0.06) 0 2px, transparent 2px 4px);
+        }
+        .c-info { padding: 12px 14px 14px; display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 0; }
+        .c-info h3 { font-family: 'Share Tech Mono', monospace; font-size: 1.15rem; line-height: 1.25; }
+        .c-meta { font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; letter-spacing: 1px; opacity: 0.75; }
+        .c-line { font-size: 0.95rem; line-height: 1.45; }
+        .c-stat { font-family: 'Share Tech Mono', monospace; font-size: 0.85rem; font-weight: 700; border: 1px dashed var(--text-color); padding: 3px 8px; background: rgba(255,255,255,0.45); }
+        .c-tags { margin-top: auto; padding-top: 6px; }
+        .c-wide { grid-column: span 2; display: grid; grid-template-columns: 1.15fr 1fr; grid-template-rows: auto 1fr; }
+        .c-wide .c-head { grid-column: 1 / -1; }
+        .c-wide .c-thumb { aspect-ratio: auto; min-height: 240px; border-bottom: none; border-right: 1px solid var(--text-color); }
+        .c-text-tile { cursor: default; }
+        .c-text-tile:hover { transform: none; box-shadow: none; background: rgba(255,255,255,0.4); }
+        .c-list { list-style: square inside; font-size: 0.92rem; margin: 6px 0 10px; }
+        .c-tile[hidden] { display: none !important; }
+
+        @media (max-width: 1200px) {
+            .c-grid-4 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+        @media (max-width: 900px) {
+            .c-grid-3, .c-grid-4 { grid-template-columns: 1fr; }
+            .c-wide { grid-column: auto; grid-template-columns: 1fr; }
+            .c-wide .c-thumb { aspect-ratio: 16 / 9; min-height: 0; border-right: none; border-bottom: 1px solid var(--text-color); }
+        }
+
+        /* ====== HUB SCREENS ====== */
+        main { padding-top: 24px; }
+        nav ul li a.active { background: var(--text-color); color: var(--bg-color); padding-left: 6px; }
+        nav ul li a.active::before { content: '[■] '; }
+        .d-bar {
+            display: flex; justify-content: space-between; gap: 12px; font-size: 0.8rem; letter-spacing: 2px;
+            border-bottom: 1px solid var(--text-color); padding-bottom: 6px; margin-bottom: 4px;
+        }
+        .d-keys { opacity: 0.6; }
+        .d-screen { display: none; position: relative; }
+        .d-screen.active { display: block; animation: dIn 0.35s ease both; }
+        .d-screen.active::before { /* one scan sweep on entry */
+            content: ''; position: absolute; left: 0; right: 0; top: 0; height: 3px; background: var(--text-color);
+            opacity: 0.5; animation: dScan 0.5s ease-out forwards; pointer-events: none;
+        }
+        @keyframes dIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+        @keyframes dScan { from { top: 0; opacity: 0.6; } to { top: 100%; opacity: 0; } }
+        @media (prefers-reduced-motion: reduce) {
+            .d-screen.active, .d-screen.active::before { animation: none; }
+        }
+        .d-screen .section-title { margin-top: 26px; }
+        .d-hero { margin-bottom: 10px; padding: 28px 32px; }
+        .d-hero > h3 { font-size: 1.4rem; margin-bottom: 6px; }
+        .d-stats { grid-template-columns: repeat(4, 1fr); }
+        .d-go { display: inline-block; margin-top: 12px; }
+        .d-quick { margin-top: 18px; display: flex; flex-wrap: wrap; gap: 14px; }
+        .works-group[hidden] { display: none; }
+
+        .d-md { display: grid; grid-template-columns: 220px minmax(0, 1fr) minmax(0, 1.15fr); gap: 16px; height: calc(100vh - 210px); min-height: 460px; }
+        .d-pane { border: 1px solid var(--text-color); background: rgba(255,255,255,0.25); overflow-y: auto; min-height: 0; }
+        .d-pane::-webkit-scrollbar { width: 6px; }
+        .d-pane::-webkit-scrollbar-thumb { background: var(--text-color); }
+        .d-cat, .d-item {
+            display: flex; width: 100%; justify-content: space-between; gap: 8px; text-align: left; cursor: pointer;
+            background: transparent; border: none; border-bottom: 1px dashed rgba(75,72,63,0.35); color: var(--text-color);
+            font-family: 'Share Tech Mono', monospace; padding: 10px 12px; font-size: 0.9rem; letter-spacing: 1px;
+        }
+        .d-cat::before { content: '[ ]'; margin-right: 6px; }
+        .d-cat span:first-child { flex: 1; }
+        .d-cat:hover, .d-item:hover { background: var(--modal-bg); }
+        .d-cat.active, .d-item.active { background: var(--text-color); color: var(--bg-color); }
+        .d-cat.active::before { content: '[■]'; }
+        .d-item { display: grid; grid-template-columns: 62px 1fr; font-family: 'Rajdhani', 'Noto Sans KR', sans-serif; font-size: 0.98rem; letter-spacing: 0; line-height: 1.35; }
+        .d-item .dd { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; opacity: 0.75; padding-top: 2px; }
+        .d-item strong { font-weight: 700; }
+        .d-detail { display: flex; flex-direction: column; }
+        .d-detail .c-head { position: sticky; top: 0; }
+        .d-dbody { padding: 18px 20px; display: flex; flex-direction: column; gap: 10px; }
+        .d-dtitle { font-size: 1.45rem; font-weight: 700; line-height: 1.3; }
+        .d-dsub { font-size: 1rem; opacity: 0.85; }
+        .d-dlinks a { font-family: 'Share Tech Mono', monospace; }
+        .d-related { margin-top: 8px; }
+        .d-related .c-tile { max-width: 340px; }
+        .d-empty { opacity: 0.6; font-family: 'Share Tech Mono', monospace; font-size: 0.85rem; }
+
+        #scr-contact #skills .section-title, #scr-contact #contact .section-title { margin-top: 26px; }
+
+        @media (max-width: 900px) {
+            aside nav { width: 100%; order: 3; }
+            nav ul { display: flex !important; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
+            nav ul li { margin: 0; }
+            nav ul li a { font-size: 0.9rem; border: 1px solid var(--text-color); padding: 4px 8px; }
+            .d-keys { display: none; }
+            .d-stats { grid-template-columns: 1fr 1fr; }
+            .d-md { grid-template-columns: 1fr; height: auto; }
+            .d-pane { max-height: 50vh; }
+            .d-cats { display: flex; flex-wrap: wrap; max-height: none; }
+            .d-cat { width: auto; border: 1px solid rgba(75,72,63,0.35); }
+        }
+
+        @media print {
+            .d-screen { display: block !important; animation: none !important; }
+            .d-screen::before, .d-bar, .chip-bar, .d-go { display: none !important; }
+            .works-group[hidden] { display: block !important; }
+            .d-md { display: block; height: auto; }
+            .d-pane { max-height: none; overflow: visible; }
+        }
     </style>
 </head>
 <body>
@@ -888,14 +1053,10 @@
         
         <nav>
             <ul>
-                <li><a href="#about">00. ABOUT ME</a></li>
-                <li><a href="#featured">01. ELITE UNITS</a></li>
-                <li><a href="#projects">02. GAME UNITS</a></li>
-                <li><a href="#research">03. RESEARCH</a></li>
-                <li><a href="#awards">04. AWARDS</a></li>
-                <li><a href="#timeline">05. TIMELINE</a></li>
-                <li><a href="#skills">06. SKILLS</a></li>
-                <li><a href="#contact">07. CONTACT</a></li>
+                <li><a href="javascript:showScreen('profile')">[1] PROFILE</a></li>
+                <li><a href="javascript:showScreen('works')">[2] WORKS</a></li>
+                <li><a href="javascript:showScreen('records')">[3] RECORDS</a></li>
+                <li><a href="javascript:showScreen('contact')">[4] SKILLS · CONTACT</a></li>
             </ul>
         </nav>
 
@@ -908,672 +1069,58 @@
 
     <!-- MAIN CONTENT -->
     <main>
-        
-        <!-- 0. ABOUT ME -->
-        <section id="about">
-            <h2 class="section-title glitch-effect">About Me</h2>
-            <div class="hero">
-                <div style="margin-bottom: 20px;">
-                    <h3 style="font-size: 1.5rem; margin-bottom: 10px;">"Continuous Learner with Strong Research Background"</h3>
-                    <p>Computer Engineering 4th Grade Student focusing on Gameplay, Graphics, and Low-level Optimization.</p>
-                </div>
-                
-                <div class="hero-stats mono">
-                    <div class="stat-box">
-                        <h3>Tech Blog</h3>
-                        <p>6+ Years</p>
-                    </div>
-                    <div class="stat-box">
-                        <h3>Projects</h3>
-                        <p>8+ Major Titles</p>
-                    </div>
-                    <div class="stat-box">
-                        <h3>Map Generation</h3>
-                        <p>270M Tiles · IPC</p>
-                    </div>
-                </div>
+        <div class="d-bar mono"><span id="d-crumb">SYSTEM / PROFILE</span><span class="d-keys">[1–4] SWITCH SCREEN</span></div>
 
-                <div style="margin-top: 25px; text-align: left;">
-                    <a href="https://drive.google.com/file/d/1b8B8hxHrjDdUNfaZbA_s2uN_0eMjxowI/view?usp=sharing" target="_blank" class="mono">[VIEW FULL PORTFOLIO DOC]</a>
+        <!-- SCREEN 1 : PROFILE -->
+        <section class="d-screen" id="scr-profile">
+            <h2 class="section-title glitch-effect">Profile</h2>
+            <div class="hero d-hero">
+                <h3>"Continuous Learner with Strong Research Background"</h3>
+                <p>Computer Engineering 4th Grade Student focusing on Gameplay, Graphics, and Low-level Optimization.</p>
+                <div class="hero-stats mono d-stats">
+                    <div class="stat-box"><h3>Papers</h3><p>3 · 1st Author (Sole)</p></div>
+                    <div class="stat-box"><h3>Awards</h3><p>9 · 최우수상 ×2</p></div>
+                    <div class="stat-box"><h3>Book</h3><p>222p · ISBN</p></div>
+                    <div class="stat-box"><h3>Tech Blog</h3><p>6+ Years</p></div>
                 </div>
+                <div class="d-quick mono">
+                    <a href="https://drive.google.com/file/d/1b8B8hxHrjDdUNfaZbA_s2uN_0eMjxowI/view?usp=sharing" target="_blank">[VIEW FULL PORTFOLIO DOC]</a>
+                    <a href="assets/papers/GraduationThesis.pdf" target="_blank">[THESIS PDF]</a>
+                    <a href="https://github.com/HyunsuYu" target="_blank">[GITHUB]</a>
+                </div>
+            </div>
+            <h3 class="sub-title">Spotlight</h3>
+            <div class="c-grid c-grid-3" id="d-spot"></div>
+            <h3 class="sub-title">Latest Log</h3>
+            <div id="d-latest"></div>
+            <a href="javascript:showScreen('records')" class="mono d-go">[OPEN RECORDS &gt;&gt;]</a>
+        </section>
+
+        <!-- SCREEN 2 : WORKS -->
+        <section class="d-screen" id="scr-works">
+            <h2 class="section-title glitch-effect">Works</h2>
+            <div class="chip-bar" id="d-work-chips">
+                <button class="chip active" data-f="ALL">ALL<span class="chip-n">8</span></button>
+                <button class="chip" data-f="GFX">GRAPHICS · ENGINE<span class="chip-n">2</span></button>
+                <button class="chip" data-f="TOOLS">TOOLS · WRITING<span class="chip-n">2</span></button>
+                <button class="chip" data-f="GAME">GAMES<span class="chip-n">4</span></button>
+            </div>
+            <div id="d-works"></div>
+        </section>
+
+        <!-- SCREEN 3 : RECORDS (category / list / detail) -->
+        <section class="d-screen" id="scr-records">
+            <h2 class="section-title glitch-effect">Records</h2>
+            <div class="d-md">
+                <div class="d-pane d-cats" id="d-cats"></div>
+                <div class="d-pane d-list" id="d-list"></div>
+                <div class="d-pane d-detail" id="d-detail"></div>
             </div>
         </section>
 
-        <!-- 1. FEATURED PROJECT -->
-        <section id="featured">
-            <h2 class="section-title glitch-effect">Featured Project</h2>
-            
-            <article class="project-card" style="border: 2px solid var(--text-color);" onclick="openModal('meshshader')">
-                <div class="project-header">
-                    <span class="project-title">DirectX 12 Meshlet과 IA 기반의 하이브리드 렌더링 파이프라인 구현 ⭐</span>
-                    <span class="mono">2025.12 ~ 2026.11 · Graduation Thesis</span>
-                </div>
-                <div class="project-body">
-                    <div class="project-content">
-                        <p>My B.S. graduation thesis. A DX12 renderer that integrates the Input Assembler path and an Amplification/Mesh Shader meshlet path, and picks one of the two per mesh group at runtime using an environment-specialized selector built from pre-baked GPU costs. The proposed MS-default K-Means selector mixes IA and MS within the same frame and beats both single-path baselines.</p>
-                        <div class="highlight-stat mono">
-                            <p>> GPU Scene 시간: IA 전용 대비 −15.83% · MS 전용 대비 −3.01% (95% CI 2.78~3.26%)</p>
-                            <p>> 5개 선택기 중 유일하게 두 전용 경로 모두 추월 / 6개 환경에서 같은 프레임 IA·MS 혼합</p>
-                            <p>> AS Meshlet 컬링: Rasterizer 입력 IA 대비 −82.26% (Depth bit 단위 동일)</p>
-                        </div>
-                        <p>Thesis benchmark: RTX 4070 Laptop / 1280×720 / Agility SDK 1.618.5 (SM 6.6, MS 6.7); 11 Unreal Engine environment assets replayed along 30 Hz camera paths, 8 repeated cohorts, 653,160 frames per method, paired-bootstrap 95% CI. Main metric is GPU Scene time (Clear → last scene draw), excluding CPU preparation and Present.</p>
-                        <div class="project-links">
-                            <a href="assets/papers/GraduationThesis.pdf" target="_blank" onclick="event.stopPropagation()">[THESIS]</a>
-                            <a href="https://github.com/HyunsuYu/D3D12-Meshlet-Sample" target="_blank" onclick="event.stopPropagation()">[GITHUB]</a>
-                            <a href="https://drive.google.com/drive/folders/1Cn0udL8k-LEFIsyFWisXQVbRnvi_2SFT?usp=sharing" target="_blank" onclick="event.stopPropagation()">[RESOURCE URL]</a>
-                        </div>
-                    </div>
-                    <div class="project-meta mono">
-                        <p><strong>ROLE:</strong> Sole Research / First Author</p>
-                        <p><strong>TECH:</strong> C++, DX12, Amplification/Mesh Shader, meshoptimizer, FBX SDK, PBR, K-Means</p>
-                        <p><strong>STATUS:</strong> Graduation Thesis (2026)</p>
-                    </div>
-                </div>
-            </article>
-
-            <article class="project-card" onclick="openModal('mapgen')">
-                <div class="project-header">
-                    <span class="project-title">Massive Map Generation System ⭐</span>
-                    <span class="mono">Initial implementation: 2023.07 ~ 2024.06</span>
-                </div>
-                <div class="project-body">
-                    <div class="project-content">
-                        <p>A large-scale tilemap generation system using partitioned parallel computation, an external agent process, and 2-channel PNG storage. The attached paper evaluates host responsiveness and storage trade-offs at 270 million tiles.</p>
-                        <div class="highlight-stat mono">
-                            <p>> Host Responsiveness: 51.26 FPS / worst frame 230.3 ms (IPC+Agent)</p>
-                            <p>> Storage: 270 MB raw → 14.6 MB PNG (5.41% of raw size)</p>
-                            <p>> Scale: 270M tiles (3000×3000×30); generation mean 22.467 s</p>
-                        </div>
-                        <p>Paper benchmark: i9-13900HX / 32 GB / RTX 4070 Laptop / Unity 6000.3.6f1 Mono; 2 warm-ups + 10 measured runs. Generation time excludes PNG saving, process startup, and IPC preparation; thermal conditions were uncontrolled. Job System + Burst generated faster (3.565 s); IPC+Agent achieved higher effective host FPS.</p>
-                        <!-- Restored Direct Links -->
-                        <div class="project-links">
-                            <a href="https://github.com/HyunsuYu/LayeredMapGenAgent.git" target="_blank" onclick="event.stopPropagation()">[GITHUB]</a>
-                            <a href="https://drive.google.com/drive/folders/14xKEhV8LsZg1-tGm2gz1MbfmqH-oxxvi?usp=sharing" target="_blank" onclick="event.stopPropagation()">[OUTPUT DATA SAMPLES]</a>
-                            <a href="assets/papers/MapGenPaper.pdf" target="_blank" onclick="event.stopPropagation()">[PAPER]</a>
-                        </div>
-                    </div>
-                    <div class="project-meta mono">
-                        <p><strong>ROLE:</strong> Solo Dev</p>
-                        <p><strong>TECH:</strong> C#, Parallelism</p>
-                        <p><strong>STATUS:</strong> Completed</p>
-                    </div>
-                </div>
-            </article>
-
-            <article class="project-card" style="border: 2px solid var(--text-color);" onclick="openModal('visualwave')">
-                <div class="project-header">
-                    <span class="project-title">Visual Wave : VN Authoring Framework ⭐</span>
-                    <span class="mono">2025.05 ~ Present</span>
-                </div>
-                <div class="project-body">
-                    <div class="project-content">
-                        <p>A visual-novel authoring framework based on a frame-state execution model inspired by render state tables. Built as an engine-independent core + per-engine runtime + VS Code LSP, and validated for practicality on a commercial VN (ALCOHOL FREE).</p>
-                        <div class="highlight-stat mono">
-                            <p>> 대사 1자당 저장: 이전 노드그래프 약 30.0B → VW 약 4.7B (약 1/6)</p>
-                            <p>> 상태 중복률: 85.4% → 0% (변화분만 기재)</p>
-                            <p>> 상용 수준 VN 적용: 55 Scenes / 3,035 Commands / Godot 배경·대사 채널 실증</p>
-                        </div>
-                        <p>Paper comparison: previous node-graph tool 127 scenes / 2,734 frames vs. VW 55 scenes; normalized storage per dialogue character. This is a representation-size comparison, not a measured authoring-productivity gain.</p>
-                        <div class="project-links">
-                            <a href="assets/papers/VisualWavePaper.pdf" target="_blank" onclick="event.stopPropagation()">[PAPER]</a>
-                            <a href="https://galvanized-soda-726.notion.site/Visual-Wave-2e315b43f51680ab8ce9d32b5c43773d" target="_blank" onclick="event.stopPropagation()">[VISUAL WAVE DOC]</a>
-                            <a href="https://drive.google.com/file/d/1jthhRwlaB8bJXeVXcg_yJlSimpkSPBiJ/view?usp=sharing" target="_blank" onclick="event.stopPropagation()">[VS CODE EXTENSION]</a>
-                        </div>
-                    </div>
-                    <div class="project-meta mono">
-                        <p><strong>ROLE:</strong> Sole Research / First Author</p>
-                        <p><strong>TECH:</strong> C#, DSL, LSP, Unity, Godot</p>
-                        <p><strong>STATUS:</strong> Published (Paper)</p>
-                    </div>
-                </div>
-            </article>
-
-            <article class="project-card" style="border: 2px solid var(--text-color);" onclick="openModal('book')">
-                <div class="project-header">
-                    <span class="project-title">More Deeper C++ Programming Language</span>
-                    <span class="mono">Written: 2023.04 ~ 2023.10 · Published: 2026.07.30</span>
-                </div>
-                <div class="project-body">
-                    <div class="project-content">
-                        <p>Advanced C++ textbook authored for Korea Univ. senior students. Focuses on bridging the gap between high-level syntax and low-level hardware behavior.</p>
-                        <div class="highlight-stat mono">
-                            <p>> ISBN: 979-11-438-1468-5 (05500)</p>
-                            <p>> Pages: 222 (published PDF edition)</p>
-                            <p>> Published: 2026.07.30 · Publisher: 작가와</p>
-                            <p>> Topics: Memory architecture, SIMD, Cache optimization, Compile-time/Runtime optimization, Modern C++ features, etc.</p>
-                            <p>> References: ISO/IEC 14882:2003 Programming languages — C++, AMD64 Architecture Programmer’s Manual, Effective C++ series, Structure and Interpretation of Computer Programs, papers, etc.</p>
-                            <p>> Store: 교보문고, 알라딘, Yes24, 밀리의 서재, 리디북스, 윌라, BOOKCUBE, Bookers</p>
-                        </div>
-                        <div class="project-links">
-                            <a href="https://drive.google.com/file/d/1MnLVWyNbX1B9zB5ZvXCBEFeIT6ur7vVq/view?usp=sharing" target="_blank" onclick="event.stopPropagation()">[BOOK URL]</a>
-                            <a href="https://ebook-product.kyobobook.co.kr/dig/epd/ebook/E000013305174" target="_blank" onclick="event.stopPropagation()">[교보문고 URL]</a>
-                            <a href="https://www.yes24.com/product/goods/194190987" target="_blank" onclick="event.stopPropagation()">[YES24 · 222 PAGES]</a>
-                            <a href="https://www.nl.go.kr/seoji/contents/S80100000000.do?schM=intgr_detail_view_isbn&page=1&pageUnit=10&schType=detail&f1=title&and1=AND&f2=author&v2=%EC%9C%A0%ED%98%84%EC%88%98&and2=AND&f3=publisher&f5=isbn&isbn=9791143814685&cipId=230577062%2C" target="_blank" onclick="event.stopPropagation()">[국립중앙도서관 URL]</a>
-                        </div>
-                    </div>
-                    <div class="project-meta mono">
-                        <p><strong>ROLE:</strong> Writer / Instructor</p>
-                        <p><strong>STATUS:</strong> Published</p>
-                        <p><strong>USAGE:</strong> Paid 1 semester instruction</p>
-                    </div>
-                </div>
-            </article>
-        </section>
-
-        <!-- 2. GAME PROJECTS -->
-        <section id="projects">
-            <h2 class="section-title glitch-effect">Game Projects</h2>
-
-            <!-- 마음을 담아 -->
-            <article class="project-card" onclick="openModal('hearts')">
-                <div class="project-header">
-                    <span class="project-title">마음을 담아 (From All My Hearts) ⭐</span>
-                    <span class="mono">2025.05 ~ Present</span>
-                </div>
-                <div class="project-body">
-                    <div class="project-content">
-                        <p>Oriental Word Puzzle / Visual Novel. Puzzle mechanics based on completing sentences to find hidden meanings.</p>
-                        <ul>
-                            <li>Awards: TU Game Challenge - Top Excellence Award (최우수상)</li>
-                            <li>Exhibitions: G-Star 2025, Comic World 2025, TU RISE ALL FESTA 2025</li>
-                            <li>Recognition: Pleedus Partnership Comic World 2025 Booth</li>
-                        </ul>
-                        <div class="project-links">
-                            <a href="https://hyunsuyu.github.io/WithAllMyHeartWeb/" target="_blank" onclick="event.stopPropagation()">[HOMEPAGE]</a>
-                            <a href="https://drive.google.com/drive/folders/1LaSYYw86cLzuU0F3bvfnQvsbYH04LgR0?usp=sharing" target="_blank" onclick="event.stopPropagation()">[DOWNLOAD]</a>
-                            <a href="https://youtu.be/9EBkzyfpu3c?si=Tb_dYUmmJtolZAWK" target="_blank" onclick="event.stopPropagation()">[TEASER]</a>
-                        </div>
-                    </div>
-                    <div class="project-meta mono">
-                        <p><strong>ROLE:</strong> Programmer</p>
-                        <p><strong>GENRE:</strong> Puzzle/Visual Novel</p>
-                        <p><strong>TEAM:</strong> 5 Members</p>
-                    </div>
-                </div>
-            </article>
-
-            <!-- ALCOHOL FREE -->
-            <article class="project-card" onclick="openModal('alcoholfree')">
-                <div class="project-header">
-                    <span class="project-title">ALCOHOL FREE ⭐</span>
-                    <span class="mono">2025.05 ~ 2025.12</span>
-                </div>
-                <div class="project-body">
-                    <div class="project-content">
-                        <p>Visual Novel. Developed a Custom Blueprint-Style Editor for designers and whole game system.</p>
-                        <ul>
-                            <li>Awards: TU Game Challenge 2025 - Excellence Award (우수상), TU Game Challenge 2026 - Merit Award (장려상)</li>
-                            <li>Exhibitions: BEAVER ROCKS 2025, G-Star 2025, Comic World 2025, TU RISE ALL FESTA 2025</li>
-                            <li>Recognition: Pleedus Partnership Comic World 2025 Booth</li>
-                        </ul>
-                        <div class="project-links">
-                            <a href="https://hyunsuyu.github.io/ALCOHOL-FREE/" target="_blank" onclick="event.stopPropagation()">[HOMEPAGE]</a>
-                            <a href="https://store.onstove.com/ko/games/103115" target="_blank" onclick="event.stopPropagation()">[STOVE PAGE]</a>
-                            <a href="https://youtu.be/aUPhujbokDo?si=aSG_oEsmnzKGfpgA" target="_blank" onclick="event.stopPropagation()">[TEASER]</a>
-                            <a href="https://galvanized-soda-726.notion.site/Visual-Wave-2e315b43f51680ab8ce9d32b5c43773d" target="_blank" onclick="event.stopPropagation()">[TOOL : VISUAL WAVE DOC]</a>
-                            <a href="https://drive.google.com/file/d/1jthhRwlaB8bJXeVXcg_yJlSimpkSPBiJ/view?usp=sharing" target="_blank" onclick="event.stopPropagation()">[TOOL : VISUAL WAVE VS CODE EXTENSION]</a>
-                        </div>
-                    </div>
-                    <div class="project-meta mono">
-                        <p><strong>ROLE:</strong> Programmer</p>
-                        <p><strong>GENRE:</strong> Visual Novel</p>
-                        <p><strong>TEAM:</strong> 7 Members</p>
-                    </div>
-                </div>
-            </article>
-
-            <!-- RGB Line -->
-            <article class="project-card" onclick="openModal('rgbline')">
-                <div class="project-header">
-                    <span class="project-title">RGB Line</span>
-                    <span class="mono">2024.12 ~ 2025.12</span>
-                </div>
-                <div class="project-body">
-                    <div class="project-content">
-                        <p>Rhythm Game. Lead Programmer. Developed an Auto Documentation Pipeline to streamline development.</p>
-                        <ul>
-                            <li>Awards: TU Game Challenge - Merit Award (장려상)</li>
-                            <li>Exhibitions: G-Star 2025, Build 051</li>
-                        </ul>
-                        <div class="project-links">
-                            <a href="https://rgb-line.github.io/RGBLineWebPage/index.html" target="_blank" onclick="event.stopPropagation()">[HOMEPAGE]</a>
-                            <a href="https://drive.google.com/drive/folders/1zc6ICzXm2W8nnRGSJH6_eUThX8o8pFYe?usp=sharing" target="_blank" onclick="event.stopPropagation()">[DOWNLOAD]</a>
-                            <a href="https://www.youtube.com/watch?v=L54qU3JqQJI" target="_blank" onclick="event.stopPropagation()">[PLAY VIDEO]</a>
-                            <a href="https://github.com/orgs/RGB-Line/repositories" target="_blank" onclick="event.stopPropagation()">[GITHUB]</a>
-                            <a href="https://rgb-line.github.io/RGBLineCoreLib/" target="_blank" onclick="event.stopPropagation()">[CORE LIB API DOC]</a>
-                            <a href="https://mango-aspen-c20.notion.site/Coding-Standard-169d671a68fe815e9ab2ff70b5cae486?pvs=74" target="_blank" onclick="event.stopPropagation()">[CODING STANDARD]</a>
-                        </div>
-                    </div>
-                    <div class="project-meta mono">
-                        <p><strong>ROLE:</strong> Lead Programmer</p>
-                        <p><strong>GENRE:</strong> Rhythm</p>
-                        <p><strong>TEAM:</strong> 4 Members</p>
-                    </div>
-                </div>
-            </article>
-
-            <!-- FINS -->
-            <article class="project-card" onclick="openModal('fins')">
-                <div class="project-header">
-                    <span class="project-title">FINS</span>
-                    <span class="mono">2026.10.02 ~ 2026.10.04</span>
-                </div>
-                <div class="project-body">
-                    <div class="project-content">
-                        <p>Growth-based action game: hunt sharks, earn currency to upgrade abilities, and dive into the deeper, darker sea to challenge the final boss.</p>
-                        <ul>
-                            <li>Event: UPTRANDING Game Jam (2박 3일)</li>
-                            <li>Graphics: Lens Flare · Water Caustics · 2D sprite underwater lighting · layered Sin-wave waves</li>
-                            <li>Depth-based progression with Sell / Upgrade economy</li>
-                            <li>Final Boss: MEGALODON</li>
-                        </ul>
-                        <div class="project-links">
-                            <a href="https://uptrand-admin.github.io/Homepage/games/fins/" target="_blank" onclick="event.stopPropagation()">[PLAY]</a>
-                        </div>
-                    </div>
-                    <div class="project-meta mono">
-                        <p><strong>ROLE:</strong> Programmer</p>
-                        <p><strong>GENRE:</strong> Action/Adventure</p>
-                        <p><strong>TEAM:</strong> 5 Members</p>
-                    </div>
-                </div>
-            </article>
-        </section>
-
-        <!-- 3. RESEARCH & BLOG -->
-        <section id="research">
-            <h2 class="section-title glitch-effect">Research & Knowledge</h2>
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
-                <div class="hero">
-                    <h3 class="mono" style="margin-bottom: 15px; border-bottom: 1px dashed var(--text-color);">TECHNICAL BLOG (6+ YEARS)</h3>
-                    <p style="margin-bottom: 15px;">Deep dive into Computer Architecture, Graphics, and Optimization.</p>
-                    <ul style="list-style: square inside; font-size: 0.9rem;">
-                        <li>Graphics & Shader (Metaball, Fluid Sim)</li>
-                        <li>Optimization (NUMA, SIMD, Cache)</li>
-                        <li>AI & Game Intelligence (LLM Integration)</li>
-                        <li>Computer Architecture (Circuit Design)</li>
-                    </ul>
-                    <br>
-                    <a href="https://medium.com/more-deeper-c-programming-language" target="_blank" class="mono">[PUBLICATION]</a>
-                    <a href="https://medium.com/@lioie6478" target="_blank" class="mono">[READ ON MEDIUM]</a>
-                </div>
-                <div class="hero">
-                    <h3 class="mono" style="margin-bottom: 15px; border-bottom: 1px dashed var(--text-color);">TEACHING & MATERIAL</h3>
-                    <p><strong>Title:</strong> More Deeper C++ Programming Language (222 Pages)</p>
-                    <p><strong>Desc:</strong> Authored textbook covering Memory architecture, SIMD, and Compile-time optimization.</p>
-                    <p><strong>Instructor:</strong> C++ Optimization Course (8 students, Paid)</p>
-                    <br>
-                    <a href="javascript:openModal('cs_course')" class="mono">[VIEW COURSE INFO]</a>
-                </div>
-            </div>
-        </section>
-
-        <!-- 4. EXHIBITIONS & AWARDS -->
-        <section id="awards">
-            <h2 class="section-title glitch-effect">Awards & Exhibitions & Others</h2>
-            <div class="history-timeline">
-                <div class="history-item">
-                    <span class="history-year">AWARDS</span>
-                    <p>
-                        <strong>TU Game Challenge 2026 - Excellence Award (우수상), IEEE Track</strong> | Ever Check
-                    </p>
-                    <p>
-                        <strong>TU Game Challenge 2026 - Merit Award (장려상)</strong> | ALCOHOL FREE
-                    </p>
-                    <p>
-                        <strong>TU Game Challenge 2026 - Merit Award (장려상)</strong> | 냥냥대난투
-                    </p>
-                    <p>
-                        <strong>TU Game Challenge 2025 - Top Excellence Award (최우수상)</strong> | 마음을 담아
-                    </p>
-                    <p>
-                        <strong>TU Game Challenge 2025 - Top Excellence Award (최우수상)</strong> | Cross Wordle
-                    </p>
-                    <p>
-                        <strong>Chair of IEEE Busan Section 2025 - Excellence Award</strong> | Cross Wordle
-                    </p>
-                    <p>
-                        <strong>TU Game Challenge 2025 - Excellence Award (우수상)</strong> | ALCOHOL FREE
-                    </p>
-                    <p>
-                        <strong>TU Game Challenge 2025 - Merit Award (장려상)</strong> | RGB Line
-                    </p>
-                    <p>
-                        <strong>B-Contents 경진대회 - Excellence Award (우수상)</strong> | DEEP FALL
-                    </p>
-                </div>
-                <div class="history-item">
-                    <span class="history-year">EXHIBITIONS</span>
-                    <p>
-                        <strong>BEAVER ROCKS 2025</strong> | ALCOHOL FREE
-                    </p>
-                    <p>
-                        <strong>G-Star 2025</strong> | ALCOHOL FREE, 마음을 담아, RGB Line, Cross Wordle
-                    </p>
-                    <p>
-                        <strong>Comic World 2025</strong> | Pleedus Partnership Booth (ALCOHOL FREE, 마음을 담아)
-                    </p>
-                    <p>
-                        <strong>Build 051 2025</strong> | RGB Line
-                    </p>
-                    <p>
-                        <strong>TU RISE ALL FESTA 2025</strong> | ALCOHOL FREE, 마음을 담아
-                    </p>
-                    <p>
-                        <strong>부산 게임 개발자 컨퍼런스 2026</strong> | ALCOHOL FREE, 마음을 담아
-                    </p>
-                    <p>
-                        <strong>Build 051 2026</strong>
-                    </p>
-                </div>
-                <div class="history-item">
-                    <span class="history-year">ORGANIZING</span>
-                    <p>
-                        <strong>GAME OVER? 2026</strong> | 운영총괄 (Operations Director)
-                        <a href="https://game-dev-conference-gameover.github.io/GAMEOVER_Homepage/2026/" target="_blank" class="timeline-link">[GAME OVER?]</a>
-                    </p>
-                </div>
-                <div class="history-item">
-                    <span class="history-year">SCHOLARSHIPS</span>
-                    <p>
-                        <strong>SW분야우수인재장학</strong>
-                    </p>
-                    <p>
-                        <strong>25-2 부산지역인재장학</strong>
-                    </p>
-                    <p>
-                        <strong>26-1 부산지역인재장학</strong>
-                    </p>
-                </div>
-                <div class="history-item">
-                    <span class="history-year">CERTIFICATIONS</span>
-                    <p>
-                        <strong>프로그래머스 스킬체크 레벨 3</strong>
-                    </p>
-                    <p>
-                        <strong>리눅스 마스터 2급</strong>
-                    </p>
-                    <p>
-                        <strong>정보 처리 기능사</strong>
-                    </p>
-                    <p>
-                        <strong>민간 SW개발보안 대학생 교육(입문과정)</strong>
-                    </p>
-                    <p>
-                        <strong>GitHub Foundations</strong>
-                    </p>
-                </div>
-                <div class="history-item">
-                    <span class="history-year">PUBLICATIONS</span>
-                    <p>
-                        <strong>More Deeper C++ Programming Language</strong> | 기술 서적 (단독 저자, 222p, ISBN 979-11-438-1468-5)
-                        <a href="https://www.yes24.com/product/goods/194190987" target="_blank" class="timeline-link">[YES24]</a>
-                        <a href="https://ebook-product.kyobobook.co.kr/dig/epd/ebook/E000013305174" target="_blank" class="timeline-link">[교보문고]</a>
-                    </p>
-                    <p>
-                        <strong>DirectX 12 Meshlet과 IA 기반의 하이브리드 렌더링 파이프라인 구현</strong> | 2026 학사학위 졸업논문, 동명대학교 컴퓨터공학과 (제1저자·단독, 지도교수 고정국)
-                        <a href="assets/papers/GraduationThesis.pdf" target="_blank" class="timeline-link">[THESIS]</a>
-                        <a href="javascript:openModal('meshshader')" class="timeline-link">[Hybrid Rendering Pipeline]</a>
-                    </p>
-                    <p>
-                        <strong>계층적 임의 보행 기반 대규모 타일맵 생성 알고리즘과 호스트 반응성을 위한 실행 전략</strong> | 2026 한국멀티미디어학회 추계학술발표대회 제29권 2호 (포스터, 제1저자·단독)
-                        <a href="assets/papers/MapGenPaper.pdf" target="_blank" class="timeline-link">[PAPER]</a>
-                        <a href="javascript:openModal('mapgen')" class="timeline-link">[Massive Map Gen]</a>
-                    </p>
-                    <p>
-                        <strong>프레임-스테이트 실행 모델 기반 비주얼 노벨 저작 프레임워크</strong> | 2026 한국멀티미디어학회 추계학술발표대회 제29권 2호 (포스터, 제1저자·단독)
-                        <a href="assets/papers/VisualWavePaper.pdf" target="_blank" class="timeline-link">[PAPER]</a>
-                        <a href="javascript:openModal('visualwave')" class="timeline-link">[Visual Wave]</a>
-                    </p>
-                </div>
-                <div class="history-item">
-                    <span class="history-year">CONFERENCES</span>
-                    <p>
-                        <strong>2024 Security-One 포럼 연사 참가</strong> | Row Hammer
-                    </p>
-                    <p>
-                        <strong>2026 Unite Seoul 연사 최종 심사 대상자 선정</strong> | Massive Map Generation System
-                    </p>
-                </div>
-            </div>
-            
-            <h3 class="mono" style="margin: 30px 0 15px 0;">INDUSTRY RECOGNITION</h3>
-            <div class="recog-grid">
-                <div class="recog-card" onclick="openModal('square_enix')">
-                    <div class="recog-title">Square Enix</div>
-                    <div class="recog-divider"></div>
-                    <div class="recog-body">
-                        <p>Feedback from <strong>SAITA Tomonori</strong> (Former Producer)</p>
-                        <p style="font-size: 0.9rem; opacity: 0.8;">For 'ALCOHOL FREE, 마음을 담아, RGB Line' at G-Star 2025</p>
-                    </div>
-                </div>
-                <div class="recog-card" onclick="openModal('toei')">
-                    <div class="recog-title">Toei Company</div>
-                    <div class="recog-divider"></div>
-                    <div class="recog-body">
-                        <p>Publishing offer from <strong>KATO</strong> (Game Advisor)</p>
-                        <p style="font-size: 0.9rem; opacity: 0.8;">For 'ALCOHOL FREE, 마음을 담아, RGB Line' at G-Star 2025</p>
-                    </div>
-                </div>
-                <div class="recog-card" onclick="openModal('pleedus')">
-                    <div class="recog-title">Pleedus</div>
-                    <div class="recog-divider"></div>
-                    <div class="recog-body">
-                        <p>Exhibition <strong>Partnership</strong></p>
-                        <p style="font-size: 0.9rem; opacity: 0.8;">For 'ALCOHOL FREE, 마음을 담아' at Comic World 2025</p>
-                    </div>
-                </div>
-            </div>
-
-            <h3 class="mono" style="margin: 30px 0 15px 0;">MEDIA COVERAGE</h3>
-            <div class="recog-grid">
-                <div class="recog-card" onclick="openNewTab('https://sqool.net/report/archive/gstar2025-report.html')">
-                    <div class="recog-title">今年のG-Starはどうだったか？韓国最大のゲームイベントの課題とは</div>
-                    <div class="recog-divider"></div>
-                    <div class="recog-body">
-                        <p><strong>Toei game advisor KATO's</strong> game magazine article</p>
-                        <p style="font-size: 0.9rem; opacity: 0.8;">마음을 담아 is featured</p>
-                    </div>
-                </div>
-                <div class="recog-card" onclick="openNewTab('https://sway.cloud.microsoft/4PpAiwGK3vnc9XkW?ref=Link')">
-                    <div class="recog-title">TU 게임 챌린지 특별호</div>
-                    <div class="recog-divider"></div>
-                    <div class="recog-body">
-                        <p><strong>TU Game Challenge</strong> special article</p>
-                        <p style="font-size: 0.9rem; opacity: 0.8;">마음을 담아, ALCOHOL FREE, RGB Line, Cross Wordle are featured</p>
-                    </div>
-                </div>
-                <div class="recog-card" onclick="openNewTab('https://sway.cloud.microsoft/JPasLtlByjTwysGH?ref=email&loc=play')">
-                    <div class="recog-title">동명대 게임학부 '25-4분기 (G-Star 2025)</div>
-                    <div class="recog-divider"></div>
-                    <div class="recog-body">
-                        <p><strong>G-Star 2025</strong> report</p>
-                        <p style="font-size: 0.9rem; opacity: 0.8;">Achievements at G-Star 2025 are highlighted</p>
-                    </div>
-                </div>
-                <div class="recog-card" onclick="openNewTab('https://dotnetnews.co/archive/the-net-news-daily-issue-313/?8utm_source=medium&utm_medium=comment')">
-                    <div class="recog-title">The .NET News Daily Issue #313</div>
-                    <div class="recog-divider"></div>
-                    <div class="recog-body">
-                        <p><strong>Recommended Daily .NET Post</strong> from dotnetnews.co</p>
-                        <p style="font-size: 0.9rem; opacity: 0.8;"><strong>C# — Unique behavior when passing array and list objects as parameters</strong> is referenced<p>
-                    </div>
-                </div>
-                <div class="recog-card" onclick="openNewTab('https://developer.microsoft.com/en-us/games/articles/2024/09/community-question-of-the-week-9624/#:~:text=a%20learning%20experience.%E2%80%9D-,Hyunsu%20Yu,-%2C%20college%20Game')">
-                    <div class="recog-title">Microsoft Game Dev Community</div>
-                    <div class="recog-divider"></div>
-                    <div class="recog-body">
-                        <p>Microsoft Game Dev Community's Question of the Week</p>
-                        <p style="font-size: 0.9rem; opacity: 0.8;">Featured response to the question: "What was your biggest game development challenge?"</p>
-                    </div>
-                </div>
-                <div class="recog-card" onclick="openNewTab('https://www.tu.ac.kr/gart/sub05_05.do?mode=view&articleNo=150666')">
-                    <div class="recog-title">제8회 부산 게임개발자 컨퍼런스 참가 및 작품 출품</div>
-                    <div class="recog-divider"></div>
-                    <div class="recog-body">
-                        <p style="font-size: 0.9rem; opacity: 0.8;">마음을 담아, ALCOHOL FREE are featured"</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- 5. TIMELINE -->
-        <section id="timeline">
-            <h2 class="section-title glitch-effect">TIMELINE</h2>
-            <div class="history-timeline">
-                <div class="history-item">
-                    <span class="history-year">2020</span>
-                    <p><strong>05</strong> | Technical Blog started</p>
-                </div>
-                <div class="history-item">
-                    <span class="history-year">2021</span>
-                    <p>
-                        <strong>06-07</strong> | NATAKER completed (1.5 months)
-                        <a href="javascript:openModal('nataker')" class="timeline-link">[NATAKER]</a>
-                    </p>
-                    <p><strong>07</strong> | Military Service(Air-Force) began</p>
-                </div>
-                <div class="history-item">
-                    <span class="history-year">2021-2023 (Military Service)</span>
-                    <p><strong>Continuous </strong> | Blog research, MIT OCW, paper reviews</p>
-                    <p><strong>Planning</strong> | Massive Map Generation System: initial design during military service</p>
-                </div>
-                <div class="history-item">
-                    <span class="history-year">2023</span>
-                    <p><strong>04</strong> | Discharged from military</p>
-                    <p>
-                        <strong>04-10</strong> | More Deeper C++ Programming Language manuscript written (2023.04 ~ 2023.10)
-                        <a href="javascript:openModal('book')" class="timeline-link">[More Deeper C++ Programming Language ⭐]</a>
-                    </p>
-                    <p><strong>07</strong> | Massive Map Generation System implementation started</p>
-                </div>
-                <div class="history-item">
-                    <span class="history-year">2024</span>
-                    <p>
-                        <strong>06</strong> | Massive Map Generation System initial implementation completed (2023.07 ~ 2024.06)
-                        <a href="javascript:openModal('mapgen')" class="timeline-link">[Massive Map Generation System ⭐]</a>
-                    </p>
-                    <p>
-                        <strong>08</strong> | Security-One forum speaker
-                        <a href="https://www.facebook.com/seoneforum/?locale=ko_KR" target="_blank" class="timeline-link">[Security-One forum]</a>
-                    </p>
-                    <p><strong>10</strong> | joined UPTRAND(창업동아리)</p>
-                    <p>
-                        <strong>2024.10-2025.02</strong> | Computer science course teaching
-                        <a href="https://drive.google.com/drive/folders/1nS0rt085X6sCtfV1szX6ia9s4nRWJYEk?usp=sharing" target="_blank" class="timeline-link">[Computer science course]</a>
-                    </p>
-                    <p><strong>12</strong> | RGB Line started</p>
-                </div>
-                <div class="history-item">
-                    <span class="history-year">2025</span>
-                    <p>
-                        <strong>01</strong> | UDE-B91 completed (Global Game Jam, 3 days)
-                        <a href="https://globalgamejam.org/games/2025/ude-891-9" target="_blank" class="timeline-link">[UDE-B91]</a>
-                    </p>
-                    <p>
-                        <strong>05-12</strong> | ALCOHOL FREE completed (2025.05 ~ 2025.12)
-                        <a href="javascript:openModal('alcoholfree')" class="timeline-link">[ALCOHOL FREE ⭐]</a>
-                    </p>
-                    <p>
-                        <strong>2024.12-2025.12</strong> | RGB Line completed
-                        <a href="javascript:openModal('rgbline')" class="timeline-link">[RGB Line ⭐]</a>
-                    </p>
-                    <strong>05-Present</strong> | 마음을 담아 started
-                    <p>
-                        <strong>06</strong> | Build 051 2025 exhibition
-                        <a href="https://build051.org/" target="_blank" class="timeline-link">[Build 051 2025]</a>
-                    </p>
-                    <p><strong>09</strong> | Cross Wordle completed (teaching project, 7 days)</p>
-                    <p><strong>09</strong> | Still Alive completed (Club Game Jam, 4 days)</p>
-                    <p>
-                        <strong>10</strong> | TU Game Challenge 2025 Awards Ceremony
-                        <a href="https://sway.cloud.microsoft/4PpAiwGK3vnc9XkW?ref=Link" target="_blank" class="timeline-link">[TU Game Challenge 2025]</a>
-                    </p>
-                    <p>
-                        <strong>11</strong> | G-Star 2025 exhibition
-                        <a href="https://sway.cloud.microsoft/JPasLtlByjTwysGH?ref=email&loc=play" target="_blank" class="timeline-link">[G-Star 2025]</a>
-                    </p>
-                    <p>
-                        <strong>12</strong> | BEAVER ROCKS 2025 exhibition
-                        <a href="https://beaverrocks.com/BeaverRocks2025-game" target="_blank" class="timeline-link">[BEAVER ROCKS 2025]</a>
-                    </p>
-                    <p>
-                        <strong>12</strong> | TU RISE ALL FESTA 2025
-                        <a href="https://www.tu.ac.kr/gart/sub05_05.do?mode=view&articleNo=143632&title=RISE+ALL+FESTA+%EC%9E%91%ED%92%88+%EC%B6%9C%ED%92%88+%EB%B0%8F+%EC%A0%84%EC%8B%9C" target="_blank" class="timeline-link">[TU RISE ALL FESTA 2025]</a>
-                    </p>
-                    <p>
-                        <strong>12</strong> | 25-2 부산지역인재장학 선정
-                        <a href="javascript:openModal('busan_regional_talent_scholarship')" class="timeline-link">[부산지역인재장학]</a>
-                    </p>
-                    <p>
-                        <strong>12</strong> | Comic World 2025 exhibition
-                        <a href="https://www.tu.ac.kr/gart/sub05_05.do?mode=view&articleNo=144323" class="timeline-link">[Comic World 2025]</a>
-                    </p>
-                    <p><strong>12-Present</strong> | DX12 Renderer (in progress)</p>
-                </div>
-                <div class="history-item">
-                    <span class="history-year">2026</span>
-                    <p><strong>01</strong> | TU Mach Game Jam(2 days)</p>
-                    <p><strong>Continuous</strong> | DX12 Meshlet × IA Hybrid Rendering Pipeline (graduation thesis research)</p>
-                    <p>
-                        <strong>Continuous</strong> | 마음을 담아
-                        <a href="javascript:openModal('hearts')" class="timeline-link">[마음을 담아]</a>
-                    </p>
-                    <p>
-                        <strong>01</strong> | 포우포우 위치 completed (Global Game Jam, 3 days)
-                        <a href="https://hyunsuyu.github.io/PowPowWitchHome/" target="_blank" class="timeline-link">[포우포우 위치]</a>
-                    </p>
-                    <p>
-                        <strong>03</strong> | 26-1 부산지역인재장학 선정
-                        <a href="javascript:openModal('busan_regional_talent_scholarship')" class="timeline-link">[부산지역인재장학]</a>
-                    </p>
-                    <p>
-                        <strong>04</strong> | 부산 게임 개발자 컨퍼런스 2026
-                        <a href="javascript:openModal('busan_game_dev_conf')" class="timeline-link">[부산 게임 개발자 컨퍼런스 2026]</a>
-                    </p>
-                     <p>
-                        <strong>05</strong> | 2026 Unite Seoul 연사 최종 심사 진출
-                        <a href="javascript:openModal('unite_2026')" class="timeline-link">[Unite 2026 연사]</a>
-                    </p>
-                    <p>
-                        <strong>06</strong> | B-Contents 경진대회 2026
-                        <a href="javascript:openModal('b_contents_competition')" class="timeline-link">[B-Contents 경진대회 2026]</a>
-                    </p>
-                    <p><strong>06</strong> | Build 051 2026 exhibition</p>
-                    <p>
-                        <strong>07.30</strong> | More Deeper C++ Programming Language published (222-page PDF edition)
-                        <a href="https://www.yes24.com/product/goods/194190987" target="_blank" class="timeline-link">[Publication details]</a>
-                    </p>
-                    <p><strong>08</strong> | 제 1회 UPTRANDING 게임잼</p>
-                    <p>
-                        <strong>10.02-10.04</strong> | FINS developed (UPTRANDING Game Jam, 2박 3일)
-                        <a href="javascript:openModal('fins')" class="timeline-link">[FINS]</a>
-                    </p>
-                    <p>
-                        <strong>10</strong> | TU Game Challenge 2026: Ever Check 우수상 (IEEE Track), ALCOHOL FREE 장려상, 냥냥대난투 장려상
-                        <a href="javascript:openModal('alcoholfree')" class="timeline-link">[ALCOHOL FREE]</a>
-                    </p>
-                    <p>
-                        <strong>10</strong> | 한국멀티미디어학회 추계학술발표대회 논문 게재 승인 (제29권 2호, 포스터, 제1저자·단독): 계층적 임의 보행 기반 대규모 타일맵 생성 알고리즘과 호스트 반응성을 위한 실행 전략
-                        <a href="assets/papers/MapGenPaper.pdf" target="_blank" class="timeline-link">[PAPER]</a>
-                        <a href="javascript:openModal('mapgen')" class="timeline-link">[Massive Map Gen]</a>
-                    </p>
-                    <p>
-                        <strong>10</strong> | 한국멀티미디어학회 추계학술발표대회 논문 게재 승인 (제29권 2호, 포스터, 제1저자·단독): 프레임-스테이트 실행 모델 기반 비주얼 노벨 저작 프레임워크
-                        <a href="assets/papers/VisualWavePaper.pdf" target="_blank" class="timeline-link">[PAPER]</a>
-                        <a href="javascript:openModal('visualwave')" class="timeline-link">[Visual Wave]</a>
-                    </p>
-                    <p>
-                        <strong>11</strong> | 학사학위 졸업논문 (제1저자·단독): DirectX 12 Meshlet과 IA 기반의 하이브리드 렌더링 파이프라인 구현
-                        <a href="assets/papers/GraduationThesis.pdf" target="_blank" class="timeline-link">[THESIS]</a>
-                        <a href="javascript:openModal('meshshader')" class="timeline-link">[Hybrid Rendering Pipeline]</a>
-                    </p>
-                </div>
-            </div>
-        </section>
-
-        <!-- 6. SKILLS -->
-        <section id="skills">
+        <!-- SCREEN 4 : SKILLS + CONTACT -->
+        <section class="d-screen" id="scr-contact">
+            <section id="skills">
             <h2 class="section-title glitch-effect">Technical Skills</h2>
             <div class="skill-section">
                 <h3>PROGRAMMING LANGUAGES</h3>
@@ -1608,9 +1155,7 @@
                 </div>
             </div>
         </section>
-
-        <!-- 7. CONTACT -->
-        <section id="contact" style="margin-bottom: 0;">
+            <section id="contact" style="margin-bottom: 0;">
             <h2 class="section-title glitch-effect">Contact</h2>
             <div class="hero" style="text-align: center;">
                 <p class="mono" style="font-size: 1.2rem; margin-bottom: 20px;">Hyunsu Yu (유현수)</p>
@@ -1621,6 +1166,7 @@
                     <a href="https://medium.com/@lioie6478" target="_blank" class="mono">[BLOG]</a>
                 </div>
             </div>
+        </section>
         </section>
 
     </main>
@@ -2444,7 +1990,7 @@
         function buildPrintDetails(root, withGallery) {
             root = root || document;
             if (root.querySelector('.print-detail')) return;
-            root.querySelectorAll('#featured .project-card, #projects .project-card').forEach(card => {
+            root.querySelectorAll('#scr-works .c-tile[onclick*="openModal"]').forEach(card => {
                 const m = (card.getAttribute('onclick') || '').match(/openModal\('([^']+)'\)/);
                 if (!m || !projectDB[m[1]]) return;
                 const el = document.createElement('div');
@@ -2464,6 +2010,7 @@
         function buildPrintDoc() {
             const siteCss = document.querySelector('style') ? document.querySelector('style').textContent : '';
             const mainClone = document.querySelector('main').cloneNode(true);
+            if (typeof preparePrintScreens === 'function') preparePrintScreens(mainClone);
             mainClone.querySelectorAll('.print-detail').forEach(e => e.remove());
             buildPrintDetails(mainClone, true); // include image galleries in the PDF
             // Interactions that point to an EXTERNAL url become real clickable links;
@@ -2537,6 +2084,18 @@ a.pv-cardlink{ text-decoration:none !important; color:inherit; display:block; }
 .pv-qr img{ width:66px; height:66px; display:block; margin:0 auto 2px; background:#fff; border:1px solid #8c887d; image-rendering:pixelated; }
 .pv-qr-label{ display:block; font-family:'Share Tech Mono',monospace; font-size:6.5pt; line-height:1.15; word-break:break-word; }
 img.pv-card-qr{ width:50px; height:50px; background:#fff; border:1px solid #8c887d; image-rendering:pixelated; display:block; margin:8px 0 0 auto; }
+.d-screen{ display:block !important; }
+#scr-works .c-grid{ display:block !important; }
+#scr-works .works-group{ break-before:page; }
+#scr-works .works-group:first-of-type{ break-before:auto; }
+#scr-works .c-tile{ display:grid !important; grid-template-columns:40% 1fr; grid-template-rows:auto 1fr; break-before:page; break-inside:avoid; margin:0; transform:none !important; box-shadow:none !important; }
+#scr-works .c-grid > .c-tile:first-child{ break-before:auto; }
+#scr-works .c-tile .c-head{ grid-column:1 / -1; }
+#scr-works .c-tile .c-thumb{ aspect-ratio:16 / 9; min-height:0; border-bottom:none; border-right:1px solid #4b483f; }
+#scr-works .c-text-tile{ display:block !important; break-before:auto; margin-top:14px; }
+.c-thumb img{ filter:none !important; }
+.rec-row{ break-inside:avoid; }
+.sub-title{ break-after:avoid; }
 .pagedjs_page{ background:#dad4bb; }
 </style>
 <script>
@@ -2592,6 +2151,307 @@ function startPaging(){
         });
 
         console.log("%c SYSTEM: BOOT SEQUENCE COMPLETE", "color: #dad4bb; background: #000; padding: 5px;");
+    </script>
+    <script>
+/* Shared record data for the three layout drafts.
+   d: 'YYYY.MM' | 'YYYY' | '' (undated)   cat: category key   hl: highlight
+   l: links -> ['m', modalId, label] (opens modal) | ['u', url, label] (new tab) */
+const RECORD_CATS = {
+    AWARD:     'AWARD',
+    EXHIBIT:   'EXHIBITION',
+    PUB:       'PUBLICATION',
+    TALK:      'TALK · ORGANIZING',
+    RECOG:     'RECOGNITION',
+    MEDIA:     'MEDIA',
+    SCHOLAR:   'SCHOLARSHIP',
+    CERT:      'CERTIFICATION',
+    MILESTONE: 'MILESTONE'
+};
+
+const RECORD_SHORT = {
+    AWARD: 'AWARD', EXHIBIT: 'EXHIBIT', PUB: 'PUBLICATION', TALK: 'TALK·ORG', RECOG: 'INDUSTRY',
+    MEDIA: 'MEDIA', SCHOLAR: 'SCHOLAR', CERT: 'CERT', MILESTONE: 'MILESTONE'
+};
+
+const RECORDS = [
+    // --- AWARDS ---
+    { d: '2026.10', cat: 'AWARD', hl: true, t: 'TU Game Challenge 2026 — 우수상 (IEEE Track)', s: 'Ever Check' },
+    { d: '2026.10', cat: 'AWARD', t: 'TU Game Challenge 2026 — 장려상', s: 'ALCOHOL FREE', l: [['m', 'alcoholfree', 'ALCOHOL FREE']] },
+    { d: '2026.10', cat: 'AWARD', t: 'TU Game Challenge 2026 — 장려상', s: '냥냥대난투' },
+    { d: '2026.06', cat: 'AWARD', t: 'B-Contents 경진대회 2026 — 우수상', s: 'DEEP FALL', l: [['m', 'b_contents_competition', 'B-Contents']] },
+    { d: '2025.10', cat: 'AWARD', hl: true, t: 'TU Game Challenge 2025 — 최우수상', s: '마음을 담아', l: [['m', 'hearts', '마음을 담아'], ['u', 'https://sway.cloud.microsoft/4PpAiwGK3vnc9XkW?ref=Link', 'TU GC 2025']] },
+    { d: '2025.10', cat: 'AWARD', hl: true, t: 'TU Game Challenge 2025 — 최우수상', s: 'Cross Wordle' },
+    { d: '2025.10', cat: 'AWARD', t: 'TU Game Challenge 2025 — 우수상', s: 'ALCOHOL FREE', l: [['m', 'alcoholfree', 'ALCOHOL FREE']] },
+    { d: '2025.10', cat: 'AWARD', t: 'TU Game Challenge 2025 — 장려상', s: 'RGB Line', l: [['m', 'rgbline', 'RGB Line']] },
+    { d: '2025',    cat: 'AWARD', hl: true, t: 'Chair of IEEE Busan Section 2025 — Excellence Award', s: 'Cross Wordle' },
+
+    // --- EXHIBITIONS ---
+    { d: '2026.06', cat: 'EXHIBIT', t: 'Build 051 2026' },
+    { d: '2026.04', cat: 'EXHIBIT', t: '부산 게임 개발자 컨퍼런스 2026', s: 'ALCOHOL FREE, 마음을 담아', l: [['m', 'busan_game_dev_conf', '부산 게임 개발자 컨퍼런스']] },
+    { d: '2025.12', cat: 'EXHIBIT', t: 'Comic World 2025', s: 'Pleedus Partnership Booth (ALCOHOL FREE, 마음을 담아)', l: [['u', 'https://www.tu.ac.kr/gart/sub05_05.do?mode=view&articleNo=144323', 'Comic World 2025']] },
+    { d: '2025.12', cat: 'EXHIBIT', t: 'TU RISE ALL FESTA 2025', s: 'ALCOHOL FREE, 마음을 담아', l: [['u', 'https://www.tu.ac.kr/gart/sub05_05.do?mode=view&articleNo=143632&title=RISE+ALL+FESTA+%EC%9E%91%ED%92%88+%EC%B6%9C%ED%92%88+%EB%B0%8F+%EC%A0%84%EC%8B%9C', 'RISE ALL FESTA']] },
+    { d: '2025.12', cat: 'EXHIBIT', t: 'BEAVER ROCKS 2025', s: 'ALCOHOL FREE', l: [['u', 'https://beaverrocks.com/BeaverRocks2025-game', 'BEAVER ROCKS']] },
+    { d: '2025.11', cat: 'EXHIBIT', hl: true, t: 'G-Star 2025', s: 'ALCOHOL FREE, 마음을 담아, RGB Line, Cross Wordle', l: [['u', 'https://sway.cloud.microsoft/JPasLtlByjTwysGH?ref=email&loc=play', 'G-Star 2025']] },
+    { d: '2025.06', cat: 'EXHIBIT', t: 'Build 051 2025', s: 'RGB Line', l: [['u', 'https://build051.org/', 'Build 051']] },
+
+    // --- PUBLICATIONS ---
+    { d: '2026.11', cat: 'PUB', hl: true, t: 'DirectX 12 Meshlet과 IA 기반의 하이브리드 렌더링 파이프라인 구현', s: '학사학위 졸업논문 · 제1저자·단독', l: [['u', 'assets/papers/GraduationThesis.pdf', 'THESIS'], ['m', 'meshshader', 'Hybrid Rendering']] },
+    { d: '2026.10', cat: 'PUB', hl: true, t: '계층적 임의 보행 기반 대규모 타일맵 생성 알고리즘과 호스트 반응성을 위한 실행 전략', s: '한국멀티미디어학회 추계학술발표대회 제29권 2호 · 포스터 · 제1저자·단독', l: [['u', 'assets/papers/MapGenPaper.pdf', 'PAPER'], ['m', 'mapgen', 'Massive Map Gen']] },
+    { d: '2026.10', cat: 'PUB', hl: true, t: '프레임-스테이트 실행 모델 기반 비주얼 노벨 저작 프레임워크', s: '한국멀티미디어학회 추계학술발표대회 제29권 2호 · 포스터 · 제1저자·단독', l: [['u', 'assets/papers/VisualWavePaper.pdf', 'PAPER'], ['m', 'visualwave', 'Visual Wave']] },
+    { d: '2026.07', cat: 'PUB', hl: true, t: 'More Deeper C++ Programming Language 출간', s: '기술 서적 · 단독 저자 · 222p · ISBN 979-11-438-1468-5', l: [['u', 'https://www.yes24.com/product/goods/194190987', 'YES24'], ['m', 'book', 'Book']] },
+
+    // --- TALKS / ORGANIZING ---
+    { d: '2026',    cat: 'TALK', hl: true, t: 'GAME OVER? 2026 — 운영총괄 (Operations Director)', l: [['u', 'https://game-dev-conference-gameover.github.io/GAMEOVER_Homepage/2026/', 'GAME OVER?']] },
+    { d: '2026.05', cat: 'TALK', t: 'Unite Seoul 2026 — 연사 최종 심사 진출', s: 'Massive Map Generation System', l: [['m', 'unite_2026', 'Unite 2026']] },
+    { d: '2024.08', cat: 'TALK', t: 'Security-One 포럼 연사', s: 'Row Hammer', l: [['u', 'https://www.facebook.com/seoneforum/?locale=ko_KR', 'Security-One']] },
+
+    // --- INDUSTRY RECOGNITION ---
+    { d: '2025.11', cat: 'RECOG', hl: true, t: 'Square Enix — SAITA Tomonori (Former Producer) 피드백', s: 'ALCOHOL FREE, 마음을 담아, RGB Line @ G-Star 2025', l: [['m', 'square_enix', 'Square Enix']] },
+    { d: '2025.11', cat: 'RECOG', hl: true, t: 'Toei Company — KATO (Game Advisor) 퍼블리싱 제안', s: 'ALCOHOL FREE, 마음을 담아, RGB Line @ G-Star 2025', l: [['m', 'toei', 'Toei']] },
+    { d: '2025.12', cat: 'RECOG', t: 'Pleedus — Exhibition Partnership', s: 'ALCOHOL FREE, 마음을 담아 @ Comic World 2025', l: [['m', 'pleedus', 'Pleedus']] },
+
+    // --- MEDIA ---
+    { d: '2026.04', cat: 'MEDIA', t: '제8회 부산 게임개발자 컨퍼런스 참가 및 작품 출품', s: '마음을 담아, ALCOHOL FREE', l: [['u', 'https://www.tu.ac.kr/gart/sub05_05.do?mode=view&articleNo=150666', 'ARTICLE']] },
+    { d: '2025',    cat: 'MEDIA', t: '今年のG-Starはどうだったか？ (KATO 기고)', s: '마음을 담아 소개', l: [['u', 'https://sqool.net/report/archive/gstar2025-report.html', 'ARTICLE']] },
+    { d: '2025',    cat: 'MEDIA', t: 'TU 게임 챌린지 특별호', s: '마음을 담아, ALCOHOL FREE, RGB Line, Cross Wordle', l: [['u', 'https://sway.cloud.microsoft/4PpAiwGK3vnc9XkW?ref=Link', 'ARTICLE']] },
+    { d: '2025',    cat: 'MEDIA', t: "동명대 게임학부 '25-4분기 (G-Star 2025)", l: [['u', 'https://sway.cloud.microsoft/JPasLtlByjTwysGH?ref=email&loc=play', 'ARTICLE']] },
+    { d: '2024.09', cat: 'MEDIA', t: 'Microsoft Game Dev Community — Question of the Week', s: '"What was your biggest game development challenge?" 답변 소개', l: [['u', 'https://developer.microsoft.com/en-us/games/articles/2024/09/community-question-of-the-week-9624/#:~:text=a%20learning%20experience.%E2%80%9D-,Hyunsu%20Yu,-%2C%20college%20Game', 'ARTICLE']] },
+    { d: '',        cat: 'MEDIA', t: 'The .NET News Daily Issue #313', s: 'C# — Unique behavior when passing array and list objects as parameters', l: [['u', 'https://dotnetnews.co/archive/the-net-news-daily-issue-313/?8utm_source=medium&utm_medium=comment', 'ARTICLE']] },
+
+    // --- SCHOLARSHIPS ---
+    { d: '2026.03', cat: 'SCHOLAR', t: '26-1 부산지역인재장학', l: [['m', 'busan_regional_talent_scholarship', '부산지역인재장학']] },
+    { d: '2025.12', cat: 'SCHOLAR', t: '25-2 부산지역인재장학', l: [['m', 'busan_regional_talent_scholarship', '부산지역인재장학']] },
+    { d: '',        cat: 'SCHOLAR', t: 'SW분야우수인재장학' },
+
+    // --- CERTIFICATIONS ---
+    { d: '', cat: 'CERT', t: '프로그래머스 스킬체크 레벨 3' },
+    { d: '', cat: 'CERT', t: '리눅스 마스터 2급' },
+    { d: '', cat: 'CERT', t: '정보 처리 기능사' },
+    { d: '', cat: 'CERT', t: '민간 SW개발보안 대학생 교육(입문과정)' },
+    { d: '', cat: 'CERT', t: 'GitHub Foundations' },
+
+    // --- MILESTONES (former timeline) ---
+    { d: '2026.10', cat: 'MILESTONE', t: 'FINS 개발 (UPTRANDING Game Jam, 2박 3일)', l: [['m', 'fins', 'FINS']] },
+    { d: '2026.08', cat: 'MILESTONE', t: '제1회 UPTRANDING 게임잼' },
+    { d: '2026.01', cat: 'MILESTONE', t: '포우포우 위치 (Global Game Jam, 3 days)', l: [['u', 'https://hyunsuyu.github.io/PowPowWitchHome/', '포우포우 위치']] },
+    { d: '2026.01', cat: 'MILESTONE', t: 'TU Mach Game Jam (2 days)' },
+    { d: '2025.12', cat: 'MILESTONE', t: 'DX12 Meshlet × IA Hybrid Rendering 연구 시작 (졸업논문)', l: [['m', 'meshshader', 'Hybrid Rendering']] },
+    { d: '2025.12', cat: 'MILESTONE', t: 'ALCOHOL FREE 완성 (2025.05 ~ 2025.12)', l: [['m', 'alcoholfree', 'ALCOHOL FREE']] },
+    { d: '2025.12', cat: 'MILESTONE', t: 'RGB Line 완성 (2024.12 ~ 2025.12)', l: [['m', 'rgbline', 'RGB Line']] },
+    { d: '2025.09', cat: 'MILESTONE', t: 'Cross Wordle (교육용 프로젝트, 7 days)' },
+    { d: '2025.09', cat: 'MILESTONE', t: 'Still Alive (Club Game Jam, 4 days)' },
+    { d: '2025.05', cat: 'MILESTONE', t: '마음을 담아 개발 시작', l: [['m', 'hearts', '마음을 담아']] },
+    { d: '2025.01', cat: 'MILESTONE', t: 'UDE-B91 (Global Game Jam, 3 days)', l: [['u', 'https://globalgamejam.org/games/2025/ude-891-9', 'UDE-B91']] },
+    { d: '2024.12', cat: 'MILESTONE', t: 'RGB Line 개발 시작' },
+    { d: '2024.10', cat: 'MILESTONE', t: 'Computer Science 강의 (2024.10 ~ 2025.02)', l: [['u', 'https://drive.google.com/drive/folders/1nS0rt085X6sCtfV1szX6ia9s4nRWJYEk?usp=sharing', 'COURSE']] },
+    { d: '2024.10', cat: 'MILESTONE', t: 'UPTRAND (창업동아리) 합류' },
+    { d: '2024.06', cat: 'MILESTONE', t: 'Massive Map Generation System 초기 구현 완료 (2023.07 ~ 2024.06)', l: [['m', 'mapgen', 'Massive Map Gen']] },
+    { d: '2023.07', cat: 'MILESTONE', t: 'Massive Map Generation System 구현 시작' },
+    { d: '2023.04', cat: 'MILESTONE', t: 'More Deeper C++ 원고 집필 (2023.04 ~ 2023.10)', l: [['m', 'book', 'Book']] },
+    { d: '2023.04', cat: 'MILESTONE', t: '공군 전역' },
+    { d: '2021.07', cat: 'MILESTONE', t: '공군 입대 — 복무 중 블로그 연구 · MIT OCW · 논문 리뷰, Map Gen 초기 설계' },
+    { d: '2021.06', cat: 'MILESTONE', t: 'NATAKER 완성 (1.5 months)', l: [['m', 'nataker', 'NATAKER']] },
+    { d: '2020.05', cat: 'MILESTONE', t: 'Technical Blog 시작', l: [['u', 'https://medium.com/@lioie6478', 'BLOG']] }
+];
+
+/* ---------- helpers ---------- */
+function recLinksHtml(r) {
+    return (r.l || []).map(([kind, target, label]) => kind === 'm'
+        ? `<a href="javascript:openModal('${target}')" class="timeline-link">[${label}]</a>`
+        : `<a href="${target}" target="_blank" class="timeline-link">[${label}]</a>`).join(' ');
+}
+function recYear(r) { return r.d ? r.d.slice(0, 4) : 'UNDATED'; }
+function recSortKey(r) { return r.d ? r.d.padEnd(7, '.00').replace('.', '') : '000000'; }
+function sortedRecords(list) { return list.slice().sort((a, b) => recSortKey(b).localeCompare(recSortKey(a))); }
+function recCount(cat) { return cat === 'ALL' ? RECORDS.length : cat === 'HL' ? RECORDS.filter(r => r.hl).length : RECORDS.filter(r => r.cat === cat).length; }
+function recFilter(cat) { return cat === 'ALL' ? RECORDS : cat === 'HL' ? RECORDS.filter(r => r.hl) : RECORDS.filter(r => r.cat === cat); }
+
+/* Chip bar: [ ALL 63 ] [ ★ 15 ] [ AWARD 9 ] ... ; onPick(cat) */
+function buildChips(el, cats, active, onPick) {
+    el.innerHTML = cats.map(c => {
+        const label = c === 'ALL' ? 'ALL' : c === 'HL' ? '★ HIGHLIGHTS' : RECORD_CATS[c];
+        return `<button class="chip${c === active ? ' active' : ''}" data-cat="${c}">${label}<span class="chip-n">${recCount(c)}</span></button>`;
+    }).join('');
+    el.querySelectorAll('.chip').forEach(b => b.addEventListener('click', () => {
+        el.querySelectorAll('.chip').forEach(x => x.classList.toggle('active', x === b));
+        onPick(b.dataset.cat);
+    }));
+}
+
+    </script>
+    <script>
+/* Work tiles shared by Drafts D / E / F (Draft C tile design). */
+const WORK_FIELDS = { GFX: 'GRAPHICS · ENGINE', TOOLS: 'TOOLS · RESEARCH · WRITING', GAME: 'GAMES' };
+
+const WORKS = [
+    { id: 'meshshader', field: 'GFX', year: '2026', unit: 'UNIT 01', label: 'GRADUATION THESIS · 2026', wide: true,
+      img: 'assets/thumbs/drive/1EL1vqrbs96enisJCK_u-FXedV5mr6EcS.jpg', title: 'DX12 Meshlet × IA Hybrid Rendering', star: true,
+      meta: 'SOLE RESEARCH / 1ST AUTHOR · 2025.12–2026.11', line: 'IA · Mesh Shader 경로를 메시 그룹별로 런타임 선택해 같은 프레임에서 혼합.',
+      stat: '> GPU Scene −15.83% vs IA · −3.01% vs MS', tags: [['inv', 'THESIS'], ['line', 'DX12'], ['line', 'MESH SHADER'], ['line', 'K-MEANS']] },
+    { id: 'mapgen', field: 'GFX', year: '2026', unit: 'UNIT 02', label: 'PAPER · 2026',
+      img: 'assets/thumbs/papers/mapgen-paper-3d.jpg', title: 'Massive Map Generation', star: true,
+      meta: 'SOLO DEV · 2023.07–2024.06', stat: '> 270M tiles · 51.26 FPS host', tags: [['inv', 'KMMS PAPER'], ['line', 'PARALLEL'], ['line', 'IPC']] },
+    { id: 'visualwave', field: 'TOOLS', year: '2026', unit: 'UNIT 03', label: 'PAPER · 2026',
+      img: 'assets/thumbs/papers/vw-godot-demo.jpg', title: 'Visual Wave', star: true,
+      meta: 'SOLE RESEARCH · 2025.05–', stat: '> 대사 1자당 30.0B → 4.7B', tags: [['inv', 'KMMS PAPER'], ['line', 'DSL'], ['line', 'LSP']] },
+    { id: 'book', field: 'TOOLS', year: '2026', unit: 'UNIT 04', label: 'BOOK · 2026', top: true,
+      img: 'assets/thumbs/drive/1hL3dtbTbEqQsb75rJ8j2BDkalzJNm7Td.jpg', title: 'More Deeper C++',
+      meta: 'WRITER / INSTRUCTOR · 2026.07.30', stat: '> 222p · ISBN · 8 stores', tags: [['inv', 'PUBLISHED'], ['line', 'PAID COURSE']] },
+    { id: 'hearts', field: 'GAME', year: '2025', unit: 'G-01', label: 'PUZZLE / VN',
+      img: 'assets/thumbs/drive/1ePXQdvfpJ-jz0Ko8x81mW4Go-GG6Lcbv.jpg', title: '마음을 담아', star: true,
+      meta: 'PROGRAMMER · TEAM 5', tags: [['inv', '★ 최우수상'], ['line', 'G-STAR']] },
+    { id: 'alcoholfree', field: 'GAME', year: '2025', unit: 'G-02', label: 'VISUAL NOVEL',
+      img: 'https://hyunsuyu.github.io/ALCOHOL-FREE/src/%EC%95%95%EC%83%9D%ED%8A%B8%20%EC%BB%B7%EC%94%AC.png',
+      fallback: 'assets/thumbs/drive/1gaCl93bfKaSHVaSoRmW0L_XcZ1P5kwGa.jpg', title: 'ALCOHOL FREE', star: true,
+      meta: 'PROGRAMMER · TEAM 7', tags: [['inv', '★ 우수상'], ['inv', '장려상'], ['line', 'STOVE']] },
+    { id: 'rgbline', field: 'GAME', year: '2025', unit: 'G-03', label: 'RHYTHM',
+      img: 'assets/thumbs/drive/1AQPQjfcLk8uUyBBZdREkdSsu9lpCmZwS.jpg', title: 'RGB Line',
+      meta: 'LEAD PROGRAMMER · TEAM 4', tags: [['inv', '장려상'], ['line', 'G-STAR']] },
+    { id: 'fins', field: 'GAME', year: '2026', unit: 'G-04', label: 'ACTION · JAM',
+      img: 'assets/thumbs/fins/surface.jpg', title: 'FINS',
+      meta: 'PROGRAMMER · TEAM 5', tags: [['line', 'GAME JAM · 3 DAYS']] }
+];
+
+const BLOG_TILE = `<div class="c-tile c-text-tile" data-field="TOOLS">
+    <div class="c-head"><span>LOG</span><span>SINCE 2020</span></div>
+    <div class="c-info">
+        <h3>Technical Blog · 6+ Years</h3>
+        <ul class="c-list">
+            <li>Graphics &amp; Shader (Metaball, Fluid Sim)</li>
+            <li>Optimization (NUMA, SIMD, Cache)</li>
+            <li>AI &amp; Game Intelligence</li>
+            <li>Computer Architecture</li>
+        </ul>
+        <p class="mono"><a href="https://medium.com/@lioie6478" target="_blank">[MEDIUM]</a> <a href="https://medium.com/more-deeper-c-programming-language" target="_blank">[PUBLICATION]</a> <a href="javascript:openModal('cs_course')">[COURSE]</a></p>
+    </div>
+</div>`;
+
+function workById(id) { return WORKS.find(w => w.id === id); }
+
+function tileHtml(w, opt) {
+    opt = opt || {};
+    const wide = w.wide && !opt.noWide;
+    const img = w.fallback
+        ? `<img src="${w.img}" onerror="this.onerror=null;this.src='${w.fallback}'" alt="" loading="lazy">`
+        : `<img src="${w.img}" alt="" loading="lazy">`;
+    return `<article class="c-tile${wide ? ' c-wide' : ''}" data-field="${w.field}" onclick="openModal('${w.id}')">
+        <div class="c-head"><span>${w.unit}</span><span>${w.label}</span></div>
+        <div class="c-thumb${w.top ? ' c-thumb-top' : ''}">${img}</div>
+        <div class="c-info">
+            <h3>${w.title}${w.star ? ' ⭐' : ''}</h3>
+            <p class="c-meta">${w.meta}</p>
+            ${wide && w.line ? `<p class="c-line">${w.line}</p>` : ''}
+            ${w.stat ? `<p class="c-stat">${w.stat.replace('>', '&gt;')}</p>` : ''}
+            <div class="c-tags">${w.tags.map(([k, t]) => `<span class="tag-${k}">${t}</span>`).join('')}</div>
+        </div>
+    </article>`;
+}
+
+/* The Draft C works layout: three field groups, 3 / 3 / 4 columns. */
+function worksGroupsHtml() {
+    const g = f => WORKS.filter(w => w.field === f).map(w => tileHtml(w)).join('');
+    return `<div class="works-group" data-field="GFX"><h3 class="sub-title">${WORK_FIELDS.GFX}</h3><div class="c-grid c-grid-3">${g('GFX')}</div></div>
+        <div class="works-group" data-field="TOOLS"><h3 class="sub-title">${WORK_FIELDS.TOOLS}</h3><div class="c-grid c-grid-3">${g('TOOLS')}${BLOG_TILE}</div></div>
+        <div class="works-group" data-field="GAME"><h3 class="sub-title">${WORK_FIELDS.GAME}</h3><div class="c-grid c-grid-4">${g('GAME')}</div></div>`;
+}
+
+    </script>
+    <script>
+        const D_SCREENS = ['profile', 'works', 'records', 'contact'];
+        const D_LABEL = { profile: 'PROFILE', works: 'WORKS', records: 'RECORDS', contact: 'SKILLS & CONTACT' };
+        function showScreen(name) {
+            if (!D_SCREENS.includes(name)) name = 'profile';
+            D_SCREENS.forEach(s => document.getElementById('scr-' + s).classList.toggle('active', s === name));
+            document.querySelectorAll('nav a').forEach(a => a.classList.toggle('active', a.dataset.screen === name));
+            document.getElementById('d-crumb').textContent = 'SYSTEM / ' + D_LABEL[name];
+            try { history.replaceState(null, '', location.pathname + location.search + '#' + name); } catch (e) { }
+            window.scrollTo(0, 0);
+        }
+        (function () {
+            document.querySelectorAll('nav a').forEach(a => {
+                const m = a.getAttribute('href').match(/showScreen\('(\w+)'\)/);
+                if (m) a.dataset.screen = m[1];
+            });
+
+            /* profile */
+            document.getElementById('d-spot').innerHTML = tileHtml(workById('meshshader')) + tileHtml(workById('mapgen'));
+            const latest = sortedRecords(RECORDS.filter(r => r.hl)).slice(0, 5);
+            document.getElementById('d-latest').innerHTML = latest.map(r =>
+                `<div class="rec-row"><span class="rec-date">${r.d || '—'}</span><span class="rec-cat"><span class="tag-inv">${RECORD_SHORT[r.cat]}</span></span>` +
+                `<span><span class="rec-title">${r.t}</span>${r.s ? ` <span class="rec-sub">— ${r.s}</span>` : ''}</span></div>`).join('');
+
+            /* works */
+            document.getElementById('d-works').innerHTML = worksGroupsHtml();
+            const chips = [...document.querySelectorAll('#d-work-chips .chip')];
+            chips.forEach(c => c.addEventListener('click', () => {
+                chips.forEach(x => x.classList.toggle('active', x === c));
+                document.querySelectorAll('#d-works .works-group').forEach(g => g.hidden = !(c.dataset.f === 'ALL' || g.dataset.field === c.dataset.f));
+            }));
+
+            /* records: category / list / detail */
+            const CATS = ['HL', 'AWARD', 'PUB', 'EXHIBIT', 'TALK', 'RECOG', 'MEDIA', 'SCHOLAR', 'CERT', 'MILESTONE'];
+            const catEl = document.getElementById('d-cats'), listEl = document.getElementById('d-list'), detEl = document.getElementById('d-detail');
+            let curList = [];
+            catEl.innerHTML = CATS.map(c => `<button class="d-cat" data-cat="${c}"><span>${c === 'HL' ? '★ HIGHLIGHTS' : RECORD_CATS[c]}</span><span>${String(recCount(c)).padStart(2, '0')}</span></button>`).join('');
+            function pickCat(c) {
+                catEl.querySelectorAll('.d-cat').forEach(b => b.classList.toggle('active', b.dataset.cat === c));
+                curList = sortedRecords(recFilter(c));
+                listEl.innerHTML = curList.map((r, i) => `<button class="d-item" data-i="${i}"><span class="dd">${r.d || '—'}</span><span><strong>${r.t}</strong></span></button>`).join('');
+                listEl.querySelectorAll('.d-item').forEach(b => b.addEventListener('click', () => pickItem(+b.dataset.i)));
+                listEl.scrollTop = 0;
+                pickItem(0);
+            }
+            function pickItem(i) {
+                listEl.querySelectorAll('.d-item').forEach(b => b.classList.toggle('active', +b.dataset.i === i));
+                const r = curList[i];
+                if (!r) { detEl.innerHTML = '<p class="d-empty">NO DATA</p>'; return; }
+                const rel = (r.l || []).filter(l => l[0] === 'm').map(l => workById(l[1])).filter(Boolean)[0];
+                detEl.innerHTML = `<div class="c-head"><span>${RECORD_CATS[r.cat]}</span><span>REC ${String(i + 1).padStart(2, '0')} / ${String(curList.length).padStart(2, '0')}</span></div>
+                    <div class="d-dbody">
+                        <span class="mono">${r.d || 'UNDATED'}${r.hl ? ' · ★ HIGHLIGHT' : ''}</span>
+                        <div class="d-dtitle">${r.t}</div>
+                        ${r.s ? `<div class="d-dsub">${r.s}</div>` : ''}
+                        ${r.l ? `<div class="d-dlinks">${recLinksHtml(r)}</div>` : ''}
+                        ${rel ? `<h3 class="sub-title">Related Work</h3><div class="d-related">${tileHtml(rel, { noWide: true })}</div>` : ''}
+                    </div>`;
+            }
+            catEl.querySelectorAll('.d-cat').forEach(b => b.addEventListener('click', () => pickCat(b.dataset.cat)));
+            pickCat('HL');
+
+            /* keyboard 1-4 */
+            window.addEventListener('keydown', e => {
+                if (document.getElementById('modal-overlay').style.display === 'flex') return;
+                if (e.target.closest && e.target.closest('input, textarea')) return;
+                const k = parseInt(e.key, 10);
+                if (k >= 1 && k <= 4) showScreen(D_SCREENS[k - 1]);
+            });
+            window.addEventListener('hashchange', () => showScreen(location.hash.slice(1)));
+            showScreen(location.hash.slice(1));
+        })();
+        /* PDF view: show every screen, drop interactive chrome, flatten records into a static list */
+        function preparePrintScreens(root) {
+            root.querySelectorAll('.d-bar, #d-work-chips, .d-go').forEach(e => e.remove());
+            root.querySelectorAll('img[loading]').forEach(img => img.removeAttribute('loading')); // lazy images never load off-screen in the print view
+            ['d-spot', 'd-latest'].forEach(id => {
+                const el = root.querySelector('#' + id);
+                if (!el) return;
+                const t = el.previousElementSibling;
+                if (t && t.classList.contains('sub-title')) t.remove();
+                el.remove();
+            });
+            root.querySelectorAll('.works-group').forEach(g => { g.hidden = false; });
+            root.querySelectorAll('.d-screen').forEach(s => { s.classList.remove('active'); s.style.display = 'block'; });
+            const md = root.querySelector('.d-md');
+            if (md) {
+                const wrap = document.createElement('div');
+                wrap.innerHTML = ['AWARD', 'PUB', 'EXHIBIT', 'TALK', 'RECOG', 'MEDIA', 'SCHOLAR', 'CERT', 'MILESTONE'].map(c =>
+                    `<h3 class="sub-title">${RECORD_CATS[c]}</h3>` + sortedRecords(recFilter(c)).map(r =>
+                        `<div class="rec-row"><span class="rec-date">${r.d || '—'}</span><span class="rec-cat"><span class="tag-${r.hl ? 'inv' : 'line'}">${RECORD_SHORT[r.cat]}</span></span>` +
+                        `<span><span class="rec-title">${r.t}</span>${r.s ? ` <span class="rec-sub">— ${r.s}</span>` : ''} ${recLinksHtml(r)}</span></div>`).join('')).join('');
+                md.replaceWith(wrap);
+            }
+        }
+
     </script>
 </body>
 </html>

@@ -1,0 +1,32 @@
+
+        /* ====== DRAFT F : CHRONICLE (year bands) ====== */
+        nav ul li a.active { background: var(--text-color); color: var(--bg-color); padding-left: 6px; }
+        nav ul li a.active::before { content: '[■] '; }
+        .f-intro { margin: -10px 0 20px; opacity: 0.85; }
+        .f-band { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 26px; padding: 26px 0 34px; border-top: 2px solid var(--text-color); }
+        .f-year { position: sticky; top: 20px; align-self: start; }
+        .f-y { font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 3.4rem; line-height: 1; letter-spacing: 2px; font-variant-numeric: tabular-nums; }
+        .f-y.small { font-size: 2.2rem; }
+        .f-cnt { margin-top: 10px; font-size: 0.78rem; letter-spacing: 1px; line-height: 1.8; }
+        .f-cnt span { display: flex; justify-content: space-between; border-bottom: 1px dashed rgba(75,72,63,0.35); }
+        .f-note { font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; opacity: 0.7; margin-top: 10px; }
+        .f-body { display: flex; flex-direction: column; gap: 20px; min-width: 0; }
+        .f-recs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 26px; border: 1px solid var(--text-color); background: rgba(255,255,255,0.25); padding: 6px 16px; position: relative; }
+        .f-recs::before { content: attr(data-label); position: absolute; top: -11px; left: 12px; background: var(--bg-color); padding: 0 8px; font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; letter-spacing: 1px; font-weight: 700; }
+        .f-rec { display: grid; grid-template-columns: 40px 92px minmax(0, 1fr); gap: 8px; align-items: baseline; padding: 7px 0; border-bottom: 1px dashed rgba(75,72,63,0.3); font-size: 0.92rem; line-height: 1.4; }
+        .f-rec .d { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; opacity: 0.7; }
+        .f-rec .t { justify-self: start; }
+        .f-rec .s { opacity: 0.75; }
+        .f-rec a { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; }
+
+        @media (max-width: 1200px) {
+            .f-recs { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 900px) {
+            .f-band { grid-template-columns: 1fr; gap: 14px; }
+            .f-year { position: static; display: flex; align-items: baseline; gap: 16px; flex-wrap: wrap; }
+            .f-cnt { margin-top: 0; display: flex; gap: 12px; flex-wrap: wrap; }
+            .f-cnt span { border: none; gap: 6px; }
+            .f-rec { grid-template-columns: 40px minmax(0, 1fr); }
+            .f-rec .t { display: none; }
+        }

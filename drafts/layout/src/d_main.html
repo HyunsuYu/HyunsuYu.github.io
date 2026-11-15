@@ -1,0 +1,54 @@
+        <div class="d-bar mono"><span id="d-crumb">SYSTEM / PROFILE</span><span class="d-keys">[1–4] SWITCH SCREEN</span></div>
+
+        <!-- SCREEN 1 : PROFILE -->
+        <section class="d-screen" id="scr-profile">
+            <h2 class="section-title glitch-effect">Profile</h2>
+            <div class="hero d-hero">
+                <h3>"Continuous Learner with Strong Research Background"</h3>
+                <p>Computer Engineering 4th Grade Student focusing on Gameplay, Graphics, and Low-level Optimization.</p>
+                <div class="hero-stats mono d-stats">
+                    <div class="stat-box"><h3>Papers</h3><p>3 · 1st Author (Sole)</p></div>
+                    <div class="stat-box"><h3>Awards</h3><p>9 · 최우수상 ×2</p></div>
+                    <div class="stat-box"><h3>Book</h3><p>222p · ISBN</p></div>
+                    <div class="stat-box"><h3>Tech Blog</h3><p>6+ Years</p></div>
+                </div>
+                <div class="d-quick mono">
+                    <a href="https://drive.google.com/file/d/1b8B8hxHrjDdUNfaZbA_s2uN_0eMjxowI/view?usp=sharing" target="_blank">[VIEW FULL PORTFOLIO DOC]</a>
+                    <a href="assets/papers/GraduationThesis.pdf" target="_blank">[THESIS PDF]</a>
+                    <a href="https://github.com/HyunsuYu" target="_blank">[GITHUB]</a>
+                </div>
+            </div>
+            <h3 class="sub-title">Spotlight</h3>
+            <div class="c-grid c-grid-3" id="d-spot"></div>
+            <h3 class="sub-title">Latest Log</h3>
+            <div id="d-latest"></div>
+            <a href="javascript:showScreen('records')" class="mono d-go">[OPEN RECORDS &gt;&gt;]</a>
+        </section>
+
+        <!-- SCREEN 2 : WORKS -->
+        <section class="d-screen" id="scr-works">
+            <h2 class="section-title glitch-effect">Works</h2>
+            <div class="chip-bar" id="d-work-chips">
+                <button class="chip active" data-f="ALL">ALL<span class="chip-n">8</span></button>
+                <button class="chip" data-f="GFX">GRAPHICS · ENGINE<span class="chip-n">2</span></button>
+                <button class="chip" data-f="TOOLS">TOOLS · WRITING<span class="chip-n">2</span></button>
+                <button class="chip" data-f="GAME">GAMES<span class="chip-n">4</span></button>
+            </div>
+            <div id="d-works"></div>
+        </section>
+
+        <!-- SCREEN 3 : RECORDS (category / list / detail) -->
+        <section class="d-screen" id="scr-records">
+            <h2 class="section-title glitch-effect">Records</h2>
+            <div class="d-md">
+                <div class="d-pane d-cats" id="d-cats"></div>
+                <div class="d-pane d-list" id="d-list"></div>
+                <div class="d-pane d-detail" id="d-detail"></div>
+            </div>
+        </section>
+
+        <!-- SCREEN 4 : SKILLS + CONTACT -->
+        <section class="d-screen" id="scr-contact">
+            {{SECTION:skills}}
+            {{SECTION:contact}}
+        </section>

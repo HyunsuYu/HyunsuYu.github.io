@@ -1,0 +1,168 @@
+        <!-- 0. ABOUT (summary) -->
+        <section id="about">
+            <h2 class="section-title glitch-effect">About Me</h2>
+            <div class="hero">
+                <h3 style="font-size: 1.5rem; margin-bottom: 10px;">"Continuous Learner with Strong Research Background"</h3>
+                <p>Computer Engineering 4th Grade Student focusing on Gameplay, Graphics, and Low-level Optimization.</p>
+                <div class="hero-stats mono a-stats">
+                    <div class="stat-box"><h3>Papers</h3><p>3 · 1st Author (Sole)</p></div>
+                    <div class="stat-box"><h3>Awards</h3><p>9 · incl. 최우수상 ×2</p></div>
+                    <div class="stat-box"><h3>Book</h3><p>222p · ISBN Published</p></div>
+                    <div class="stat-box"><h3>Tech Blog</h3><p>6+ Years</p></div>
+                </div>
+                <div class="a-quick mono">
+                    <a href="assets/papers/GraduationThesis.pdf" target="_blank">[THESIS PDF]</a>
+                    <a href="https://github.com/HyunsuYu" target="_blank">[GITHUB]</a>
+                    <a href="https://medium.com/@lioie6478" target="_blank">[BLOG]</a>
+                    <a href="https://drive.google.com/file/d/1b8B8hxHrjDdUNfaZbA_s2uN_0eMjxowI/view?usp=sharing" target="_blank">[PORTFOLIO DOC]</a>
+                    <a href="draft-a-archive.html">[FULL ARCHIVE &gt;&gt;]</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1. FEATURED (2x2 compact) -->
+        <section id="featured">
+            <h2 class="section-title glitch-effect">Featured Project</h2>
+            <div class="a-feat-grid">
+                <article class="project-card a-fcard" onclick="openModal('meshshader')">
+                    <div class="project-header"><span class="project-title">DX12 Meshlet × IA Hybrid Rendering ⭐</span><span class="mono">2025.12 ~ 2026.11</span></div>
+                    <div class="a-fbody">
+                        <p>B.S. graduation thesis. A DX12 renderer that picks the IA or Mesh Shader path per mesh group at runtime and mixes both in the same frame.</p>
+                        <div class="highlight-stat mono"><p>&gt; GPU Scene −15.83% vs IA · −3.01% vs MS</p></div>
+                        <p class="a-fmeta mono">SOLE RESEARCH / FIRST AUTHOR · GRADUATION THESIS</p>
+                        <div class="project-links">
+                            <a href="assets/papers/GraduationThesis.pdf" target="_blank" onclick="event.stopPropagation()">[THESIS]</a>
+                            <a href="https://github.com/HyunsuYu/D3D12-Meshlet-Sample" target="_blank" onclick="event.stopPropagation()">[GITHUB]</a>
+                        </div>
+                    </div>
+                </article>
+                <article class="project-card a-fcard" onclick="openModal('mapgen')">
+                    <div class="project-header"><span class="project-title">Massive Map Generation ⭐</span><span class="mono">2023.07 ~ 2024.06</span></div>
+                    <div class="a-fbody">
+                        <p>Large-scale tilemap generation with partitioned parallel computation, an external agent process, and 2-channel PNG storage.</p>
+                        <div class="highlight-stat mono"><p>&gt; 270M tiles · host 51.26 FPS · 270 MB → 14.6 MB</p></div>
+                        <p class="a-fmeta mono">SOLO DEV · PAPER (KMMS 2026, 1ST AUTHOR)</p>
+                        <div class="project-links">
+                            <a href="assets/papers/MapGenPaper.pdf" target="_blank" onclick="event.stopPropagation()">[PAPER]</a>
+                            <a href="https://github.com/HyunsuYu/LayeredMapGenAgent.git" target="_blank" onclick="event.stopPropagation()">[GITHUB]</a>
+                        </div>
+                    </div>
+                </article>
+                <article class="project-card a-fcard" onclick="openModal('visualwave')">
+                    <div class="project-header"><span class="project-title">Visual Wave : VN Framework ⭐</span><span class="mono">2025.05 ~ Present</span></div>
+                    <div class="a-fbody">
+                        <p>VN authoring framework on a frame-state execution model — engine-independent core, per-engine runtime and a VS Code LSP.</p>
+                        <div class="highlight-stat mono"><p>&gt; 대사 1자당 30.0B → 4.7B · 상태 중복률 85.4% → 0%</p></div>
+                        <p class="a-fmeta mono">SOLE RESEARCH · PAPER (KMMS 2026, 1ST AUTHOR)</p>
+                        <div class="project-links">
+                            <a href="assets/papers/VisualWavePaper.pdf" target="_blank" onclick="event.stopPropagation()">[PAPER]</a>
+                            <a href="https://galvanized-soda-726.notion.site/Visual-Wave-2e315b43f51680ab8ce9d32b5c43773d" target="_blank" onclick="event.stopPropagation()">[DOC]</a>
+                        </div>
+                    </div>
+                </article>
+                <article class="project-card a-fcard" onclick="openModal('book')">
+                    <div class="project-header"><span class="project-title">More Deeper C++</span><span class="mono">Published 2026.07.30</span></div>
+                    <div class="a-fbody">
+                        <p>Advanced C++ textbook bridging high-level syntax and low-level hardware behavior. Used for a paid one-semester course.</p>
+                        <div class="highlight-stat mono"><p>&gt; 222p · ISBN 979-11-438-1468-5 · 8 stores</p></div>
+                        <p class="a-fmeta mono">WRITER / INSTRUCTOR · PUBLISHED</p>
+                        <div class="project-links">
+                            <a href="https://www.yes24.com/product/goods/194190987" target="_blank" onclick="event.stopPropagation()">[YES24]</a>
+                            <a href="https://ebook-product.kyobobook.co.kr/dig/epd/ebook/E000013305174" target="_blank" onclick="event.stopPropagation()">[교보문고]</a>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- 2. GAMES (compact rows) -->
+        <section id="projects">
+            <h2 class="section-title glitch-effect">Game Projects</h2>
+            <div class="a-games">
+                <article class="a-grow" onclick="openModal('hearts')">
+                    <img src="assets/thumbs/drive/1ePXQdvfpJ-jz0Ko8x81mW4Go-GG6Lcbv.jpg" alt="" loading="lazy">
+                    <div><div class="a-gtitle">마음을 담아 ⭐</div><div class="a-gdesc">Oriental word puzzle / visual novel — complete sentences to find hidden meanings.</div></div>
+                    <div class="mono a-gmeta">PROGRAMMER<br>TEAM 5 · 2025.05~</div>
+                    <div class="a-gtags"><span class="tag-inv">★ 최우수상</span><span class="tag-line">G-STAR</span><span class="tag-line">COMIC WORLD</span></div>
+                </article>
+                <article class="a-grow" onclick="openModal('alcoholfree')">
+                    <img src="https://hyunsuyu.github.io/ALCOHOL-FREE/src/%EC%95%95%EC%83%9D%ED%8A%B8%20%EC%BB%B7%EC%94%AC.png" onerror="this.onerror=null;this.src='assets/thumbs/drive/1gaCl93bfKaSHVaSoRmW0L_XcZ1P5kwGa.jpg'" alt="" loading="lazy">
+                    <div><div class="a-gtitle">ALCOHOL FREE ⭐</div><div class="a-gdesc">Visual novel on STOVE — custom blueprint-style editor and the whole game system.</div></div>
+                    <div class="mono a-gmeta">PROGRAMMER<br>TEAM 7 · 2025.05~12</div>
+                    <div class="a-gtags"><span class="tag-inv">★ 우수상</span><span class="tag-inv">장려상</span><span class="tag-line">STOVE</span></div>
+                </article>
+                <article class="a-grow" onclick="openModal('rgbline')">
+                    <img src="assets/thumbs/drive/1AQPQjfcLk8uUyBBZdREkdSsu9lpCmZwS.jpg" alt="" loading="lazy">
+                    <div><div class="a-gtitle">RGB Line</div><div class="a-gdesc">Rhythm game — lead programmer, auto-documentation pipeline and core lib API docs.</div></div>
+                    <div class="mono a-gmeta">LEAD PROGRAMMER<br>TEAM 4 · 2024.12~2025.12</div>
+                    <div class="a-gtags"><span class="tag-inv">장려상</span><span class="tag-line">G-STAR</span><span class="tag-line">BUILD 051</span></div>
+                </article>
+                <article class="a-grow" onclick="openModal('fins')">
+                    <img src="assets/thumbs/fins/surface.jpg" alt="" loading="lazy">
+                    <div><div class="a-gtitle">FINS</div><div class="a-gdesc">Growth-based underwater action — lens flare, caustics and 2D underwater lighting.</div></div>
+                    <div class="mono a-gmeta">PROGRAMMER<br>TEAM 5 · 2026.10</div>
+                    <div class="a-gtags"><span class="tag-line">GAME JAM · 3 DAYS</span></div>
+                </article>
+            </div>
+            <p class="mono a-more">OTHER WORKS — Ever Check · 냥냥대난투 · Cross Wordle · 포우포우 위치 · UDE-B91 · Still Alive · NATAKER <a href="draft-a-archive.html">[ARCHIVE &gt;&gt;]</a></p>
+        </section>
+
+        <!-- 3. SELECTED RECORDS -->
+        <section id="records">
+            <h2 class="section-title glitch-effect">Selected Records</h2>
+            <div class="a-sel">
+                <div class="a-sel-row"><span class="tag-inv">AWARD</span><div><strong>TU Game Challenge 2025 — 최우수상 ×2</strong><span class="a-sel-sub">마음을 담아 · Cross Wordle</span></div></div>
+                <div class="a-sel-row"><span class="tag-inv">AWARD</span><div><strong>Chair of IEEE Busan Section 2025 — Excellence Award</strong><span class="a-sel-sub">Cross Wordle</span></div></div>
+                <div class="a-sel-row"><span class="tag-inv">AWARD</span><div><strong>TU Game Challenge 2026 — 우수상 (IEEE Track) · 장려상 ×2</strong><span class="a-sel-sub">Ever Check · ALCOHOL FREE · 냥냥대난투</span></div></div>
+                <div class="a-sel-row"><span class="tag-inv">INDUSTRY</span><div><strong>Square Enix 前 프로듀서 피드백 · Toei 퍼블리싱 제안</strong><span class="a-sel-sub">G-Star 2025 출품작 대상 <a href="javascript:openModal('square_enix')" class="timeline-link">[SQUARE ENIX]</a> <a href="javascript:openModal('toei')" class="timeline-link">[TOEI]</a></span></div></div>
+                <div class="a-sel-row"><span class="tag-inv">EXHIBIT</span><div><strong>전시 7회 — G-Star 2025, BEAVER ROCKS, Comic World (Pleedus) 외</strong><span class="a-sel-sub">ALCOHOL FREE · 마음을 담아 · RGB Line · Cross Wordle</span></div></div>
+                <div class="a-sel-row"><span class="tag-inv">ORGANIZE</span><div><strong>GAME OVER? 2026 — 운영총괄</strong><span class="a-sel-sub"><a href="https://game-dev-conference-gameover.github.io/GAMEOVER_Homepage/2026/" target="_blank" class="timeline-link">[GAME OVER?]</a></span></div></div>
+                <div class="a-sel-row"><span class="tag-inv">SCHOLAR</span><div><strong>부산지역인재장학 2학기 연속 (25-2 · 26-1) · SW분야우수인재장학</strong></div></div>
+            </div>
+            <a href="draft-a-archive.html" class="a-archive-btn mono">[ VIEW FULL ARCHIVE — <span id="a-rec-count">60+</span> RECORDS &gt;&gt; ]</a>
+        </section>
+
+        <!-- 4. RESEARCH (publication list) -->
+        <section id="research">
+            <h2 class="section-title glitch-effect">Research &amp; Writing</h2>
+            <div class="a-pubs">
+                <div class="a-pub a-pub-hl">
+                    <img src="assets/thumbs/papers/thesis-fig1-architecture.jpg" alt="" loading="lazy" onclick="openModal('meshshader')">
+                    <div>
+                        <div class="a-pub-title">DirectX 12 Meshlet과 IA 기반의 하이브리드 렌더링 파이프라인 구현</div>
+                        <div class="a-pub-venue">2026 학사학위 졸업논문 · 동명대학교 컴퓨터공학과 · <strong>제1저자·단독</strong></div>
+                        <div class="a-pub-links mono"><a href="assets/papers/GraduationThesis.pdf" target="_blank">[THESIS]</a> <a href="javascript:openModal('meshshader')">[PROJECT]</a></div>
+                        <p>메시 그룹별 IA / Mesh Shader 경로 선택으로 두 단일 경로를 모두 앞선 유일한 선택기 (GPU Scene −15.83% / −3.01%).</p>
+                    </div>
+                </div>
+                <div class="a-pub">
+                    <img src="assets/thumbs/papers/mapgen-fig1-framework.jpg" alt="" loading="lazy" onclick="openModal('mapgen')">
+                    <div>
+                        <div class="a-pub-title">계층적 임의 보행 기반 대규모 타일맵 생성 알고리즘과 호스트 반응성을 위한 실행 전략</div>
+                        <div class="a-pub-venue">한국멀티미디어학회 2026 추계학술발표대회 제29권 2호 · 포스터 · <strong>제1저자·단독</strong></div>
+                        <div class="a-pub-links mono"><a href="assets/papers/MapGenPaper.pdf" target="_blank">[PAPER]</a> <a href="javascript:openModal('mapgen')">[PROJECT]</a></div>
+                    </div>
+                </div>
+                <div class="a-pub">
+                    <img src="assets/thumbs/papers/vw-framework.jpg" alt="" loading="lazy" onclick="openModal('visualwave')">
+                    <div>
+                        <div class="a-pub-title">프레임-스테이트 실행 모델 기반 비주얼 노벨 저작 프레임워크</div>
+                        <div class="a-pub-venue">한국멀티미디어학회 2026 추계학술발표대회 제29권 2호 · 포스터 · <strong>제1저자·단독</strong></div>
+                        <div class="a-pub-links mono"><a href="assets/papers/VisualWavePaper.pdf" target="_blank">[PAPER]</a> <a href="javascript:openModal('visualwave')">[PROJECT]</a></div>
+                    </div>
+                </div>
+                <div class="a-pub">
+                    <img src="assets/thumbs/drive/1hL3dtbTbEqQsb75rJ8j2BDkalzJNm7Td.jpg" alt="" loading="lazy" onclick="openModal('book')" style="object-position: top;">
+                    <div>
+                        <div class="a-pub-title">More Deeper C++ Programming Language</div>
+                        <div class="a-pub-venue">기술 서적 · 단독 저자 · 222p · ISBN 979-11-438-1468-5 · 2026.07.30 출간</div>
+                        <div class="a-pub-links mono"><a href="https://www.yes24.com/product/goods/194190987" target="_blank">[YES24]</a> <a href="javascript:openModal('cs_course')">[COURSE]</a> <a href="javascript:openModal('book')">[DETAIL]</a></div>
+                    </div>
+                </div>
+            </div>
+            <p class="mono a-more">TECH BLOG (6+ YEARS) — Graphics · Optimization (NUMA, SIMD, Cache) · Computer Architecture <a href="https://medium.com/@lioie6478" target="_blank">[MEDIUM]</a> <a href="https://medium.com/more-deeper-c-programming-language" target="_blank">[PUBLICATION]</a></p>
+        </section>
+
+        {{SECTION:skills}}
+
+        {{SECTION:contact}}
