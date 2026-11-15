@@ -997,8 +997,30 @@
         .d-dtitle { font-size: 1.45rem; font-weight: 700; line-height: 1.3; }
         .d-dsub { font-size: 1rem; opacity: 0.85; }
         .d-dlinks a { font-family: 'Share Tech Mono', monospace; }
-        .d-related { margin-top: 8px; }
-        .d-related .c-tile { max-width: 340px; }
+        .d-folder {
+            display: flex; flex-direction: column; gap: 4px; width: 100%; text-align: left; cursor: pointer; background: transparent; color: var(--text-color);
+            border: none; border-bottom: 1px dashed rgba(75,72,63,0.35); padding: 11px 12px 10px; font-family: 'Rajdhani', 'Noto Sans KR', sans-serif;
+        }
+        .d-folder:hover { background: var(--modal-bg); }
+        .d-folder.active { background: var(--text-color); color: var(--bg-color); }
+        .d-fhead { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+        .d-fname { font-weight: 700; font-size: 1.02rem; line-height: 1.3; }
+        .d-fname::before { content: '▸ '; opacity: 0.6; }
+        .d-folder.active .d-fname::before { content: '▾ '; opacity: 1; }
+        .d-fcount { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; border: 1px solid currentColor; padding: 0 6px; flex: none; }
+        .d-fmeta { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 6px; padding-left: 14px; }
+        .d-fmeta .dd { font-family: 'Share Tech Mono', monospace; font-size: 0.78rem; opacity: 0.75; margin-right: 4px; }
+        .d-ft { font-family: 'Share Tech Mono', monospace; font-size: 0.68rem; letter-spacing: 1px; border: 1px solid currentColor; padding: 0 5px; opacity: 0.8; }
+        .d-ft-w { border-style: dashed; }
+        .d-entries { display: flex; flex-direction: column; }
+        .d-entry { display: grid; grid-template-columns: 44px 96px minmax(0, 1fr); gap: 8px; align-items: baseline; padding: 8px 0; border-bottom: 1px dashed rgba(75,72,63,0.3); }
+        .d-entry .dd { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; opacity: 0.7; }
+        .d-entry .tag-inv, .d-entry .tag-line { justify-self: start; }
+        .d-entry:not(.match) { opacity: 0.72; }
+        .d-esub { opacity: 0.8; font-size: 0.93rem; }
+        .d-entry .d-dlinks a { font-size: 0.82rem; }
+        .d-related { margin-top: 8px; display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+        .d-related .c-info h3 { font-size: 1rem; }
         .d-empty { opacity: 0.6; font-family: 'Share Tech Mono', monospace; font-size: 0.85rem; }
 
         #scr-contact #skills .section-title, #scr-contact #contact .section-title { margin-top: 26px; }
@@ -2179,84 +2201,126 @@ const RECORD_SHORT = {
 
 const RECORDS = [
     // --- AWARDS ---
-    { d: '2026.10', cat: 'AWARD', hl: true, t: 'TU Game Challenge 2026 — 우수상 (IEEE Track)', s: 'Ever Check' },
-    { d: '2026.10', cat: 'AWARD', t: 'TU Game Challenge 2026 — 장려상', s: 'ALCOHOL FREE', l: [['m', 'alcoholfree', 'ALCOHOL FREE']] },
-    { d: '2026.10', cat: 'AWARD', t: 'TU Game Challenge 2026 — 장려상', s: '냥냥대난투' },
-    { d: '2026.06', cat: 'AWARD', t: 'B-Contents 경진대회 2026 — 우수상', s: 'DEEP FALL', l: [['m', 'b_contents_competition', 'B-Contents']] },
-    { d: '2025.10', cat: 'AWARD', hl: true, t: 'TU Game Challenge 2025 — 최우수상', s: '마음을 담아', l: [['m', 'hearts', '마음을 담아'], ['u', 'https://sway.cloud.microsoft/4PpAiwGK3vnc9XkW?ref=Link', 'TU GC 2025']] },
-    { d: '2025.10', cat: 'AWARD', hl: true, t: 'TU Game Challenge 2025 — 최우수상', s: 'Cross Wordle' },
-    { d: '2025.10', cat: 'AWARD', t: 'TU Game Challenge 2025 — 우수상', s: 'ALCOHOL FREE', l: [['m', 'alcoholfree', 'ALCOHOL FREE']] },
-    { d: '2025.10', cat: 'AWARD', t: 'TU Game Challenge 2025 — 장려상', s: 'RGB Line', l: [['m', 'rgbline', 'RGB Line']] },
-    { d: '2025',    cat: 'AWARD', hl: true, t: 'Chair of IEEE Busan Section 2025 — Excellence Award', s: 'Cross Wordle' },
+    { d: '2026.10', cat: 'AWARD', g: 'tugc2026', hl: true, t: 'TU Game Challenge 2026 — 우수상 (IEEE Track)', s: 'Ever Check' },
+    { d: '2026.10', cat: 'AWARD', g: 'tugc2026', t: 'TU Game Challenge 2026 — 장려상', s: 'ALCOHOL FREE', l: [['m', 'alcoholfree', 'ALCOHOL FREE']] },
+    { d: '2026.10', cat: 'AWARD', g: 'tugc2026', t: 'TU Game Challenge 2026 — 장려상', s: '냥냥대난투' },
+    { d: '2026.06', cat: 'AWARD', g: 'bcontents2026', t: 'B-Contents 경진대회 2026 — 우수상', s: 'DEEP FALL', l: [['m', 'b_contents_competition', 'B-Contents']] },
+    { d: '2025.10', cat: 'AWARD', g: 'tugc2025', hl: true, t: 'TU Game Challenge 2025 — 최우수상', s: '마음을 담아', l: [['m', 'hearts', '마음을 담아'], ['u', 'https://sway.cloud.microsoft/4PpAiwGK3vnc9XkW?ref=Link', 'TU GC 2025']] },
+    { d: '2025.10', cat: 'AWARD', g: 'tugc2025', hl: true, t: 'TU Game Challenge 2025 — 최우수상', s: 'Cross Wordle' },
+    { d: '2025.10', cat: 'AWARD', g: 'tugc2025', t: 'TU Game Challenge 2025 — 우수상', s: 'ALCOHOL FREE', l: [['m', 'alcoholfree', 'ALCOHOL FREE']] },
+    { d: '2025.10', cat: 'AWARD', g: 'tugc2025', t: 'TU Game Challenge 2025 — 장려상', s: 'RGB Line', l: [['m', 'rgbline', 'RGB Line']] },
+    { d: '2025',    cat: 'AWARD', g: 'ieee2025', hl: true, t: 'Chair of IEEE Busan Section 2025 — Excellence Award', s: 'Cross Wordle' },
 
     // --- EXHIBITIONS ---
-    { d: '2026.06', cat: 'EXHIBIT', t: 'Build 051 2026' },
-    { d: '2026.04', cat: 'EXHIBIT', t: '부산 게임 개발자 컨퍼런스 2026', s: 'ALCOHOL FREE, 마음을 담아', l: [['m', 'busan_game_dev_conf', '부산 게임 개발자 컨퍼런스']] },
-    { d: '2025.12', cat: 'EXHIBIT', t: 'Comic World 2025', s: 'Pleedus Partnership Booth (ALCOHOL FREE, 마음을 담아)', l: [['u', 'https://www.tu.ac.kr/gart/sub05_05.do?mode=view&articleNo=144323', 'Comic World 2025']] },
-    { d: '2025.12', cat: 'EXHIBIT', t: 'TU RISE ALL FESTA 2025', s: 'ALCOHOL FREE, 마음을 담아', l: [['u', 'https://www.tu.ac.kr/gart/sub05_05.do?mode=view&articleNo=143632&title=RISE+ALL+FESTA+%EC%9E%91%ED%92%88+%EC%B6%9C%ED%92%88+%EB%B0%8F+%EC%A0%84%EC%8B%9C', 'RISE ALL FESTA']] },
-    { d: '2025.12', cat: 'EXHIBIT', t: 'BEAVER ROCKS 2025', s: 'ALCOHOL FREE', l: [['u', 'https://beaverrocks.com/BeaverRocks2025-game', 'BEAVER ROCKS']] },
-    { d: '2025.11', cat: 'EXHIBIT', hl: true, t: 'G-Star 2025', s: 'ALCOHOL FREE, 마음을 담아, RGB Line, Cross Wordle', l: [['u', 'https://sway.cloud.microsoft/JPasLtlByjTwysGH?ref=email&loc=play', 'G-Star 2025']] },
-    { d: '2025.06', cat: 'EXHIBIT', t: 'Build 051 2025', s: 'RGB Line', l: [['u', 'https://build051.org/', 'Build 051']] },
+    { d: '2026.06', cat: 'EXHIBIT', g: 'build0512026', t: 'Build 051 2026' },
+    { d: '2026.04', cat: 'EXHIBIT', g: 'bgdc2026', t: '부산 게임 개발자 컨퍼런스 2026', s: 'ALCOHOL FREE, 마음을 담아', l: [['m', 'busan_game_dev_conf', '부산 게임 개발자 컨퍼런스']] },
+    { d: '2025.12', cat: 'EXHIBIT', g: 'comicworld2025', t: 'Comic World 2025', s: 'Pleedus Partnership Booth (ALCOHOL FREE, 마음을 담아)', l: [['u', 'https://www.tu.ac.kr/gart/sub05_05.do?mode=view&articleNo=144323', 'Comic World 2025']] },
+    { d: '2025.12', cat: 'EXHIBIT', g: 'rise2025', t: 'TU RISE ALL FESTA 2025', s: 'ALCOHOL FREE, 마음을 담아', l: [['u', 'https://www.tu.ac.kr/gart/sub05_05.do?mode=view&articleNo=143632&title=RISE+ALL+FESTA+%EC%9E%91%ED%92%88+%EC%B6%9C%ED%92%88+%EB%B0%8F+%EC%A0%84%EC%8B%9C', 'RISE ALL FESTA']] },
+    { d: '2025.12', cat: 'EXHIBIT', g: 'beaver2025', t: 'BEAVER ROCKS 2025', s: 'ALCOHOL FREE', l: [['u', 'https://beaverrocks.com/BeaverRocks2025-game', 'BEAVER ROCKS']] },
+    { d: '2025.11', cat: 'EXHIBIT', g: 'gstar2025', hl: true, t: 'G-Star 2025', s: 'ALCOHOL FREE, 마음을 담아, RGB Line, Cross Wordle', l: [['u', 'https://sway.cloud.microsoft/JPasLtlByjTwysGH?ref=email&loc=play', 'G-Star 2025']] },
+    { d: '2025.06', cat: 'EXHIBIT', g: 'build0512025', t: 'Build 051 2025', s: 'RGB Line', l: [['u', 'https://build051.org/', 'Build 051']] },
 
     // --- PUBLICATIONS ---
-    { d: '2026.11', cat: 'PUB', hl: true, t: 'DirectX 12 Meshlet과 IA 기반의 하이브리드 렌더링 파이프라인 구현', s: '학사학위 졸업논문 · 제1저자·단독', l: [['u', 'assets/papers/GraduationThesis.pdf', 'THESIS'], ['m', 'meshshader', 'Hybrid Rendering']] },
-    { d: '2026.10', cat: 'PUB', hl: true, t: '계층적 임의 보행 기반 대규모 타일맵 생성 알고리즘과 호스트 반응성을 위한 실행 전략', s: '한국멀티미디어학회 추계학술발표대회 제29권 2호 · 포스터 · 제1저자·단독', l: [['u', 'assets/papers/MapGenPaper.pdf', 'PAPER'], ['m', 'mapgen', 'Massive Map Gen']] },
-    { d: '2026.10', cat: 'PUB', hl: true, t: '프레임-스테이트 실행 모델 기반 비주얼 노벨 저작 프레임워크', s: '한국멀티미디어학회 추계학술발표대회 제29권 2호 · 포스터 · 제1저자·단독', l: [['u', 'assets/papers/VisualWavePaper.pdf', 'PAPER'], ['m', 'visualwave', 'Visual Wave']] },
-    { d: '2026.07', cat: 'PUB', hl: true, t: 'More Deeper C++ Programming Language 출간', s: '기술 서적 · 단독 저자 · 222p · ISBN 979-11-438-1468-5', l: [['u', 'https://www.yes24.com/product/goods/194190987', 'YES24'], ['m', 'book', 'Book']] },
+    { d: '2026.11', cat: 'PUB', g: 'thesis', hl: true, t: 'DirectX 12 Meshlet과 IA 기반의 하이브리드 렌더링 파이프라인 구현', s: '학사학위 졸업논문 · 제1저자·단독', l: [['u', 'assets/papers/GraduationThesis.pdf', 'THESIS'], ['m', 'meshshader', 'Hybrid Rendering']] },
+    { d: '2026.10', cat: 'PUB', g: 'kmms2026', hl: true, t: '계층적 임의 보행 기반 대규모 타일맵 생성 알고리즘과 호스트 반응성을 위한 실행 전략', s: '한국멀티미디어학회 추계학술발표대회 제29권 2호 · 포스터 · 제1저자·단독', l: [['u', 'assets/papers/MapGenPaper.pdf', 'PAPER'], ['m', 'mapgen', 'Massive Map Gen']] },
+    { d: '2026.10', cat: 'PUB', g: 'kmms2026', hl: true, t: '프레임-스테이트 실행 모델 기반 비주얼 노벨 저작 프레임워크', s: '한국멀티미디어학회 추계학술발표대회 제29권 2호 · 포스터 · 제1저자·단독', l: [['u', 'assets/papers/VisualWavePaper.pdf', 'PAPER'], ['m', 'visualwave', 'Visual Wave']] },
+    { d: '2026.07', cat: 'PUB', g: 'book', hl: true, t: 'More Deeper C++ Programming Language 출간', s: '기술 서적 · 단독 저자 · 222p · ISBN 979-11-438-1468-5', l: [['u', 'https://www.yes24.com/product/goods/194190987', 'YES24'], ['m', 'book', 'Book']] },
 
     // --- TALKS / ORGANIZING ---
-    { d: '2026',    cat: 'TALK', hl: true, t: 'GAME OVER? 2026 — 운영총괄 (Operations Director)', l: [['u', 'https://game-dev-conference-gameover.github.io/GAMEOVER_Homepage/2026/', 'GAME OVER?']] },
-    { d: '2026.05', cat: 'TALK', t: 'Unite Seoul 2026 — 연사 최종 심사 진출', s: 'Massive Map Generation System', l: [['m', 'unite_2026', 'Unite 2026']] },
-    { d: '2024.08', cat: 'TALK', t: 'Security-One 포럼 연사', s: 'Row Hammer', l: [['u', 'https://www.facebook.com/seoneforum/?locale=ko_KR', 'Security-One']] },
+    { d: '2026',    cat: 'TALK', g: 'gameover2026', hl: true, t: 'GAME OVER? 2026 — 운영총괄 (Operations Director)', l: [['u', 'https://game-dev-conference-gameover.github.io/GAMEOVER_Homepage/2026/', 'GAME OVER?']] },
+    { d: '2026.05', cat: 'TALK', g: 'unite2026', t: 'Unite Seoul 2026 — 연사 최종 심사 진출', s: 'Massive Map Generation System', l: [['m', 'unite_2026', 'Unite 2026']] },
+    { d: '2024.08', cat: 'TALK', g: 'secone2024', t: 'Security-One 포럼 연사', s: 'Row Hammer', l: [['u', 'https://www.facebook.com/seoneforum/?locale=ko_KR', 'Security-One']] },
 
     // --- INDUSTRY RECOGNITION ---
-    { d: '2025.11', cat: 'RECOG', hl: true, t: 'Square Enix — SAITA Tomonori (Former Producer) 피드백', s: 'ALCOHOL FREE, 마음을 담아, RGB Line @ G-Star 2025', l: [['m', 'square_enix', 'Square Enix']] },
-    { d: '2025.11', cat: 'RECOG', hl: true, t: 'Toei Company — KATO (Game Advisor) 퍼블리싱 제안', s: 'ALCOHOL FREE, 마음을 담아, RGB Line @ G-Star 2025', l: [['m', 'toei', 'Toei']] },
-    { d: '2025.12', cat: 'RECOG', t: 'Pleedus — Exhibition Partnership', s: 'ALCOHOL FREE, 마음을 담아 @ Comic World 2025', l: [['m', 'pleedus', 'Pleedus']] },
+    { d: '2025.11', cat: 'RECOG', g: 'gstar2025', hl: true, t: 'Square Enix — SAITA Tomonori (Former Producer) 피드백', s: 'ALCOHOL FREE, 마음을 담아, RGB Line @ G-Star 2025', l: [['m', 'square_enix', 'Square Enix']] },
+    { d: '2025.11', cat: 'RECOG', g: 'gstar2025', hl: true, t: 'Toei Company — KATO (Game Advisor) 퍼블리싱 제안', s: 'ALCOHOL FREE, 마음을 담아, RGB Line @ G-Star 2025', l: [['m', 'toei', 'Toei']] },
+    { d: '2025.12', cat: 'RECOG', g: 'comicworld2025', t: 'Pleedus — Exhibition Partnership', s: 'ALCOHOL FREE, 마음을 담아 @ Comic World 2025', l: [['m', 'pleedus', 'Pleedus']] },
 
     // --- MEDIA ---
-    { d: '2026.04', cat: 'MEDIA', t: '제8회 부산 게임개발자 컨퍼런스 참가 및 작품 출품', s: '마음을 담아, ALCOHOL FREE', l: [['u', 'https://www.tu.ac.kr/gart/sub05_05.do?mode=view&articleNo=150666', 'ARTICLE']] },
-    { d: '2025',    cat: 'MEDIA', t: '今年のG-Starはどうだったか？ (KATO 기고)', s: '마음을 담아 소개', l: [['u', 'https://sqool.net/report/archive/gstar2025-report.html', 'ARTICLE']] },
-    { d: '2025',    cat: 'MEDIA', t: 'TU 게임 챌린지 특별호', s: '마음을 담아, ALCOHOL FREE, RGB Line, Cross Wordle', l: [['u', 'https://sway.cloud.microsoft/4PpAiwGK3vnc9XkW?ref=Link', 'ARTICLE']] },
-    { d: '2025',    cat: 'MEDIA', t: "동명대 게임학부 '25-4분기 (G-Star 2025)", l: [['u', 'https://sway.cloud.microsoft/JPasLtlByjTwysGH?ref=email&loc=play', 'ARTICLE']] },
-    { d: '2024.09', cat: 'MEDIA', t: 'Microsoft Game Dev Community — Question of the Week', s: '"What was your biggest game development challenge?" 답변 소개', l: [['u', 'https://developer.microsoft.com/en-us/games/articles/2024/09/community-question-of-the-week-9624/#:~:text=a%20learning%20experience.%E2%80%9D-,Hyunsu%20Yu,-%2C%20college%20Game', 'ARTICLE']] },
-    { d: '',        cat: 'MEDIA', t: 'The .NET News Daily Issue #313', s: 'C# — Unique behavior when passing array and list objects as parameters', l: [['u', 'https://dotnetnews.co/archive/the-net-news-daily-issue-313/?8utm_source=medium&utm_medium=comment', 'ARTICLE']] },
+    { d: '2026.04', cat: 'MEDIA', g: 'bgdc2026', t: '제8회 부산 게임개발자 컨퍼런스 참가 및 작품 출품', s: '마음을 담아, ALCOHOL FREE', l: [['u', 'https://www.tu.ac.kr/gart/sub05_05.do?mode=view&articleNo=150666', 'ARTICLE']] },
+    { d: '2025',    cat: 'MEDIA', g: 'gstar2025', t: '今年のG-Starはどうだったか？ (KATO 기고)', s: '마음을 담아 소개', l: [['u', 'https://sqool.net/report/archive/gstar2025-report.html', 'ARTICLE']] },
+    { d: '2025',    cat: 'MEDIA', g: 'tugc2025', t: 'TU 게임 챌린지 특별호', s: '마음을 담아, ALCOHOL FREE, RGB Line, Cross Wordle', l: [['u', 'https://sway.cloud.microsoft/4PpAiwGK3vnc9XkW?ref=Link', 'ARTICLE']] },
+    { d: '2025',    cat: 'MEDIA', g: 'gstar2025', t: "동명대 게임학부 '25-4분기 (G-Star 2025)", l: [['u', 'https://sway.cloud.microsoft/JPasLtlByjTwysGH?ref=email&loc=play', 'ARTICLE']] },
+    { d: '2024.09', cat: 'MEDIA', g: 'msgdc2024', t: 'Microsoft Game Dev Community — Question of the Week', s: '"What was your biggest game development challenge?" 답변 소개', l: [['u', 'https://developer.microsoft.com/en-us/games/articles/2024/09/community-question-of-the-week-9624/#:~:text=a%20learning%20experience.%E2%80%9D-,Hyunsu%20Yu,-%2C%20college%20Game', 'ARTICLE']] },
+    { d: '',        cat: 'MEDIA', g: 'dotnet', t: 'The .NET News Daily Issue #313', s: 'C# — Unique behavior when passing array and list objects as parameters', l: [['u', 'https://dotnetnews.co/archive/the-net-news-daily-issue-313/?8utm_source=medium&utm_medium=comment', 'ARTICLE']] },
 
     // --- SCHOLARSHIPS ---
-    { d: '2026.03', cat: 'SCHOLAR', t: '26-1 부산지역인재장학', l: [['m', 'busan_regional_talent_scholarship', '부산지역인재장학']] },
-    { d: '2025.12', cat: 'SCHOLAR', t: '25-2 부산지역인재장학', l: [['m', 'busan_regional_talent_scholarship', '부산지역인재장학']] },
-    { d: '',        cat: 'SCHOLAR', t: 'SW분야우수인재장학' },
+    { d: '2026.03', cat: 'SCHOLAR', g: 'busanscholar', t: '26-1 부산지역인재장학', l: [['m', 'busan_regional_talent_scholarship', '부산지역인재장학']] },
+    { d: '2025.12', cat: 'SCHOLAR', g: 'busanscholar', t: '25-2 부산지역인재장학', l: [['m', 'busan_regional_talent_scholarship', '부산지역인재장학']] },
+    { d: '',        cat: 'SCHOLAR', g: 'swscholar', t: 'SW분야우수인재장학' },
 
     // --- CERTIFICATIONS ---
-    { d: '', cat: 'CERT', t: '프로그래머스 스킬체크 레벨 3' },
-    { d: '', cat: 'CERT', t: '리눅스 마스터 2급' },
-    { d: '', cat: 'CERT', t: '정보 처리 기능사' },
-    { d: '', cat: 'CERT', t: '민간 SW개발보안 대학생 교육(입문과정)' },
-    { d: '', cat: 'CERT', t: 'GitHub Foundations' },
+    { d: '', cat: 'CERT', g: 'certs', t: '프로그래머스 스킬체크 레벨 3' },
+    { d: '', cat: 'CERT', g: 'certs', t: '리눅스 마스터 2급' },
+    { d: '', cat: 'CERT', g: 'certs', t: '정보 처리 기능사' },
+    { d: '', cat: 'CERT', g: 'certs', t: '민간 SW개발보안 대학생 교육(입문과정)' },
+    { d: '', cat: 'CERT', g: 'certs', t: 'GitHub Foundations' },
 
     // --- MILESTONES (former timeline) ---
-    { d: '2026.10', cat: 'MILESTONE', t: 'FINS 개발 (UPTRANDING Game Jam, 2박 3일)', l: [['m', 'fins', 'FINS']] },
-    { d: '2026.08', cat: 'MILESTONE', t: '제1회 UPTRANDING 게임잼' },
-    { d: '2026.01', cat: 'MILESTONE', t: '포우포우 위치 (Global Game Jam, 3 days)', l: [['u', 'https://hyunsuyu.github.io/PowPowWitchHome/', '포우포우 위치']] },
-    { d: '2026.01', cat: 'MILESTONE', t: 'TU Mach Game Jam (2 days)' },
-    { d: '2025.12', cat: 'MILESTONE', t: 'DX12 Meshlet × IA Hybrid Rendering 연구 시작 (졸업논문)', l: [['m', 'meshshader', 'Hybrid Rendering']] },
-    { d: '2025.12', cat: 'MILESTONE', t: 'ALCOHOL FREE 완성 (2025.05 ~ 2025.12)', l: [['m', 'alcoholfree', 'ALCOHOL FREE']] },
-    { d: '2025.12', cat: 'MILESTONE', t: 'RGB Line 완성 (2024.12 ~ 2025.12)', l: [['m', 'rgbline', 'RGB Line']] },
-    { d: '2025.09', cat: 'MILESTONE', t: 'Cross Wordle (교육용 프로젝트, 7 days)' },
-    { d: '2025.09', cat: 'MILESTONE', t: 'Still Alive (Club Game Jam, 4 days)' },
-    { d: '2025.05', cat: 'MILESTONE', t: '마음을 담아 개발 시작', l: [['m', 'hearts', '마음을 담아']] },
-    { d: '2025.01', cat: 'MILESTONE', t: 'UDE-B91 (Global Game Jam, 3 days)', l: [['u', 'https://globalgamejam.org/games/2025/ude-891-9', 'UDE-B91']] },
-    { d: '2024.12', cat: 'MILESTONE', t: 'RGB Line 개발 시작' },
-    { d: '2024.10', cat: 'MILESTONE', t: 'Computer Science 강의 (2024.10 ~ 2025.02)', l: [['u', 'https://drive.google.com/drive/folders/1nS0rt085X6sCtfV1szX6ia9s4nRWJYEk?usp=sharing', 'COURSE']] },
-    { d: '2024.10', cat: 'MILESTONE', t: 'UPTRAND (창업동아리) 합류' },
-    { d: '2024.06', cat: 'MILESTONE', t: 'Massive Map Generation System 초기 구현 완료 (2023.07 ~ 2024.06)', l: [['m', 'mapgen', 'Massive Map Gen']] },
-    { d: '2023.07', cat: 'MILESTONE', t: 'Massive Map Generation System 구현 시작' },
-    { d: '2023.04', cat: 'MILESTONE', t: 'More Deeper C++ 원고 집필 (2023.04 ~ 2023.10)', l: [['m', 'book', 'Book']] },
-    { d: '2023.04', cat: 'MILESTONE', t: '공군 전역' },
-    { d: '2021.07', cat: 'MILESTONE', t: '공군 입대 — 복무 중 블로그 연구 · MIT OCW · 논문 리뷰, Map Gen 초기 설계' },
-    { d: '2021.06', cat: 'MILESTONE', t: 'NATAKER 완성 (1.5 months)', l: [['m', 'nataker', 'NATAKER']] },
-    { d: '2020.05', cat: 'MILESTONE', t: 'Technical Blog 시작', l: [['u', 'https://medium.com/@lioie6478', 'BLOG']] }
+    { d: '2026.10', cat: 'MILESTONE', g: 'ms2026', t: 'FINS 개발 (UPTRANDING Game Jam, 2박 3일)', l: [['m', 'fins', 'FINS']] },
+    { d: '2026.08', cat: 'MILESTONE', g: 'ms2026', t: '제1회 UPTRANDING 게임잼' },
+    { d: '2026.01', cat: 'MILESTONE', g: 'ms2026', t: '포우포우 위치 (Global Game Jam, 3 days)', l: [['u', 'https://hyunsuyu.github.io/PowPowWitchHome/', '포우포우 위치']] },
+    { d: '2026.01', cat: 'MILESTONE', g: 'ms2026', t: 'TU Mach Game Jam (2 days)' },
+    { d: '2025.12', cat: 'MILESTONE', g: 'ms2025', t: 'DX12 Meshlet × IA Hybrid Rendering 연구 시작 (졸업논문)', l: [['m', 'meshshader', 'Hybrid Rendering']] },
+    { d: '2025.12', cat: 'MILESTONE', g: 'ms2025', t: 'ALCOHOL FREE 완성 (2025.05 ~ 2025.12)', l: [['m', 'alcoholfree', 'ALCOHOL FREE']] },
+    { d: '2025.12', cat: 'MILESTONE', g: 'ms2025', t: 'RGB Line 완성 (2024.12 ~ 2025.12)', l: [['m', 'rgbline', 'RGB Line']] },
+    { d: '2025.09', cat: 'MILESTONE', g: 'ms2025', t: 'Cross Wordle (교육용 프로젝트, 7 days)' },
+    { d: '2025.09', cat: 'MILESTONE', g: 'ms2025', t: 'Still Alive (Club Game Jam, 4 days)' },
+    { d: '2025.05', cat: 'MILESTONE', g: 'ms2025', t: '마음을 담아 개발 시작', l: [['m', 'hearts', '마음을 담아']] },
+    { d: '2025.01', cat: 'MILESTONE', g: 'ms2025', t: 'UDE-B91 (Global Game Jam, 3 days)', l: [['u', 'https://globalgamejam.org/games/2025/ude-891-9', 'UDE-B91']] },
+    { d: '2024.12', cat: 'MILESTONE', g: 'ms2024', t: 'RGB Line 개발 시작' },
+    { d: '2024.10', cat: 'MILESTONE', g: 'ms2024', t: 'Computer Science 강의 (2024.10 ~ 2025.02)', l: [['u', 'https://drive.google.com/drive/folders/1nS0rt085X6sCtfV1szX6ia9s4nRWJYEk?usp=sharing', 'COURSE']] },
+    { d: '2024.10', cat: 'MILESTONE', g: 'ms2024', t: 'UPTRAND (창업동아리) 합류' },
+    { d: '2024.06', cat: 'MILESTONE', g: 'ms2024', t: 'Massive Map Generation System 초기 구현 완료 (2023.07 ~ 2024.06)', l: [['m', 'mapgen', 'Massive Map Gen']] },
+    { d: '2023.07', cat: 'MILESTONE', g: 'ms2023', t: 'Massive Map Generation System 구현 시작' },
+    { d: '2023.04', cat: 'MILESTONE', g: 'ms2023', t: 'More Deeper C++ 원고 집필 (2023.04 ~ 2023.10)', l: [['m', 'book', 'Book']] },
+    { d: '2023.04', cat: 'MILESTONE', g: 'ms2023', t: '공군 전역' },
+    { d: '2021.07', cat: 'MILESTONE', g: 'ms2021', t: '공군 입대 — 복무 중 블로그 연구 · MIT OCW · 논문 리뷰, Map Gen 초기 설계' },
+    { d: '2021.06', cat: 'MILESTONE', g: 'ms2021', t: 'NATAKER 완성 (1.5 months)', l: [['m', 'nataker', 'NATAKER']] },
+    { d: '2020.05', cat: 'MILESTONE', g: 'ms2020', t: 'Technical Blog 시작', l: [['u', 'https://medium.com/@lioie6478', 'BLOG']] }
 ];
+
+/* Folders group records by event / venue. w: work tiles shown inside the folder
+   (works linked from the folder's records are added automatically). */
+const RECORD_FOLDERS = {
+    tugc2026: { t: 'TU Game Challenge 2026', s: '우수상 (IEEE Track) · 장려상 ×2' },
+    tugc2025: { t: 'TU Game Challenge 2025', s: '최우수상 ×2 · 우수상 · 장려상 · 특별호 기사' },
+    ieee2025: { t: 'Chair of IEEE Busan Section 2025', s: 'Excellence Award' },
+    bcontents2026: { t: 'B-Contents 경진대회 2026', s: '우수상' },
+    gstar2025: { t: 'G-Star 2025', s: '전시 · 업계 피드백 · 기사', w: ['alcoholfree', 'hearts', 'rgbline'] },
+    comicworld2025: { t: 'Comic World 2025', s: 'Pleedus 파트너십 부스', w: ['alcoholfree', 'hearts'] },
+    rise2025: { t: 'TU RISE ALL FESTA 2025', w: ['alcoholfree', 'hearts'] },
+    beaver2025: { t: 'BEAVER ROCKS 2025', w: ['alcoholfree'] },
+    build0512025: { t: 'Build 051 2025', w: ['rgbline'] },
+    build0512026: { t: 'Build 051 2026' },
+    bgdc2026: { t: '부산 게임 개발자 컨퍼런스 2026', s: '작품 출품 · 기사', w: ['alcoholfree', 'hearts'] },
+    thesis: { t: '학사학위 졸업논문 2026', s: '동명대학교 컴퓨터공학과 · 제1저자·단독' },
+    kmms2026: { t: '한국멀티미디어학회 2026 추계학술발표대회', s: '제29권 2호 · 포스터 2편 · 제1저자·단독' },
+    book: { t: 'More Deeper C++ Programming Language', s: '기술 서적 출간' },
+    gameover2026: { t: 'GAME OVER? 2026', s: '게임 개발자 컨퍼런스 운영' },
+    unite2026: { t: 'Unite Seoul 2026', s: '연사 공모', w: ['mapgen'] },
+    secone2024: { t: 'Security-One 포럼 2024', s: '연사' },
+    msgdc2024: { t: 'Microsoft Game Dev Community' },
+    dotnet: { t: 'The .NET News Daily' },
+    busanscholar: { t: '부산지역인재장학', s: '2학기 연속 선정 (25-2 · 26-1)' },
+    swscholar: { t: 'SW분야우수인재장학' },
+    certs: { t: '자격 · 인증' }
+};
+function recordFolders() {
+    const map = new Map();
+    sortedRecords(RECORDS).forEach(r => {
+        if (!map.has(r.g)) {
+            const meta = RECORD_FOLDERS[r.g] || (r.g.startsWith('ms') ? { t: r.g.slice(2) + ' 타임라인', s: '프로젝트 · 활동 기록' } : { t: r.t });
+            map.set(r.g, { key: r.g, t: meta.t, s: meta.s || '', w: (meta.w || []).slice(), items: [] });
+        }
+        map.get(r.g).items.push(r);
+    });
+    return [...map.values()].map(f => {
+        f.items.forEach(r => (r.l || []).forEach(([k, id]) => { if (k === 'm' && workById(id) && !f.w.includes(id)) f.w.push(id); }));
+        f.d = f.items.map(r => r.d).filter(Boolean)[0] || '';
+        return f;
+    });
+}
 
 /* ---------- helpers ---------- */
 function recLinksHtml(r) {
@@ -2405,32 +2469,51 @@ function worksGroupsHtml() {
                 document.querySelectorAll('#d-works .works-group').forEach(g => g.hidden = !(c.dataset.f === 'ALL' || g.dataset.field === c.dataset.f));
             }));
 
-            /* records: category / list / detail */
+            /* records: category -> folder (event / venue) -> folder contents */
             const CATS = ['HL', 'AWARD', 'PUB', 'EXHIBIT', 'TALK', 'RECOG', 'MEDIA', 'SCHOLAR', 'CERT', 'MILESTONE'];
+            const FOLDERS = recordFolders();
+            const inCat = (r, c) => c === 'HL' ? !!r.hl : r.cat === c;
             const catEl = document.getElementById('d-cats'), listEl = document.getElementById('d-list'), detEl = document.getElementById('d-detail');
-            let curList = [];
-            catEl.innerHTML = CATS.map(c => `<button class="d-cat" data-cat="${c}"><span>${c === 'HL' ? '★ HIGHLIGHTS' : RECORD_CATS[c]}</span><span>${String(recCount(c)).padStart(2, '0')}</span></button>`).join('');
-            function pickCat(c) {
-                catEl.querySelectorAll('.d-cat').forEach(b => b.classList.toggle('active', b.dataset.cat === c));
-                curList = sortedRecords(recFilter(c));
-                listEl.innerHTML = curList.map((r, i) => `<button class="d-item" data-i="${i}"><span class="dd">${r.d || '—'}</span><span><strong>${r.t}</strong></span></button>`).join('');
-                listEl.querySelectorAll('.d-item').forEach(b => b.addEventListener('click', () => pickItem(+b.dataset.i)));
-                listEl.scrollTop = 0;
-                pickItem(0);
+            let curCat = 'HL', curList = [];
+            catEl.innerHTML = CATS.map(c => `<button class="d-cat" data-cat="${c}"><span>${c === 'HL' ? '★ HIGHLIGHTS' : RECORD_CATS[c]}</span>` +
+                `<span>${String(FOLDERS.filter(f => f.items.some(r => inCat(r, c))).length).padStart(2, '0')}</span></button>`).join('');
+            function typeSummary(f) {
+                const n = {};
+                f.items.forEach(r => { n[r.cat] = (n[r.cat] || 0) + 1; });
+                return Object.keys(n).map(k => `<span class="d-ft">${RECORD_SHORT[k]}${n[k] > 1 ? ' ×' + n[k] : ''}</span>`).join('');
             }
-            function pickItem(i) {
-                listEl.querySelectorAll('.d-item').forEach(b => b.classList.toggle('active', +b.dataset.i === i));
-                const r = curList[i];
-                if (!r) { detEl.innerHTML = '<p class="d-empty">NO DATA</p>'; return; }
-                const rel = (r.l || []).filter(l => l[0] === 'm').map(l => workById(l[1])).filter(Boolean)[0];
-                detEl.innerHTML = `<div class="c-head"><span>${RECORD_CATS[r.cat]}</span><span>REC ${String(i + 1).padStart(2, '0')} / ${String(curList.length).padStart(2, '0')}</span></div>
+            function pickCat(c) {
+                curCat = c;
+                catEl.querySelectorAll('.d-cat').forEach(b => b.classList.toggle('active', b.dataset.cat === c));
+                curList = FOLDERS.filter(f => f.items.some(r => inCat(r, c)));
+                listEl.innerHTML = curList.map((f, i) => `<button class="d-folder" data-i="${i}">
+                        <span class="d-fhead"><span class="d-fname">${f.t}</span><span class="d-fcount">${String(f.items.length).padStart(2, '0')}</span></span>
+                        <span class="d-fmeta"><span class="dd">${f.d || '—'}</span>${typeSummary(f)}${f.w.length ? `<span class="d-ft d-ft-w">▣ ${f.w.length}</span>` : ''}</span>
+                    </button>`).join('');
+                listEl.querySelectorAll('.d-folder').forEach(b => b.addEventListener('click', () => pickFolder(+b.dataset.i)));
+                listEl.scrollTop = 0;
+                pickFolder(0);
+            }
+            function pickFolder(i) {
+                listEl.querySelectorAll('.d-folder').forEach(b => b.classList.toggle('active', +b.dataset.i === i));
+                const f = curList[i];
+                if (!f) { detEl.innerHTML = '<p class="d-empty">NO DATA</p>'; return; }
+                const dates = f.items.map(r => r.d).filter((d, k, all) => d && !(d.length === 4 && all.some(x => x && x.startsWith(d + '.'))));
+                const span = dates.length ? (dates[dates.length - 1] === dates[0] ? dates[0] : dates[dates.length - 1] + ' – ' + dates[0]) : 'UNDATED';
+                detEl.innerHTML = `<div class="c-head"><span>FOLDER · ${curCat === 'HL' ? '★ HIGHLIGHTS' : RECORD_CATS[curCat]}</span><span>${String(f.items.length).padStart(2, '0')} ITEMS</span></div>
                     <div class="d-dbody">
-                        <span class="mono">${r.d || 'UNDATED'}${r.hl ? ' · ★ HIGHLIGHT' : ''}</span>
-                        <div class="d-dtitle">${r.t}</div>
-                        ${r.s ? `<div class="d-dsub">${r.s}</div>` : ''}
-                        ${r.l ? `<div class="d-dlinks">${recLinksHtml(r)}</div>` : ''}
-                        ${rel ? `<h3 class="sub-title">Related Work</h3><div class="d-related">${tileHtml(rel, { noWide: true })}</div>` : ''}
+                        <span class="mono">${span}</span>
+                        <div class="d-dtitle">${f.t}</div>
+                        ${f.s ? `<div class="d-dsub">${f.s}</div>` : ''}
+                        <h3 class="sub-title">Contents</h3>
+                        <div class="d-entries">${f.items.map(r => `<div class="d-entry${inCat(r, curCat) ? ' match' : ''}">
+                            <span class="dd">${r.d && r.d.length > 4 ? r.d.slice(5) : (r.d || '—')}</span>
+                            <span class="tag-${r.hl ? 'inv' : 'line'}">${RECORD_SHORT[r.cat]}</span>
+                            <span class="d-etext"><strong>${r.t}</strong>${r.s ? ` <span class="d-esub">— ${r.s}</span>` : ''}${r.l ? ` <span class="d-dlinks">${recLinksHtml(r)}</span>` : ''}</span>
+                        </div>`).join('')}</div>
+                        ${f.w.length ? `<h3 class="sub-title">Related Works · ${f.w.length}</h3><div class="d-related">${f.w.map(id => tileHtml(workById(id), { noWide: true })).join('')}</div>` : ''}
                     </div>`;
+                detEl.scrollTop = 0;
             }
             catEl.querySelectorAll('.d-cat').forEach(b => b.addEventListener('click', () => pickCat(b.dataset.cat)));
             pickCat('HL');
