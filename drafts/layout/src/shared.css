@@ -1,0 +1,54 @@
+
+        /* ====== DRAFT SHARED COMPONENTS (NieR-style, same palette) ====== */
+        .draft-badge {
+            position: fixed; top: 14px; right: 18px; z-index: 600;
+            font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; letter-spacing: 1px;
+            background: var(--text-color); color: var(--bg-color); padding: 4px 10px;
+        }
+        .draft-badge a { color: var(--bg-color); margin-left: 8px; }
+        .draft-badge a:hover { background: var(--bg-color); color: var(--text-color); }
+
+        .sub-title {
+            font-family: 'Share Tech Mono', monospace; font-size: 1rem; letter-spacing: 2px;
+            text-transform: uppercase; margin: 34px 0 14px; display: flex; align-items: center; gap: 12px;
+        }
+        .sub-title::before { content: ''; width: 10px; height: 10px; background: var(--text-color); flex: none; }
+        .sub-title::after { content: ''; flex: 1; border-bottom: 1px dashed var(--text-color); opacity: 0.6; }
+
+        /* chip filter bar */
+        .chip-bar { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 22px; }
+        .chip {
+            font-family: 'Share Tech Mono', monospace; font-size: 0.85rem; letter-spacing: 1px;
+            background: transparent; color: var(--text-color); border: 1px solid var(--text-color);
+            padding: 4px 10px; cursor: pointer; transition: 0.2s;
+        }
+        .chip::before { content: '[ ] '; }
+        .chip.active::before, .chip:hover::before { content: '[■] '; }
+        .chip.active { background: var(--text-color); color: var(--bg-color); }
+        .chip-n { margin-left: 8px; opacity: 0.6; font-size: 0.75rem; }
+
+        /* small inverted labels */
+        .tag-inv {
+            display: inline-block; font-family: 'Share Tech Mono', monospace; font-size: 0.72rem; letter-spacing: 1px;
+            background: var(--text-color); color: var(--bg-color); padding: 1px 7px; margin: 0 4px 4px 0; vertical-align: middle;
+        }
+        .tag-line {
+            display: inline-block; font-family: 'Share Tech Mono', monospace; font-size: 0.72rem; letter-spacing: 1px;
+            border: 1px solid var(--text-color); padding: 0 6px; margin: 0 4px 4px 0; vertical-align: middle;
+        }
+
+        /* record rows (used by B and archive) */
+        .rec-row { display: grid; grid-template-columns: 74px 128px 1fr; gap: 14px; padding: 7px 0; border-bottom: 1px dashed rgba(75,72,63,0.35); align-items: baseline; }
+        .rec-date { font-family: 'Share Tech Mono', monospace; opacity: 0.75; }
+        .rec-cat { font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; letter-spacing: 1px; }
+        .rec-title { font-weight: 700; }
+        .rec-title.hl::before { content: '★ '; }
+        .rec-sub { opacity: 0.8; font-size: 0.95rem; }
+        .rec-links { margin-left: 6px; }
+        .rec-links a { font-family: 'Share Tech Mono', monospace; font-size: 0.85rem; }
+
+        @media (max-width: 900px) {
+            .rec-row { grid-template-columns: 64px 1fr; }
+            .rec-cat { display: none; }
+            .draft-badge { top: auto; bottom: 70px; right: 12px; }
+        }

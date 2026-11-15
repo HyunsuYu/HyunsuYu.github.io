@@ -1,0 +1,2562 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <base href="../../">
+    <meta name="robots" content="noindex, nofollow">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>[DRAFT B · SIDEBAR + TABS/FILTER] Hyunsu Yu | Gameplay & Rendering Programmer</title>
+
+    <!-- --- SEO: SITE VERIFICATION --- -->
+    <meta name="google-site-verification" content="ZgHlnNKk8i1UinoRuXh4S4Df5h_YqDsNyyOUyFN5-xw" />
+
+    <!-- --- SEO: PRIMARY META --- -->
+    <meta name="description" content="유현수(Hyunsu Yu) — Gameplay & Rendering 프로그래머 포트폴리오. DirectX 12 Meshlet·IA 하이브리드 렌더링 파이프라인(졸업논문), 초대형 타일맵 생성 시스템(2.7억 타일·IPC 기반 호스트 반응성 유지), C++ 저수준 최적화 프로젝트와 연구를 소개합니다.">
+    <meta name="keywords" content="Hyunsu Yu, 유현수, Gameplay Programmer, Rendering Programmer, 렌더링 프로그래머, DirectX 12, Mesh Shader, C++, Unity, 게임 개발, 최적화, Optimization, 포트폴리오">
+    <meta name="author" content="Hyunsu Yu">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#dad4bb">
+    <link rel="canonical" href="https://hyunsuyu.github.io/">
+
+    <!-- --- SEO: OPEN GRAPH (Facebook, LinkedIn, KakaoTalk) --- -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Hyunsu Yu — Dev Portfolio">
+    <meta property="og:title" content="Hyunsu Yu | Gameplay & Rendering Programmer">
+    <meta property="og:description" content="DirectX 12 Meshlet·IA 하이브리드 렌더링 파이프라인(졸업논문), 초대형 타일맵 생성 시스템(2.7억 타일·IPC 기반 호스트 반응성 유지), C++ 저수준 최적화 프로젝트와 연구를 소개합니다.">
+    <meta property="og:url" content="https://hyunsuyu.github.io/">
+    <meta property="og:image" content="https://hyunsuyu.github.io/assets/drive/1-LvQgEJYjVsM6vgf2QFTBeYvNcJeS2xH.png">
+    <meta property="og:locale" content="ko_KR">
+
+    <!-- --- SEO: TWITTER / X CARD --- -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Hyunsu Yu | Gameplay & Rendering Programmer">
+    <meta name="twitter:description" content="DirectX 12 Meshlet·IA 하이브리드 렌더링 파이프라인(졸업논문), 초대형 타일맵 생성 시스템(2.7억 타일·IPC 기반 호스트 반응성 유지), C++ 저수준 최적화 프로젝트와 연구를 소개합니다.">
+    <meta name="twitter:image" content="https://hyunsuyu.github.io/assets/drive/1-LvQgEJYjVsM6vgf2QFTBeYvNcJeS2xH.png">
+
+    <!-- --- SEO: STRUCTURED DATA (JSON-LD) --- -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      "name": "Hyunsu Yu",
+      "alternateName": "유현수",
+      "url": "https://hyunsuyu.github.io/",
+      "jobTitle": "Gameplay & Rendering Programmer",
+      "description": "Computer Engineering student focusing on Gameplay, Graphics, and Low-level Optimization.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Busan",
+        "addressCountry": "KR"
+      },
+      "knowsAbout": ["C++", "C#", "DirectX 12", "Mesh Shader", "Meshlet", "Hybrid Rendering", "Unity", "Rendering", "Gameplay Programming", "Performance Optimization"],
+      "sameAs": ["https://github.com/HyunsuYu"]
+    }
+    </script>
+
+    <style>
+        /* --- FONT IMPORT --- */
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&family=Rajdhani:wght@400;600;700&family=Share+Tech+Mono&display=swap');
+
+        /* --- VARIABLES --- */
+        :root {
+            --bg-color: #dad4bb;
+            --text-color: #4b483f;
+            --accent-color: #57544a;
+            --highlight-color: #8c887d;
+            --grid-line: rgba(75, 72, 63, 0.1);
+            --modal-bg: #e3dec9; 
+        }
+
+        /* --- RESET & BASE --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            cursor: crosshair;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Rajdhani', 'Noto Sans KR', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+            font-size: 16px;
+        }
+
+        a {
+            color: var(--text-color);
+            text-decoration: none;
+            position: relative;
+            transition: 0.3s;
+            font-weight: 700;
+        }
+
+        a:hover {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            padding: 0 5px;
+        }
+
+        ul { list-style: none; }
+
+        /* --- BACKGROUND FX --- */
+        .scanlines {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.02) 50%, rgba(0,0,0,0.02));
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        .bg-grid {
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-image: 
+                linear-gradient(var(--grid-line) 1px, transparent 1px),
+                linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -1;
+        }
+
+        /* --- TYPOGRAPHY & UTILS --- */
+        .mono { font-family: 'Share Tech Mono', monospace; }
+
+        .section-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 2rem;
+            border-bottom: 2px solid var(--text-color);
+            display: inline-block;
+            padding-right: 50px;
+            position: relative;
+            letter-spacing: 2px;
+            margin-top: 50px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            right: 0; bottom: -6px; width: 20px; height: 10px;
+            background-color: var(--text-color);
+        }
+
+        /* --- LOADING SCREEN --- */
+        #loader {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background-color: #000;
+            color: #dad4bb;
+            z-index: 30000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Share Tech Mono', monospace;
+            transition: opacity 1s ease;
+        }
+        .loader-text { animation: blink 0.5s infinite; }
+
+        /* --- LAYOUT --- */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        aside {
+            width: 250px;
+            position: fixed;
+            height: 100vh;
+            top: 0; left: 0;
+            padding: 40px 20px;
+            border-right: 2px solid var(--text-color);
+            background-color: rgba(218, 212, 187, 0.95);
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        main {
+            margin-left: 250px;
+            width: calc(100% - 250px);
+            padding: 40px 60px;
+        }
+
+        /* --- NAV --- */
+        .logo-area { margin-bottom: 40px; }
+        .logo-area h1 {
+            font-size: 1.8rem; line-height: 1.1;
+            text-transform: uppercase; letter-spacing: 2px;
+        }
+        .logo-area span { font-size: 0.9rem; opacity: 0.8; }
+
+        nav ul li { margin-bottom: 15px; }
+        nav ul li a {
+            display: block; text-transform: uppercase;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1.1rem; padding: 5px 0;
+        }
+        nav ul li a::before {
+            content: '[ ] '; margin-right: 5px; transition: 0.3s;
+        }
+        nav ul li a:hover::before { content: '[■] '; }
+
+        /* --- HERO --- */
+        .hero {
+            border: 2px solid var(--text-color);
+            padding: 40px;
+            margin-bottom: 60px;
+            position: relative;
+            background: rgba(255,255,255,0.2);
+        }
+        .hero::before {
+            content: 'UNIT DATA';
+            position: absolute; top: -12px; left: 20px;
+            background: var(--bg-color); padding: 0 10px;
+            font-weight: bold; font-family: 'Share Tech Mono';
+        }
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px; margin-top: 20px;
+        }
+        .stat-box h3 { font-size: 0.9rem; opacity: 0.7; text-transform: uppercase; }
+        .stat-box p { font-size: 1.2rem; font-weight: 700; }
+
+        /* --- INTERACTIVE PROJECT CARDS --- */
+        .project-card {
+            border: 1px solid var(--text-color);
+            margin-bottom: 40px;
+            position: relative;
+            background: rgba(255,255,255,0.4);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            cursor: pointer;
+            overflow: hidden;
+        }
+
+        /* Adjusted: Natural Beige on Hover (Matches Modal BG) */
+        .project-card:hover {
+            box-shadow: 8px 8px 0px rgba(75, 72, 63, 0.3);
+            transform: translate(-4px, -4px);
+            background: #e3dec9; 
+            border-color: var(--text-color);
+        }
+
+        /* "Click to View" Hint on Hover */
+        .project-card::after {
+            content: '>> ACCESS DATA LOG';
+            position: absolute;
+            bottom: 10px; right: 20px;
+            font-family: 'Share Tech Mono';
+            font-size: 0.8rem;
+            font-weight: bold;
+            opacity: 0;
+            transform: translateX(20px);
+            transition: 0.3s;
+            color: var(--text-color);
+        }
+        .project-card:hover::after {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .project-header {
+            background: var(--text-color);
+            color: var(--bg-color);
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: 0.3s;
+        }
+        
+        /* Header matches text color on hover for high contrast */
+        .project-card:hover .project-header {
+            background: var(--text-color);
+            color: var(--bg-color);
+        }
+
+        .project-title {
+            font-size: 1.5rem; font-weight: bold; font-family: 'Share Tech Mono';
+        }
+
+        .project-body {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+        }
+
+        .project-content ul {
+            list-style: square inside;
+            margin-top: 10px;
+        }
+        .project-content li {
+            margin-bottom: 5px;
+        }
+
+        /* Direct Link Buttons in Card - Updated Style */
+        .project-links {
+            margin-top: 15px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px; /* Reduced gap slightly */
+            position: relative;
+            z-index: 5;
+        }
+        
+        .project-links a {
+            display: inline-block;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.95rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 2px 4px; /* Minimal padding */
+            background: transparent; /* Removed background */
+            border: none; /* Removed border */
+            color: var(--text-color);
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .project-links a:hover {
+            background: var(--text-color);
+            color: var(--bg-color);
+            transform: translateY(-2px);
+            /* Removed box-shadow for cleaner look */
+        }
+
+        .highlight-stat {
+            display: block; margin: 10px 0; padding: 10px;
+            border: 1px dashed var(--text-color);
+            background: rgba(255,255,255,0.5); font-weight: bold;
+        }
+
+        /* --- RECOG CARDS (FIXED TO MATCH IMAGE) --- */
+        .recog-grid {
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 20px;
+        }
+        .recog-card {
+            border: 1px solid var(--text-color); 
+            background: rgba(255,255,255,0.25); /* Light Beige Default */
+            transition: all 0.3s ease; 
+            cursor: pointer; 
+            position: relative;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .recog-title {
+            font-weight: bold; 
+            text-transform: uppercase;
+            font-family: 'Share Tech Mono';
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--text-color);
+        }
+
+        .recog-divider {
+            height: 1px;
+            width: 100%;
+            background-color: var(--text-color);
+            margin-bottom: 20px;
+            transition: 0.3s;
+        }
+
+        .recog-content p {
+            margin-bottom: 5px;
+            font-size: 0.95rem;
+        }
+
+        /* Hover State: Inverted Colors (Like PLEEDUS card in image) */
+        .recog-card:hover {
+            background: var(--text-color);
+            color: var(--bg-color);
+            box-shadow: 10px 10px 0 rgba(75, 72, 63, 0.2);
+            transform: translate(-3px, -3px);
+        }
+        .recog-card:hover .recog-title {
+            color: var(--bg-color);
+        }
+        .recog-card:hover .recog-divider {
+            background-color: var(--bg-color);
+        }
+        .recog-card:hover strong {
+            color: #fff; /* Ensure strong text is visible */
+        }
+
+        /* --- MODAL (POPUP) STYLES --- */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(2px);
+            z-index: 20000; /* Highest priority */
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .modal-container {
+            background: var(--modal-bg);
+            width: 90%;
+            max-width: 1300px;
+            max-height: 90vh;
+            border: 2px solid var(--text-color);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 0 30px rgba(0,0,0,0.5);
+            animation: modalOpen 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            overflow: hidden;
+        }
+
+        @keyframes modalOpen {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal-header {
+            background: var(--text-color);
+            color: var(--bg-color);
+            padding: 15px 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--accent-color);
+        }
+
+        .modal-title {
+            font-family: 'Share Tech Mono';
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .close-btn {
+            background: transparent;
+            border: 1px solid var(--bg-color);
+            color: var(--bg-color);
+            font-family: 'Share Tech Mono';
+            cursor: pointer;
+            padding: 5px 15px;
+            font-size: 1rem;
+            transition: 0.2s;
+        }
+        .close-btn:hover {
+            background: var(--bg-color);
+            color: var(--text-color);
+        }
+
+        .modal-body {
+            padding: 40px;
+            overflow-y: auto;
+            font-family: 'Noto Sans KR', sans-serif;
+        }
+
+        /* Markdown Styling */
+        .markdown-content {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: var(--text-color);
+        }
+        .markdown-content p { margin-bottom: 10px; }
+        
+        .markdown-content strong {
+            font-weight: 700;
+            color: #2a2822; 
+            background: rgba(140, 136, 125, 0.15); 
+            padding: 0 4px;
+            border-bottom: 1px solid rgba(140, 136, 125, 0.3);
+        }
+
+        .markdown-content h3 {
+            font-family: 'Share Tech Mono';
+            font-size: 1.1rem;
+            color: var(--accent-color);
+            margin: 25px 0 10px 0;
+            border-left: 4px solid var(--highlight-color);
+            padding-left: 10px;
+            background: linear-gradient(90deg, rgba(140, 136, 125, 0.1) 0%, transparent 100%);
+            display: block;
+        }
+        .markdown-content h4 {
+            font-family: 'Noto Sans KR', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            margin: 15px 0 5px 0;
+            color: #2a2822;
+            display: block;
+        }
+
+        .markdown-content ul {
+            list-style: none; margin: 10px 0 15px 0; padding-left: 5px;
+        }
+        .markdown-content li {
+            position: relative; padding-left: 15px; margin-bottom: 5px;
+        }
+        .markdown-content li::before {
+            content: '-'; position: absolute; left: 0;
+            font-weight: bold; color: var(--highlight-color);
+        }
+        .markdown-content br { display: block; margin: 5px 0; content: " "; }
+
+        /* Modal Grid Layout */
+        .modal-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 30px;
+        }
+
+        .modal-section-title {
+            font-family: 'Share Tech Mono';
+            font-size: 1.2rem;
+            font-weight: bold;
+            border-bottom: 2px solid var(--text-color);
+            margin-bottom: 15px;
+            padding-bottom: 5px;
+            color: var(--text-color);
+        }
+
+        .modal-list { list-style: none; }
+        .modal-list li {
+            margin-bottom: 10px; padding-left: 15px; position: relative;
+        }
+        .modal-list li::before {
+            content: '>'; position: absolute; left: 0;
+            color: var(--highlight-color); font-weight: bold;
+        }
+
+        .modal-tags {
+            display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px;
+        }
+        .modal-tag {
+            background: rgba(75, 72, 63, 0.1);
+            border: 1px solid var(--text-color);
+            padding: 4px 12px;
+            font-size: 0.85rem; font-family: 'Share Tech Mono';
+        }
+
+        .video-embed {
+            width: 100%; aspect-ratio: 16/9;
+            background: #000; margin-bottom: 20px;
+            border: 1px solid var(--text-color);
+        }
+
+        /* Image Gallery */
+        .modal-gallery {
+            display: flex; gap: 10px; overflow-x: auto;
+            padding-bottom: 15px; margin-bottom: 25px;
+            border-bottom: 1px solid rgba(75, 72, 63, 0.3);
+        }
+        .modal-gallery img {
+            height: 180px;
+            border: 1px solid var(--text-color);
+            flex-shrink: 0;
+            transition: 0.3s;
+            object-fit: cover;
+            cursor: pointer; /* Pointer to indicate clickable for lightbox */
+        }
+        .modal-gallery img:hover {
+            border-color: var(--highlight-color);
+            opacity: 0.9;
+            transform: scale(1.02);
+        }
+        .modal-gallery::-webkit-scrollbar { height: 8px; }
+        .modal-gallery::-webkit-scrollbar-track { background: rgba(75, 72, 63, 0.1); }
+        .modal-gallery::-webkit-scrollbar-thumb { background: var(--text-color); }
+
+        /* ===== MODAL MEDIA (hero split): video left, scrollable thumbnail grid right ===== */
+        .m-media {
+            display: grid; grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+            gap: 12px; align-items: stretch; margin-bottom: 30px;
+        }
+        .m-media .video-embed { margin: 0; }
+        .m-media .modal-gallery {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
+            align-content: start;
+            height: 0; min-height: 100%;
+            overflow-y: auto; overflow-x: hidden;
+            margin-bottom: 0; padding: 0 6px 0 0; border-bottom: none;
+        }
+        .m-media .modal-gallery img {
+            width: 100%; height: auto; aspect-ratio: 4 / 3;
+            object-fit: contain; background: #fff;
+        }
+        .m-media .modal-gallery img:hover { transform: none; }
+        .m-media .modal-gallery::-webkit-scrollbar { width: 8px; }
+        .m-media.few-images .modal-gallery { grid-template-columns: 1fr; }
+        .m-media.no-video { display: block; }
+        .m-media.no-video .modal-gallery {
+            height: auto; min-height: 0; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        }
+        .m-media.no-images { grid-template-columns: 1fr; }
+        .m-media.no-images .video-embed {
+            width: min(100%, calc(58vh * 16 / 9)); margin: 0 auto;
+        }
+
+        @media (max-width: 900px) {
+            .m-media { display: block; }
+            .m-media .modal-gallery {
+                display: flex; height: auto; min-height: 0; overflow-x: auto; overflow-y: hidden;
+                margin-top: 12px; padding-bottom: 10px;
+            }
+            .m-media .modal-gallery img { width: auto; height: 120px; }
+        }
+
+        /* Lightbox Styles */
+        .lightbox-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 25000; /* Higher than modal(20000), lower than loader(30000) */
+            justify-content: center;
+            align-items: center;
+            cursor: zoom-out;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .lightbox-img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            border: 2px solid var(--text-color);
+            cursor: default; 
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px; right: 30px;
+            color: #fff;
+            font-family: 'Share Tech Mono';
+            font-size: 2rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .lightbox-close:hover { color: var(--accent-color); }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* --- AWARDS & HISTORY --- */
+        .history-timeline {
+            border-left: 2px solid var(--text-color);
+            padding-left: 30px; margin-left: 10px;
+        }
+        .history-item { position: relative; margin-bottom: 30px; }
+        .history-item::before {
+            content: ''; position: absolute; left: -36px; top: 5px;
+            width: 10px; height: 10px; background: var(--text-color);
+            border-radius: 50%;
+        }
+        .history-year {
+            font-family: 'Share Tech Mono'; font-weight: bold; font-size: 1.2rem;
+            margin-bottom: 5px; display: block;
+        }
+
+        .timeline-link {
+            display: inline-block; margin-left: 8px;
+            font-size: 0.8rem; font-family: 'Share Tech Mono';
+            border: 1px solid var(--text-color);
+            padding: 0 6px; background: rgba(255,255,255,0.3);
+            text-transform: uppercase; cursor: pointer; transition: 0.3s;
+            color: var(--text-color);
+        }
+        .timeline-link:hover {
+            background: var(--text-color); color: var(--bg-color);
+            transform: translateY(-2px);
+        }
+
+        /* --- SKILLS --- */
+        .skill-section h3 { margin-top: 20px; margin-bottom: 10px; font-family: 'Share Tech Mono'; }
+        .skill-bar-container { display: flex; flex-wrap: wrap; gap: 10px; }
+        .skill-tag {
+            background: var(--text-color); color: var(--bg-color);
+            padding: 5px 15px; font-size: 0.9rem;
+            clip-path: polygon(10px 0, 100% 0, 100% 100%, 0 100%, 0 10px);
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            margin-top: 80px; border-top: 2px solid var(--text-color);
+            padding: 40px 0; text-align: center; font-family: 'Share Tech Mono';
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 900px) {
+            aside {
+                position: relative; width: 100%; height: auto;
+                border-right: none; border-bottom: 2px solid var(--text-color);
+                flex-direction: row; flex-wrap: wrap;
+                align-items: center; justify-content: space-between; padding: 20px;
+            }
+            nav ul { display: none; }
+            main { margin-left: 0; width: 100%; padding: 20px; }
+            .project-body { grid-template-columns: 1fr; }
+            .modal-grid { grid-template-columns: 1fr; }
+        }
+
+        .glitch-effect:hover {
+            animation: glitch 0.3s cubic-bezier(.25, .46, .45, .94) both infinite;
+            color: #8c887d;
+        }
+        @keyframes glitch {
+            0% { transform: translate(0) }
+            20% { transform: translate(-2px, 2px) }
+            40% { transform: translate(-2px, -2px) }
+            60% { transform: translate(2px, 2px) }
+            80% { transform: translate(2px, -2px) }
+            100% { transform: translate(0) }
+        }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } 100% { opacity: 1; } }
+
+        /* --- SAVE AS PDF BUTTON (screen only) --- */
+        .pdf-btn {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            z-index: 500;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+            background: var(--text-color);
+            color: var(--bg-color);
+            border: 2px solid var(--text-color);
+            padding: 10px 16px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .pdf-btn:hover { background: var(--bg-color); color: var(--text-color); }
+
+        /* --- PRINT / PDF OUTPUT --- */
+        .print-detail { display: none; }
+
+        /* Bound-book page: generous padding + running footer with page numbers.
+           Kept at top level (not nested in @media print) for broad support. */
+        @page {
+            size: A4;
+            margin: 18mm 16mm 20mm 16mm;
+            @bottom-left {
+                content: "HYUNSU YU · GAMEPLAY & RENDERING";
+                font-family: 'Share Tech Mono', monospace;
+                font-size: 7.5pt;
+                color: #57544a;
+            }
+            @bottom-right {
+                content: counter(page) " / " counter(pages);
+                font-family: 'Share Tech Mono', monospace;
+                font-size: 7.5pt;
+                color: #57544a;
+            }
+        }
+
+        @media print {
+            * {
+                cursor: auto !important;
+                animation: none !important;
+                transition: none !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            /* Keep the site theme (beige paper, dark ink) */
+            html, body {
+                background: var(--bg-color) !important;
+                color: var(--text-color) !important;
+            }
+            body { font-size: 10.5pt; line-height: 1.55; }
+
+            /* Hide decorative / interactive chrome */
+            .scanlines, .bg-grid, #loader, .lightbox-overlay, #modal-overlay, .pdf-btn { display: none !important; }
+
+            /* Sidebar -> compact running header */
+            aside {
+                position: static !important;
+                width: 100% !important;
+                height: auto !important;
+                min-height: 0 !important;
+                border-right: none !important;
+                border-bottom: 2px solid var(--text-color) !important;
+                background: transparent !important;
+                padding: 0 0 8px 0 !important;
+                margin: 0 0 14px 0 !important;
+                display: block !important;
+            }
+            aside nav, aside > div:last-child { display: none !important; }
+            .logo-area { margin-bottom: 0 !important; }
+            .logo-area h1 { font-size: 20pt; }
+            .logo-area span { opacity: 1; }
+
+            main { margin: 0 !important; width: 100% !important; max-width: 100% !important; padding: 0 !important; }
+
+            a { color: var(--text-color) !important; background: none !important; padding: 0 !important; }
+
+            .section-title { font-size: 16pt; margin-top: 0; break-after: avoid; }
+            section { margin-bottom: 6px; }
+
+            /* Each major section (대목차) starts on a fresh page */
+            main > section { break-before: page; page-break-before: always; }
+            main > section#about { break-before: auto; page-break-before: auto; }
+
+            /* Keep theme surfaces; just control page breaks */
+            .project-card, .hero, .recog-card, .history-item, .skill-section, .stat-box { break-inside: avoid; }
+            /* keep each project card attached to its expanded detail */
+            /* Each project card (with its detail) starts on a fresh page;
+               the first card in a section stays with the section title */
+            #featured .project-card, #projects .project-card { break-before: page; break-after: avoid; }
+            #featured .project-card:first-of-type, #projects .project-card:first-of-type { break-before: avoid; }
+            .project-body { grid-template-columns: 2fr 1fr !important; }
+
+            /* Injected print-only detail (themed) */
+            .print-detail {
+                display: block !important;
+                background: var(--modal-bg);
+                border: 1px solid var(--highlight-color);
+                border-top: none;
+                padding: 12px 16px 16px;
+                margin: -6px 0 16px 0;
+                break-inside: auto;
+            }
+            .print-detail .pd-section { margin-top: 12px; }
+            .print-detail h4.pd-label {
+                font-family: 'Share Tech Mono', monospace;
+                font-size: 9.5pt;
+                letter-spacing: 1px;
+                border-bottom: 1px solid var(--text-color);
+                padding-bottom: 2px;
+                margin-bottom: 6px;
+                break-after: avoid;
+            }
+            .print-detail .markdown-content h3,
+            .print-detail .markdown-content h4 { break-after: avoid; }
+            .print-detail .markdown-content li { break-inside: avoid; }
+            .print-detail .pd-tags span {
+                display: inline-block;
+                background: rgba(75, 72, 63, 0.08);
+                border: 1px solid var(--highlight-color);
+                padding: 1px 6px;
+                margin: 2px 3px 2px 0;
+                font-size: 9pt;
+                font-family: 'Share Tech Mono', monospace;
+            }
+
+            footer { border-top: 1px solid var(--text-color); margin-top: 16px; }
+        }
+
+        /* ====== DRAFT SHARED COMPONENTS (NieR-style, same palette) ====== */
+        .draft-badge {
+            position: fixed; top: 14px; right: 18px; z-index: 600;
+            font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; letter-spacing: 1px;
+            background: var(--text-color); color: var(--bg-color); padding: 4px 10px;
+        }
+        .draft-badge a { color: var(--bg-color); margin-left: 8px; }
+        .draft-badge a:hover { background: var(--bg-color); color: var(--text-color); }
+
+        .sub-title {
+            font-family: 'Share Tech Mono', monospace; font-size: 1rem; letter-spacing: 2px;
+            text-transform: uppercase; margin: 34px 0 14px; display: flex; align-items: center; gap: 12px;
+        }
+        .sub-title::before { content: ''; width: 10px; height: 10px; background: var(--text-color); flex: none; }
+        .sub-title::after { content: ''; flex: 1; border-bottom: 1px dashed var(--text-color); opacity: 0.6; }
+
+        /* chip filter bar */
+        .chip-bar { display: flex; flex-wrap: wrap; gap: 6px; margin: 0 0 22px; }
+        .chip {
+            font-family: 'Share Tech Mono', monospace; font-size: 0.85rem; letter-spacing: 1px;
+            background: transparent; color: var(--text-color); border: 1px solid var(--text-color);
+            padding: 4px 10px; cursor: pointer; transition: 0.2s;
+        }
+        .chip::before { content: '[ ] '; }
+        .chip.active::before, .chip:hover::before { content: '[■] '; }
+        .chip.active { background: var(--text-color); color: var(--bg-color); }
+        .chip-n { margin-left: 8px; opacity: 0.6; font-size: 0.75rem; }
+
+        /* small inverted labels */
+        .tag-inv {
+            display: inline-block; font-family: 'Share Tech Mono', monospace; font-size: 0.72rem; letter-spacing: 1px;
+            background: var(--text-color); color: var(--bg-color); padding: 1px 7px; margin: 0 4px 4px 0; vertical-align: middle;
+        }
+        .tag-line {
+            display: inline-block; font-family: 'Share Tech Mono', monospace; font-size: 0.72rem; letter-spacing: 1px;
+            border: 1px solid var(--text-color); padding: 0 6px; margin: 0 4px 4px 0; vertical-align: middle;
+        }
+
+        /* record rows (used by B and archive) */
+        .rec-row { display: grid; grid-template-columns: 74px 128px 1fr; gap: 14px; padding: 7px 0; border-bottom: 1px dashed rgba(75,72,63,0.35); align-items: baseline; }
+        .rec-date { font-family: 'Share Tech Mono', monospace; opacity: 0.75; }
+        .rec-cat { font-family: 'Share Tech Mono', monospace; font-size: 0.75rem; letter-spacing: 1px; }
+        .rec-title { font-weight: 700; }
+        .rec-title.hl::before { content: '★ '; }
+        .rec-sub { opacity: 0.8; font-size: 0.95rem; }
+        .rec-links { margin-left: 6px; }
+        .rec-links a { font-family: 'Share Tech Mono', monospace; font-size: 0.85rem; }
+
+        @media (max-width: 900px) {
+            .rec-row { grid-template-columns: 64px 1fr; }
+            .rec-cat { display: none; }
+            .draft-badge { top: auto; bottom: 70px; right: 12px; }
+        }
+
+        /* ====== DRAFT B : SIDEBAR + TABS / FILTER ====== */
+        nav ul li a.active { background: var(--text-color); color: var(--bg-color); padding-left: 6px; }
+        nav ul li a.active::before { content: '[■] '; }
+        .b-sync { font-size: 0.8rem; letter-spacing: 1px; margin: -10px 0 20px; }
+        .b-sync-bar { height: 6px; border: 1px solid var(--text-color); margin-top: 4px; }
+        #b-sync-fill { height: 100%; width: 0; background: var(--text-color); transition: width 0.1s linear; }
+
+        .b-tabs { display: flex; flex-wrap: wrap; border-bottom: 2px solid var(--text-color); margin-bottom: 18px; }
+        .b-tab {
+            font-family: 'Share Tech Mono', monospace; font-size: 0.95rem; letter-spacing: 1px; cursor: pointer;
+            background: transparent; color: var(--text-color); border: none; padding: 10px 16px; transition: 0.2s;
+        }
+        .b-tab span { opacity: 0.55; margin-right: 8px; }
+        .b-tab::before { content: '[ ] '; }
+        .b-tab:hover::before, .b-tab.active::before { content: '[■] '; }
+        .b-tab.active { background: var(--text-color); color: var(--bg-color); }
+        .b-tab.active span { opacity: 0.8; }
+        .b-panels .project-card { display: none; margin-bottom: 0; }
+        .b-panels .project-card.active { display: block; animation: bFade 0.25s ease; }
+        @keyframes bFade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+        .b-pager { display: flex; justify-content: flex-end; align-items: center; gap: 16px; margin-top: 12px; }
+        .b-pager button { font-family: 'Share Tech Mono', monospace; background: none; border: none; color: var(--text-color); cursor: pointer; font-size: 0.95rem; font-weight: 700; }
+        .b-pager button:hover { background: var(--text-color); color: var(--bg-color); }
+
+        .b-hint { font-size: 0.85rem; opacity: 0.7; margin: -14px 0 14px; }
+        .b-acc .project-card { margin-bottom: 10px; cursor: default; }
+        .b-acc .project-card:hover { transform: none; box-shadow: none; }
+        .b-acc .project-card::after { display: none; }
+        .b-acc .project-header { cursor: pointer; }
+        .b-acc .project-header::before { content: '[+]'; font-family: 'Share Tech Mono', monospace; margin-right: 12px; }
+        .b-acc .project-card.open .project-header::before { content: '[−]'; }
+        .b-acc .project-header .project-title { margin-right: auto; font-size: 1.25rem; }
+        .b-acc .b-sum { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; opacity: 0.8; margin: 0 18px; }
+        .b-acc .project-body { display: none; }
+        .b-acc .project-card.open .project-body { display: grid; }
+        .b-acc .project-card.open .b-sum { display: none; }
+        .b-open { margin-top: 12px; display: inline-block; font-family: 'Share Tech Mono', monospace; border: 1px solid var(--text-color); padding: 3px 10px; }
+
+        .b-log .history-item p { display: grid; grid-template-columns: 54px 128px 1fr; gap: 10px; align-items: baseline; margin-bottom: 6px; }
+        .b-log .history-item p > strong:first-child { font-family: 'Share Tech Mono', monospace; }
+        .b-log .b-cat { font-family: 'Share Tech Mono', monospace; font-size: 0.72rem; letter-spacing: 1px; border: 1px solid var(--text-color); padding: 0 6px; justify-self: start; }
+        .b-log .b-cat.hl { background: var(--text-color); color: var(--bg-color); }
+        .b-log .b-sub { opacity: 0.8; font-size: 0.93rem; }
+        .b-empty { font-family: 'Share Tech Mono', monospace; opacity: 0.7; }
+        .b-more { margin-top: 6px; font-family: 'Share Tech Mono', monospace; background: none; border: 1px dashed var(--text-color); color: var(--text-color); padding: 6px 14px; cursor: pointer; }
+        .b-more:hover { background: var(--text-color); color: var(--bg-color); }
+
+        @media (max-width: 900px) {
+            .b-sync { display: none; }
+            .b-log .history-item p { grid-template-columns: 50px 1fr; }
+            .b-log .b-cat { display: none; }
+            .b-acc .b-sum { display: none; }
+            #research > div { grid-template-columns: 1fr !important; }
+        }
+
+        .pdf-btn { display: none; }
+    </style>
+</head>
+<body>
+    <div class="draft-badge">DRAFT B · SIDEBAR + TABS/FILTER <a href="drafts/layout/index.html">[ALL DRAFTS]</a></div>
+
+    <!-- VISUAL FX LAYERS -->
+    <div class="bg-grid"></div>
+    <div class="scanlines"></div>
+
+    <!-- LOADING SCREEN -->
+    <div id="loader">
+        <div style="text-align: left; width: 300px;">
+            <p>> SYSTEM CHECKING...</p>
+            <p>> LOADING ASSETS...</p>
+            <p>> CONNECTING TO BUNKER SERVER...</p>
+            <br>
+            <p class="loader-text">> SYSTEM ONLINE</p>
+        </div>
+    </div>
+
+    <!-- LIGHTBOX OVERLAY -->
+    <div id="lightbox-overlay" class="lightbox-overlay" onclick="closeLightbox()">
+        <span class="lightbox-close" onclick="closeLightbox()">×</span>
+        <img id="lightbox-image" class="lightbox-img" src="" alt="Enlarged View" onclick="event.stopPropagation()">
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside>
+        <div class="logo-area">
+            <h1>Hyunsu Yu</h1>
+            <span class="mono">GAMEPLAY & RENDERING</span>
+        </div>
+        
+        <nav>
+            <ul>
+                <li><a href="#about">00. ABOUT ME</a></li>
+                <li><a href="#featured">01. FEATURED</a></li>
+                <li><a href="#projects">02. GAMES</a></li>
+                <li><a href="#research">03. RESEARCH</a></li>
+                <li><a href="#record">04. RECORD</a></li>
+                <li><a href="#skills">05. SKILLS</a></li>
+                <li><a href="#contact">06. CONTACT</a></li>
+            </ul>
+        </nav>
+        <div class="b-sync mono"><div>SCROLL SYNC <span id="b-sync-n">000</span>%</div><div class="b-sync-bar"><div id="b-sync-fill"></div></div></div>
+
+        <div style="font-size: 0.8rem; opacity: 0.6; font-family: 'Share Tech Mono';">
+            <p>LOC: BUSAN, KR</p>
+            <p>ID: 4TH YEAR CE</p>
+            <p>STATUS: ONLINE</p>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main>
+        <section id="about">
+            <h2 class="section-title glitch-effect">About Me</h2>
+            <div class="hero">
+                <div style="margin-bottom: 20px;">
+                    <h3 style="font-size: 1.5rem; margin-bottom: 10px;">"Continuous Learner with Strong Research Background"</h3>
+                    <p>Computer Engineering 4th Grade Student focusing on Gameplay, Graphics, and Low-level Optimization.</p>
+                </div>
+                
+                <div class="hero-stats mono">
+                    <div class="stat-box">
+                        <h3>Tech Blog</h3>
+                        <p>6+ Years</p>
+                    </div>
+                    <div class="stat-box">
+                        <h3>Projects</h3>
+                        <p>8+ Major Titles</p>
+                    </div>
+                    <div class="stat-box">
+                        <h3>Map Generation</h3>
+                        <p>270M Tiles · IPC</p>
+                    </div>
+                </div>
+
+                <div style="margin-top: 25px; text-align: left;">
+                    <a href="https://drive.google.com/file/d/1b8B8hxHrjDdUNfaZbA_s2uN_0eMjxowI/view?usp=sharing" target="_blank" class="mono">[VIEW FULL PORTFOLIO DOC]</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 1. FEATURED : tabbed, one project at a time -->
+        <section id="featured">
+            <h2 class="section-title glitch-effect">Featured Project</h2>
+            <div class="b-tabs mono" id="b-feat-tabs">
+                <button class="b-tab active" data-i="0"><span>01</span>HYBRID RENDERING</button>
+                <button class="b-tab" data-i="1"><span>02</span>MAP GENERATION</button>
+                <button class="b-tab" data-i="2"><span>03</span>VISUAL WAVE</button>
+                <button class="b-tab" data-i="3"><span>04</span>C++ BOOK</button>
+            </div>
+            <div class="b-panels" id="b-feat-panels">
+<article class="project-card" style="border: 2px solid var(--text-color);" onclick="openModal('meshshader')">
+                <div class="project-header">
+                    <span class="project-title">DirectX 12 Meshlet과 IA 기반의 하이브리드 렌더링 파이프라인 구현 ⭐</span>
+                    <span class="mono">2025.12 ~ 2026.11 · Graduation Thesis</span>
+                </div>
+                <div class="project-body">
+                    <div class="project-content">
+                        <p>My B.S. graduation thesis. A DX12 renderer that integrates the Input Assembler path and an Amplification/Mesh Shader meshlet path, and picks one of the two per mesh group at runtime using an environment-specialized selector built from pre-baked GPU costs. The proposed MS-default K-Means selector mixes IA and MS within the same frame and beats both single-path baselines.</p>
+                        <div class="highlight-stat mono">
+                            <p>> GPU Scene 시간: IA 전용 대비 −15.83% · MS 전용 대비 −3.01% (95% CI 2.78~3.26%)</p>
+                            <p>> 5개 선택기 중 유일하게 두 전용 경로 모두 추월 / 6개 환경에서 같은 프레임 IA·MS 혼합</p>
+                            <p>> AS Meshlet 컬링: Rasterizer 입력 IA 대비 −82.26% (Depth bit 단위 동일)</p>
+                        </div>
+                        <p>Thesis benchmark: RTX 4070 Laptop / 1280×720 / Agility SDK 1.618.5 (SM 6.6, MS 6.7); 11 Unreal Engine environment assets replayed along 30 Hz camera paths, 8 repeated cohorts, 653,160 frames per method, paired-bootstrap 95% CI. Main metric is GPU Scene time (Clear → last scene draw), excluding CPU preparation and Present.</p>
+                        <div class="project-links">
+                            <a href="assets/papers/GraduationThesis.pdf" target="_blank" onclick="event.stopPropagation()">[THESIS]</a>
+                            <a href="https://github.com/HyunsuYu/D3D12-Meshlet-Sample" target="_blank" onclick="event.stopPropagation()">[GITHUB]</a>
+                            <a href="https://drive.google.com/drive/folders/1Cn0udL8k-LEFIsyFWisXQVbRnvi_2SFT?usp=sharing" target="_blank" onclick="event.stopPropagation()">[RESOURCE URL]</a>
+                        </div>
+                    </div>
+                    <div class="project-meta mono">
+                        <p><strong>ROLE:</strong> Sole Research / First Author</p>
+                        <p><strong>TECH:</strong> C++, DX12, Amplification/Mesh Shader, meshoptimizer, FBX SDK, PBR, K-Means</p>
+                        <p><strong>STATUS:</strong> Graduation Thesis (2026)</p>
+                    </div>
+                </div>
+            </article>
+<article class="project-card" onclick="openModal('mapgen')">
+                <div class="project-header">
+                    <span class="project-title">Massive Map Generation System ⭐</span>
+                    <span class="mono">Initial implementation: 2023.07 ~ 2024.06</span>
+                </div>
+                <div class="project-body">
+                    <div class="project-content">
+                        <p>A large-scale tilemap generation system using partitioned parallel computation, an external agent process, and 2-channel PNG storage. The attached paper evaluates host responsiveness and storage trade-offs at 270 million tiles.</p>
+                        <div class="highlight-stat mono">
+                            <p>> Host Responsiveness: 51.26 FPS / worst frame 230.3 ms (IPC+Agent)</p>
+                            <p>> Storage: 270 MB raw → 14.6 MB PNG (5.41% of raw size)</p>
+                            <p>> Scale: 270M tiles (3000×3000×30); generation mean 22.467 s</p>
+                        </div>
+                        <p>Paper benchmark: i9-13900HX / 32 GB / RTX 4070 Laptop / Unity 6000.3.6f1 Mono; 2 warm-ups + 10 measured runs. Generation time excludes PNG saving, process startup, and IPC preparation; thermal conditions were uncontrolled. Job System + Burst generated faster (3.565 s); IPC+Agent achieved higher effective host FPS.</p>
+                        <!-- Restored Direct Links -->
+                        <div class="project-links">
+                            <a href="https://github.com/HyunsuYu/LayeredMapGenAgent.git" target="_blank" onclick="event.stopPropagation()">[GITHUB]</a>
+                            <a href="https://drive.google.com/drive/folders/14xKEhV8LsZg1-tGm2gz1MbfmqH-oxxvi?usp=sharing" target="_blank" onclick="event.stopPropagation()">[OUTPUT DATA SAMPLES]</a>
+                            <a href="assets/papers/MapGenPaper.pdf" target="_blank" onclick="event.stopPropagation()">[PAPER]</a>
+                        </div>
+                    </div>
+                    <div class="project-meta mono">
+                        <p><strong>ROLE:</strong> Solo Dev</p>
+                        <p><strong>TECH:</strong> C#, Parallelism</p>
+                        <p><strong>STATUS:</strong> Completed</p>
+                    </div>
+                </div>
+            </article>
+<article class="project-card" style="border: 2px solid var(--text-color);" onclick="openModal('visualwave')">
+                <div class="project-header">
+                    <span class="project-title">Visual Wave : VN Authoring Framework ⭐</span>
+                    <span class="mono">2025.05 ~ Present</span>
+                </div>
+                <div class="project-body">
+                    <div class="project-content">
+                        <p>A visual-novel authoring framework based on a frame-state execution model inspired by render state tables. Built as an engine-independent core + per-engine runtime + VS Code LSP, and validated for practicality on a commercial VN (ALCOHOL FREE).</p>
+                        <div class="highlight-stat mono">
+                            <p>> 대사 1자당 저장: 이전 노드그래프 약 30.0B → VW 약 4.7B (약 1/6)</p>
+                            <p>> 상태 중복률: 85.4% → 0% (변화분만 기재)</p>
+                            <p>> 상용 수준 VN 적용: 55 Scenes / 3,035 Commands / Godot 배경·대사 채널 실증</p>
+                        </div>
+                        <p>Paper comparison: previous node-graph tool 127 scenes / 2,734 frames vs. VW 55 scenes; normalized storage per dialogue character. This is a representation-size comparison, not a measured authoring-productivity gain.</p>
+                        <div class="project-links">
+                            <a href="assets/papers/VisualWavePaper.pdf" target="_blank" onclick="event.stopPropagation()">[PAPER]</a>
+                            <a href="https://galvanized-soda-726.notion.site/Visual-Wave-2e315b43f51680ab8ce9d32b5c43773d" target="_blank" onclick="event.stopPropagation()">[VISUAL WAVE DOC]</a>
+                            <a href="https://drive.google.com/file/d/1jthhRwlaB8bJXeVXcg_yJlSimpkSPBiJ/view?usp=sharing" target="_blank" onclick="event.stopPropagation()">[VS CODE EXTENSION]</a>
+                        </div>
+                    </div>
+                    <div class="project-meta mono">
+                        <p><strong>ROLE:</strong> Sole Research / First Author</p>
+                        <p><strong>TECH:</strong> C#, DSL, LSP, Unity, Godot</p>
+                        <p><strong>STATUS:</strong> Published (Paper)</p>
+                    </div>
+                </div>
+            </article>
+<article class="project-card" style="border: 2px solid var(--text-color);" onclick="openModal('book')">
+                <div class="project-header">
+                    <span class="project-title">More Deeper C++ Programming Language</span>
+                    <span class="mono">Written: 2023.04 ~ 2023.10 · Published: 2026.07.30</span>
+                </div>
+                <div class="project-body">
+                    <div class="project-content">
+                        <p>Advanced C++ textbook authored for Korea Univ. senior students. Focuses on bridging the gap between high-level syntax and low-level hardware behavior.</p>
+                        <div class="highlight-stat mono">
+                            <p>> ISBN: 979-11-438-1468-5 (05500)</p>
+                            <p>> Pages: 222 (published PDF edition)</p>
+                            <p>> Published: 2026.07.30 · Publisher: 작가와</p>
+                            <p>> Topics: Memory architecture, SIMD, Cache optimization, Compile-time/Runtime optimization, Modern C++ features, etc.</p>
+                            <p>> References: ISO/IEC 14882:2003 Programming languages — C++, AMD64 Architecture Programmer’s Manual, Effective C++ series, Structure and Interpretation of Computer Programs, papers, etc.</p>
+                            <p>> Store: 교보문고, 알라딘, Yes24, 밀리의 서재, 리디북스, 윌라, BOOKCUBE, Bookers</p>
+                        </div>
+                        <div class="project-links">
+                            <a href="https://drive.google.com/file/d/1MnLVWyNbX1B9zB5ZvXCBEFeIT6ur7vVq/view?usp=sharing" target="_blank" onclick="event.stopPropagation()">[BOOK URL]</a>
+                            <a href="https://ebook-product.kyobobook.co.kr/dig/epd/ebook/E000013305174" target="_blank" onclick="event.stopPropagation()">[교보문고 URL]</a>
+                            <a href="https://www.yes24.com/product/goods/194190987" target="_blank" onclick="event.stopPropagation()">[YES24 · 222 PAGES]</a>
+                            <a href="https://www.nl.go.kr/seoji/contents/S80100000000.do?schM=intgr_detail_view_isbn&page=1&pageUnit=10&schType=detail&f1=title&and1=AND&f2=author&v2=%EC%9C%A0%ED%98%84%EC%88%98&and2=AND&f3=publisher&f5=isbn&isbn=9791143814685&cipId=230577062%2C" target="_blank" onclick="event.stopPropagation()">[국립중앙도서관 URL]</a>
+                        </div>
+                    </div>
+                    <div class="project-meta mono">
+                        <p><strong>ROLE:</strong> Writer / Instructor</p>
+                        <p><strong>STATUS:</strong> Published</p>
+                        <p><strong>USAGE:</strong> Paid 1 semester instruction</p>
+                    </div>
+                </div>
+            </article>
+            </div>
+            <div class="b-pager mono"><button id="b-prev">[&lt; PREV]</button><span id="b-pos">01 / 04</span><button id="b-next">[NEXT &gt;]</button></div>
+        </section>
+
+        <!-- 2. GAMES : accordion -->
+        <section id="projects">
+            <h2 class="section-title glitch-effect">Game Projects</h2>
+            <p class="mono b-hint">▸ 헤더를 눌러 펼치기 / [ACCESS DATA LOG]로 상세 보기</p>
+            <div class="b-acc" id="b-games">
+<article class="project-card" onclick="openModal('hearts')">
+                <div class="project-header">
+                    <span class="project-title">마음을 담아 (From All My Hearts) ⭐</span>
+                    <span class="mono">2025.05 ~ Present</span>
+                </div>
+                <div class="project-body">
+                    <div class="project-content">
+                        <p>Oriental Word Puzzle / Visual Novel. Puzzle mechanics based on completing sentences to find hidden meanings.</p>
+                        <ul>
+                            <li>Awards: TU Game Challenge - Top Excellence Award (최우수상)</li>
+                            <li>Exhibitions: G-Star 2025, Comic World 2025, TU RISE ALL FESTA 2025</li>
+                            <li>Recognition: Pleedus Partnership Comic World 2025 Booth</li>
+                        </ul>
+                        <div class="project-links">
+                            <a href="https://hyunsuyu.github.io/WithAllMyHeartWeb/" target="_blank" onclick="event.stopPropagation()">[HOMEPAGE]</a>
+                            <a href="https://drive.google.com/drive/folders/1LaSYYw86cLzuU0F3bvfnQvsbYH04LgR0?usp=sharing" target="_blank" onclick="event.stopPropagation()">[DOWNLOAD]</a>
+                            <a href="https://youtu.be/9EBkzyfpu3c?si=Tb_dYUmmJtolZAWK" target="_blank" onclick="event.stopPropagation()">[TEASER]</a>
+                        </div>
+                    </div>
+                    <div class="project-meta mono">
+                        <p><strong>ROLE:</strong> Programmer</p>
+                        <p><strong>GENRE:</strong> Puzzle/Visual Novel</p>
+                        <p><strong>TEAM:</strong> 5 Members</p>
+                    </div>
+                </div>
+            </article>
+<article class="project-card" onclick="openModal('alcoholfree')">
+                <div class="project-header">
+                    <span class="project-title">ALCOHOL FREE ⭐</span>
+                    <span class="mono">2025.05 ~ 2025.12</span>
+                </div>
+                <div class="project-body">
+                    <div class="project-content">
+                        <p>Visual Novel. Developed a Custom Blueprint-Style Editor for designers and whole game system.</p>
+                        <ul>
+                            <li>Awards: TU Game Challenge 2025 - Excellence Award (우수상), TU Game Challenge 2026 - Merit Award (장려상)</li>
+                            <li>Exhibitions: BEAVER ROCKS 2025, G-Star 2025, Comic World 2025, TU RISE ALL FESTA 2025</li>
+                            <li>Recognition: Pleedus Partnership Comic World 2025 Booth</li>
+                        </ul>
+                        <div class="project-links">
+                            <a href="https://hyunsuyu.github.io/ALCOHOL-FREE/" target="_blank" onclick="event.stopPropagation()">[HOMEPAGE]</a>
+                            <a href="https://store.onstove.com/ko/games/103115" target="_blank" onclick="event.stopPropagation()">[STOVE PAGE]</a>
+                            <a href="https://youtu.be/aUPhujbokDo?si=aSG_oEsmnzKGfpgA" target="_blank" onclick="event.stopPropagation()">[TEASER]</a>
+                            <a href="https://galvanized-soda-726.notion.site/Visual-Wave-2e315b43f51680ab8ce9d32b5c43773d" target="_blank" onclick="event.stopPropagation()">[TOOL : VISUAL WAVE DOC]</a>
+                            <a href="https://drive.google.com/file/d/1jthhRwlaB8bJXeVXcg_yJlSimpkSPBiJ/view?usp=sharing" target="_blank" onclick="event.stopPropagation()">[TOOL : VISUAL WAVE VS CODE EXTENSION]</a>
+                        </div>
+                    </div>
+                    <div class="project-meta mono">
+                        <p><strong>ROLE:</strong> Programmer</p>
+                        <p><strong>GENRE:</strong> Visual Novel</p>
+                        <p><strong>TEAM:</strong> 7 Members</p>
+                    </div>
+                </div>
+            </article>
+<article class="project-card" onclick="openModal('rgbline')">
+                <div class="project-header">
+                    <span class="project-title">RGB Line</span>
+                    <span class="mono">2024.12 ~ 2025.12</span>
+                </div>
+                <div class="project-body">
+                    <div class="project-content">
+                        <p>Rhythm Game. Lead Programmer. Developed an Auto Documentation Pipeline to streamline development.</p>
+                        <ul>
+                            <li>Awards: TU Game Challenge - Merit Award (장려상)</li>
+                            <li>Exhibitions: G-Star 2025, Build 051</li>
+                        </ul>
+                        <div class="project-links">
+                            <a href="https://rgb-line.github.io/RGBLineWebPage/index.html" target="_blank" onclick="event.stopPropagation()">[HOMEPAGE]</a>
+                            <a href="https://drive.google.com/drive/folders/1zc6ICzXm2W8nnRGSJH6_eUThX8o8pFYe?usp=sharing" target="_blank" onclick="event.stopPropagation()">[DOWNLOAD]</a>
+                            <a href="https://www.youtube.com/watch?v=L54qU3JqQJI" target="_blank" onclick="event.stopPropagation()">[PLAY VIDEO]</a>
+                            <a href="https://github.com/orgs/RGB-Line/repositories" target="_blank" onclick="event.stopPropagation()">[GITHUB]</a>
+                            <a href="https://rgb-line.github.io/RGBLineCoreLib/" target="_blank" onclick="event.stopPropagation()">[CORE LIB API DOC]</a>
+                            <a href="https://mango-aspen-c20.notion.site/Coding-Standard-169d671a68fe815e9ab2ff70b5cae486?pvs=74" target="_blank" onclick="event.stopPropagation()">[CODING STANDARD]</a>
+                        </div>
+                    </div>
+                    <div class="project-meta mono">
+                        <p><strong>ROLE:</strong> Lead Programmer</p>
+                        <p><strong>GENRE:</strong> Rhythm</p>
+                        <p><strong>TEAM:</strong> 4 Members</p>
+                    </div>
+                </div>
+            </article>
+<article class="project-card" onclick="openModal('fins')">
+                <div class="project-header">
+                    <span class="project-title">FINS</span>
+                    <span class="mono">2026.10.02 ~ 2026.10.04</span>
+                </div>
+                <div class="project-body">
+                    <div class="project-content">
+                        <p>Growth-based action game: hunt sharks, earn currency to upgrade abilities, and dive into the deeper, darker sea to challenge the final boss.</p>
+                        <ul>
+                            <li>Event: UPTRANDING Game Jam (2박 3일)</li>
+                            <li>Graphics: Lens Flare · Water Caustics · 2D sprite underwater lighting · layered Sin-wave waves</li>
+                            <li>Depth-based progression with Sell / Upgrade economy</li>
+                            <li>Final Boss: MEGALODON</li>
+                        </ul>
+                        <div class="project-links">
+                            <a href="https://uptrand-admin.github.io/Homepage/games/fins/" target="_blank" onclick="event.stopPropagation()">[PLAY]</a>
+                        </div>
+                    </div>
+                    <div class="project-meta mono">
+                        <p><strong>ROLE:</strong> Programmer</p>
+                        <p><strong>GENRE:</strong> Action/Adventure</p>
+                        <p><strong>TEAM:</strong> 5 Members</p>
+                    </div>
+                </div>
+            </article>
+            </div>
+        </section>
+
+        <section id="research">
+            <h2 class="section-title glitch-effect">Research & Knowledge</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                <div class="hero">
+                    <h3 class="mono" style="margin-bottom: 15px; border-bottom: 1px dashed var(--text-color);">TECHNICAL BLOG (6+ YEARS)</h3>
+                    <p style="margin-bottom: 15px;">Deep dive into Computer Architecture, Graphics, and Optimization.</p>
+                    <ul style="list-style: square inside; font-size: 0.9rem;">
+                        <li>Graphics & Shader (Metaball, Fluid Sim)</li>
+                        <li>Optimization (NUMA, SIMD, Cache)</li>
+                        <li>AI & Game Intelligence (LLM Integration)</li>
+                        <li>Computer Architecture (Circuit Design)</li>
+                    </ul>
+                    <br>
+                    <a href="https://medium.com/more-deeper-c-programming-language" target="_blank" class="mono">[PUBLICATION]</a>
+                    <a href="https://medium.com/@lioie6478" target="_blank" class="mono">[READ ON MEDIUM]</a>
+                </div>
+                <div class="hero">
+                    <h3 class="mono" style="margin-bottom: 15px; border-bottom: 1px dashed var(--text-color);">TEACHING & MATERIAL</h3>
+                    <p><strong>Title:</strong> More Deeper C++ Programming Language (222 Pages)</p>
+                    <p><strong>Desc:</strong> Authored textbook covering Memory architecture, SIMD, and Compile-time optimization.</p>
+                    <p><strong>Instructor:</strong> C++ Optimization Course (8 students, Paid)</p>
+                    <br>
+                    <a href="javascript:openModal('cs_course')" class="mono">[VIEW COURSE INFO]</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. RECORD : awards + exhibitions + timeline merged, filterable -->
+        <section id="record">
+            <h2 class="section-title glitch-effect">Record</h2>
+            <div class="chip-bar" id="b-chips"></div>
+            <div class="history-timeline b-log" id="b-log"></div>
+        </section>
+
+        <section id="skills">
+            <h2 class="section-title glitch-effect">Technical Skills</h2>
+            <div class="skill-section">
+                <h3>PROGRAMMING LANGUAGES</h3>
+                <div class="skill-bar-container">
+                    <span class="skill-tag">C++</span>
+                    <span class="skill-tag">C#</span>
+                    <span class="skill-tag">HLSL</span>
+                    <span class="skill-tag">Python</span>
+                </div>
+
+                <h3>ENGINES & GRAPHICS</h3>
+                <div class="skill-bar-container">
+                    <span class="skill-tag">Unity</span>
+                    <span class="skill-tag">Unreal Engine (Learning)</span>
+                    <span class="skill-tag">DirectX 12 (Learning)</span>
+                    <span class="skill-tag">Shader Programming</span>
+                    <span class="skill-tag">PBR / Ambient Occlusion (Learning)</span>
+                </div>
+
+                <h3>CORE COMPETENCIES</h3>
+                <div class="skill-bar-container">
+                    <span class="skill-tag">Performance / Memory Optimization</span>
+                    <span class="skill-tag">Lock-free Embarrassingly Parallelization</span>
+                    <span class="skill-tag">Auto-Documentation Pipeline</span>
+                </div>
+
+                <h3>LANGUAGES</h3>
+                <div class="skill-bar-container">
+                    <span class="skill-tag" style="background: var(--highlight-color)">Korean (Native)</span>
+                    <span class="skill-tag" style="background: var(--highlight-color)">English (Working Proficiency)</span>
+                    <span class="skill-tag" style="background: var(--highlight-color)">Japanese (Working Proficiency)</span>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" style="margin-bottom: 0;">
+            <h2 class="section-title glitch-effect">Contact</h2>
+            <div class="hero" style="text-align: center;">
+                <p class="mono" style="font-size: 1.2rem; margin-bottom: 20px;">Hyunsu Yu (유현수)</p>
+                <div style="display: flex; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                    <a href="mailto:lioie6478@gmail.com" class="mono">[EMAIL: lioie6478@gmail.com]</a>
+                    <a href="https://github.com/HyunsuYu" target="_blank" class="mono">[GITHUB]</a>
+                    <a href="https://galvanized-soda-726.notion.site/28c15b43f516804698bbc86be167226f" target="_blank" class="mono">[PORTFOLIO]</a>
+                    <a href="https://medium.com/@lioie6478" target="_blank" class="mono">[BLOG]</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <p style="font-size: 0.8rem; margin-top: 10px;">&copy; 2026 Hyunsu Yu.</p>
+    </footer>
+
+    <!-- SAVE AS PDF (screen only) -->
+    <button class="pdf-btn" onclick="openPrintView()" title="Save portfolio as a clean PDF">&#9113; SAVE AS PDF</button>
+
+    <!-- MODAL (MOVED TO BOTTOM FOR Z-INDEX FIX) -->
+    <div id="modal-overlay" class="modal-overlay" onclick="closeModal()">
+        <div class="modal-container" onclick="event.stopPropagation()">
+            <div class="modal-header">
+                <span class="modal-title" id="m-title">PROJECT TITLE</span>
+                <button class="close-btn" onclick="closeModal()">[X] CLOSE</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-tags" id="m-tags">
+                    <!-- Tags injected via JS -->
+                </div>
+
+                <!-- Media (video + gallery) -->
+                <div class="m-media" id="m-media">
+                    <div class="video-embed" id="m-video-container">
+                        <iframe id="m-video" width="100%" height="100%" src="" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    </div>
+                    <div id="m-gallery" class="modal-gallery" style="display: none;"></div>
+                </div>
+
+                <!-- Text Content -->
+                <div class="modal-grid" id="m-text">
+                    <div>
+                        <div class="modal-section-title">> OVERVIEW</div>
+                        <div id="m-desc" class="markdown-content" style="margin-bottom: 20px;"></div>
+
+                        <div class="modal-section-title">> KEY OUTCOMES / EXHIBITED WORKS</div>
+                        <ul class="modal-list" id="m-achievements"></ul>
+                    </div>
+                    <div>
+                        <div class="modal-section-title">> DETAILS / STACK</div>
+                        <div class="skill-bar-container" id="m-tech" style="margin-bottom: 20px;"></div>
+
+                        <div class="modal-section-title">> ROLE & HIGHLIGHTS</div>
+                        <div id="m-challenges" class="markdown-content"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --- LIGHTBOX LOGIC ---
+        const lightbox = document.getElementById('lightbox-overlay');
+        const lightboxImg = document.getElementById('lightbox-image');
+
+        function openLightbox(src) {
+            lightboxImg.src = src;
+            lightbox.style.display = 'flex';
+        }
+
+        function closeLightbox() {
+            lightbox.style.display = 'none';
+            lightboxImg.src = '';
+        }
+
+        // --- DATA DATABASE (Projects + Events) ---
+        // Updated with Multi-line Markdown support
+        const projectDB = {
+            // --- MAIN PROJECTS ---
+            'mapgen': {
+                title: 'Massive Map Generation System',
+                tags: ['Solo Dev', 'System Architecture', 'C# / Unity', 'Optimization', 'Tool Dev'],
+                desc: `군 복무 중 설계를 시작하여 전역 후 완성한 초대형 2D 타일맵 생성 및 최적화 시스템입니다.
+
+                기존 상용 엔진의 타일맵 시스템이 가진 대규모 데이터 처리 한계(메모리 오버헤드, 직렬화 속도)를 극복하기 위해 **Computer Science 기초(자료구조, 메모리 구조, 비트 연산)**를 응용하여 바닥부터 아키텍처를 재설계했습니다. 단순한 기능 구현을 넘어 **하드웨어 레벨(Cache Coherency, I/O)**의 병목을 해결하는 데 주력했습니다.
+
+                핵심 생성 알고리즘과 실행 전략은 「계층적 임의 보행 기반 대규모 타일맵 생성 알고리즘과 호스트 반응성을 위한 실행 전략」으로 **2026 한국멀티미디어학회 추계학술발표대회(제29권 2호)**에 포스터 논문으로 **게재 승인**되었습니다. (제1저자·단독 연구, 지도교수: 고정국)`,
+                tech: ['C#', 'Unity', 'Lock-free Parallelization', 'IPC (Named Pipe)', 'Hierarchical Random-Walk', 'BFS / flood-fill', 'xorshift RNG', '2-channel PNG Encoding'],
+                challenges: `# 1. 계층적 임의 보행 생성 알고리즘
+                - **Abstract → Room → Tile 계층** 맵을 Room 격자(Abstract)로 추상화하고 각 칸을 Single Room Size 타일 격자에 대응, 최종 해상도 = Map Size × Single Chunk Size × Single Room Size로 구성했습니다.
+                - **확률적 임의 보행 + flood-fill** 하단 중앙에서 상단까지 도착 거리를 가중한 확률적 임의 보행으로 주 통로를 그리고, flood-fill로 연결성을 확인하며 보조 방을 배치(Spelunky식 산재)했습니다.
+                - **수직 gate 연결** 인접 두 층에서 양쪽 통과 가능한 칸을 후보로 상하 BFS로 수직 연결 영역(gate)을 확장해 평면 조각들을 3차원으로 통합했습니다.
+                # 2. Lock-free 병렬 · IPC 분리 아키텍처
+                - **엔진 분리 Agent 프로세스** 무거운 생성 연산을 Unity 메인 스레드에서 분리된 독립 에이전트 프로세스로 옮겨, 생성 중 호스트 반응성을 유지하도록 설계했습니다. 대량 관리형 할당은 제거한 것이 아니라 에이전트 프로세스로 분리했습니다.
+                - **3채널 IPC** 실행 인자(JSON+Base64), 진행 상황(Named Pipe 스트리밍), 완성 맵(공유 PNG 파일)의 세 채널로 프로세스 간 통신을 구성했습니다.
+                - **Lock-free 병렬화** 겹치지 않는 영역 분할 + 스레드별 좌표 시드 기반 지역 xorshift 난수기로 Lock 없이 병렬화하여, 스케줄 순서와 무관하게 동일 결과가 생성되도록(결정론적) 설계했습니다. .NET ThreadPool로 배치 실행합니다.
+                # 3. 데이터 압축 및 I/O 최적화
+                - **2채널 PNG 인코딩** 타일 상태를 정규화 부동소수점으로 R8G8B8A8 PNG에 저장하되, 8bit 채널의 정밀도 한계를 R·G 2채널 멀티비트 인코딩으로 보완(지형 높이·확률값 등 소수 단위 속성 확장에 유효).
+                - **Split Encoding & Tagged Union** 32bit Enum 데이터를 8bit 채널 텍스처에 담기 위해 분할 인코딩/디코딩 로직을 구현하고, 최상위 비트(MSB)를 태그로 활용해 단일 타일과 패턴 타일(RLE)을 비트 레벨에서 구분했습니다.
+                # 4. 런타임 최적화: Seamless Streaming
+                - **Chunking & Preloading** 플레이어 위치 기반 N±1 Layer 비동기 프리로딩 + 3x3 청크 관리로 로딩 화면 없는(Seamless) 오픈월드 스트리밍을 구축했습니다.
+                - **Zero-Allocation Memory Management** Tilemap.SetTiles로 Draw Call을 최소화하고 CompositeCollider2D로 물리 토폴로지를 단순화했으며, 데이터 버퍼 풀링으로 런타임 GC Spike를 억제했습니다.
+                # 5. 논문 실험 결과 (표 1·2: 3000×3000×30 = 2.7억 타일)
+                - **측정 조건** Intel Core i9-13900HX / RAM 32GB / RTX 4070 Laptop / Unity 6000.3.6f1 Mono. 동일 맵 생성에 워밍업 2회 후 본 측정 10회, 발열 미통제. 아래 생성·준비 시간은 평균±표준편차, FPS는 평균, 최악 프레임은 전체 측정 중 최댓값입니다. 시간·프레임 지표는 2차 보완 단일 런, 누적 관리형 할당은 선행 계측 런 기준입니다.
+                - **생성 계산 시간** Job System+Burst 3.565±0.126s / 메인 스레드 239.358±11.657s / IPC+Agent 22.467±3.291s. PNG 저장·프로세스 시작·IPC 준비는 제외합니다. 생성 속도는 Job System+Burst가 가장 빠릅니다.
+                - **생성 중 호스트 반응성** 실효 FPS는 Job System+Burst 29.31 / 메인 스레드 0.257 / IPC+Agent 51.26. 전체 최악 프레임은 각각 2750.3ms / 252161.8ms / 230.3ms입니다. IPC+Agent의 강점은 생성 속도가 아닌 호스트 반응성이며, 순간 프레임 지연은 남아 있습니다.
+                - **호스트 누적 관리형 할당** Job System+Burst 10.5KB / 메인 스레드 약 21.9GB / IPC+Agent 118KB. 에이전트의 할당량을 포함한 전체 프로세스 메모리 수치가 아닙니다.
+                - **Total Turnaround** Job System+Burst 6.559±0.128s / 메인 스레드 242.192±11.701s / IPC+Agent 37.206±3.374s. 생성 요청부터 사전 지정 20×20 플레이 영역(활성 타일 165개)의 렌더·충돌·격자 인접 준비 완료까지이며, 전체 2.7억 타일의 게임 설치 완료 시간이 아닙니다.
+                - **저장 용량과 I/O 절충** 2채널 PNG 30장 합계 14.6MB(본문 14.603MB)로 무압축 원시 270MB의 약 5.41%. PNG 저장/복원은 2.142s/0.758s, Raw 파일 I/O는 0.123s/0.021s로 PNG는 용량을 줄이는 대신 더 긴 I/O 시간이 필요합니다. 전 본 시행에서 복원 맵 SHA-256이 입력과 일치했습니다.
+                - **구조적 품질** 활성 타일 12.70%, 막다른 끝 타일 0.28%, 시드 형태 다양성(Jaccard 거리) 0.926, 3D 최대 연결 성분 63.5%.`,
+                achievements: [
+                    '논문 표 1: 2.7억 타일 생성 평균 22.467s (IPC+Agent); Job System+Burst 3.565s, 메인 스레드 239.358s',
+                    '논문 표 2: 원시 270MB → 2채널 PNG 14.6MB (원시 용량의 약 5.41%; 저장/복원 2.142s/0.758s)',
+                    '실험 규모: 3000×3000×30 = 2.7억 타일; 사전 지정 20×20 플레이 영역 준비 평균 37.206s (전체 맵 설치 시간 아님)',
+                    '논문 표 1: 생성 중 호스트 실효 평균 51.26 FPS / 전체 최악 프레임 230.3ms / 호스트 누적 관리형 할당 118KB (에이전트 할당 제외)',
+                '2026 한국멀티미디어학회 추계학술발표대회 논문 게재 승인 (제29권 2호 · 포스터 · 제1저자, 단독 연구)'
+                ],
+                video: 'https://www.youtube.com/embed/SGQx82kwn-8?si=WFa7hvW2NLcj51OC',
+                images: [
+                    'assets/papers/mapgen-fig1-framework.png',
+                    'assets/papers/mapgen-fig2-corridor.png',
+                    'assets/papers/mapgen-fig3-gate.png',
+                    'assets/papers/mapgen-fig4-pipeline.png',
+                    'assets/papers/mapgen-paper-result.png',
+                    'assets/papers/mapgen-paper-3d.png',
+                    'assets/drive/1-LvQgEJYjVsM6vgf2QFTBeYvNcJeS2xH.png',
+                    'assets/drive/1ngP-xzS1wokluQ0im1OjDWwmZXTtO86H.png',
+                    'assets/drive/12GH0o6WBVZ6woiqD7OwEZu3QZl9brLF8.png'
+                ]
+            },
+            'meshshader': {
+                title: 'DirectX 12 Meshlet과 IA 기반의 하이브리드 렌더링 파이프라인 구현',
+                tags: ['Graduation Thesis', 'Sole Research', 'First Author', 'DX12', 'Amplification / Mesh Shader', 'Meshlet', 'Hybrid Rendering', 'K-Means', 'GPU Profiling'],
+                desc: `2026 학사학위 졸업논문 **「DirectX 12 Meshlet과 IA 기반의 하이브리드 렌더링 파이프라인 구현」**(동명대학교 컴퓨터공학과, 지도교수 고정국)의 구현·연구 프로젝트로, **제1저자·단독**으로 수행했습니다.
+
+                DirectX 12에서 **Input Assembler(IA) 경로**와 **Amplification Shader(AS)·Mesh Shader(MS) 기반 Meshlet 경로**를 하나의 Renderer에 통합하고, **Mesh 그룹마다 두 경로 중 하나를 런타임에 선택**하는 하이브리드 렌더링 파이프라인을 바닥부터 구현했습니다. 선택기는 환경마다 사전에 베이크한 GPU 비용으로 만드는 **환경 특화형 모델**로, 그룹의 컬링 전 Primitive 수 P와 카메라의 절두체 컬링 비율 C, 또는 위치별 공간 비용 Grid를 입력으로 씁니다.
+
+                11개 환경에서 선택기마다 IA 기본·MS 기본 정책을 비교한 결과 모든 모델에서 MS 기본이 1.87~9.61% 빨랐고, 이를 바탕으로 제안한 **MS 기본 K-Means**는 GPU Scene 시간을 **IA 전용 대비 15.83%, MS 전용 대비 3.01%** 줄여 다섯 선택기 중 유일하게 두 전용 경로를 모두 앞섰습니다. 같은 프레임 안의 IA·MS 혼합은 6개 환경에서 확인했습니다.`,
+                tech: ['C++', 'DX12', 'Amplification Shader', 'Mesh Shader', 'meshoptimizer', 'FBX SDK', 'PBR (Disney / GGX)', 'K-Means', 'Unreal Engine 5', 'Blender'],
+                challenges: `# 연구 질문
+                - **RQ1 동일 프레임 혼합·전환** 한 화면에서 IA와 MS를 섞고, 카메라 상태에 따라 같은 Mesh 그룹의 경로를 바꿀 수 있는가 → **가능** (6개 환경에서 동시 혼합, Depth 화면 일치)
+                - **RQ2 환경 특화 선택기의 이득** 환경별 베이크 정보로 만든 P·C 분류기, 공간 비용 Grid, 최소 비용 Chunk는 단일 경로 대비 어떤 이득을 보이며 기본 정책에 따라 어떻게 달라지는가 → **모든 모델에서 MS 기본이 IA 기본보다 빠름**
+                - **RQ3 제안 정책** MS 기본 K-Means는 IA 전용과 MS 전용을 모두 앞설 수 있는가 → **두 전용 경로를 모두 앞섬**
+                - **RQ4 국소·Tail Latency** 평균 이득이 5초 구간별 결과와 p95·p99에서도 유지되는가 → **대체로 유지**
+                - 학습·검증·시험 카메라 경로를 분리하고, 시험(E1) 전에 모델을 보존해 학습에 쓰지 않은 경로로 최종 평가
+                # 하이브리드 Renderer 구조
+                - **YAML Scene → FBX SDK 로드 → Material 기준 Sub-Mesh 분할 → meshoptimizer Meshlet 생성**(Meshlet당 최대 64 정점 / 124 삼각형) 후 Meshlet별 **Bounding Sphere·Normal Cone** 베이크
+                - **IA 경로** DrawIndexedInstanced → Input Assembler → Vertex Shader → Rasterizer
+                - **Meshlet 경로** DispatchMesh → **Amplification Shader**(Meshlet 단위 절두체·후면 컬링) → **Mesh Shader** → Rasterizer
+                - 두 경로가 **같은 Pixel Shader(Disney Diffuse + GGX PBR)**·Root Signature·Render Target을 공유하고, opaque·alpha·additive용 PSO 6종을 미리 구축해 IA↔MS 전환 시 별도 대기 없이 그룹 단위로 섞어 기록
+                # 그룹별 런타임 경로 선택기
+                - 게임 맵은 개발 단계에서 고정된다는 점에 착안해, 구역마다 Mesh 그룹의 GPU 비용을 미리 측정·베이크한 **환경 특화형 선택기** 설계
+                - Logistic · LUT · K-Means · 공간 비용 Grid(1 / 2.5 / 5 / 10 m) · 최소 비용 Chunk(1 / 2.5 / 5 / 10 m) **11개 모델 × IA 기본 / MS 기본 정책** 비교
+                - **제안: MS 기본 K-Means** 기본 경로를 MS로 두고, 실제 혼합 GPU 시간 검증(V)을 통과한 군집만 IA로 허용 / 런타임에는 그룹의 P·C로 최근접 Centroid를 조회해 경로 결정 (선택 CPU 비용 프레임당 13.28 μs)
+                # GPU 계측 하니스
+                - FrameResource 3개 순환 + **GPU Timestamp 4개**로 **GPU Scene 시간**(Clear 직전 ~ 마지막 Scene Draw) 측정, CPU 준비·Present 대기 제외
+                - **파이프라인 통계 쿼리**(CInvocations·CPrimitives, IA·VS·AS·MS·PS 실행 수)와 실제 IA·MS 드로우 수, 계획·실행 배정 해시를 기록해 선택한 대로 실행되었는지 검증
+                - Unreal Engine 환경 에셋 11종(Soul City·Soul Cave·Sun Temple·Virtual Studio·Shooter Game·Platformer Game)을 자체 Renderer로 옮겨 **30 Hz 카메라 경로**로 재생, seed 셔플 실행 순서 · 8회 반복 코호트 · **paired bootstrap 95% 신뢰구간**
+                # 결과: 화면 동등성 · Geometry 처리량
+                - 11개 환경 모든 구도에서 두 경로의 **Depth가 bit 단위로 동일**, RGB 8단계 초과 픽셀은 최대 806개(화면의 0.0875%)
+                - **AS 컬링으로 Rasterizer 입력 IA 대비 82.26% 감소**, 컬링 뒤 Primitive 수는 세 방법이 동일 → AS는 최종 화면을 바꾸지 않고 버려질 Geometry를 앞단에서 제거
+                - 제안 모델은 MS Only보다 Rasterizer 입력이 24.35% 많았지만 GPU 시간은 3.01% 짧음 → **Primitive 수만으로 가장 빠른 경로를 정할 수 없음**
+                # 결과: T1 선택기 모델 비교 (26개 모델)
+                - 모든 선택기에서 **MS 기본이 IA 기본보다 1.87~9.61% 빠름**
+                - 제안 모델: IA Only 대비 −15.99%, MS Only 대비 −2.39%(95% 구간 0.88~3.82%)로 **26개 모델 중 가장 빠르고**, 구간 전체가 0보다 큰 유일한 모델
+                - 환경마다 IA·MS 중 하나로 고정한 기준선보다도 1.33% 빨라, 이득이 환경 단위 경로 선택이 아니라 **화면 안의 그룹 혼합**에서 나옴을 확인
+                # 결과: E1 최종 평가 (5개 모델, 방법당 653,160 프레임)
+                - **MS 기본 K-Means: IA Only 대비 −15.83%, MS Only 대비 −3.01%**(95% 구간 2.78~3.26%), 다섯 모델 중 유일하게 두 전용 경로를 모두 앞섬
+                - 환경 가중 평균으로도 MS 대비 2.32% 빠르고, 같은 Centroid의 IA 기본 K-Means보다 5.80% 빠름 / 고정 P와 IA 기본 K-Means는 MS보다 각각 3.87%, 2.96% 느림
+                - 중앙값 0.55 ms · p99 1.896 ms로 평균뿐 아니라 분포 전반에서 가장 낮음
+                - 5초 구간 538개 중 57.43%에서 IA·MS 양쪽보다 빠름, p95는 11개 중 9개·p99는 10개 환경에서 MS보다 낮음
+                - 같은 프레임 안 IA·MS 혼합을 **6개 환경**에서 관찰(IA→MS 1,562회, MS→IA 1,548회), 실제 드로우 수와 배정 해시 일치로 실행 검증
+                # 실험 환경
+                - RTX 4070 Laptop GPU · 1280×720 · Agility SDK 1.618.5 · Shader Model 6.6 / Mesh Shader 6.7`,
+                achievements: [
+                    '2026 학사학위 졸업논문 (제1저자·단독): 「DirectX 12 Meshlet과 IA 기반의 하이브리드 렌더링 파이프라인 구현」 (동명대학교 컴퓨터공학과)',
+                    'DX12 한 Renderer에 IA 경로와 AS/MS Meshlet 경로를 통합하고, Mesh 그룹마다 런타임에 경로를 고르는 하이브리드 파이프라인 구현',
+                    'FBX SDK + meshoptimizer 기반 Meshlet 생성 및 Bounding Sphere·Normal Cone 베이크 파이프라인 구축',
+                    'Amplification Shader Meshlet 컬링으로 Rasterizer 입력을 IA 대비 82.26% 감소 (Depth bit 단위 동일)',
+                    '환경 특화형 선택기 11종 × IA/MS 기본 정책 비교: 모든 모델에서 MS 기본이 1.87~9.61% 우세',
+                    '제안 MS 기본 K-Means: GPU Scene 시간 IA 전용 대비 −15.83%, MS 전용 대비 −3.01% (5개 모델 중 유일하게 두 전용 경로 추월)',
+                    '6개 환경에서 같은 프레임 안 IA·MS 혼합 실행 확인 (IA→MS 1,562회 / MS→IA 1,548회)',
+                    'GPU Timestamp·파이프라인 통계·배정 해시 기반 계측 하니스와 paired bootstrap 통계 검증 체계 구축',
+                    'Unreal Engine 환경 에셋 11종을 자체 DX12 Renderer로 옮겨 30 Hz 카메라 경로로 실측'
+                ],
+                video: 'https://www.youtube.com/embed/pJQkyTcW0XQ?si=bWSVPA2YzI0-NMII',
+                images: [
+                    'assets/papers/thesis-fig1-architecture.jpg',
+                    'assets/papers/thesis-fig5-paths.jpg',
+                    'assets/papers/thesis-fig4-culling.jpg',
+                    'assets/papers/thesis-fig6-kmeans.jpg',
+                    'assets/papers/thesis-fig9-ia-vs-ms.jpg',
+                    'assets/papers/thesis-fig12-result.jpg',
+                    'assets/papers/thesis-fig13-heatmap.jpg',
+                    'assets/drive/1Sv_IT7d7RiTfs_3wBDJMXP1nOuVd1vDk.png',
+                    'assets/drive/1LhOEHkgOzsQqsxgLvDIazmeXt6oyPpFV.png',
+                    'assets/drive/1UmkRW-Tjp-_INXw98wh0MJeohi5Hx8G-.png',
+                    'assets/drive/1EL1vqrbs96enisJCK_u-FXedV5mr6EcS.png',
+                    'assets/drive/1BtsxVaj1uNFQ2rkheULfgKAqEXA5SPfW.png'
+                ]
+            },
+            'visualwave': {
+                title: 'Visual Wave : VN Authoring Framework',
+                tags: ['Sole Research', 'First Author', 'Framework', 'DSL / LSP', 'Unity / Godot'],
+                desc: `비주얼 노벨 시나리오의 **작성–편집–구동**을 포괄하는 엔진 독립 저작 프레임워크 **Visual Wave(VW)**입니다.
+
+                핵심은 실시간 그래픽스의 **렌더 스테이트 테이블(render state table)**에서 착안한 **프레임-스테이트 실행 모델**로, 비종단 명령은 현재 프레임 상태에 누적되고 대사·선택지 같은 종단 명령에서 누적 상태를 채널별 핸들러로 일괄 반영(commit)하며, 상충은 최종 반영(last-write-wins)으로 해소합니다.
+
+                2026 한국멀티미디어학회 추계학술발표대회(제29권 2호)에 포스터 논문으로 **게재 승인**되었으며, **주 연구는 단독으로 수행**했습니다. (지도교수: 고정국)`,
+                tech: ['C#', 'Engine-independent Core', 'DSL (.vwso / .vwsor / .vwsmr)', 'VS Code LSP', 'Unity', 'Godot'],
+                challenges: `# 3계층 관심사 분리
+                - 콘텐츠를 **시나리오 · 자원 · 시스템** 세 계층으로 분리해 작가와 프로그래머의 관심사를 나눔.
+                - 코어 라이브러리(DSL 해석 + 프레임-스테이트 실행), 엔진별 런타임, VS Code 편집 지원의 세 컴포넌트로 구성.
+                # 프레임-스테이트 실행 모델
+                - 렌더 스테이트 테이블처럼 상태를 설정한 뒤 종단 명령에서 한 프레임을 확정(commit)하는 구조.
+                - 채널별 확정 목표 상태에 last-write-wins를 적용, 상충/초기화를 순서 기반으로 자연 해소.
+                # DSL + LSP 편집 지원
+                - 시나리오(.vwso)·자원(.vwsor)·시스템(.vwsmr) DSL 설계, 자원을 숫자 식별자로 참조해 재사용성 강화.
+                - **VS Code 확장 + LSP 서버**로 자동완성·인레이 힌트·구문 강조 제공, 식별자 분리에 따른 가독성 저하 보완.
+                # 논문 정량 비교 및 측정 조건
+                - **비교 대상과 범위** 동일 작품의 이전 노드그래프 도구(127장면·2,734프레임)와 VW(55장면)를 대사 1자당 저장 용량 등 정규화 비율로 비교했습니다. 약 6분의 1은 이전 노드그래프 대비 저장 표현의 크기이며, 다른 텍스트 DSL 대비 우위나 저작 생산성 향상 수치가 아닙니다.
+                - **표 3** 대사 1자당 약 30.0B → 약 4.7B, 상태 중복률 85.4% → 0%(변화분만 기재), 화면 1회 기재량 11개 → 평균 1.14개.
+                - **런타임 계측** .NET Framework 4.8 Release, 워밍업 3회 후 15회 반복 중앙값 기준으로 55개 시나리오 전체 적재·파싱 약 11.5ms. 화면 1회 프레임 상태 구성은 평균 약 0.16ms, 적재 후 관리 힙은 약 0.48MB입니다. 코어 측 비용이며 전체 게임 프레임 시간이 아닙니다.
+                # 엔진 독립성 실증
+                - Unity 런타임으로 상용 수준 작품에 적용하고, **Godot 4.7 Vulkan**에서 동일 코어·시나리오·자원·시스템 파일을 수정 없이 재사용했습니다. Godot 실증은 **배경·대사 채널의 최소 사례**이며, 캐릭터·음향·연출 등 나머지 채널은 추가 구현이 필요합니다.`,
+                achievements: [
+                    '엔진 독립 코어 + 엔진별 런타임 + VS Code LSP로 구성된 완결형 VN 저작 프레임워크 설계·구현',
+                    '상용 수준 VN(ALCOHOL FREE) 적용: 4개 루트 / 55 Scenes / 3,035 Commands (대사 2,497)',
+                    '이전 노드그래프 대비 대사 1자당 저장 약 30.0B → 약 4.7B (약 1/6), 상태 중복률 85.4% → 0%; 화면 1회 기재량 11 → 평균 1.14개',
+                    '코어 계측: 55개 시나리오 적재·파싱 중앙값 약 11.5ms / 화면 상태 구성 평균 약 0.16ms / 적재 후 관리 힙 약 0.48MB (.NET Framework 4.8 Release)',
+                    'Godot에서 동일 코어·시나리오·자원·시스템 파일 재사용: 배경·대사 채널의 최소 구동 사례로 엔진 독립성 실증',
+                    '2026 한국멀티미디어학회 추계학술발표대회 논문 게재 승인 (제29권 2호 · 포스터 · 제1저자, 단독 연구)'
+                ],
+                video: '',
+                images: [
+                    'assets/papers/vw-framework.png',
+                    'assets/papers/vw-execution-model.png',
+                    'assets/papers/vw-godot-demo.png'
+                ]
+            },
+            'book': {
+                title: 'More Deeper C++ Programming Language',
+                tags: ['Author', 'Education', 'C++17/20', 'Computer Architecture'],
+                desc: `C++ 표준(ISO/IEC)과 하드웨어 매뉴얼(AMD64)을 기반으로, 언어의 표면적 문법 너머 컴파일러와 운영체제 레벨의 동작 원리를 담은 서적입니다.
+
+                대표적으로 "코드가 기계어로 번역되어 메모리에 적재될 때 실제로 어떤 일이 일어나는가?"에 대한 해답을 Low-level 관점에서 분석하고, 이를 통해 성능 최적화와 메모리 관리의 이해를 돕도록 집필되었습니다.`,
+                tech: ['ISBN: 979-11-438-1468-5 (05500)', 'ISO/IEC 14882 Standard', 'AMD64 Architecture', 'Assembly Analysis', 'Cache Optimization', 'Move Semantics & R-Value'],
+                challenges: `# Part 1: 값, 타입, 그리고 범주 (The Nature of Values)
+                - **데이터 모델과 메모리** LP64, ILP32 등 데이터 모델에 따른 타입 크기의 변화와 시스템 호환성을 다룹니다.
+                - **값의 범주(Value Categories)** lvalue, rvalue를 넘어 xvalue, glvalue, prvalue 등 C++ 표준이 정의하는 값의 정교한 범주와 생명 주기를 명확히 해설합니다. * 초기화와 형 변환: auto 타입 추론의 규칙과 decltype, 그리고 다양한 초기화(Copy, Direct, List) 방식의 내부 동작을 파헤칩니다.
+                # Part 2: 메모리 (Memory)
+                - **스택(Stack)과 힙(Heap)** 프로세스 메모리 구조를 시각화하고, 함수 호출 규약(Calling Convention)에 따른 스택 프레임의 생성과 소멸 과정을 어셈블리 레벨에서 분석합니다. * 포인터와 참조의 본질: 어셈블리 코드를 통해 포인터와 레퍼런스가 기계어 수준에서는 사실상 동일하게 동작함을 증명하고, 다중 포인터 및 void*의 특수성을 설명합니다.
+                # Part 3: 할당 (Allocation)
+                - **동적 할당자(Allocator) 분석** 단순히 malloc/free를 사용하는 것을 넘어, ptmalloc2 할당자의 내부 구조(Chunk, Bin, Arena)를 해부합니다.
+                - **메모리 관리 전략** new/delete 연산자의 오버로딩, Placement New, 그리고 스마트 포인터(unique_ptr, shared_ptr)의 내부 구현 원리를 통해 메모리 누수(Memory Leak)와 댕글링 포인터(Dangling Pointer)를 방지하는 RAII 패턴을 다룹니다.
+                # Part 4: 함수와 실행 흐름 (Function & Execution)
+                - **함수의 생애 주기** 컴파일 타임(Name Mangling, Overload Resolution)부터 런타임(Stack Frame 생성)까지의 과정을 추적합니다.
+                - **고급 함수 기능** 인라인(Inline) 함수의 비용 편익 분석, constexpr을 이용한 컴파일 타임 연산, 람다(Lambda) 식의 클로저(Closure) 타입 추론 등 모던 C++의 핵심 기능을 다룹니다.
+                # Part 5: 클래스와 객체지향의 내부 (OOP)
+                - **가상 함수와 다형성** V-Table(가상 함수 테이블)이 메모리에 어떻게 배치되는지(MSVC vs GCC 차이점), 그리고 동적 바인딩이 일어나는 과정을 로우 레벨에서 설명합니다. * 이동 의미론(Move Semantics): 복사 비용을 줄이기 위한 이동 생성자와 std::move, std::forward를 이용한 완벽 전달(Perfect Forwarding)의 원리와 함정을 분석합니다.
+                - **상속과 메모리 레이아웃** 다중 상속, 가상 상속 시 발생할 수 있는 다이아몬드 문제와 이를 해결하기 위한 메모리 구조 변경을 다룹니다.`,
+                achievements: [
+                    '222-page published PDF edition (ISBN: 9791143814685)',
+                    'Published by 작가와 on 2026.07.30; original manuscript written 2023.04 ~ 2023.10',
+                    'Used as paid instructional material for 1 semester'
+                ],
+                video: '',
+                images: [
+                    'assets/drive/1hL3dtbTbEqQsb75rJ8j2BDkalzJNm7Td.jpg',
+                    'assets/drive/1LM_KI6WfBCNGWBVYrN7g3KeO_zZzxLgi.jpg',
+                    'assets/drive/1kJq_TUBi7RZ4WNAwQ3AVmVQ5xBK0E_JO.jpg',
+                    'assets/drive/16MRCyKt9QqL8u-fS4cUqkki72giLcrMd.jpg',
+                    'assets/drive/1S830-a_LIkDeh1DziDyzwhmVzvj0bQKj.jpg',
+                    'assets/drive/10ULuFKPkgWDXysPSx-CBgLvkOKMn4zru.jpg',
+                    'assets/drive/1jjbYkCxcyFCMdhDCZHcXBrwJehXVyOnN.jpg',
+                    'assets/drive/10M230IiUqt3TLwk-n7tddldP8i705pRL.jpg',
+                    'assets/drive/1DNVAmxjIx9waYPZNh6YaVZoP0NCsKUnY.jpg',
+                ]
+            },
+            'alcoholfree': {
+                title: 'ALCOHOL FREE',
+                tags: ['Visual Novel', 'Tools Programmer', 'Unity'],
+                desc: `달콤한 성장 로맨스를 다룬 비주얼 노벨 게임입니다. 
+                
+                프로그래머로서 기획자와 아티스트가 코딩 없이도 복잡한 연출을 구현할 수 있도록 **전용 제작 툴(Custom Editor)**을 개발하는 데 주력했습니다.`,
+                tech: ['Unity', 'C#', 'Custom Editor (Graph-based)', 'Dialogue System'],
+                challenges: `# 디자이너를 위한 커스텀 에디터 개발
+                - 기획자가 대사, 선택지, 캐릭터 표정 변화 등을 직관적으로 제어할 수 있는 **노드 기반(Blueprint-Style) 에디터**를 Unity 내에 구현했습니다.
+                - 이를 통해 개발 반복(Iteration) 시간을 획기적으로 줄이고, 팀원들이 콘텐츠 제작에만 집중할 수 있는 환경을 조성했습니다.
+                # 전용 시나리오 스크립팅 언어 설계 및 확장 프로그램 개발
+                - **VisualWave 스크립팅 언어** 설계(*.vwso, *.vwsor, *.vwsmr 확장자 사용) 및 파서(Parser) 구현을 통해, 시나리오 작성과 연출 제어를 코드 레벨에서 세밀하게 다룰 수 있도록 했습니다.
+                - **VS Code 확장 프로그램** 개발(인레이, 드롭다운, 라벨, 하이라이팅)을 통해 기획자가 친숙한 환경에서 스크립트를 작성할 수 있도록 지원했습니다.
+                # 전용 VFX Shader Set 제작
+                - **붓질을 통해 컷씬을 그리는 연출**을 위해 미리 붓질 경로를 지정하고, 시간에 따른 진행 정도를 상수 버퍼를 통해 전달하여 이를 Metaballic 효과로 지속적으로 덧대어 붓질을 표현하는 Shader를 제작했습니다.
+                - **미니게임 잔의 흔들리는 잔 연출**을 위해 교차되는 Sin 곡선을 기반으로 한 커스텀 Shader를 개발했습니다. 이를 통해 잔 내부의 액체가 실제로 움직이는 것 같은 사실적인 Shader를 구현했습니다.
+                - **미니게임 영수증의 찟어진 하단이 흘러가는 연출**을 위해 각진 Sin 곡선을 그려내는 Shader를 개발했습니다. 각진 Sin 곡선의 값을 uv 좌표에 비료하여 특정 v값 이하는 투명하도록 처리함으로써 찢어진 효과를 구현했습니다.`,
+                achievements: [
+                    'TU Game Challenge 2025 - Excellence Award (우수상)',
+                    'TU Game Challenge 2026 - Merit Award (장려상)',
+                    'Publishing offer from Toei Company, Ltd.'
+                ],
+                video: 'https://www.youtube.com/embed/0zjffUXC2mY?si=ZXALTqGyTW0VSl9r',
+                images: [
+                    'assets/drive/1CQ0YbnwkTXd9GETlGyYntF7dryhofqtp.png',
+                    'assets/drive/1kle9FyESR8IzbAORMMMMy8isKC0PG9ch.png',
+                    'assets/drive/1gaCl93bfKaSHVaSoRmW0L_XcZ1P5kwGa.png',
+                    'https://hyunsuyu.github.io/ALCOHOL-FREE/src/%EC%95%95%EC%83%9D%ED%8A%B8%20%EC%BB%B7%EC%94%AC.png',
+                    'https://hyunsuyu.github.io/ALCOHOL-FREE/src/%EC%86%8C%EB%B9%84%EB%87%BD%20%EC%BB%B7%EC%94%AC.png',
+                    'https://hyunsuyu.github.io/ALCOHOL-FREE/src/%EC%82%AC%EC%BC%80%20%EC%BB%B7%EC%94%AC.png',
+                    'https://hyunsuyu.github.io/ALCOHOL-FREE/src/%EA%B9%94%EB%A3%A8%EC%95%84%20%EC%BB%B7%EC%94%AC.png',
+                    'https://hyunsuyu.github.io/ALCOHOL-FREE/src/%ED%9E%99%EB%85%B8%ED%8B%B1%20%EC%BB%B7%EC%94%AC.png'
+                ]
+            },
+            'hearts': {
+                title: '마음을 담아 (From All My Hearts)',
+                tags: ['Puzzle', 'Visual Novel', 'Emotional'],
+                desc: `동양화풍의 비주얼과 서정적인 스토리가 결합된 **워드 퍼즐 게임**입니다. 
+                
+                단순히 단어를 맞추는 것을 넘어, 문장을 완성함으로써 숨겨진 의미를 찾고 스토리를 진행시키는 독창적인 메커니즘을 구현했습니다.`,
+                tech: ['Unity', 'C#', 'String Processing Algorithms', 'Dynamic UI Layout'],
+                challenges: `# 한글 조합 알고리즘 및 UI 최적화
+                - 한국어의 특성(자소 결합)을 고려한 자연스러운 단어 조합 로직을 구현했습니다.
+                - 다양한 해상도에서도 퍼즐 조각들이 깨지지 않고 정렬되도록 동적 UI 레이아웃 알고리즘을 설계했습니다.
+                # 다양한 연출 구현
+                - **타이틀 카메라 이동에 따라 붓이 따라오는 연출**은 설정 및 기억 캔버스로 카메라 이동 시 카메라를 따라오며 실시간으로 붓으로 먹을 칠하는 듯한 효과를 구현했습니다.
+                - **지도 화면에서 카메라가 구름을 뚫고 지나가는 연출**은 카메라를 Perspective로 두고 이동하는 마을 등에 따라 경로를 동적으로 선택하여 카메라가 구름을 뚫고 지나가는 듯한 효과를 구현했습니다.
+                - **NPC 선택 & 퍼즐 정답 제출 연출**은 연출의 각 Phase를 나누고, 각 Phase마다 주어진 Duration동안 카메라 이동, UI Fade-in/out, 사운드 재생 등을 조합하여 몰입감 있는 연출을 구현했습니다.
+                # 전용 VFX Shader 제작
+                - **타이틀 카메라 이동에 따라 붓이 따라오는 연출**을 위해 정히진 경로에서 카메라가 0.0 ~ 1.0 사이의 얼마나 왔는지 체크하고, 이를 상수 버퍼로 넘겨 붓질이 진행되는 효과를 구현하는 Shader를 제작했습니다.`,
+                achievements: [
+                    'TU Game Challenge - Top Excellence Award (최우수상)',
+                    'Exhibited at G-Star 2025'
+                ],
+                video: '',
+                images: [
+                    'assets/drive/1ePXQdvfpJ-jz0Ko8x81mW4Go-GG6Lcbv.png',
+                    'assets/drive/1khMA-j3pZVKRSgKNRG5B68PNoY4_SMas.png',
+                    'assets/drive/1e5XrQn5CZOnmNPsqgW0U7dQF05RbaaKl.png',
+                    'assets/drive/1J51Fcd4uFhENIgNAxtjdNkRXGZjTqLp0.png',
+                    'assets/drive/1O3Y-iIdClGNQfGCLE6Zj6JBa_rD_6KdL.png',
+                    'assets/drive/1NjpkfWP_dRXd2TiSICqqZMhxCdY4ztR_.png'
+                ]
+            },
+            'rgbline': {
+                title: 'RGB Line',
+                tags: ['Rhythm Game', 'Lead Programmer'],
+                desc: `색상 매칭과 리듬 액션을 결합한 하이퍼 캐주얼 리듬 게임입니다. 
+                
+                팀장(Lead Programmer)으로서 4명의 개발팀을 이끌며, **개발 파이프라인의 효율화**를 최우선 과제로 삼았습니다.`,
+                tech: ['Unity', 'Audio Analysis', 'Auto-Documentation Pipeline'],
+                challenges: `# Core Lib + (Main Game & Editor) 구조 설계
+                - Core Lib을 중심으로 Main Game과 Editor가 독립적으로 동작하면서도 공통된 기능을 공유할 수 있도록 아키텍처를 설계했습니다.
+                - 또한, Core Lib를 제가 직접 구현하여 코드 중복을 최소화하고 유지보수성을 극대화했습니다.
+                # Lead Programmer로서 개발 규칙 수립
+                - Coding Standard를 제정하여 팀원들이 일관된 코드 스타일을 유지할 수 있도록 했습니다.
+                # 자동화된 문서화 파이프라인(Auto-Documentation)
+                - 빈번한 빌드와 기획 수정 사항을 자동으로 추적하고 문서화하는 툴을 개발했습니다.
+                - 이로 인해 빌드 후 변경 사항을 정리하는 데 걸리는 시간을 **15분에서 2분으로 단축**시켰습니다.
+                # 전용 VFX Shader 제작
+                - **움직이는 배경 그레디언트 연출**은 랜덤하게 정해지는 경로를 따라 움직이는 가상의 광원들의 위치를 기반으로, Metaballic 효과를 통해 움직이는 그레디언트 효과를 구현하는 Shader를 제작했습니다.
+                - **레벨 진입 시 마름모 형태 화면 전환 연출**은 삼각 함수와 absolute 함수를 조합하여 마름모 형태를 구현하고, 이를 화면 중앙 기준의 Metaballic 효과와 곱한 다음 해당 값이 일정 미만인 부분을 투명하게 처리하는 Shader를 제작했습니다.
+                - **RGB 모드에 따라 각기 다른 형태의 HP바 연출**은 각각 두꺼운 직선 하나, 얇고 각진 Sin 곡선이 교차, 얇고 둥근 Sin 곡선이 교차라는 연출이며, 모두 다 RGB 그라데이션이 적용된 Shader를 제작했습니다.
+                - **화면 상단의 점진적인 Blur 연출**은 uv 좌표의 v값을 기반으로 화면 상단에서부터 점진적으로 Blur 효과가 적용되도록 하는 Shader를 제작했습니다.
+                - **Dash Line 연출** uv의 x를 적용을 원하는 대상의 가로 크기를 곱해 Scaling + 정수화 한 후, 홀수인 구간은 투명도를 0으로 처리하는 Shader를 제작했습니다.`,
+                achievements: [
+                    'Build change-summary time: 15 min → 2 min (approximately 86.7% reduction)',
+                    'TU Game Challenge - Merit Award (장려상)'
+                ],
+                video: 'https://www.youtube.com/embed/L54qU3JqQJI',
+                images: [
+                    'assets/drive/18nIdiJ7MkEAa76uWeCVUYuTy6QGECa9x.png',
+                    'assets/drive/1AQPQjfcLk8uUyBBZdREkdSsu9lpCmZwS.png',
+                    'assets/drive/1P69BDHuF35mWLaApc3aWC6w9BtoO8-B_.png',
+                    'assets/drive/1O89hx_jOhw3oui5_OE4qYju0p1kQfSEb.png',
+                    'assets/drive/1blokf2Kf_PXM1cBXZtcQ98HmK8idhBrR.png',
+                    'assets/drive/1Je4FgvNykUqhM1-1GJjYQ3vZ-pfNVNCl.png',
+                    'assets/drive/1fMWRJGI78QzqSweDc32JwDmV7PCDYVec.png',
+                    'assets/drive/1wgIj4lplFnTnIwlv8NKyr4K-1s29D_Ie.png'
+                ]
+            },
+
+            // --- EVENTS & TIMELINE ITEMS ---
+            'square_enix': {
+                title: 'Square Enix Recognition',
+                tags: ['Industry Feedback', 'G-Star 2025'],
+                desc: `G-Star 2025 전시 중, 전 스퀘어 에닉스 프로듀서이자 현 houndstooth.jp 대표인 **사이타 토모노리(SAITA Tomonori)**님께서 부스를 방문해주셨습니다.`,
+                tech: ['G-Star 2025', 'ALCOHOL FREE', '마음을 담아'],
+                challenges: `# 업계 전문가 피드백
+                - **ALCOHOL FREE**의 게임 메커니즘과 비주얼 노벨 연출 방식에 대해 심도 있는 피드백을 주고받았습니다.
+                - 특히 커스텀 에디터를 통한 제작 효율화 방식에 대해 긍정적인 평가를 받았습니다.
+                
+                - **마음을 담아**의 기획 방향성과 게임 메커니즘에 대해 피드백을 주고받았습니다.
+                - 해외 출시 가능성에 대한 질문도 이루어졌습니다.`,
+                achievements: [
+                    'Received positive feedback on game mechanics',
+                    'Established professional connection'
+                ],
+                video: '',
+                images: [
+                    'https://eus-cdn.sway.static.microsoft/s/JPasLtlByjTwysGH/images/alm8rw93-yO9YH?quality=706&allowAnimation=true',
+                    'https://eus-cdn.sway.static.microsoft/s/JPasLtlByjTwysGH/images/cWHpp3bG31XUdC?quality=960&allowAnimation=true',
+                    'assets/drive/1x3D6zjUKaQovu0hGfmA53d3sShJhzV2h.jpg'
+                ]
+            },
+            'toei': {
+                title: 'Toei Company Publishing Offer',
+                tags: ['Publishing Offer', 'Global Market'],
+                desc: `일본의 대표적인 엔터테인먼트 기업 **Toei Company**의 신규 사업 개발 담당자(Game Advisor) KATO님으로부터 퍼블리싱 제안을 받았습니다.`,
+                tech: ['G-Star 2025', 'ALCOHOL FREE', '마음을 담아', 'RGB Line', 'Potential Market: Japan/Global'],
+                challenges: `# 글로벌 진출 가능성 타진
+                - **ALCOHOL FREE**와 **마음을 담아** 그리고 **RGB Line**의 일본 시장 및 글로벌 시장 진출 가능성에 대해 논의했습니다.
+                - 현지화(Localization) 및 마케팅 전략에 대한 실무적인 조언을 얻었습니다.
+                - 퍼블리셔로서의 협력 방안에 대해 구체적인 제안 및 준비해야할 사항들에 대한 피드백을 받았습니다.
+                - 일본 시장 내 게임 홍보 채널(X, YouTube 등) 활용 방안에 대해서도 논의했습니다.`,
+                achievements: [
+                    'Validation of commercial potential',
+                    'Opportunity for global reach'
+                ],
+                video: '',
+                images: [
+                    'assets/drive/1EkPRAUWnetnbfGOTY3QEvPBRc_rwDJpF.jpg',
+                    'assets/drive/11WdzLJzhbWohSmlG6VLRvpfAwhTq7mOD.png',
+                    'assets/drive/1xzdPGRURCt-AyOPfgV7UtSyPWk8Dn6gt.png',
+                    'assets/drive/1q0rt01IugUJx97ZG1iXtRKUXdxkdi3wG.png'
+                ]
+            },
+            'pleedus': {
+                title: 'Pleedus Partnership',
+                tags: ['Partnership', 'Exhibition Support'],
+                desc: `게임 플랫폼 **Pleedus**와 파트너십을 맺고, 서울 코믹월드 2025 전시 부스를 지원받았습니다.`,
+                tech: ['Event: Comic World 2025', 'Booth Support'],
+                challenges: `### 서브컬처 타겟 마케팅
+                - 코믹월드 방문객 특성에 맞춘 부스 운영 및 굿즈 배포 전략을 수립했습니다.`,
+                achievements: [
+                    'Secured exhibition space at major subculture event',
+                    'Marketing support'
+                ],
+                video: 'https://drive.google.com/file/d/1D4U-zv1TFICDcUD0OLoeoge6vhT83FxU/preview',
+                images: [
+                    'assets/drive/1iVOPar910oWpcnqVf89dVSdSVtDticYj.png',
+                    'assets/drive/1-Rgi3gUP69_qZHNUVBrWsTQPSgYY_oR4.jpg'
+                ]
+            },
+            'tu_challenge': {
+                title: 'TU Game Challenge 2025',
+                tags: ['Contest', 'Awards'],
+                desc: `동명대학교 게임공학과에서 주최한 연례 게임 개발 경진대회입니다. 
+                참여한 4개 프로젝트(마음을 담아, Cross Wordle, ALCOHOL FREE, RGB Line)가 모두 수상했습니다.`,
+                tech: ['Top Excellence Award / 최우수상 (마음을 담아)', 'Top Excellence Award / 최우수상 (Cross Wordle)', 'Excellence Award / 우수상 (ALCOHOL FREE)', 'Merit Award / 장려상 (RGB Line)'],
+                challenges: `### 다중 프로젝트 관리
+                - 서로 다른 장르(퍼즐, 비주얼 노벨, 리듬)의 4개 프로젝트 개발 일정을 동시에 관리했습니다.
+                - 각 프로젝트마다 핵심 메카닉을 기획하고 구현하는 데 주도적인 역할을 수행했습니다.`,
+                achievements: [
+                    'Won 4 Awards in a single contest',
+                    'Demonstrated versatility across genres'
+                ],
+                video: 'https://www.youtube.com/embed/_luFwZije0Y?si=-nvq-SuIzr-Jrm8A',
+                images: [
+                    'https://placehold.co/600x400/dad4bb/4b483f?text=Awards+Ceremony',
+                    'https://placehold.co/600x400/dad4bb/4b483f?text=Certificates'
+                ]
+            },
+            'gstar_2025': {
+                title: 'G-STAR 2025 Exhibition',
+                tags: ['Exhibition', 'B2C'],
+                desc: `부산 벡스코에서 열린 국내 최대 게임쇼 **G-STAR 2025**에 참가하여 4개의 프로젝트를 전시했습니다.`,
+                tech: ['Booth Operation', 'User Feedback'],
+                challenges: `### 부스 운영 및 유저 피드백 수집
+                - 수백 명의 관람객을 대상으로 게임 시연을 진행하고 실시간 피드백을 수집했습니다.
+                - 현장에서 발견된 버그를 즉각적으로 핫픽스하며 안정적인 시연 환경을 유지했습니다.`,
+                achievements: [
+                    'Successfully operated multi-game booth',
+                    'Collected 500+ user feedback surveys'
+                ],
+                video: 'https://www.youtube.com/embed/_luFwZije0Y?si=-nvq-SuIzr-Jrm8A',
+                images: [
+                    'https://placehold.co/600x400/dad4bb/4b483f?text=G-Star+Booth',
+                    'https://placehold.co/600x400/dad4bb/4b483f?text=Crowd+Shot'
+                ]
+            },
+            'ieee_award': { title: 'Chair of IEEE Busan Section Award', desc: 'Received for Cross Wordle.', achievements: ['Technical Excellence'], images: [] },
+            'comic_world_2025': { title: 'Comic World 2025', desc: 'Exhibited with Pleedus.', achievements: ['Subculture Marketing'], images: [] },
+            'beaver_rocks': { title: 'BEAVER ROCKS 2025', desc: 'Indie Game Festival.', achievements: ['Feedback gathering'], images: [] },
+            'tu_mach': { title: 'TU Mach Academy Conference', desc: 'Academic presentation.', achievements: ['Tech sharing'], images: [] },
+            'nataker': {
+                title: 'NATAKER',
+                tags: ['Solo Project', 'Fan Game', 'Puzzle / Adventure', 'Unity'],
+                desc: `스트리머 **나나양**을 위한 팬 헌정 게임으로, 유명 인디 게임 **HELLTAKER**의 시스템을 오마주하여 개발된 퍼즐 어드벤처 프로젝트입니다.
+                
+                **군 입대 전, 좋아하는 스트리머에게 기억에 남는 선물을 하고 싶다**는 목표로 시작되어, 기획부터 프로그래밍, 그래픽, 스토리 집필까지 1.5개월 만에 1인 개발로 완수했습니다. 해당 게임은 실제 스트리머가 플레이하여 유튜브 조회수 1.1만 회를 기록하는 등 팬덤 내에서 큰 호응을 얻었습니다.`,
+                tech: ['Helltaker-like Grid System', 'Puzzle Logic System'],
+                achievements: ['YouTube 11K+ Views', 'Completed in 1.5 Months as Solo Dev'],
+                challenges: `# 1인 개발 (Total Production)
+                - **Grid 기반 퍼즐 시스템 구현** 'HELLTAKER' 특유의 턴제 이동, 함정, 열쇠, 적군(스켈레톤 등)과 같은 그리드 기반 퍼즐 기믹과 상호작용 로직을 Unity 엔진으로 완벽하게 구현했습니다.
+                - **팬덤 맞춤형 콘텐츠 디자인** 스트리머 '나나양'의 밈(Meme) 요소와 주변 스트리머 캐릭터들을 게임 내 스토리에 자연스럽게 녹여내어, 플레이어(팬)들의 공감과 몰입도를 극대화했습니다.
+                - **리소스 제작 및 최적화** 캐릭터 스프라이트, 애니메이션, UI 등 모든 그래픽 리소스를 도트 스타일(Pixel Art)로 직접 제작하여 게임의 일관된 톤 앤 매너를 구축했습니다.
+                - **엄격한 마감 관리** '군 입대'라는 변경 불가능한 데드라인 내에 완성도 있는 빌드를 배포하기 위해, 핵심 기능 위주로 개발 범위를 최적화하고 집중적으로 구현했습니다.`,
+                video: 'https://www.youtube.com/embed/5f75U9QDdjI?si=wHm9Ug7SN_7csiZs',
+                images: [
+                    'assets/drive/1vp74t_hkv1vOjwRcJUBylyqsSVe7tT5_.png',
+                    'assets/drive/1Gbh0tj3Pb_nuxLx2VPgKnekbITDEyvr3.png',
+                    'assets/drive/1VCt6qPcRbzRu52cYQvCnaAfej9JguFyo.png',
+                    'assets/drive/10W54quc2fxsSz83qxeHM1NY5BuyPHNR6.png'
+                ]
+            },
+            'cs_course': { title: 'CS Instructor', desc: 'Teaching C++.', achievements: ['Mentoring'], images: [] },
+            'ude_b91': { title: 'UDE-B91', desc: 'Global Game Jam.', achievements: ['48h Dev'], images: [] },
+            'crosswordle': { title: 'Cross Wordle', desc: 'Teaching Project.', achievements: ['Award Winner'], images: [] },
+            'still_alive': { title: 'Still Alive', desc: 'Club Game Jam.', achievements: ['Survival Game'], images: [] },
+            'busan_regional_talent_scholarship': {
+                title: '부산지역인재장학',
+                tags: ['Technical Recognition', 'Portfolio Validation', 'Top IT Talent', 'Busan City', 'Public Certification'],
+                desc: `**25-2, 26-1 두 학기 연속 선정.** 부산광역시와 부산인재평생교육진흥원(BIT)에서 주관하는 지역 우수 IT 인재 선발 프로그램입니다. 단순 성적순 선발이 아닌, 지원자의 기술 포트폴리오, 프로젝트 수행 능력, 전공 역량을 종합적으로 심사하여 지역을 대표하는 차세대 엔지니어를 선발합니다.
+
+                본 장학 수혜는 Massive Map Generation System 및 C++ 로우레벨 최적화 연구 등 본인이 보유한 기술적 자산들이 공공기관 및 전문가 심사위원단으로부터 객관적인 우수성을 검증받았음을 의미합니다.`,
+                tech: ['Technical Portfolio Review', 'Engineering Capability Assessment'],
+                achievements: ['2학기 연속 선정: 25-2 · 26-1 부산지역인재장학 수혜', 'IT 역량 상위권 인증: 부산 소재 대학 IT 전공자 중 기술 역량 및 포트폴리오 심사 상위권 선발', '기술 포트폴리오 공인: 맵 생성 시스템 및 자체 엔진 연구 등 핵심 기술 과제에 대한 외부 전문가 검증 완료', '지역 대표 인재 브랜딩: 부산광역시 주관 [지역 우수 인재] 타이틀 획득 및 장학 혜택 수혜'],
+                challenges: `# 기술 포트폴리오 객관적 검증 (Portfolio Validation)
+                - **심사 대상** Massive Map Generation System, More Deeper C++, RGB Line 등 주요 프로젝트 아키텍처 및 소스 코드
+                - **성과** 상용 엔진의 한계를 극복하기 위해 적용한 Lock-free 알고리즘, 비트 단위 압축, 메모리 최적화 기법들의 기술적 타당성과 독창성을 전문가 집단으로부터 인정받음
+                # 엔지니어링 역량 평가 (Capability Assessment)
+                - **평가 항목** 프로그래밍 언어(C++, C#)의 깊이 있는 이해도, 알고리즘 설계 능력, 문제 해결 프로세스
+                - **하이라이트** 단순 개발을 넘어 '왜 이 기술을 사용했는가'에 대한 공학적 근거를 제시함으로써, 단순 개발자가 아닌 엔지니어로서의 자질을 높게 평가받음
+                # 지속 가능한 성장 잠재력 증명
+                - 5년 이상의 기술 블로그 운영 및 군 복무 중 꾸준한 연구 이력을 통해 자기 주도적 학습 능력과 기술적 성실함을 증명하여 최종 선발 인원에 포함됨`,
+                video: '',
+                images: [
+                    'assets/drive/1D67o9GaSTcwMhkV5qZrcV-NemJ4jnmMh.jpg'
+                ]
+            },
+            'busan_game_dev_conf': {
+                title: '2026 부산 게임 개발자 컨퍼런스',
+                tags: ['컨퍼런스', '게임 전시 출품', '스마일게이트', '오렌지플래닛'],
+                desc: `부산에서 진행된 **부산 게임 개발자 컨퍼런스**에 참석하여 강연 참석과 부설 게임 전시에 **마음을 담아**, **ALCOHOL FREE**를 전시하였습니다.`,
+                tech: ['Conference', 'Game Booth'],
+                challenges: `### 부스 운영 및 유저 피드백 수집
+                - 관람객을 대상으로 게임 시연을 진행하고 실시간 피드백을 수집했습니다.
+                - 현장에서 발견된 버그를 즉각적으로 핫픽스하며 안정적인 시연 환경을 유지했습니다.
+                ### 현장 개발자와의 소통
+                - 부스를 방문하신 부산 지역 게임 개발자분들과 게임에 적용한 기술에 대해 기술 교류를 진행하였습니다.
+                ### 현장 스폰 기업 상담
+                - 현장에 부설 부스를 마련한 NC AI의 Varco에서 나오신 나규봉 팀장님과 상담하여 **ALCOHOL FREE**의 Varco 적용 방법 등에 대한 견적 상담을 진행하였습니다.`,
+                achievements: [
+                    'Successfully operated multi-game booth',
+                    'Collected 20+ user feedback surveys'
+                ],
+                video: 'https://www.youtube.com/embed/nXYSl15wvtA?si=aXCA8bmkCmL4xcjZ',
+                images: [
+                    'assets/drive/1ta9ehVEIjeiN2e7Wp0hH-7vgQJCnK0rg.jpg',
+                    'assets/drive/1uZPRVoc2Wf0wrAOO_EHUSQY8QDh6Rvjh.jpg',
+                    'assets/drive/1ONBzBMjykgNy3QLroJkE7hPDe3KseU70.jpg',
+                    'assets/drive/1XCGLhn0aZvzpV03-6OrdZZQL7_nNT7tx.jpg',
+                    'assets/drive/1Z5_xPLrZffBGpbwAh-xQngpydw0LKwh1.jpg',
+                    'assets/drive/1y63CJgmu0zEAIxje8Z1nOd3q9mEi_LLe.jpg',
+                    'assets/drive/1W8882Gtz3THOuBilEelTX30XKSlIbcZf.jpg',
+                    'assets/drive/1lp2WpPfachbRHCxSaztDYNydmYHuxoBG.jpg',
+                    'assets/drive/1xfk4HkPmPDtQSDUobG4IFBgnd8T4i4AR.jpg',
+                    'assets/drive/1xajgbx1mY3rIe4_SQazLe35wO6YzjvL1.jpg',
+                    'assets/drive/1S31rOqQ26C5fHKsjjBWZf3uu-tkvEGg8.png',
+                ]
+            },
+            'unite_2026': {
+                title: '2026 Unite Seoul 연사',
+                tags: ['Unity Korea', '컨퍼런스'],
+                desc: `Unite 2026 Seoul에 Massive Map Generation System을 주제로 연사로 신청하여, 최종 심사까지 올라갔습니다.`,
+                tech: ['Optimization', 'Game Development'],
+                challenges: `### 연사 발표 준비
+                - Massive Map Generation System의 기술적 배경, 구현 과정, 최적화 기법 등을 정리하여 발표 자료를 준비했습니다.
+                - 발표 자료에는 실제 프로젝트에서의 적용 사례와 성능 개선 결과를 포함하여 청중이 실무에 바로 적용할 수 있는 정보를 제공했습니다.`,
+                achievements: [
+                    'Unite 2026 Seoul 연사 최종 심사 대상자로 선정'
+                ],
+                video: 'https://www.youtube.com/embed/SGQx82kwn-8?si=BPF10NW286tay43O',
+                images: [
+                    'assets/drive/1zXNBa05Ak5VvFNtQeYZeeB-x9-5K5XnC.png',
+                    'assets/drive/1nzP9_89wikHG5Pb_ThE3tTAUkLgbnmMj.png',
+                    'assets/drive/1C5rHbTp438j9pnWSMB28IRo6GzCI3H6X.jpg',
+                    'assets/drive/1Fga8arW420WEUPY8WLoD-F739LZ4j2W9.png',
+                    'assets/drive/1ekwamIM-F77FoCoYhPwEkH6XtQwJVMaa.png',
+                ]
+            },
+            'b_contents_competition': {
+                title: '2026 B-Contents 경진대회',
+                tags: ['경진대회', '게임 개발', '부산광역시', '부산라이즈혁신원'],
+                desc: `부산에서 진행된 **B-Contents 경진대회**에 **DEEP FALL**로 참여하여 우수상을 수상했습니다.`,
+                tech: ['Competition', 'Game Development'],
+                challenges: `### 팀별 발표
+                - 현장에서 심사위원들께 DEEP FALL의 게임 메커니즘과 개발 과정에 대해 발표하고, 기술적 도전 과제와 해결 방안을 공유했습니다.
+                ### 시상식
+                - 우수상을 수상하며, 부산광역시와 부산라이즈혁신원으로부터 공식적인 인정을 받았습니다.`,
+                achievements: [
+                    'Excellence Award (우수상) 수상',
+                    '부산광역시 및 부산라이즈혁신원 공식 인정'
+                ],
+                video: 'https://www.youtube.com/embed/77S1NFS10ls?si=2b7vHYvVzcT7ye0S',
+                images: [
+                    'https://cdn.news.unn.net/news/photo/202606/593489_417216_5613.jpg',
+                ]
+            },
+            'fins': {
+                title: 'FINS',
+                tags: ['Programmer', 'Unity', 'Action/Adventure', 'Game Jam'],
+                desc: `상어를 사냥해 얻은 재화로 능력을 강화하고, 더 깊고 어두운 바다를 탐험하는 **성장형 액션 게임**입니다.
+
+                깊은 바다로 내려갈수록 더욱 강력한 상어가 등장하며, 플레이어는 끊임없이 성장해 더 강한 상어와 최종 보스에 도전하게 됩니다.
+
+                UPTRANDING 게임잼 행사에서 2박 3일간(2026.10.02 ~ 10.04) 개발한 게임으로, 프로그래머로 참여했습니다.`,
+                tech: ['Unity', 'Pixquare', 'Lens Flare', 'Water Caustics', '2D Sprite Underwater Lighting', 'Layered Sin-Wave Waves', 'PM 1 / 기획 1 / 아트 2 / 프로그래밍 1'],
+                challenges: `# 성장형 게임 루프
+                - **깊이 기반 진행** 더 깊이 잠수할수록 강력한 상어가 등장하며, 수심(Depth)에 따라 획득 재화의 보너스가 증가하는 구조입니다.
+                - **Sell / Upgrade 경제 시스템** 사냥한 상어를 판매(기본가 + 수심 보너스)하여 재화를 얻고, HP·Air Tank·Speed·Damage·ATK Speed를 단계별로 강화합니다.
+                # 그래픽스 / 연출
+                - **Lens Flare** 수면·광원 연출로 수중 분위기를 강화했습니다.
+                - **Water Caustics** 물 표면 굴절광(코스틱)을 구현해 사실적인 수중 바닥 조명을 표현했습니다.
+                - **2D 스프라이트 기반 수중 조명** 2D 스프라이트를 활용해 수심별 빛 번짐·감쇠를 연출했습니다.
+                - **중첩 Sin Wave 물결** 여러 사인파를 중첩해 자연스럽고 사실적인 물결 움직임을 표현했습니다.
+                # 보스 전투
+                - **최종 보스: MEGALODON** 성장을 거듭해 심해의 거대 보스에 도전하는 것이 최종 목표입니다.`,
+                achievements: [
+                    'UPTRANDING 게임잼에서 2박 3일간 개발 (2026.10.02 ~ 10.04)',
+                    'Lens Flare · Water Caustics · 2D 스프라이트 수중 조명 · 중첩 Sin Wave 물결 등 수중 그래픽스 연출 구현',
+                    'Depth-based progression with Sell / Upgrade economy system',
+                    'Final boss battle: MEGALODON'
+                ],
+                video: '',
+                images: [
+                    'assets/fins/surface.webp',
+                    'assets/fins/dive.webp',
+                    'assets/fins/sell.webp',
+                    'assets/fins/hunt.webp',
+                    'assets/fins/megalodon.webp'
+                ]
+            },
+        };
+
+        // --- MARKDOWN PARSER (Updated for Headers) ---
+        function parseMarkdown(text) {
+            if (!text) return '';
+            
+            let lines = text.split('\n');
+            let html = '';
+            let inList = false;
+
+            lines.forEach(line => {
+                let trimmed = line.trim();
+                
+                // Header Processing (# Title)
+                if (trimmed.startsWith('#')) {
+                    // Close list if open
+                    if (inList) { html += '</ul>'; inList = false; }
+
+                    let level = 0;
+                    while (trimmed[level] === '#') level++;
+                    
+                    let content = trimmed.substring(level).trim();
+                    // Map # to h3, ## to h4 for visual hierarchy inside modal
+                    // (h1/h2 are reserved for modal titles)
+                    let tag = 'h' + Math.min(level + 2, 6); 
+                    html += `<${tag}>${content}</${tag}>`;
+                }
+                // List processing (- item)
+                else if (trimmed.startsWith('- ')) {
+                    if (!inList) {
+                        html += '<ul>';
+                        inList = true;
+                    }
+                    html += `<li>${trimmed.substring(2)}</li>`;
+                } 
+                // Normal Paragraph
+                else {
+                    if (inList) {
+                        html += '</ul>';
+                        inList = false;
+                    }
+                    if (trimmed === '') {
+                        html += '<br>';
+                    } else {
+                        html += `<p>${trimmed}</p>`;
+                    }
+                }
+            });
+            if (inList) html += '</ul>';
+            
+            // Bold processing (**text**)
+            html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            
+            return html;
+        }
+
+        // --- MODAL LOGIC ---
+        const modal = document.getElementById('modal-overlay');
+        const mTitle = document.getElementById('m-title');
+        const mTags = document.getElementById('m-tags');
+        const mDesc = document.getElementById('m-desc');
+        const mTech = document.getElementById('m-tech');
+        const mAchieve = document.getElementById('m-achievements');
+        const mChallenges = document.getElementById('m-challenges');
+        const mVideoContainer = document.getElementById('m-video-container');
+        const mVideo = document.getElementById('m-video');
+        const mGallery = document.getElementById('m-gallery');
+
+        function openNewTab(url) {
+            window.open(url, "_blank");
+        }
+
+        function openModal(id) {
+            const data = projectDB[id];
+            if(!data) {
+                console.error("No data found for ID:", id);
+                return;
+            }
+
+            // Populate Data using Markdown Parser
+            mTitle.innerText = data.title;
+            mDesc.innerHTML = parseMarkdown(data.desc);
+            mChallenges.innerHTML = parseMarkdown(data.challenges || 'No specific details provided.');
+            
+            // Tags
+            mTags.innerHTML = '';
+            if(data.tags) {
+                data.tags.forEach(tag => {
+                    mTags.innerHTML += `<span class="modal-tag">${tag}</span>`;
+                });
+            }
+
+            // Tech Stack (Right Column 1)
+            mTech.innerHTML = '';
+            if(data.tech) {
+                data.tech.forEach(t => {
+                    mTech.innerHTML += `<span class="skill-tag">${t}</span>`;
+                });
+            }
+
+            // Achievements (Left Column 2)
+            mAchieve.innerHTML = '';
+            if(data.achievements) {
+                data.achievements.forEach(a => {
+                    mAchieve.innerHTML += `<li>${a}</li>`;
+                });
+            }
+
+            // Video
+            if(data.video) {
+                mVideoContainer.style.display = 'block';
+                mVideo.src = data.video;
+            } else {
+                mVideoContainer.style.display = 'none';
+                mVideo.src = '';
+            }
+
+            // Image Gallery
+            mGallery.innerHTML = ''; 
+            if (data.images && data.images.length > 0) {
+                mGallery.style.display = '';
+                data.images.forEach(src => {
+                    const img = document.createElement('img');
+                    img.src = src;
+                    img.alt = data.title + " Image";
+                    // Click event to open lightbox
+                    img.onclick = () => openLightbox(src);
+                    mGallery.appendChild(img);
+                });
+            } else {
+                mGallery.style.display = 'none';
+            }
+
+            const mMedia = document.getElementById('m-media');
+            mMedia.classList.toggle('no-video', !data.video);
+            mMedia.classList.toggle('no-images', !(data.images && data.images.length));
+            mMedia.classList.toggle('few-images', !!(data.images && data.images.length > 0 && data.images.length <= 2));
+            mMedia.style.display = (!data.video && !(data.images && data.images.length)) ? 'none' : '';
+            document.querySelector('.modal-body').scrollTop = 0;
+
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeModal() {
+            modal.style.display = 'none';
+            mVideo.src = ''; 
+            document.body.style.overflow = 'auto'; 
+        }
+
+        // --- GENERAL ---
+        window.addEventListener('load', () => {
+            const loader = document.getElementById('loader');
+            setTimeout(() => {
+                loader.style.opacity = '0';
+                setTimeout(() => { loader.style.display = 'none'; }, 1000);
+            }, 1500);
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // --- PRINT: build each project card's text detail (used by both the
+        // simple @media print path and the paginated "Save as PDF" view) ---
+        function buildDetailInner(data, withGallery) {
+            let html = '';
+            if (data.desc)
+                html += `<div class="pd-section markdown-content pd-desc">${parseMarkdown(data.desc)}</div>`;
+            if (data.tech && data.tech.length)
+                html += `<div class="pd-section"><h4 class="pd-label">TECH</h4><div class="pd-tags">`
+                    + data.tech.map(t => `<span>${t}</span>`).join('') + `</div></div>`;
+            if (data.achievements && data.achievements.length)
+                html += `<div class="pd-section"><h4 class="pd-label">KEY OUTCOMES</h4><ul class="markdown-content">`
+                    + data.achievements.map(a => `<li>${a}</li>`).join('') + `</ul></div>`;
+            if (data.challenges)
+                html += `<div class="pd-section"><h4 class="pd-label">DETAILS</h4>`
+                    + `<div class="markdown-content">${parseMarkdown(data.challenges)}</div></div>`;
+            if (withGallery && data.images && data.images.length) {
+                // Only include images that have a local print thumbnail; skip
+                // external/unmapped URLs so the PDF never shows a broken image.
+                const shots = data.images
+                    .map(src => src.replace(/^assets\/(drive|papers|fins)\/(.+)\.(png|jpe?g|webp|gif)$/i, 'assets/thumbs/$1/$2.jpg'))
+                    .filter(t => /^assets\/thumbs\//.test(t))
+                    .map(t => `<figure class="pd-shot"><img src="${t}" alt="" onerror="this.parentNode.style.display='none'"></figure>`);
+                if (shots.length)
+                    html += `<div class="pd-section"><h4 class="pd-label">GALLERY</h4><div class="pd-gallery">`
+                        + shots.join('') + `</div></div>`;
+            }
+            return html;
+        }
+        function buildPrintDetails(root, withGallery) {
+            root = root || document;
+            if (root.querySelector('.print-detail')) return;
+            root.querySelectorAll('#featured .project-card, #projects .project-card').forEach(card => {
+                const m = (card.getAttribute('onclick') || '').match(/openModal\('([^']+)'\)/);
+                if (!m || !projectDB[m[1]]) return;
+                const el = document.createElement('div');
+                el.className = 'print-detail';
+                el.innerHTML = buildDetailInner(projectDB[m[1]], withGallery);
+                card.insertAdjacentElement('afterend', el);
+            });
+        }
+        // Live-page detail (for the plain @media print fallback) stays text-only.
+        window.addEventListener('load', () => buildPrintDetails(document, false));
+        window.addEventListener('beforeprint', () => buildPrintDetails(document, false));
+
+        // --- "Save as PDF": book-style paginated export via Paged.js ---
+        // Paged.js lays the content into real A4 page boxes (with margins, running
+        // footer + page numbers, and content-aware breaks) on screen, so the result
+        // is identical no matter what Margins setting the browser print dialog uses.
+        function buildPrintDoc() {
+            const siteCss = document.querySelector('style') ? document.querySelector('style').textContent : '';
+            const mainClone = document.querySelector('main').cloneNode(true);
+            mainClone.querySelectorAll('.print-detail').forEach(e => e.remove());
+            buildPrintDetails(mainClone, true); // include image galleries in the PDF
+            // Interactions that point to an EXTERNAL url become real clickable links;
+            // interactions that only open an on-page modal (no external url) are hidden.
+            mainClone.querySelectorAll('[onclick*="openNewTab"]').forEach(el => {
+                const m = (el.getAttribute('onclick') || '').match(/openNewTab\('([^']+)'\)/);
+                el.removeAttribute('onclick');
+                if (m) {
+                    const a = document.createElement('a');
+                    a.href = m[1]; a.target = '_blank'; a.className = 'pv-cardlink';
+                    a.setAttribute('data-qr', m[1]);
+                    el.parentNode.insertBefore(a, el);
+                    a.appendChild(el);
+                }
+            });
+            mainClone.querySelectorAll('a[href^="javascript:"]').forEach(a => a.remove()); // internal-only buttons
+            mainClone.querySelectorAll('[onclick]').forEach(e => e.removeAttribute('onclick')); // content cards -> static
+            // Mark every link that resolves to a real URL (incl. local PDFs) so the
+            // print view turns each into a scannable QR code. Use the resolved
+            // absolute href so relative paths encode a usable URL.
+            mainClone.querySelectorAll('a[href]').forEach(a => {
+                if (a.classList.contains('pv-cardlink')) return;
+                const abs = a.href; // resolved against this page's base
+                if (/^https?:/i.test(abs)) { a.classList.add('pv-ext'); a.setAttribute('data-qr', abs); }
+            });
+            const header = `<div class="pv-header"><h1>HYUNSU YU</h1><br><span class="mono">GAMEPLAY &amp; RENDERING</span></div>`;
+            // Same-origin, absolute URLs (the print window's base is about:blank,
+            // so relative paths would not resolve). Bundled in the repo so they
+            // never depend on a CDN or get blocked by ad blockers.
+            const pagedUrl = new URL('assets/vendor/paged.polyfill.min.js', location.href).href;
+            const qrUrl = new URL('assets/vendor/qrcode.min.js', location.href).href;
+            return `<!doctype html><html lang="ko"><head><meta charset="utf-8">
+<title>Hyunsu Yu — Gameplay & Rendering Programmer</title>
+<style>${siteCss}</style>
+<style>
+@page { size: A4; margin: 18mm 16mm 20mm 16mm;
+  @bottom-left { content: "HYUNSU YU · GAMEPLAY & RENDERING"; font-family:'Share Tech Mono',monospace; font-size:7.5pt; color:#57544a; }
+  @bottom-right { content: counter(page) " / " counter(pages); font-family:'Share Tech Mono',monospace; font-size:7.5pt; color:#57544a; }
+}
+html,body{ background:#dad4bb !important; color:#4b483f !important; margin:0; -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+body{ font-size:10.5pt; line-height:1.55; }
+.scanlines,.bg-grid,#loader,.lightbox-overlay,.modal-overlay,aside,.pdf-btn{ display:none !important; }
+main{ margin:0 !important; width:100% !important; max-width:100% !important; padding:0 !important; }
+*{ cursor:auto !important; animation:none !important; transition:none !important; }
+a{ color:#4b483f !important; background:none !important; padding:0 !important; text-decoration:none; }
+.pv-header{ border-bottom:2px solid #4b483f; margin-bottom:14px; padding-bottom:8px; }
+.pv-header h1{ font-size:20pt; letter-spacing:2px; margin:0; }
+.pv-header span{ font-family:'Share Tech Mono',monospace; font-size:9pt; }
+.section-title{ font-size:16pt; margin-top:0 !important; break-after:avoid; }
+main > section{ break-before: page; }
+main > section:first-of-type{ break-before: auto; }
+.project-body{ grid-template-columns:2fr 1fr !important; }
+.project-card,.hero,.recog-card,.history-item,.skill-section,.stat-box{ break-inside: avoid; }
+#featured .project-card,#projects .project-card{ break-before: page; break-after: avoid; }
+#featured .project-card:first-of-type,#projects .project-card:first-of-type{ break-before: auto; }
+.print-detail{ display:block !important; background:var(--modal-bg); border:1px solid var(--highlight-color); border-top:none; padding:12px 16px 16px; margin:-6px 0 16px; break-inside:auto; }
+.print-detail .pd-section{ margin-top:12px; }
+.print-detail h4.pd-label{ font-family:'Share Tech Mono',monospace; font-size:9.5pt; letter-spacing:1px; border-bottom:1px solid #4b483f; padding-bottom:2px; margin-bottom:6px; break-after:avoid; }
+.print-detail .markdown-content h3,.print-detail .markdown-content h4{ break-after:avoid; }
+.print-detail .markdown-content li{ break-inside:avoid; }
+.print-detail .pd-tags span{ display:inline-block; background:rgba(75,72,63,.08); border:1px solid #8c887d; padding:1px 6px; margin:2px 3px 2px 0; font-size:9pt; font-family:'Share Tech Mono',monospace; }
+.print-detail .pd-gallery{ font-size:0; margin-top:8px; }
+.print-detail .pd-shot{ display:inline-block; width:49%; margin:0 0 6px 0; vertical-align:top; break-inside:avoid; }
+.print-detail .pd-shot:nth-child(odd){ margin-right:2%; }
+.print-detail .pd-shot img{ width:100%; height:auto; background:rgba(0,0,0,.04); border:1px solid #8c887d; display:block; }
+.project-links a, .markdown-content a, a[target="_blank"]{ text-decoration:underline; }
+a.pv-cardlink{ text-decoration:none !important; color:inherit; display:block; }
+/* external links rendered as scannable QR codes in the PDF */
+.project-links{ display:block; margin-top:4px; }
+.pv-qr{ display:inline-block; text-align:center; width:76px; margin:8px 14px 2px 0; vertical-align:top; break-inside:avoid; }
+.pv-qr img{ width:66px; height:66px; display:block; margin:0 auto 2px; background:#fff; border:1px solid #8c887d; image-rendering:pixelated; }
+.pv-qr-label{ display:block; font-family:'Share Tech Mono',monospace; font-size:6.5pt; line-height:1.15; word-break:break-word; }
+img.pv-card-qr{ width:50px; height:50px; background:#fff; border:1px solid #8c887d; image-rendering:pixelated; display:block; margin:8px 0 0 auto; }
+.pagedjs_page{ background:#dad4bb; }
+</style>
+<script>
+window.PagedConfig={ auto:false, after:function(){ setTimeout(function(){ window.focus(); window.print(); }, 400); } };
+function makeQR(url, cell){ try{ var q=qrcode(0,'L'); q.addData(url); q.make(); return q.createDataURL(cell||4,0); }catch(e){ return ''; } }
+function generateQRs(){
+  if(typeof qrcode==='undefined') return;
+  // button-style external links -> QR code + label
+  document.querySelectorAll('a.pv-ext').forEach(function(a){
+    var url=a.getAttribute('data-qr')||a.href; if(!url) return;
+    var d=makeQR(url,4); if(!d) return;
+    var box=document.createElement('span'); box.className='pv-qr';
+    var img=document.createElement('img'); img.src=d; img.alt='';
+    var lab=document.createElement('span'); lab.className='pv-qr-label';
+    lab.textContent=(a.textContent||'').replace(/[\\[\\]]/g,'').trim();
+    box.appendChild(img); box.appendChild(lab);
+    a.parentNode.replaceChild(box, a);
+  });
+  // card links (media coverage) -> small QR in the card
+  document.querySelectorAll('a.pv-cardlink').forEach(function(a){
+    var url=a.getAttribute('data-qr')||a.href; if(!url) return;
+    var d=makeQR(url,3); if(!d) return;
+    var card=a.querySelector('.recog-card')||a;
+    var img=document.createElement('img'); img.src=d; img.alt=''; img.className='pv-card-qr';
+    card.appendChild(img);
+  });
+}
+function startPaging(){
+  try{ generateQRs(); }catch(e){}
+  var imgs = Array.prototype.slice.call(document.images);
+  Promise.all(imgs.map(function(im){ return im.complete ? Promise.resolve() : new Promise(function(r){ im.onload=im.onerror=r; }); }))
+    .then(function(){ if(window.PagedPolyfill) window.PagedPolyfill.preview(); });
+}
+<\/script>
+</head><body>${header}${mainClone.outerHTML}
+<script src="${qrUrl}"><\/script>
+<script src="${pagedUrl}" onload="startPaging()"><\/script>
+</body></html>`;
+        }
+        function openPrintView() {
+            const w = window.open('', '_blank');
+            if (!w) { alert('팝업이 차단되어 PDF 뷰를 열 수 없습니다. 팝업을 허용한 뒤 다시 시도해 주세요.'); return; }
+            w.document.open(); w.document.write(buildPrintDoc()); w.document.close();
+        }
+        // Route the Ctrl/Cmd+P habit to the paginated, book-style PDF view
+        // (the plain print path can't add per-page padding or page numbers when
+        // the browser's Margins setting is "None").
+        window.addEventListener('keydown', e => {
+            if ((e.ctrlKey || e.metaKey) && !e.shiftKey && !e.altKey && (e.key === 'p' || e.key === 'P')) {
+                e.preventDefault();
+                openPrintView();
+            }
+        });
+
+        console.log("%c SYSTEM: BOOT SEQUENCE COMPLETE", "color: #dad4bb; background: #000; padding: 5px;");
+    </script>
+
+    <script>
+/* Shared record data for the three layout drafts.
+   d: 'YYYY.MM' | 'YYYY' | '' (undated)   cat: category key   hl: highlight
+   l: links -> ['m', modalId, label] (opens modal) | ['u', url, label] (new tab) */
+const RECORD_CATS = {
+    AWARD:     'AWARD',
+    EXHIBIT:   'EXHIBITION',
+    PUB:       'PUBLICATION',
+    TALK:      'TALK · ORGANIZING',
+    RECOG:     'RECOGNITION',
+    MEDIA:     'MEDIA',
+    SCHOLAR:   'SCHOLARSHIP',
+    CERT:      'CERTIFICATION',
+    MILESTONE: 'MILESTONE'
+};
+
+const RECORD_SHORT = {
+    AWARD: 'AWARD', EXHIBIT: 'EXHIBIT', PUB: 'PUBLICATION', TALK: 'TALK·ORG', RECOG: 'INDUSTRY',
+    MEDIA: 'MEDIA', SCHOLAR: 'SCHOLAR', CERT: 'CERT', MILESTONE: 'MILESTONE'
+};
+
+const RECORDS = [
+    // --- AWARDS ---
+    { d: '2026.10', cat: 'AWARD', hl: true, t: 'TU Game Challenge 2026 — 우수상 (IEEE Track)', s: 'Ever Check' },
+    { d: '2026.10', cat: 'AWARD', t: 'TU Game Challenge 2026 — 장려상', s: 'ALCOHOL FREE', l: [['m', 'alcoholfree', 'ALCOHOL FREE']] },
+    { d: '2026.10', cat: 'AWARD', t: 'TU Game Challenge 2026 — 장려상', s: '냥냥대난투' },
+    { d: '2026.06', cat: 'AWARD', t: 'B-Contents 경진대회 2026 — 우수상', s: 'DEEP FALL', l: [['m', 'b_contents_competition', 'B-Contents']] },
+    { d: '2025.10', cat: 'AWARD', hl: true, t: 'TU Game Challenge 2025 — 최우수상', s: '마음을 담아', l: [['m', 'hearts', '마음을 담아'], ['u', 'https://sway.cloud.microsoft/4PpAiwGK3vnc9XkW?ref=Link', 'TU GC 2025']] },
+    { d: '2025.10', cat: 'AWARD', hl: true, t: 'TU Game Challenge 2025 — 최우수상', s: 'Cross Wordle' },
+    { d: '2025.10', cat: 'AWARD', t: 'TU Game Challenge 2025 — 우수상', s: 'ALCOHOL FREE', l: [['m', 'alcoholfree', 'ALCOHOL FREE']] },
+    { d: '2025.10', cat: 'AWARD', t: 'TU Game Challenge 2025 — 장려상', s: 'RGB Line', l: [['m', 'rgbline', 'RGB Line']] },
+    { d: '2025',    cat: 'AWARD', hl: true, t: 'Chair of IEEE Busan Section 2025 — Excellence Award', s: 'Cross Wordle' },
+
+    // --- EXHIBITIONS ---
+    { d: '2026.06', cat: 'EXHIBIT', t: 'Build 051 2026' },
+    { d: '2026.04', cat: 'EXHIBIT', t: '부산 게임 개발자 컨퍼런스 2026', s: 'ALCOHOL FREE, 마음을 담아', l: [['m', 'busan_game_dev_conf', '부산 게임 개발자 컨퍼런스']] },
+    { d: '2025.12', cat: 'EXHIBIT', t: 'Comic World 2025', s: 'Pleedus Partnership Booth (ALCOHOL FREE, 마음을 담아)', l: [['u', 'https://www.tu.ac.kr/gart/sub05_05.do?mode=view&articleNo=144323', 'Comic World 2025']] },
+    { d: '2025.12', cat: 'EXHIBIT', t: 'TU RISE ALL FESTA 2025', s: 'ALCOHOL FREE, 마음을 담아', l: [['u', 'https://www.tu.ac.kr/gart/sub05_05.do?mode=view&articleNo=143632&title=RISE+ALL+FESTA+%EC%9E%91%ED%92%88+%EC%B6%9C%ED%92%88+%EB%B0%8F+%EC%A0%84%EC%8B%9C', 'RISE ALL FESTA']] },
+    { d: '2025.12', cat: 'EXHIBIT', t: 'BEAVER ROCKS 2025', s: 'ALCOHOL FREE', l: [['u', 'https://beaverrocks.com/BeaverRocks2025-game', 'BEAVER ROCKS']] },
+    { d: '2025.11', cat: 'EXHIBIT', hl: true, t: 'G-Star 2025', s: 'ALCOHOL FREE, 마음을 담아, RGB Line, Cross Wordle', l: [['u', 'https://sway.cloud.microsoft/JPasLtlByjTwysGH?ref=email&loc=play', 'G-Star 2025']] },
+    { d: '2025.06', cat: 'EXHIBIT', t: 'Build 051 2025', s: 'RGB Line', l: [['u', 'https://build051.org/', 'Build 051']] },
+
+    // --- PUBLICATIONS ---
+    { d: '2026.11', cat: 'PUB', hl: true, t: 'DirectX 12 Meshlet과 IA 기반의 하이브리드 렌더링 파이프라인 구현', s: '학사학위 졸업논문 · 제1저자·단독', l: [['u', 'assets/papers/GraduationThesis.pdf', 'THESIS'], ['m', 'meshshader', 'Hybrid Rendering']] },
+    { d: '2026.10', cat: 'PUB', hl: true, t: '계층적 임의 보행 기반 대규모 타일맵 생성 알고리즘과 호스트 반응성을 위한 실행 전략', s: '한국멀티미디어학회 추계학술발표대회 제29권 2호 · 포스터 · 제1저자·단독', l: [['u', 'assets/papers/MapGenPaper.pdf', 'PAPER'], ['m', 'mapgen', 'Massive Map Gen']] },
+    { d: '2026.10', cat: 'PUB', hl: true, t: '프레임-스테이트 실행 모델 기반 비주얼 노벨 저작 프레임워크', s: '한국멀티미디어학회 추계학술발표대회 제29권 2호 · 포스터 · 제1저자·단독', l: [['u', 'assets/papers/VisualWavePaper.pdf', 'PAPER'], ['m', 'visualwave', 'Visual Wave']] },
+    { d: '2026.07', cat: 'PUB', hl: true, t: 'More Deeper C++ Programming Language 출간', s: '기술 서적 · 단독 저자 · 222p · ISBN 979-11-438-1468-5', l: [['u', 'https://www.yes24.com/product/goods/194190987', 'YES24'], ['m', 'book', 'Book']] },
+
+    // --- TALKS / ORGANIZING ---
+    { d: '2026',    cat: 'TALK', hl: true, t: 'GAME OVER? 2026 — 운영총괄 (Operations Director)', l: [['u', 'https://game-dev-conference-gameover.github.io/GAMEOVER_Homepage/2026/', 'GAME OVER?']] },
+    { d: '2026.05', cat: 'TALK', t: 'Unite Seoul 2026 — 연사 최종 심사 진출', s: 'Massive Map Generation System', l: [['m', 'unite_2026', 'Unite 2026']] },
+    { d: '2024.08', cat: 'TALK', t: 'Security-One 포럼 연사', s: 'Row Hammer', l: [['u', 'https://www.facebook.com/seoneforum/?locale=ko_KR', 'Security-One']] },
+
+    // --- INDUSTRY RECOGNITION ---
+    { d: '2025.11', cat: 'RECOG', hl: true, t: 'Square Enix — SAITA Tomonori (Former Producer) 피드백', s: 'ALCOHOL FREE, 마음을 담아, RGB Line @ G-Star 2025', l: [['m', 'square_enix', 'Square Enix']] },
+    { d: '2025.11', cat: 'RECOG', hl: true, t: 'Toei Company — KATO (Game Advisor) 퍼블리싱 제안', s: 'ALCOHOL FREE, 마음을 담아, RGB Line @ G-Star 2025', l: [['m', 'toei', 'Toei']] },
+    { d: '2025.12', cat: 'RECOG', t: 'Pleedus — Exhibition Partnership', s: 'ALCOHOL FREE, 마음을 담아 @ Comic World 2025', l: [['m', 'pleedus', 'Pleedus']] },
+
+    // --- MEDIA ---
+    { d: '2026.04', cat: 'MEDIA', t: '제8회 부산 게임개발자 컨퍼런스 참가 및 작품 출품', s: '마음을 담아, ALCOHOL FREE', l: [['u', 'https://www.tu.ac.kr/gart/sub05_05.do?mode=view&articleNo=150666', 'ARTICLE']] },
+    { d: '2025',    cat: 'MEDIA', t: '今年のG-Starはどうだったか？ (KATO 기고)', s: '마음을 담아 소개', l: [['u', 'https://sqool.net/report/archive/gstar2025-report.html', 'ARTICLE']] },
+    { d: '2025',    cat: 'MEDIA', t: 'TU 게임 챌린지 특별호', s: '마음을 담아, ALCOHOL FREE, RGB Line, Cross Wordle', l: [['u', 'https://sway.cloud.microsoft/4PpAiwGK3vnc9XkW?ref=Link', 'ARTICLE']] },
+    { d: '2025',    cat: 'MEDIA', t: "동명대 게임학부 '25-4분기 (G-Star 2025)", l: [['u', 'https://sway.cloud.microsoft/JPasLtlByjTwysGH?ref=email&loc=play', 'ARTICLE']] },
+    { d: '2024.09', cat: 'MEDIA', t: 'Microsoft Game Dev Community — Question of the Week', s: '"What was your biggest game development challenge?" 답변 소개', l: [['u', 'https://developer.microsoft.com/en-us/games/articles/2024/09/community-question-of-the-week-9624/#:~:text=a%20learning%20experience.%E2%80%9D-,Hyunsu%20Yu,-%2C%20college%20Game', 'ARTICLE']] },
+    { d: '',        cat: 'MEDIA', t: 'The .NET News Daily Issue #313', s: 'C# — Unique behavior when passing array and list objects as parameters', l: [['u', 'https://dotnetnews.co/archive/the-net-news-daily-issue-313/?8utm_source=medium&utm_medium=comment', 'ARTICLE']] },
+
+    // --- SCHOLARSHIPS ---
+    { d: '2026.03', cat: 'SCHOLAR', t: '26-1 부산지역인재장학', l: [['m', 'busan_regional_talent_scholarship', '부산지역인재장학']] },
+    { d: '2025.12', cat: 'SCHOLAR', t: '25-2 부산지역인재장학', l: [['m', 'busan_regional_talent_scholarship', '부산지역인재장학']] },
+    { d: '',        cat: 'SCHOLAR', t: 'SW분야우수인재장학' },
+
+    // --- CERTIFICATIONS ---
+    { d: '', cat: 'CERT', t: '프로그래머스 스킬체크 레벨 3' },
+    { d: '', cat: 'CERT', t: '리눅스 마스터 2급' },
+    { d: '', cat: 'CERT', t: '정보 처리 기능사' },
+    { d: '', cat: 'CERT', t: '민간 SW개발보안 대학생 교육(입문과정)' },
+    { d: '', cat: 'CERT', t: 'GitHub Foundations' },
+
+    // --- MILESTONES (former timeline) ---
+    { d: '2026.10', cat: 'MILESTONE', t: 'FINS 개발 (UPTRANDING Game Jam, 2박 3일)', l: [['m', 'fins', 'FINS']] },
+    { d: '2026.08', cat: 'MILESTONE', t: '제1회 UPTRANDING 게임잼' },
+    { d: '2026.01', cat: 'MILESTONE', t: '포우포우 위치 (Global Game Jam, 3 days)', l: [['u', 'https://hyunsuyu.github.io/PowPowWitchHome/', '포우포우 위치']] },
+    { d: '2026.01', cat: 'MILESTONE', t: 'TU Mach Game Jam (2 days)' },
+    { d: '2025.12', cat: 'MILESTONE', t: 'DX12 Meshlet × IA Hybrid Rendering 연구 시작 (졸업논문)', l: [['m', 'meshshader', 'Hybrid Rendering']] },
+    { d: '2025.12', cat: 'MILESTONE', t: 'ALCOHOL FREE 완성 (2025.05 ~ 2025.12)', l: [['m', 'alcoholfree', 'ALCOHOL FREE']] },
+    { d: '2025.12', cat: 'MILESTONE', t: 'RGB Line 완성 (2024.12 ~ 2025.12)', l: [['m', 'rgbline', 'RGB Line']] },
+    { d: '2025.09', cat: 'MILESTONE', t: 'Cross Wordle (교육용 프로젝트, 7 days)' },
+    { d: '2025.09', cat: 'MILESTONE', t: 'Still Alive (Club Game Jam, 4 days)' },
+    { d: '2025.05', cat: 'MILESTONE', t: '마음을 담아 개발 시작', l: [['m', 'hearts', '마음을 담아']] },
+    { d: '2025.01', cat: 'MILESTONE', t: 'UDE-B91 (Global Game Jam, 3 days)', l: [['u', 'https://globalgamejam.org/games/2025/ude-891-9', 'UDE-B91']] },
+    { d: '2024.12', cat: 'MILESTONE', t: 'RGB Line 개발 시작' },
+    { d: '2024.10', cat: 'MILESTONE', t: 'Computer Science 강의 (2024.10 ~ 2025.02)', l: [['u', 'https://drive.google.com/drive/folders/1nS0rt085X6sCtfV1szX6ia9s4nRWJYEk?usp=sharing', 'COURSE']] },
+    { d: '2024.10', cat: 'MILESTONE', t: 'UPTRAND (창업동아리) 합류' },
+    { d: '2024.06', cat: 'MILESTONE', t: 'Massive Map Generation System 초기 구현 완료 (2023.07 ~ 2024.06)', l: [['m', 'mapgen', 'Massive Map Gen']] },
+    { d: '2023.07', cat: 'MILESTONE', t: 'Massive Map Generation System 구현 시작' },
+    { d: '2023.04', cat: 'MILESTONE', t: 'More Deeper C++ 원고 집필 (2023.04 ~ 2023.10)', l: [['m', 'book', 'Book']] },
+    { d: '2023.04', cat: 'MILESTONE', t: '공군 전역' },
+    { d: '2021.07', cat: 'MILESTONE', t: '공군 입대 — 복무 중 블로그 연구 · MIT OCW · 논문 리뷰, Map Gen 초기 설계' },
+    { d: '2021.06', cat: 'MILESTONE', t: 'NATAKER 완성 (1.5 months)', l: [['m', 'nataker', 'NATAKER']] },
+    { d: '2020.05', cat: 'MILESTONE', t: 'Technical Blog 시작', l: [['u', 'https://medium.com/@lioie6478', 'BLOG']] }
+];
+
+/* ---------- helpers ---------- */
+function recLinksHtml(r) {
+    return (r.l || []).map(([kind, target, label]) => kind === 'm'
+        ? `<a href="javascript:openModal('${target}')" class="timeline-link">[${label}]</a>`
+        : `<a href="${target}" target="_blank" class="timeline-link">[${label}]</a>`).join(' ');
+}
+function recYear(r) { return r.d ? r.d.slice(0, 4) : 'UNDATED'; }
+function recSortKey(r) { return r.d ? r.d.padEnd(7, '.00').replace('.', '') : '000000'; }
+function sortedRecords(list) { return list.slice().sort((a, b) => recSortKey(b).localeCompare(recSortKey(a))); }
+function recCount(cat) { return cat === 'ALL' ? RECORDS.length : cat === 'HL' ? RECORDS.filter(r => r.hl).length : RECORDS.filter(r => r.cat === cat).length; }
+function recFilter(cat) { return cat === 'ALL' ? RECORDS : cat === 'HL' ? RECORDS.filter(r => r.hl) : RECORDS.filter(r => r.cat === cat); }
+
+/* Chip bar: [ ALL 63 ] [ ★ 15 ] [ AWARD 9 ] ... ; onPick(cat) */
+function buildChips(el, cats, active, onPick) {
+    el.innerHTML = cats.map(c => {
+        const label = c === 'ALL' ? 'ALL' : c === 'HL' ? '★ HIGHLIGHTS' : RECORD_CATS[c];
+        return `<button class="chip${c === active ? ' active' : ''}" data-cat="${c}">${label}<span class="chip-n">${recCount(c)}</span></button>`;
+    }).join('');
+    el.querySelectorAll('.chip').forEach(b => b.addEventListener('click', () => {
+        el.querySelectorAll('.chip').forEach(x => x.classList.toggle('active', x === b));
+        onPick(b.dataset.cat);
+    }));
+}
+
+    </script>
+    <script>
+        (function () {
+            /* --- Featured tabs --- */
+            const tabs = [...document.querySelectorAll('#b-feat-tabs .b-tab')];
+            const panels = [...document.querySelectorAll('#b-feat-panels .project-card')];
+            let cur = 0;
+            function show(i) {
+                cur = (i + panels.length) % panels.length;
+                tabs.forEach((t, k) => t.classList.toggle('active', k === cur));
+                panels.forEach((p, k) => p.classList.toggle('active', k === cur));
+                document.getElementById('b-pos').textContent = String(cur + 1).padStart(2, '0') + ' / ' + String(panels.length).padStart(2, '0');
+            }
+            tabs.forEach((t, k) => t.addEventListener('click', () => show(k)));
+            document.getElementById('b-prev').addEventListener('click', () => show(cur - 1));
+            document.getElementById('b-next').addEventListener('click', () => show(cur + 1));
+            show(0);
+
+            /* --- Games accordion --- */
+            document.querySelectorAll('#b-games .project-card').forEach((card, k) => {
+                const m = (card.getAttribute('onclick') || '').match(/openModal\('([^']+)'\)/);
+                card.removeAttribute('onclick');
+                const metas = [...card.querySelectorAll('.project-meta p')].map(p => p.textContent.replace(/^\w+:\s*/, '').trim());
+                const header = card.querySelector('.project-header');
+                const sum = document.createElement('span');
+                sum.className = 'b-sum';
+                sum.textContent = metas.join(' · ');
+                header.insertBefore(sum, header.lastElementChild);
+                header.addEventListener('click', () => card.classList.toggle('open'));
+                if (m) {
+                    const a = document.createElement('a');
+                    a.href = `javascript:openModal('${m[1]}')`;
+                    a.className = 'b-open';
+                    a.textContent = '[ACCESS DATA LOG >>]';
+                    card.querySelector('.project-content').appendChild(a);
+                }
+                if (k === 0) card.classList.add('open');
+            });
+
+            /* --- Record log --- */
+            const log = document.getElementById('b-log');
+            const LIMIT = 12;
+            function render(cat, expanded) {
+                const list = sortedRecords(recFilter(cat));
+                const shown = expanded ? list : list.slice(0, cat === 'HL' ? list.length : LIMIT);
+                const years = [];
+                shown.forEach(r => {
+                    const y = recYear(r);
+                    if (!years.length || years[years.length - 1].y !== y) years.push({ y, rows: [] });
+                    years[years.length - 1].rows.push(r);
+                });
+                log.innerHTML = years.map(g => `<div class="history-item"><span class="history-year">${g.y}</span>` +
+                    g.rows.map(r => `<p><strong>${r.d && r.d.length > 4 ? r.d.slice(5) : '—'}</strong>` +
+                        `<span class="b-cat${r.hl ? ' hl' : ''}">${RECORD_SHORT[r.cat]}</span>` +
+                        `<span><strong>${r.t}</strong>${r.s ? ` <span class="b-sub">— ${r.s}</span>` : ''} ${recLinksHtml(r)}</span></p>`).join('') +
+                    `</div>`).join('') || '<p class="b-empty">NO DATA</p>';
+                if (shown.length < list.length) {
+                    const b = document.createElement('button');
+                    b.className = 'b-more';
+                    b.textContent = `[+] SHOW ALL ${list.length} ENTRIES`;
+                    b.addEventListener('click', () => render(cat, true));
+                    log.appendChild(b);
+                }
+            }
+            buildChips(document.getElementById('b-chips'),
+                ['HL', 'ALL', 'AWARD', 'EXHIBIT', 'PUB', 'TALK', 'RECOG', 'MEDIA', 'SCHOLAR', 'CERT', 'MILESTONE'], 'HL', c => render(c, false));
+            render('HL', false);
+
+            /* --- Scroll spy + sync bar --- */
+            const links = [...document.querySelectorAll('nav a[href^="#"]')];
+            const secs = links.map(a => document.querySelector(a.getAttribute('href')));
+            const n = document.getElementById('b-sync-n'), fill = document.getElementById('b-sync-fill');
+            function spy() {
+                let idx = 0;
+                secs.forEach((s, k) => { if (s && s.getBoundingClientRect().top < window.innerHeight * 0.35) idx = k; });
+                if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4) idx = secs.length - 1;
+                links.forEach((a, k) => a.classList.toggle('active', k === idx));
+                const pct = Math.round(100 * window.scrollY / Math.max(1, document.documentElement.scrollHeight - window.innerHeight));
+                n.textContent = String(pct).padStart(3, '0');
+                fill.style.width = pct + '%';
+            }
+            window.addEventListener('scroll', spy, { passive: true });
+            spy();
+        })();
+
+    </script>
+</body>
+</html>

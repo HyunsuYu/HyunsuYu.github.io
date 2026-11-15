@@ -1,0 +1,55 @@
+
+        /* ====== DRAFT B : SIDEBAR + TABS / FILTER ====== */
+        nav ul li a.active { background: var(--text-color); color: var(--bg-color); padding-left: 6px; }
+        nav ul li a.active::before { content: '[■] '; }
+        .b-sync { font-size: 0.8rem; letter-spacing: 1px; margin: -10px 0 20px; }
+        .b-sync-bar { height: 6px; border: 1px solid var(--text-color); margin-top: 4px; }
+        #b-sync-fill { height: 100%; width: 0; background: var(--text-color); transition: width 0.1s linear; }
+
+        .b-tabs { display: flex; flex-wrap: wrap; border-bottom: 2px solid var(--text-color); margin-bottom: 18px; }
+        .b-tab {
+            font-family: 'Share Tech Mono', monospace; font-size: 0.95rem; letter-spacing: 1px; cursor: pointer;
+            background: transparent; color: var(--text-color); border: none; padding: 10px 16px; transition: 0.2s;
+        }
+        .b-tab span { opacity: 0.55; margin-right: 8px; }
+        .b-tab::before { content: '[ ] '; }
+        .b-tab:hover::before, .b-tab.active::before { content: '[■] '; }
+        .b-tab.active { background: var(--text-color); color: var(--bg-color); }
+        .b-tab.active span { opacity: 0.8; }
+        .b-panels .project-card { display: none; margin-bottom: 0; }
+        .b-panels .project-card.active { display: block; animation: bFade 0.25s ease; }
+        @keyframes bFade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+        .b-pager { display: flex; justify-content: flex-end; align-items: center; gap: 16px; margin-top: 12px; }
+        .b-pager button { font-family: 'Share Tech Mono', monospace; background: none; border: none; color: var(--text-color); cursor: pointer; font-size: 0.95rem; font-weight: 700; }
+        .b-pager button:hover { background: var(--text-color); color: var(--bg-color); }
+
+        .b-hint { font-size: 0.85rem; opacity: 0.7; margin: -14px 0 14px; }
+        .b-acc .project-card { margin-bottom: 10px; cursor: default; }
+        .b-acc .project-card:hover { transform: none; box-shadow: none; }
+        .b-acc .project-card::after { display: none; }
+        .b-acc .project-header { cursor: pointer; }
+        .b-acc .project-header::before { content: '[+]'; font-family: 'Share Tech Mono', monospace; margin-right: 12px; }
+        .b-acc .project-card.open .project-header::before { content: '[−]'; }
+        .b-acc .project-header .project-title { margin-right: auto; font-size: 1.25rem; }
+        .b-acc .b-sum { font-family: 'Share Tech Mono', monospace; font-size: 0.8rem; opacity: 0.8; margin: 0 18px; }
+        .b-acc .project-body { display: none; }
+        .b-acc .project-card.open .project-body { display: grid; }
+        .b-acc .project-card.open .b-sum { display: none; }
+        .b-open { margin-top: 12px; display: inline-block; font-family: 'Share Tech Mono', monospace; border: 1px solid var(--text-color); padding: 3px 10px; }
+
+        .b-log .history-item p { display: grid; grid-template-columns: 54px 128px 1fr; gap: 10px; align-items: baseline; margin-bottom: 6px; }
+        .b-log .history-item p > strong:first-child { font-family: 'Share Tech Mono', monospace; }
+        .b-log .b-cat { font-family: 'Share Tech Mono', monospace; font-size: 0.72rem; letter-spacing: 1px; border: 1px solid var(--text-color); padding: 0 6px; justify-self: start; }
+        .b-log .b-cat.hl { background: var(--text-color); color: var(--bg-color); }
+        .b-log .b-sub { opacity: 0.8; font-size: 0.93rem; }
+        .b-empty { font-family: 'Share Tech Mono', monospace; opacity: 0.7; }
+        .b-more { margin-top: 6px; font-family: 'Share Tech Mono', monospace; background: none; border: 1px dashed var(--text-color); color: var(--text-color); padding: 6px 14px; cursor: pointer; }
+        .b-more:hover { background: var(--text-color); color: var(--bg-color); }
+
+        @media (max-width: 900px) {
+            .b-sync { display: none; }
+            .b-log .history-item p { grid-template-columns: 50px 1fr; }
+            .b-log .b-cat { display: none; }
+            .b-acc .b-sum { display: none; }
+            #research > div { grid-template-columns: 1fr !important; }
+        }

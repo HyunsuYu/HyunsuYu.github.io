@@ -1,0 +1,130 @@
+        {{SECTION:about}}
+
+        <!-- 1. WORKS : image-first grid grouped by field -->
+        <section id="works">
+            <h2 class="section-title glitch-effect">Works</h2>
+
+            <h3 class="sub-title">Graphics · Engine</h3>
+            <div class="c-grid c-grid-3">
+                <article class="c-tile c-wide" onclick="openModal('meshshader')">
+                    <div class="c-head mono"><span>UNIT 01</span><span>GRADUATION THESIS · 2026</span></div>
+                    <div class="c-thumb"><img src="assets/thumbs/drive/1EL1vqrbs96enisJCK_u-FXedV5mr6EcS.jpg" alt="" loading="lazy"></div>
+                    <div class="c-info">
+                        <h3>DX12 Meshlet × IA Hybrid Rendering ⭐</h3>
+                        <p class="c-meta mono">SOLE RESEARCH / 1ST AUTHOR · 2025.12–2026.11</p>
+                        <p class="c-line">IA · Mesh Shader 경로를 메시 그룹별로 런타임 선택해 같은 프레임에서 혼합.</p>
+                        <p class="c-stat mono">&gt; GPU Scene −15.83% vs IA · −3.01% vs MS</p>
+                        <div class="c-tags"><span class="tag-inv">THESIS</span><span class="tag-line">DX12</span><span class="tag-line">MESH SHADER</span><span class="tag-line">K-MEANS</span></div>
+                    </div>
+                </article>
+                <article class="c-tile" onclick="openModal('mapgen')">
+                    <div class="c-head mono"><span>UNIT 02</span><span>PAPER · 2026</span></div>
+                    <div class="c-thumb"><img src="assets/thumbs/papers/mapgen-paper-3d.jpg" alt="" loading="lazy"></div>
+                    <div class="c-info">
+                        <h3>Massive Map Generation ⭐</h3>
+                        <p class="c-meta mono">SOLO DEV · 2023.07–2024.06</p>
+                        <p class="c-stat mono">&gt; 270M tiles · 51.26 FPS host</p>
+                        <div class="c-tags"><span class="tag-inv">KMMS PAPER</span><span class="tag-line">PARALLEL</span><span class="tag-line">IPC</span></div>
+                    </div>
+                </article>
+            </div>
+
+            <h3 class="sub-title">Tools · Research · Writing</h3>
+            <div class="c-grid c-grid-3">
+                <article class="c-tile" onclick="openModal('visualwave')">
+                    <div class="c-head mono"><span>UNIT 03</span><span>PAPER · 2026</span></div>
+                    <div class="c-thumb"><img src="assets/thumbs/papers/vw-godot-demo.jpg" alt="" loading="lazy"></div>
+                    <div class="c-info">
+                        <h3>Visual Wave ⭐</h3>
+                        <p class="c-meta mono">SOLE RESEARCH · 2025.05–</p>
+                        <p class="c-stat mono">&gt; 대사 1자당 30.0B → 4.7B</p>
+                        <div class="c-tags"><span class="tag-inv">KMMS PAPER</span><span class="tag-line">DSL</span><span class="tag-line">LSP</span></div>
+                    </div>
+                </article>
+                <article class="c-tile" onclick="openModal('book')">
+                    <div class="c-head mono"><span>UNIT 04</span><span>BOOK · 2026</span></div>
+                    <div class="c-thumb c-thumb-top"><img src="assets/thumbs/drive/1hL3dtbTbEqQsb75rJ8j2BDkalzJNm7Td.jpg" alt="" loading="lazy"></div>
+                    <div class="c-info">
+                        <h3>More Deeper C++</h3>
+                        <p class="c-meta mono">WRITER / INSTRUCTOR · 2026.07.30</p>
+                        <p class="c-stat mono">&gt; 222p · ISBN · 8 stores</p>
+                        <div class="c-tags"><span class="tag-inv">PUBLISHED</span><span class="tag-line">PAID COURSE</span></div>
+                    </div>
+                </article>
+                <div class="c-tile c-text-tile">
+                    <div class="c-head mono"><span>LOG</span><span>SINCE 2020</span></div>
+                    <div class="c-info">
+                        <h3>Technical Blog · 6+ Years</h3>
+                        <ul class="c-list">
+                            <li>Graphics &amp; Shader (Metaball, Fluid Sim)</li>
+                            <li>Optimization (NUMA, SIMD, Cache)</li>
+                            <li>AI &amp; Game Intelligence</li>
+                            <li>Computer Architecture</li>
+                        </ul>
+                        <p class="mono"><a href="https://medium.com/@lioie6478" target="_blank">[MEDIUM]</a> <a href="https://medium.com/more-deeper-c-programming-language" target="_blank">[PUBLICATION]</a> <a href="javascript:openModal('cs_course')">[COURSE]</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <h3 class="sub-title">Games</h3>
+            <div class="c-grid c-grid-4">
+                <article class="c-tile" onclick="openModal('hearts')">
+                    <div class="c-head mono"><span>G-01</span><span>PUZZLE / VN</span></div>
+                    <div class="c-thumb"><img src="assets/thumbs/drive/1ePXQdvfpJ-jz0Ko8x81mW4Go-GG6Lcbv.jpg" alt="" loading="lazy"></div>
+                    <div class="c-info">
+                        <h3>마음을 담아 ⭐</h3>
+                        <p class="c-meta mono">PROGRAMMER · TEAM 5</p>
+                        <div class="c-tags"><span class="tag-inv">★ 최우수상</span><span class="tag-line">G-STAR</span></div>
+                    </div>
+                </article>
+                <article class="c-tile" onclick="openModal('alcoholfree')">
+                    <div class="c-head mono"><span>G-02</span><span>VISUAL NOVEL</span></div>
+                    <div class="c-thumb"><img src="https://hyunsuyu.github.io/ALCOHOL-FREE/src/%EC%95%95%EC%83%9D%ED%8A%B8%20%EC%BB%B7%EC%94%AC.png" onerror="this.onerror=null;this.src='assets/thumbs/drive/1gaCl93bfKaSHVaSoRmW0L_XcZ1P5kwGa.jpg'" alt="" loading="lazy"></div>
+                    <div class="c-info">
+                        <h3>ALCOHOL FREE ⭐</h3>
+                        <p class="c-meta mono">PROGRAMMER · TEAM 7</p>
+                        <div class="c-tags"><span class="tag-inv">★ 우수상</span><span class="tag-inv">장려상</span><span class="tag-line">STOVE</span></div>
+                    </div>
+                </article>
+                <article class="c-tile" onclick="openModal('rgbline')">
+                    <div class="c-head mono"><span>G-03</span><span>RHYTHM</span></div>
+                    <div class="c-thumb"><img src="assets/thumbs/drive/1AQPQjfcLk8uUyBBZdREkdSsu9lpCmZwS.jpg" alt="" loading="lazy"></div>
+                    <div class="c-info">
+                        <h3>RGB Line</h3>
+                        <p class="c-meta mono">LEAD PROGRAMMER · TEAM 4</p>
+                        <div class="c-tags"><span class="tag-inv">장려상</span><span class="tag-line">G-STAR</span></div>
+                    </div>
+                </article>
+                <article class="c-tile" onclick="openModal('fins')">
+                    <div class="c-head mono"><span>G-04</span><span>ACTION · JAM</span></div>
+                    <div class="c-thumb"><img src="assets/thumbs/fins/surface.jpg" alt="" loading="lazy"></div>
+                    <div class="c-info">
+                        <h3>FINS</h3>
+                        <p class="c-meta mono">PROGRAMMER · TEAM 5</p>
+                        <div class="c-tags"><span class="tag-line">GAME JAM · 3 DAYS</span></div>
+                    </div>
+                </article>
+            </div>
+        </section>
+
+        <!-- 2. RECORDS : compact boxes + collapsed timeline -->
+        <section id="records">
+            <h2 class="section-title glitch-effect">Records</h2>
+            <div class="c-boxes" id="c-boxes"></div>
+
+            <h3 class="sub-title">Industry Recognition</h3>
+            <div class="c-recog">
+                <div class="c-rc" onclick="openModal('square_enix')"><strong>SQUARE ENIX</strong><span>SAITA Tomonori (Former Producer) 피드백 · G-Star 2025</span></div>
+                <div class="c-rc" onclick="openModal('toei')"><strong>TOEI COMPANY</strong><span>KATO (Game Advisor) 퍼블리싱 제안 · G-Star 2025</span></div>
+                <div class="c-rc" onclick="openModal('pleedus')"><strong>PLEEDUS</strong><span>Exhibition Partnership · Comic World 2025</span></div>
+            </div>
+
+            <details class="c-details">
+                <summary class="mono">FULL TIMELINE · 2020 – 2026</summary>
+                {{TIMELINE_INNER}}
+            </details>
+        </section>
+
+        {{SECTION:skills}}
+
+        {{SECTION:contact}}
