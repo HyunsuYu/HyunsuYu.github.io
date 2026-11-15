@@ -722,23 +722,15 @@
         }
         @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0; } 100% { opacity: 1; } }
 
-        /* --- SAVE AS PDF BUTTON (screen only) --- */
+        /* --- SAVE AS PDF (sidebar entry under the screen menu, screen only) --- */
         .pdf-btn {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            z-index: 500;
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 0.8rem;
-            letter-spacing: 1px;
-            background: var(--text-color);
-            color: var(--bg-color);
-            border: 2px solid var(--text-color);
-            padding: 10px 16px;
-            cursor: pointer;
-            transition: 0.2s;
+            display: block; width: 100%; margin-top: 22px; text-align: left;
+            font-family: 'Share Tech Mono', monospace; font-size: 0.95rem; letter-spacing: 1px; text-transform: uppercase;
+            background: transparent; color: var(--text-color);
+            border: 1px dashed var(--text-color); padding: 7px 10px;
+            cursor: pointer; transition: 0.2s;
         }
-        .pdf-btn:hover { background: var(--bg-color); color: var(--text-color); }
+        .pdf-btn:hover { background: var(--text-color); color: var(--bg-color); border-style: solid; }
 
         /* --- PRINT / PDF OUTPUT --- */
         .print-detail { display: none; }
@@ -1030,6 +1022,7 @@
             nav ul { display: flex !important; flex-wrap: wrap; gap: 6px; margin-top: 12px; }
             nav ul li { margin: 0; }
             nav ul li a { font-size: 0.9rem; border: 1px solid var(--text-color); padding: 4px 8px; }
+            .pdf-btn { width: auto; margin-top: 10px; font-size: 0.85rem; padding: 4px 8px; }
             .d-keys { display: none; }
             .d-stats { grid-template-columns: 1fr 1fr; }
             .d-md { grid-template-columns: 1fr; height: auto; }
@@ -1084,6 +1077,7 @@
                 <li><a href="javascript:showScreen('records')">[3] RECORDS</a></li>
                 <li><a href="javascript:showScreen('contact')">[4] SKILLS · CONTACT</a></li>
             </ul>
+            <button class="pdf-btn" onclick="openPrintView()" title="Save portfolio as a clean PDF">[&#9113;] SAVE AS PDF</button>
         </nav>
 
         <div style="font-size: 0.8rem; opacity: 0.6; font-family: 'Share Tech Mono';">
@@ -1201,8 +1195,6 @@
         <p style="font-size: 0.8rem; margin-top: 10px;">&copy; 2026 Hyunsu Yu.</p>
     </footer>
 
-    <!-- SAVE AS PDF (screen only) -->
-    <button class="pdf-btn" onclick="openPrintView()" title="Save portfolio as a clean PDF">&#9113; SAVE AS PDF</button>
 
     <!-- MODAL (MOVED TO BOTTOM FOR Z-INDEX FIX) -->
     <div id="modal-overlay" class="modal-overlay" onclick="closeModal()">
@@ -2121,6 +2113,29 @@ img.pv-card-qr{ width:50px; height:50px; background:#fff; border:1px solid #8c88
 #scr-works .c-text-tile{ display:block !important; break-before:auto; margin-top:14px; }
 .c-thumb img{ filter:none !important; }
 .rec-row{ break-inside:avoid; }
+.pdf-btn,.c-play{ display:none !important; }
+.d-hero{ padding:18px 22px !important; }
+.d-stats{ grid-template-columns:repeat(4,1fr) !important; gap:10px !important; }
+.d-stats p{ font-size:10pt !important; }
+.pv-works{ width:100%; border-collapse:collapse; font-size:9pt; }
+.pv-works td{ padding:3px 6px; border-bottom:1px dashed rgba(75,72,63,.35); vertical-align:top; }
+.pv-works td.u{ font-family:'Share Tech Mono',monospace; font-size:8pt; white-space:nowrap; width:52px; }
+.pv-works td.t{ width:30%; }
+.pv-works td.m{ font-family:'Share Tech Mono',monospace; font-size:7pt; opacity:.75; width:30%; }
+.pv-works td.st{ font-family:'Share Tech Mono',monospace; font-size:7.5pt; }
+.d-quick .pv-qr{ width:62px; margin:6px 12px 0 0; }
+.d-quick .pv-qr img{ width:50px; height:50px; }
+.pv-entry .tag-inv,.pv-entry .tag-line{ justify-self:start; font-size:7pt; }
+.pv-entry .dd{ font-family:'Share Tech Mono',monospace; font-size:8pt; opacity:.75; }
+.pv-folder{ break-inside:avoid; border:1px solid #4b483f; margin:0 0 10px; background:rgba(255,255,255,.25); }
+.pv-fhead{ display:flex; gap:10px; align-items:baseline; background:#4b483f; color:#dad4bb; padding:3px 10px; font-size:9.5pt; }
+.pv-fhead span{ font-family:'Share Tech Mono',monospace; font-size:7.5pt; opacity:.85; }
+.pv-fhead .n{ margin-left:auto; white-space:nowrap; }
+.pv-entry{ display:grid; grid-template-columns:50px 84px 1fr auto; gap:8px; align-items:center; min-height:24px; padding:5px 10px; border-top:1px dashed rgba(75,72,63,.3); font-size:9pt; }
+.pv-fhead + .pv-entry{ border-top:none; }
+.pv-entry .lk{ display:flex; gap:6px; justify-content:flex-end; }
+.pv-entry .lk .pv-qr{ width:56px; margin:0; }
+.pv-entry .lk .pv-qr img{ width:46px; height:46px; }
 .sub-title{ break-after:avoid; }
 .pagedjs_page{ background:#dad4bb; }
 </style>
@@ -2530,24 +2545,37 @@ function worksGroupsHtml() {
         })();
         /* PDF view: show every screen, drop interactive chrome, flatten records into a static list */
         function preparePrintScreens(root) {
-            root.querySelectorAll('.d-bar, #d-work-chips, .d-go').forEach(e => e.remove());
+            root.querySelectorAll('.d-bar, #d-work-chips, .d-go, .c-play').forEach(e => e.remove());
             root.querySelectorAll('img[loading]').forEach(img => img.removeAttribute('loading')); // lazy images never load off-screen in the print view
-            ['d-spot', 'd-latest'].forEach(id => {
-                const el = root.querySelector('#' + id);
-                if (!el) return;
-                const t = el.previousElementSibling;
-                if (t && t.classList.contains('sub-title')) t.remove();
-                el.remove();
-            });
+            const extLinks = r => (r.l || []).filter(l => l[0] === 'u').map(l => `<a href="${l[1]}" target="_blank">[${l[2]}]</a>`).join('');
+
+            /* page 1: profile + works index (instead of the on-screen spotlight / latest log) */
+            const spot = root.querySelector('#d-spot'), latest = root.querySelector('#d-latest');
+            [spot, latest].forEach(el => { if (!el) return; const t = el.previousElementSibling; if (t && t.classList.contains('sub-title')) t.remove(); });
+            if (spot) {
+                const idx = document.createElement('div');
+                idx.className = 'pv-index';
+                idx.innerHTML = `<h3 class="sub-title">Works</h3><table class="pv-works">${WORKS.map(w => `<tr><td class="u">${w.unit}</td>` +
+                    `<td class="t"><strong>${w.title}</strong></td><td class="m">${w.meta}</td><td class="st">${w.stat ? w.stat.replace(/^>\s*/, '') : w.tags.map(t => t[1]).join(' · ')}</td></tr>`).join('')}</table>`;
+                spot.replaceWith(idx);
+            }
+            if (latest) latest.remove();
+
             root.querySelectorAll('.works-group').forEach(g => { g.hidden = false; });
             root.querySelectorAll('.d-screen').forEach(s => { s.classList.remove('active'); s.style.display = 'block'; });
+
+            /* records: year > folder, links as a QR column on the right */
             const md = root.querySelector('.d-md');
             if (md) {
+                const folders = recordFolders();
+                const yearOf = f => f.d ? f.d.slice(0, 4) : 'UNDATED';
+                const years = [...new Set(folders.map(yearOf))];
                 const wrap = document.createElement('div');
-                wrap.innerHTML = ['AWARD', 'PUB', 'EXHIBIT', 'TALK', 'RECOG', 'MEDIA', 'SCHOLAR', 'CERT', 'MILESTONE'].map(c =>
-                    `<h3 class="sub-title">${RECORD_CATS[c]}</h3>` + sortedRecords(recFilter(c)).map(r =>
-                        `<div class="rec-row"><span class="rec-date">${r.d || '—'}</span><span class="rec-cat"><span class="tag-${r.hl ? 'inv' : 'line'}">${RECORD_SHORT[r.cat]}</span></span>` +
-                        `<span><span class="rec-title">${r.t}</span>${r.s ? ` <span class="rec-sub">— ${r.s}</span>` : ''} ${recLinksHtml(r)}</span></div>`).join('')).join('');
+                wrap.innerHTML = years.map(y => `<h3 class="sub-title">${y}</h3>` + folders.filter(f => yearOf(f) === y).map(f =>
+                    `<div class="pv-folder"><div class="pv-fhead"><strong>${f.t}</strong>${f.s ? `<span>${f.s}</span>` : ''}<span class="n">${String(f.items.length).padStart(2, '0')} ITEMS</span></div>` +
+                    f.items.map(r => `<div class="pv-entry"><span class="dd">${r.d || '—'}</span><span class="tag-${r.hl ? 'inv' : 'line'}">${RECORD_SHORT[r.cat]}</span>` +
+                        `<span class="tx"><strong>${r.t}</strong>${r.s ? ` <span class="rec-sub">— ${r.s}</span>` : ''}</span><span class="lk">${extLinks(r)}</span></div>`).join('') +
+                    `</div>`).join('')).join('');
                 md.replaceWith(wrap);
             }
         }
