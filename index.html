@@ -2583,6 +2583,13 @@ function worksGroupsHtml() {
         function preparePrintScreens(root) {
             root.querySelectorAll('.d-bar, #d-work-chips, .d-go, .c-play').forEach(e => e.remove());
             root.querySelectorAll('img[loading]').forEach(img => img.removeAttribute('loading')); // lazy images never load off-screen in the print view
+            // nothing is clickable on paper: the mail link becomes plain text (other links become QR codes)
+            root.querySelectorAll('a[href^="mailto:"]').forEach(a => {
+                const t = document.createElement('span');
+                t.className = 'mono';
+                t.textContent = a.textContent.replace(/^\[|\]$/g, '').trim();
+                a.replaceWith(t);
+            });
             const extLinks = r => (r.l || []).filter(l => l[0] === 'u').map(l => `<a href="${l[1]}" target="_blank">[${l[2]}]</a>`).join('');
 
             /* page 1: profile + works index (instead of the on-screen spotlight / latest log) */
