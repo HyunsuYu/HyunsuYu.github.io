@@ -534,6 +534,24 @@
             color: var(--highlight-color); font-weight: bold;
         }
 
+        .modal-links { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: -10px 0 24px; }
+        .modal-links::before {
+            content: 'LINKS //'; font-family: 'Share Tech Mono', monospace; font-size: 0.85rem; letter-spacing: 2px; opacity: 0.7; margin-right: 4px;
+        }
+        .modal-links a {
+            display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+            font-family: 'Share Tech Mono', monospace; font-size: 0.95rem; letter-spacing: 1px; text-transform: uppercase;
+            background: var(--text-color); color: var(--bg-color); border: 1px solid var(--text-color);
+            padding: 6px 14px; box-shadow: 3px 3px 0 rgba(75,72,63,0.35); transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+        }
+        .modal-links a::after { content: '↗'; font-size: 0.85em; opacity: 0.8; }
+        .modal-links a:hover {
+            background: var(--accent-color); color: var(--bg-color); padding: 6px 14px;
+            transform: translate(-2px, -2px); box-shadow: 5px 5px 0 rgba(75,72,63,0.45);
+        }
+        .modal-links a:active { transform: translate(1px, 1px); box-shadow: 1px 1px 0 rgba(75,72,63,0.45); }
+        .modal-links a:focus-visible { outline: 2px solid var(--text-color); outline-offset: 2px; }
+        .modal-links[hidden] { display: none; }
         .modal-tags {
             display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px;
         }
@@ -1207,6 +1225,7 @@
                 <div class="modal-tags" id="m-tags">
                     <!-- Tags injected via JS -->
                 </div>
+                <div class="modal-links" id="m-links"></div>
 
                 <!-- Media (video + gallery) -->
                 <div class="m-media" id="m-media">
@@ -1259,6 +1278,7 @@
             // --- MAIN PROJECTS ---
             'mapgen': {
                 title: 'Massive Map Generation System',
+                links: [['GITHUB', 'https://github.com/HyunsuYu/LayeredMapGenAgent.git'], ['OUTPUT DATA SAMPLES', 'https://drive.google.com/drive/folders/14xKEhV8LsZg1-tGm2gz1MbfmqH-oxxvi?usp=sharing'], ['PAPER', 'assets/papers/MapGenPaper.pdf']],
                 tags: ['Solo Dev', 'System Architecture', 'C# / Unity', 'Optimization', 'Tool Dev'],
                 desc: `군 복무 중 설계를 시작하여 전역 후 완성한 초대형 2D 타일맵 생성 및 최적화 시스템입니다.
 
@@ -1310,6 +1330,7 @@
             },
             'meshshader': {
                 title: 'DirectX 12 Meshlet과 IA 기반의 하이브리드 렌더링 파이프라인 구현',
+                links: [['THESIS', 'assets/papers/GraduationThesis.pdf'], ['GITHUB', 'https://github.com/HyunsuYu/D3D12-Meshlet-Sample'], ['RESOURCE URL', 'https://drive.google.com/drive/folders/1Cn0udL8k-LEFIsyFWisXQVbRnvi_2SFT?usp=sharing']],
                 tags: ['Graduation Thesis', 'Sole Research', 'First Author', 'DX12', 'Amplification / Mesh Shader', 'Meshlet', 'Hybrid Rendering', 'K-Means', 'GPU Profiling'],
                 desc: `2026 학사학위 졸업논문 **「DirectX 12 Meshlet과 IA 기반의 하이브리드 렌더링 파이프라인 구현」**(동명대학교 컴퓨터공학과, 지도교수 고정국)의 구현·연구 프로젝트로, **제1저자·단독**으로 수행했습니다.
 
@@ -1381,6 +1402,7 @@
             },
             'visualwave': {
                 title: 'Visual Wave : VN Authoring Framework',
+                links: [['PAPER', 'assets/papers/VisualWavePaper.pdf'], ['VISUAL WAVE DOC', 'https://galvanized-soda-726.notion.site/Visual-Wave-2e315b43f51680ab8ce9d32b5c43773d'], ['VS CODE EXTENSION', 'https://drive.google.com/file/d/1jthhRwlaB8bJXeVXcg_yJlSimpkSPBiJ/view?usp=sharing']],
                 tags: ['Sole Research', 'First Author', 'Framework', 'DSL / LSP', 'Unity / Godot'],
                 desc: `비주얼 노벨 시나리오의 **작성–편집–구동**을 포괄하는 엔진 독립 저작 프레임워크 **Visual Wave(VW)**입니다.
 
@@ -1420,6 +1442,7 @@
             },
             'book': {
                 title: 'More Deeper C++ Programming Language',
+                links: [['BOOK', 'https://drive.google.com/file/d/1MnLVWyNbX1B9zB5ZvXCBEFeIT6ur7vVq/view?usp=sharing'], ['교보문고', 'https://ebook-product.kyobobook.co.kr/dig/epd/ebook/E000013305174'], ['YES24', 'https://www.yes24.com/product/goods/194190987'], ['국립중앙도서관', 'https://www.nl.go.kr/seoji/contents/S80100000000.do?schM=intgr_detail_view_isbn&page=1&pageUnit=10&schType=detail&f1=title&and1=AND&f2=author&v2=%EC%9C%A0%ED%98%84%EC%88%98&and2=AND&f3=publisher&f5=isbn&isbn=9791143814685&cipId=230577062%2C']],
                 tags: ['Author', 'Education', 'C++17/20', 'Computer Architecture'],
                 desc: `C++ 표준(ISO/IEC)과 하드웨어 매뉴얼(AMD64)을 기반으로, 언어의 표면적 문법 너머 컴파일러와 운영체제 레벨의 동작 원리를 담은 서적입니다.
 
@@ -1459,6 +1482,7 @@
             },
             'alcoholfree': {
                 title: 'ALCOHOL FREE',
+                links: [['HOMEPAGE', 'https://hyunsuyu.github.io/ALCOHOL-FREE/'], ['STOVE', 'https://store.onstove.com/ko/games/103115'], ['TEASER', 'https://youtu.be/aUPhujbokDo?si=aSG_oEsmnzKGfpgA'], ['VISUAL WAVE DOC', 'https://galvanized-soda-726.notion.site/Visual-Wave-2e315b43f51680ab8ce9d32b5c43773d'], ['VS CODE EXTENSION', 'https://drive.google.com/file/d/1jthhRwlaB8bJXeVXcg_yJlSimpkSPBiJ/view?usp=sharing']],
                 tags: ['Visual Novel', 'Tools Programmer', 'Unity'],
                 desc: `달콤한 성장 로맨스를 다룬 비주얼 노벨 게임입니다. 
                 
@@ -1493,6 +1517,7 @@
             },
             'hearts': {
                 title: '마음을 담아 (From All My Hearts)',
+                links: [['HOMEPAGE', 'https://hyunsuyu.github.io/WithAllMyHeartWeb/'], ['DOWNLOAD', 'https://drive.google.com/drive/folders/1LaSYYw86cLzuU0F3bvfnQvsbYH04LgR0?usp=sharing'], ['TEASER', 'https://youtu.be/9EBkzyfpu3c?si=Tb_dYUmmJtolZAWK']],
                 tags: ['Puzzle', 'Visual Novel', 'Emotional'],
                 desc: `동양화풍의 비주얼과 서정적인 스토리가 결합된 **워드 퍼즐 게임**입니다. 
                 
@@ -1523,6 +1548,7 @@
             },
             'rgbline': {
                 title: 'RGB Line',
+                links: [['HOMEPAGE', 'https://rgb-line.github.io/RGBLineWebPage/index.html'], ['DOWNLOAD', 'https://drive.google.com/drive/folders/1zc6ICzXm2W8nnRGSJH6_eUThX8o8pFYe?usp=sharing'], ['PLAY VIDEO', 'https://www.youtube.com/watch?v=L54qU3JqQJI'], ['GITHUB', 'https://github.com/orgs/RGB-Line/repositories'], ['CORE LIB API DOC', 'https://rgb-line.github.io/RGBLineCoreLib/'], ['CODING STANDARD', 'https://mango-aspen-c20.notion.site/Coding-Standard-169d671a68fe815e9ab2ff70b5cae486?pvs=74']],
                 tags: ['Rhythm Game', 'Lead Programmer'],
                 desc: `색상 매칭과 리듬 액션을 결합한 하이퍼 캐주얼 리듬 게임입니다. 
                 
@@ -1779,6 +1805,7 @@
             },
             'fins': {
                 title: 'FINS',
+                links: [['PLAY', 'https://uptrand-admin.github.io/Homepage/games/fins/']],
                 tags: ['Programmer', 'Unity', 'Action/Adventure', 'Game Jam'],
                 desc: `상어를 사냥해 얻은 재화로 능력을 강화하고, 더 깊고 어두운 바다를 탐험하는 **성장형 액션 게임**입니다.
 
@@ -1903,6 +1930,12 @@
                 });
             }
 
+            // Links (papers, repos, store pages ...)
+            const mLinks = document.getElementById('m-links');
+            mLinks.innerHTML = (data.links || []).map(([label, url]) =>
+                `<a href="${url}" target="_blank" rel="noopener">${label}</a>`).join('');
+            mLinks.hidden = !(data.links && data.links.length);
+
             // Tech Stack (Right Column 1)
             mTech.innerHTML = '';
             if(data.tech) {
@@ -1983,6 +2016,9 @@
             let html = '';
             if (data.desc)
                 html += `<div class="pd-section markdown-content pd-desc">${parseMarkdown(data.desc)}</div>`;
+            if (data.links && data.links.length)
+                html += `<div class="pd-section"><h4 class="pd-label">LINKS</h4><div class="project-links">`
+                    + data.links.map(([label, url]) => `<a href="${url}" target="_blank">[${label}]</a>`).join('') + `</div></div>`;
             if (data.tech && data.tech.length)
                 html += `<div class="pd-section"><h4 class="pd-label">TECH</h4><div class="pd-tags">`
                     + data.tech.map(t => `<span>${t}</span>`).join('') + `</div></div>`;
